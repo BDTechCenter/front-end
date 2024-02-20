@@ -5,7 +5,9 @@ export default function testPage() {
 	return (
 		<main className="w-full">
 			<NavBar variant="black" />
-			<ViewFeatures />
+			<ViewFeatures variant="default"/>
+			<ViewFeatures variant="left"/>
+			<ViewFeatures variant="default"/>
 		</main>
 	);
 }
