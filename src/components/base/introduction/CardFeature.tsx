@@ -13,21 +13,21 @@ interface Props {
 
 const viewVariants = cva("flex w-full h-60 xl:h-72", {
 	variants: {
-		variant: {
+		orientation: {
 			default: "bg-bdgray flex-row",
-			left: "bg-[#FFF] flex-row-reverse",
+			left: "bg-white flex-row-reverse",
 		},
 	},
 	defaultVariants: {
-		variant: "left",
+		orientation: "default",
 	},
 })
 
 interface allProps extends Props, VariantProps<typeof viewVariants> { }
 
-export default function ViewFeatures({ title, content, variant, icon }: allProps) {
+export default function CardFeature({ title, content, orientation, icon }: allProps) {
 	return (
-		<div className={cn(viewVariants({ variant }))}>
+		<div className={cn(viewVariants({ orientation }))}>
 			<div className="h-full bg-bdpurple w-[30%]"></div>
 			<div className="flex w-[70%] items-center justify-center flex-col">
 				<div className="w-[65%]">
