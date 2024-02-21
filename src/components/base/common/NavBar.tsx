@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 
+
 interface NavBarProps {
   variant: "black" | "white";
 }
