@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import { QueryClientProvider } from "@tanstack/react-query";
-import queryClient from "@/services/queryClient";
-import Setup from "@/services/setup";
+import Providers from "@/services/Providers";
 
 const poppins = Poppins({
 	subsets: ["latin"],
@@ -25,7 +23,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={poppins.className}>
-				<Setup>{children}</Setup>
+				<Providers>{children}</Providers>
 			</body>
 		</html>
 	);
