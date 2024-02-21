@@ -2,7 +2,7 @@ import { Feature } from "../../global"
 import { CardTeam } from "../../global"
 
 interface IntroductionData {
-  "banner-section": {
+  bannerSection: {
     title: string
     titleArea: string
     subtitle: string
