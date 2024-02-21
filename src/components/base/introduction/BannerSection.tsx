@@ -4,7 +4,7 @@ import Image from "next/image";
 import { introductionData } from "@/api/introduction";
 
 export default function BannerSection() {
-  const data = introductionData["banner-section"]
+  const data = introductionData.bannerSection
 
 	return (
 		<section className="max-h-screen h-screen bg-bddarkgray">
