@@ -10,7 +10,7 @@ interface BannerSectionProps {
 		titleArea: string;
 		subtitle: string;
 		buttonTxt: string;
-	};
+	} | undefined
 }
 
 export default function BannerSection({ data }: BannerSectionProps) {
@@ -20,17 +20,17 @@ export default function BannerSection({ data }: BannerSectionProps) {
 			<div className="p-16 flex items-center">
 				<div className="w-full flex flex-col gap-9">
 					<h1 className="w-[90%] text-white text-5xl leading-[1.2] font-bold 2xl:text-7xl">
-						{data.title}
-						<span className="text-bdlightpurple">{data.titleArea}</span>
+						{data?.title}
+						<span className="text-bdlightpurple">{data?.titleArea}</span>
 					</h1>
 					<p className="text-white font-light text-xl w-[80%] 2xl:text-2xl">
-						{data.subtitle}
+						{data?.subtitle}
 					</p>
 					<Button
 						variant="bdlight"
 						className="rounded-lg w-1/3 text-xl font-bold py-6 2xl:text-2xl"
 					>
-						{data.buttonTxt}
+						{data?.buttonTxt}
 					</Button>
 				</div>
 				<div className="w-[65%] h-full">

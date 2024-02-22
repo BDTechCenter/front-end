@@ -3,8 +3,8 @@ import { introductionData } from "@/api/introduction"
 import Image from "next/image";
 
 interface BannerIntroductionProps{
-  img: string
-  text: string
+  img?: string | undefined
+  text?: string
 }
 
 export default function BannerIntroduction({text, img}: BannerIntroductionProps) {
@@ -12,6 +12,7 @@ export default function BannerIntroduction({text, img}: BannerIntroductionProps)
     <div className="flex w-full gap-8 h-96 2xl:h-[30rem] bg-bdpurple my-24 flex-row items-center justify-center">
       <Image
         className="w-60 h-60 2xl:w-96 2xl:h-96"
+        //@ts-ignore
         src={img}
         alt="BD Squares"
         height={100}
