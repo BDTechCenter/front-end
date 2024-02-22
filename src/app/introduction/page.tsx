@@ -1,13 +1,13 @@
 "use client"
-import BannerSection from "@/components/base/introduction/BannerSection";
-import BannerIntroduction from "@/components/base/introduction/BannerIntroduction";
+import BannerSection from "@/components/base/introduction/BannerIntroductionPage";
+import BannerIntroduction from "@/components/base/introduction/BannerInformateBD";
 import useFetchIntroductionData from "@/queries/introductionData";
 import AllCardFeature from "@/components/base/introduction/AllCardFeature";
 import AllCardTeam from "@/components/base/introduction/AllCardTeam";
 
 
 export default function Introduction() {
-	const {data: introData} = useFetchIntroductionData()
+	const { data: introData } = useFetchIntroductionData()
 
 	const dataFeatures = introData?.features
 	const dataCardTeam = introData?.cardTeam
@@ -17,9 +17,9 @@ export default function Introduction() {
 	return (
 		<main className="w-full">
 			<BannerSection data={bannerData} />
-			<AllCardFeature data={dataFeatures}/>
-			<BannerIntroduction img={dataBanerIntroduction?.link} text={dataBanerIntroduction?.text}/> 
-			<AllCardTeam data={dataCardTeam}/>
+			<AllCardFeature data={dataFeatures} />
+			<BannerIntroduction img={dataBanerIntroduction?.link} text={dataBanerIntroduction?.text} />
+			<AllCardTeam data={dataCardTeam} />
 		</main>
 	);
 }
