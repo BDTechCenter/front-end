@@ -1,10 +1,8 @@
 "use client";
 import NavBar from "@/components/base/common/NavBar";
 import CardFeature from "@/components/base/introduction/CardFeature";
-import { getData } from "@/api/data";
-import { BiNews } from "react-icons/bi";
-import { FaProjectDiagram } from "react-icons/fa";
-import { MdOutlineRadar } from "react-icons/md";
+import { getIntroData } from "@/api/introduction/data";
+
 import BannerIntroduction from "@/components/base/introduction/BannerIntroduction";
 import CardTeam from "@/components/base/introduction/CardTeam";
 import useFetchIntroductionData from "@/queries/introductionData";
@@ -14,7 +12,7 @@ export default function TestPage() {
 	const dataFeatures = introData?.features;
 	const dataCardTeam = introData?.cardTeam;
 	const dataBanerIntroduction = introData?.bannerIntroduction;
-	
+
 	return (
 		<main className="w-full">
 			<NavBar variant="black" />

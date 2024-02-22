@@ -1,4 +1,4 @@
-import { introductionData } from "@/api/introduction";
+import { introductionData } from "@/api/introduction/introduction";
 import NavBar from "@/components/base/common/NavBar";
 import BannerSection from "@/components/base/introduction/BannerSection";
 import { Button } from "@/components/ui/button";
