@@ -1,10 +1,10 @@
 "use client"
-import { introductionData } from "@/api/introduction"
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 
 interface BannerIntroductionProps{
-  img: string
-  text: string
+  img: string | StaticImport
+  text?: string
 }
 
 export default function BannerIntroduction({text, img}: BannerIntroductionProps) {
