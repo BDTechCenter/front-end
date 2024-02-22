@@ -1,8 +1,7 @@
 import { Button } from "@/components/ui/button";
 import NavBar from "../common/NavBar";
 import Image from "next/image";
-import { introductionData } from "@/api/introduction";
-import { title } from "process";
+
 
 interface BannerSectionProps {
 	data: {
