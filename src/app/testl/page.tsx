@@ -1,6 +1,6 @@
 import { introductionData } from "@/api/introduction/introduction";
 import NavBar from "@/components/base/common/NavBar";
-import BannerSection from "@/components/base/introduction/BannerSection";
+import BannerSection from "@/components/base/introduction/BannerIntroductionPage";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 

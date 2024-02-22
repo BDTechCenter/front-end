@@ -3,7 +3,7 @@ import NavBar from "@/components/base/common/NavBar";
 import CardFeature from "@/components/base/introduction/CardFeature";
 import { getIntroData } from "@/api/introduction/data";
 
-import BannerIntroduction from "@/components/base/introduction/BannerIntroduction";
+import BannerIntroduction from "@/components/base/introduction/BannerInformateBD";
 import CardTeam from "@/components/base/introduction/CardTeam";
 import useFetchIntroductionData from "@/queries/introductionData";
 
