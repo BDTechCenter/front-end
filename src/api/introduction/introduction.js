@@ -43,19 +43,19 @@ export const introductionData = {
 			name: "Luís Felipe",
 			img: "",
 			function: "Front-End",
-			url: "https://github.com/joaop-ribeiro"
+			url: "https://github.com/flepsz"
 		},
 		{
 			name: "Luís Beck",
 			img: "",
 			function: "UI/UX",
-			url: "https://github.com/joaop-ribeiro"
+			url: "https://github.com/luishbeck"
 		},
 		{
 			name: "Raphael Torres",
 			img: "",
 			function: "Back-End",
-			url: "https://github.com/joaop-ribeiro"
+			url: "https://github.com/raphavtorres"
 		},
 	],
 };
