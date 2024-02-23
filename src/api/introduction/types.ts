@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 export interface IntroductionProps {
   bannerSection: BannerSection;
   features: Feature[];
@@ -14,11 +12,11 @@ interface BannerSection {
   buttonTxt: string;
 }
 
-interface Feature {
+export interface Feature {
   title: string;
-  icon: ReactNode;
+  icon: JSX.Element;
   content: string;
-  orientation?: 'left' | 'right';
+  orientation?: string;
 }
 
 interface BannerIntroduction {
@@ -26,9 +24,13 @@ interface BannerIntroduction {
   text: string;
 }
 
-interface CardTeamMember {
+export interface CardTeamMember {
   name: string;
   img: string;
   function: string;
+  url: string
 }
+
+
+
 

@@ -36,22 +36,26 @@ export const introductionData = {
 		{
 			name: "João Pedro",
 			img: "/TeamPedrinho.png",
-			function: "Front-End"
+			function: "Front-End",
+			url: "https://github.com/joaop-ribeiro"
 		},
 		{
 			name: "Luís Felipe",
 			img: "",
-			function: "Front-End"
+			function: "Front-End",
+			url: "https://github.com/joaop-ribeiro"
 		},
 		{
 			name: "Luís Beck",
 			img: "",
-			function: "UI/UX"
+			function: "UI/UX",
+			url: "https://github.com/joaop-ribeiro"
 		},
 		{
 			name: "Raphael Torres",
 			img: "",
-			function: "Back-End"
+			function: "Back-End",
+			url: "https://github.com/joaop-ribeiro"
 		},
 	],
 };
