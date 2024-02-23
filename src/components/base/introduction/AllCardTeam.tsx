@@ -16,9 +16,7 @@ export default function AllCardTeam({ data }: AllCardTeamProps) {
       <div className="grid grid-rows-2 grid-flow-col gap-6 w-full items-center justify-center">
         {data?.map((team) => (
           <CardTeam
-            name={team.name}
-            img={team.img}
-            functionTeam={team.function}
+            data={team}
           />
         ))}
       </div>

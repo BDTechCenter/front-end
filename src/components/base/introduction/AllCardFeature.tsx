@@ -15,11 +15,7 @@ export default function AllCardFeature({ data }: AllCardFeatureProps) {
       </div>
       {data?.map((feature) => (
         <CardFeature
-          title={feature.title}
-          content={feature.content}
-          icon={feature.icon}
-          //@ts-ignore
-          orientation={feature.orientation}
+          data={feature}
         />
       ))}
     </div>
