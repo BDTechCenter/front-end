@@ -1,8 +1,12 @@
 export const homeData = {
-	bannerHome:{
-    text: "Follow the main news of the moment..."
+  bannerHome: {
+    text: (
+      <p>
+        Follow the main <span className='text-bdlightpurple'>news</span> of the moment...
+      </p>
+    )
   },
-  news:[
+  news: [
     {
       text: "Innovation in the development area using Python",
       img: "/imgNews.png",
@@ -19,7 +23,7 @@ export const homeData = {
       data: "February 19"
     }
   ],
-  buttonText:{
+  buttonText: {
     text: "Read More"
   }
 };
