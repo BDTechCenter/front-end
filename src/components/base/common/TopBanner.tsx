@@ -3,14 +3,13 @@ import { ReactNode } from "react"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 
-interface BannerAllPageProps {
-  img: boolean
-  text: number
+interface TopBannerProps {
+  square?: boolean
   children?: ReactNode
   className?: string | undefined
 }
 
-export default function BannerAllPage({ img, text,  children, className }: BannerAllPageProps) {
+export default function TopBanner({ square, children, className }: TopBannerProps) {
   return (
     <section className="flex h-80 bg-bddarkgray relative shadow-sm">
       <div className="flex flex-col items-center justify-center w-1/2">
@@ -24,7 +23,7 @@ export default function BannerAllPage({ img, text,  children, className }: Banne
       <div className={cn("w-1/2", className)}>
         {children}
       </div>
-      {img && (
+      {square && (
         <div className="absolute right-0 bottom-0">
           <Image alt="Squares Img" src="/topBannerImg.png" width={500} height={500} className="w-full"/>
         </div>

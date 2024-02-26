@@ -1,14 +1,13 @@
 import { Button } from "@/components/ui/button";
 import NavBar from "@/components/base/common/NavBar";
-import BannerAllPage from "@/components/base/common/TopBanner";
-import MainNewsCardHome from "@/components/base/introduction/MainNewsCardhome";
+import TopBanner from "@/components/base/common/TopBanner";
+
 
 export default function testPage2() {
 	return (
 		<main className="w-full">
-			<NavBar variant="white" />
-			<BannerAllPage text={0} img={true} />
-			<MainNewsCardHome />
+			<NavBar variant="black" />
+			<TopBanner img={true}/>
 		</main>
 	);
 }
