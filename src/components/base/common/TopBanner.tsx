@@ -3,13 +3,13 @@ import { ReactNode } from "react"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 
-interface BannerAllPageProps {
+interface TopBannerProps {
   img: boolean
   children?: ReactNode
   className?: string | undefined
 }
 
-export default function BannerAllPage({ img, children, className }: BannerAllPageProps) {
+export default function TopBanner({ img, children, className }: TopBannerProps) {
   return (
     <section className="flex h-80 bg-bddarkgray relative">
       <div className="flex flex-col items-center justify-center w-1/2">

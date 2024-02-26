@@ -1,12 +1,12 @@
 "use client"
 import NavBar from "@/components/base/common/NavBar";
-import BannerAllPage from "@/components/base/common/TopBanner";
+import TopBanner from "@/components/base/common/TopBanner";
 
 export default function testPage2() {
 	return (
 		<main className="w-full">
 			<NavBar variant="black" />
-			<BannerAllPage img={true}/>
+			<TopBanner img={true}/>
 		</main>
 	);
 }
