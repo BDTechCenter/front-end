@@ -11,10 +11,7 @@ export default function AllCardFeature() {
 			</div>
 			{features?.map((feature) => (
 				<CardFeature
-					key={feature.title}
-					title={feature.title}
-					content={feature.content}
-					icon={feature.icon}
+					data={feature}
 					//@ts-ignore
 					orientation={feature.orientation}
 				/>
@@ -22,6 +19,7 @@ export default function AllCardFeature() {
 		</div>
 	);
 }
+
 
 const features = [
 	{
@@ -41,3 +39,4 @@ const features = [
 		content: "Explore our tech radar to prepare for the future and understand the development of technologies that will affect us. Stay ahead of trends and anticipate changes."
 	}
 ]
+
