@@ -1,17 +1,23 @@
 import { Button } from "@/components/ui/button";
 import NavBar from "@/components/base/common/NavBar";
 import BannerAllPage from "@/components/base/common/TopBanner";
+import NewsCard from "@/components/base/introduction/NewsCardHome";
+import { Mea_Culpa } from "next/font/google";
+import MeanNewsCard from "@/components/base/introduction/MainNewsCardHome";
+import MeanNewsCardHome from "@/components/base/introduction/MainNewsCardHome";
 
 export default function testPage2() {
 	return (
 		<main className="w-full">
-			<NavBar variant="black" />
-			<BannerAllPage text={0} img={true}/>
+			<NavBar variant="white" />
+			<BannerAllPage text={0} img={true} />
+			<MeanNewsCardHome />
 
-			
 		</main>
 	);
 }
+
+{/* <BannerAllPage text={0} img={true}/> */ }
 
 {/* <BannerAllPage text={0} img={true} className="flex items-center justify-center">
 				<Button
@@ -51,3 +57,5 @@ export default function testPage2() {
 //     text: "Read More"
 //   }
 // };
+
+
