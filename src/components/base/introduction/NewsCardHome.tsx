@@ -12,7 +12,7 @@ export default function NewsCardHome({data, orientation}: NewsCardProps) {
         <h1 className={`${orientation === "relative"? "text-2xl 2xl:text-3xl": "text-lg 2xl:text-xl"} font-semibold text-white`}>{data?.text}</h1>
         <p className={`${orientation === "relative"? "text-lg 2xl:text-xl": "text-sm 2xl:text-md"} text-white`}>{data?.data}</p>
       </div>
-      <div className="absolute bottom-0 bg-gradient-to-t from-black/80 to-transparent to-60% z-10 w-full h-full"></div>
+      <div className="absolute bottom-0 bg-gradient-to-t from-black/80 to-transparent to-80% z-10 w-full h-full"></div>
     </div>
   )
 }

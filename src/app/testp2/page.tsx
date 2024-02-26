@@ -1,18 +1,14 @@
 import { Button } from "@/components/ui/button";
 import NavBar from "@/components/base/common/NavBar";
 import BannerAllPage from "@/components/base/common/TopBanner";
-import NewsCard from "@/components/base/introduction/NewsCardHome";
-import { Mea_Culpa } from "next/font/google";
-import MeanNewsCard from "@/components/base/introduction/MainNewsCardHome";
-import MeanNewsCardHome from "@/components/base/introduction/MainNewsCardHome";
+import MainNewsCardHome from "@/components/base/introduction/MainNewsCardhome";
 
 export default function testPage2() {
 	return (
 		<main className="w-full">
 			<NavBar variant="white" />
 			<BannerAllPage text={0} img={true} />
-			<MeanNewsCardHome />
-
+			<MainNewsCardHome />
 		</main>
 	);
 }

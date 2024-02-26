@@ -9,10 +9,7 @@ export default function AllCardTeam() {
 			<div className="grid grid-rows-2 grid-flow-col gap-6 w-full items-center justify-center">
 				{teamData?.map((team) => (
 					<CardTeam
-						key={team.name}
-						name={team.name}
-						img={team.img}
-						functionTeam={team.function}
+						data={team}
 					/>
 				))}
 			</div>
