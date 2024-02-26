@@ -20,6 +20,7 @@ export default function AllCardTeam() {
 	);
 }
 
+
 const teamData = [
 	{
 		name: "João Pedro",

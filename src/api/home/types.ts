@@ -5,7 +5,7 @@ export interface HomeData{
 }
 
 export interface BannerHome {
-  text: string
+  text: JSX.Element
 }
 
 export interface News {
