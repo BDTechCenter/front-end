@@ -4,12 +4,12 @@ import { cn } from "@/lib/utils"
 import Image from "next/image"
 
 interface TopBannerProps {
-  img: boolean
+  square?: boolean
   children?: ReactNode
   className?: string | undefined
 }
 
-export default function TopBanner({ img, children, className }: TopBannerProps) {
+export default function TopBanner({ square, children, className }: TopBannerProps) {
   return (
     <section className="flex h-80 bg-bddarkgray relative">
       <div className="flex flex-col items-center justify-center w-1/2">
@@ -23,7 +23,7 @@ export default function TopBanner({ img, children, className }: TopBannerProps) 
       <div className={cn("w-1/2", className)}>
         {children}
       </div>
-      {img && (
+      {square && (
         <div className="absolute right-0 bottom-0">
           <Image alt="Squares Img" src="/topBannerImg.png" width={500} height={500} className="w-full" />
         </div>
