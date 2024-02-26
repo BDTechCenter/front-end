@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import NavBar from "../common/NavBar";
 import Image from "next/image";
 
+
 export default function MainBanner() {
 	return (
 		<section className="max-h-screen h-screen bg-bddarkgray">
