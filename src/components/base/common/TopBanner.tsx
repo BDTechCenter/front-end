@@ -12,7 +12,7 @@ interface BannerAllPageProps {
 
 export default function BannerAllPage({ img, text,  children, className }: BannerAllPageProps) {
   return (
-    <section className="flex h-80 bg-bddarkgray relative">
+    <section className="flex h-80 bg-bddarkgray relative shadow-sm">
       <div className="flex flex-col items-center justify-center w-1/2">
         <div className="w-[75%] justify-start">
           <div className=" bg-bdpurple h-16 w-16 2xl:h-20 2xl:w-20"></div>
@@ -26,7 +26,7 @@ export default function BannerAllPage({ img, text,  children, className }: Banne
       </div>
       {img && (
         <div className="absolute right-0 bottom-0">
-          <Image alt="Squares Img" src="/topBannerImg.png" width={500} height={500} className="w-full" />
+          <Image alt="Squares Img" src="/topBannerImg.png" width={500} height={500} className="w-full"/>
         </div>
       )}
     </section>
