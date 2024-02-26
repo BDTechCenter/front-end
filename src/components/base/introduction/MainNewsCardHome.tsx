@@ -1,16 +1,18 @@
 import { Button } from "@/components/ui/button";
 import NewsCardHome from "./NewsCardHome";
+import ImageError from "./ImageError";
 
 export default function MeanNewsCardHome() {
 
 	const newsList = newsPage.newsList
 	const newsButton = newsPage.newsButton
+	const newsError = newsPage.newsError
 
 	return (
 		<div className="flex my-16 h-[35rem] 2xl:h-[40rem] w-full items-center justify-center">
 			<div className="flex flex-col w-[80%] 2xl:w-[70%] h-full gap-10">
 				{newsList.length === 0 ? (
-					<div className="bg-bdpurple">TESTTTTTEEEEEE</div>
+					<ImageError data={newsError}/>
 				) : (
 					<div className="flex flex-row w-full h-full gap-3">
 						<div className="w-[55%] h-full">
@@ -37,20 +39,10 @@ export const newsPage = {
 		text: "Read More"
 	},
 	newsList:[
-		{
-			text: "Innovation in the development area using Python",
-			img: "/imgNews2.png",
-			data: "February 19"
-		},
-		{
-			text: "Innovation in the development area using Python",
-			img: "/imgNews.png",
-			data: "February 19"
-		},
-		{
-			text: "Innovation in the development area using Python",
-			img: "/imgNews.png",
-			data: "February 19"
-		}
-	]
+		
+	],
+	newsError:{
+		text: "Top news not found",
+		img: "/noNews.gif"
+	}
 }

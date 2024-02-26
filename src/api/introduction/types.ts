@@ -27,7 +27,7 @@ interface BannerIntroduction {
 export interface CardTeamMember {
   name: string;
   img: string;
-  function: string;
+  functionTeam: string;
   url: string
 }
 
