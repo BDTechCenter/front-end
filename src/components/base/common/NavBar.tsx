@@ -1,6 +1,5 @@
 import Image from 'next/image'
-import React from 'react'
-
+import Link from 'next/link';
 
 interface NavBarProps {
   variant: "black" | "white";
@@ -16,7 +15,7 @@ export default function NavBar({variant}: NavBarProps) {
 				height="1000"
 				className="w-screen"
 			/>
-      <div>
+      <Link href="/home">
         {variant === "black" ? (
           <Image
           alt="Bosch Logo White"
@@ -34,7 +33,7 @@ export default function NavBar({variant}: NavBarProps) {
           className="h-12 w-fit"
         />
         )}
-      </div>
+      </Link>
     </nav>
   )
 }
