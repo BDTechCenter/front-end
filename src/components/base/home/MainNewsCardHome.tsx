@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import NewsCardHome from "./NewsCardHome";
-import ImageError from "../introduction/ImageError";
+import ImageError from "../common/ImageError";
 
 export default function MainNewsCardHome() {
 	const newsList = newsPage.newsList;
@@ -32,7 +32,7 @@ export default function MainNewsCardHome() {
 	);
 }
 
-export const newsPage = {
+const newsPage = {
 	newsButton: {
 		text: "Read More",
 	},
