@@ -5,7 +5,7 @@ import Image from "next/image";
 interface TopBannerProps {
 	square?: boolean;
 	children?: ReactNode;
-	text?: string 
+	text?: ReactNode 
 	className?: string | undefined;
 }
 
