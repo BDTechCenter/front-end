@@ -6,7 +6,7 @@ export default function NewsList() {
 	const newsError = newsPage.newsError
 	
 	return (
-		<section className="relative grid grid-cols-3 gap-10 2xl:gap-14">
+		<section className="relative grid grid-cols-3 gap-5 2xl:gap-7">
 			{newsData.length === 0 ?(
 				<div className="absolute flex w-full items-center justify-center">
 					<ImageError data={newsError} />
@@ -31,21 +31,21 @@ const newsPage = {
 	newsData:[
 		{
 			id: 1,
-			img: "/imgNews.png",
+			img: "/imgNews2.png",
 			date: "January 20",
 			title: "Introduction to Machine Learning Algorithms",
 			author: "Matheus Aprigio",
 		},
 		{
 			id: 2,
-			img: "/imgNews.png",
+			img: "/imgNews4.png",
 			date: "February 09",
 			title: "Taking a Glimpse of What TRPC IS? - DEV Community",
 			author: "John Doe",
 		},
 		{
 			id: 3,
-			img: "/imgNews.png",
+			img: "/imgNews3.png",
 			date: "March 19",
 			title: "The Future of Artificial Intelligence",
 			author: "Matheus Aprigio",
