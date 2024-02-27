@@ -2,26 +2,32 @@ import { Button } from "@/components/ui/button";
 import NavBar from "@/components/base/common/NavBar";
 import TopBanner from "@/components/base/common/TopBanner";
 
-
 export default function testPage2() {
 	return (
 		<main className="w-full">
 			<NavBar variant="black" />
-			<TopBanner img={true}/>
+			<TopBanner square>
+				Follow the main <span className="text-bdlightpurple">news</span> of the
+				moment...
+			</TopBanner>
 		</main>
 	);
 }
 
-{/* <BannerAllPage text={0} img={true}/> */ }
+{
+	/* <BannerAllPage text={0} img={true}/> */
+}
 
-{/* <BannerAllPage text={0} img={true} className="flex items-center justify-center">
+{
+	/* <BannerAllPage text={0} img={true} className="flex items-center justify-center">
 				<Button
 						variant="bdlight"
 						className="rounded-lg w-1/3 text-xl font-bold py-6 2xl:text-2xl"
 					>
 						test
 					</Button>
-			</BannerAllPage> */}
+			</BannerAllPage> */
+}
 
 // export const homeData = {
 //   bannerHome: {
@@ -52,5 +58,3 @@ export default function testPage2() {
 //     text: "Read More"
 //   }
 // };
-
-
