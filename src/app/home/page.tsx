@@ -10,11 +10,6 @@ export default function HomePage() {
       <NavBar variant="black" />
 			<TopBanner square text={bannerHome.text}/>
 			<MainNewsCardHome/>
-      <div className="flex w-full justify-center items-center my-5">
-        <Button variant={"bdpurple"} className="w-[80%] 2xl:w-[70%]" href="/news">
-					Read More
-				</Button>
-      </div>
     </main>
   )
 }

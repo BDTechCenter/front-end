@@ -13,6 +13,7 @@ export default function MainNewsCardHome() {
 				{newsList.length === 0 ? (
 					<ImageError data={newsError} />
 				) : (
+					<>
 					<div className="flex flex-row w-full h-full gap-5">
 						<div className="w-[55%] h-full">
 							<NewsCardHome data={newsList[0]} orientation={"relative"} />
@@ -23,6 +24,10 @@ export default function MainNewsCardHome() {
 							))}
 						</div>
 					</div>
+					<Button variant={"bdpurple"} className="w-full" href="/news">
+						Read More
+					</Button>
+					</>
 				)}
 			</div>
 		</div>
