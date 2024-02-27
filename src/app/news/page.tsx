@@ -13,6 +13,7 @@ export default function NewsPage() {
         <Button
               variant="bdlight"
               className="rounded-lg w-1/3 text-xl font-bold py-6 2xl:text-2xl"
+							href=""
             >
               teste
         </Button>
