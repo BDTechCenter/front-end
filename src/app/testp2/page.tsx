@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import NavBar from "@/components/base/common/NavBar";
 import TopBanner from "@/components/base/common/TopBanner";
+import MainNewsCardHome from "@/components/base/home/MainNewsCardHome";
 
 export default function testPage2() {
 	return (
@@ -10,6 +11,7 @@ export default function testPage2() {
 				Follow the main <span className="text-bdlightpurple">news</span> of the
 				moment...
 			</TopBanner>
+			<MainNewsCardHome/>
 		</main>
 	);
 }
