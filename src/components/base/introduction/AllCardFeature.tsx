@@ -5,9 +5,9 @@ import { MdOutlineRadar } from "react-icons/md";
 
 export default function AllCardFeature() {
 	return (
-		<div>
+		<section>
 			<div className="flex w-full justify-center items-center my-12">
-				<h1 className="font-semibold text-4xl">Our Features</h1>
+				<h1 className="font-semibold text-2xl 2xl:text-3xl">Our Features</h1>
 			</div>
 			{features?.map((feature) => (
 				<CardFeature
@@ -16,7 +16,7 @@ export default function AllCardFeature() {
 					orientation={feature.orientation}
 				/>
 			))}
-		</div>
+		</section>
 	);
 }
 

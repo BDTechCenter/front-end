@@ -2,11 +2,11 @@ import NewsCard from "./NewsCard";
 
 export default function NewsList() {
 	return (
-		<div className="grid grid-cols-3 gap-10 2xl:gap-14">
+		<section className="grid grid-cols-3 gap-10 2xl:gap-14">
 			{newsData?.map((news) => (
 				<NewsCard key={news.title} data={news} />
 			))}
-		</div>
+		</section>
 	);
 }
 

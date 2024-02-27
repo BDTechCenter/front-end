@@ -6,10 +6,8 @@ import { usePathname } from "next/navigation";
 export default function NewsContent() {
 	const path = usePathname();
 	const newsId = parseInt(path.split("/")[2]);
-	console.log(newsId);
 
 	const atualNews = newsData[newsId];
-	console.log(atualNews);
 
 	return (
 		<section className="flex h-full mx-44 my-20 gap-28">
@@ -31,9 +29,9 @@ export default function NewsContent() {
           <p key={cont[0]} className="text-justify">{cont}</p>
         ))}
 			</div>
-			<div className="w-full">
+			<aside className="w-full">
 				<h1 className="text-bdpurple font-bold text-xl">Other News</h1>
-			</div>
+			</aside>
 		</section>
 	);
 }

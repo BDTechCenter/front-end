@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function BannerIntroduction() {
 	return (
-		<div className="flex w-full gap-8 h-96 2xl:h-[30rem] bg-bdpurple my-24 flex-row items-center justify-center">
+		<section className="flex w-full gap-8 h-96 2xl:h-[30rem] bg-bdpurple my-16 flex-row items-center justify-center">
 			<Image
 				className="w-60 h-60 2xl:w-96 2xl:h-96"
 				//@ts-ignore
@@ -14,7 +14,7 @@ export default function BannerIntroduction() {
 			<p className="w-[45%] text-[#FFF] text-xl 2xl:text-2xl text-left">
 				{bannerInformate.text}
 			</p>
-		</div>
+		</section>
 	);
 }
 
