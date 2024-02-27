@@ -2,12 +2,11 @@ import { Button } from "@/components/ui/button";
 import NavBar from "../common/NavBar";
 import Image from "next/image";
 
-
 export default function MainBanner() {
 	return (
-		<section className="max-h-screen h-screen bg-bddarkgray">
+		<section className="h-screen bg-bddarkgray">
 			<NavBar variant="black" />
-			<div className="p-16 flex items-center">
+			<div className="p-16 flex items-center h-full">
 				<div className="w-full flex flex-col gap-9">
 					<h1 className="w-[90%] text-white text-5xl leading-[1.2] font-bold 2xl:text-7xl">
 						{mainBanner?.title}
@@ -25,7 +24,7 @@ export default function MainBanner() {
 				</div>
 				<div className="w-[65%] h-full">
 					<Image
-						className="w-full h-full"
+						className="w-full h-full object-contain"
 						src="/bdsquaresI.png"
 						alt="BD Squares"
 						height="1000"
