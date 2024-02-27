@@ -2,45 +2,42 @@ import CardTeam from "./CardTeam";
 
 export default function AllCardTeam() {
 	return (
-		<div>
-			<div className="flex w-full justify-center items-center my-12">
-				<h1 className="font-semibold text-4xl">Dev Team</h1>
+		<section className="flex flex-col gap-12">
+			<div className="flex w-full justify-center items-center">
+				<h1 className="font-semibold text-2xl 2xl:text-3xl">Dev Team</h1>
 			</div>
 			<div className="grid grid-rows-2 grid-flow-col gap-6 w-full items-center justify-center">
 				{teamData?.map((team) => (
-					<CardTeam
-						data={team}
-					/>
+					<CardTeam data={team} />
 				))}
 			</div>
-		</div>
+		</section>
 	);
 }
-
 
 const teamData = [
 	{
 		name: "João Pedro",
 		img: "/TeamPedrinho.png",
 		function: "Front-End",
-		url: "https://github.com/joaop-ribeiro"
+		url: "https://github.com/joaop-ribeiro",
 	},
 	{
 		name: "Luís Felipe",
-		img: "",
+		img: "https://github.com/flepsz.png",
 		function: "Front-End",
-		url: "https://github.com/joaop-ribeiro"
+		url: "https://github.com/flepsz",
 	},
 	{
 		name: "Luís Beck",
-		img: "",
+		img: "https://github.com/luishbeck.png",
 		function: "UI/UX",
-		url: "https://github.com/joaop-ribeiro"
+		url: "https://github.com/luishbeck",
 	},
 	{
 		name: "Raphael Torres",
-		img: "",
+		img: "https://github.com/raphavtorres.png",
 		function: "Back-End",
-		url: "https://github.com/joaop-ribeiro"
+		url: "https://github.com/raphavtorres",
 	},
-]
+];

@@ -33,9 +33,9 @@ export default function NewsCard({ data }: NewsCardProps) {
         className="w-full h-full scale-125 transition-all duration-500 group-hover:scale-100"
       />
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col group-hover:opacity-60 transition-all">
         <p className="text-sm">{data.date}</p>
-        <h1 className="font-bold text-lg group-hover:opacity-75 transition-all 2xl:text-xl">{data.title}</h1>
+        <h1 className="font-bold text-lg 2xl:text-xl">{data.title}</h1>
       </div>
     </Link>
   )
