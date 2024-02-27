@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import NewsCardHome from "./NewsCardHome";
 import ImageError from "../introduction/ImageError";
 
-export default function MeanNewsCardHome() {
+export default function MainNewsCardHome() {
 	const newsList = newsPage.newsList;
 	const newsButton = newsPage.newsButton;
 	const newsError = newsPage.newsError;
@@ -36,7 +36,23 @@ export const newsPage = {
 	newsButton: {
 		text: "Read More",
 	},
-	newsList: [],
+	newsList: [
+		{
+			img: "/imgNews2.png",
+			text: "Innovation in the development area using Python",
+			data: "February 19"
+		},
+		{
+			img: "/imgNews.png",
+			text: "Innovation in the development area using Python",
+			data: "February 19"
+		},
+		{
+			img: "/imgNews2.png",
+			text: "Innovation in the development area using Python",
+			data: "February 19"
+		}
+	],
 	newsError: {
 		text: "Top news not found",
 		img: "/noNews.gif",
