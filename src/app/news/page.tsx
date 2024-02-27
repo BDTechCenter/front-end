@@ -7,7 +7,7 @@ export default function NewsPage() {
 		<main className="w-full h-full">
 			<NavBar variant="white" />
 			<TopBanner>
-				Follow the main <span className="text-bdpurple">news</span> of the
+				Follow the main <span className="text-bdlightpurple">news</span> of the
 				moment...
 			</TopBanner>
 			<section className="my-24 mx-28 h-full 2xl:mx-44 2xl:my-36">

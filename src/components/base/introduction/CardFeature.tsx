@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { Feature } from "@/api/introduction/types";
 
 interface featuresProps {
-	data: Feature
+	data: Feature;
 }
 
 const viewVariants = cva("flex w-full h-60 xl:h-72", {
@@ -17,11 +17,13 @@ const viewVariants = cva("flex w-full h-60 xl:h-72", {
 	defaultVariants: {
 		orientation: "default",
 	},
-})
+});
 
-interface allFeaturesProps extends featuresProps, VariantProps<typeof viewVariants> { }
+interface allFeaturesProps
+	extends featuresProps,
+		VariantProps<typeof viewVariants> {}
 
-export default function CardFeature({ data, orientation}: allFeaturesProps) {
+export default function CardFeature({ data, orientation }: allFeaturesProps) {
 	return (
 		<div className={cn(viewVariants({ orientation }))}>
 			<div className="h-full bg-bdpurple w-[30%]"></div>
@@ -37,7 +39,7 @@ export default function CardFeature({ data, orientation}: allFeaturesProps) {
 				</div>
 			</div>
 		</div>
-	)
+	);
 }
 
-export { viewVariants }
+export { viewVariants };

@@ -1,9 +1,9 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-interface TitleProps{
-  text: string
-  className?: string | undefined
+interface TitleProps {
+	text: string;
+	className?: string | undefined;
 }
 
 const titleVariants = cva("flex w-full justify-center", {
@@ -16,16 +16,16 @@ const titleVariants = cva("flex w-full justify-center", {
 	defaultVariants: {
 		orientation: "default",
 	},
-})
+});
 
-interface allTitleProps extends TitleProps, VariantProps<typeof titleVariants> { }
+interface allTitleProps
+	extends TitleProps,
+		VariantProps<typeof titleVariants> {}
 
-export default function Title({text, orientation, className}: allTitleProps) {
-  return (
-    <div className={cn(titleVariants({ orientation, className }))} >
-        <h1 className="font-semibold text-4xl">
-          {text}
-        </h1>
-      </div>
-  )
+export default function Title({ text, orientation, className }: allTitleProps) {
+	return (
+		<div className={cn(titleVariants({ orientation, className }))}>
+			<h1 className="font-semibold text-4xl">{text}</h1>
+		</div>
+	);
 }
