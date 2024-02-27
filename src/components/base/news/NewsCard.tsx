@@ -24,7 +24,7 @@ export default function NewsCard({ data }: NewsCardProps) {
 
   return (
     <Link href={href} className="flex flex-col h-[22rem] gap-2 cursor-pointer group" onClick={handleClick}>
-      <div className="h-[70%] overflow-hidden">
+      <div className="h-[60%] 2xl:h-[75%] overflow-hidden">
       <Image
         src={data.img}
         alt={data.title + " Image"}

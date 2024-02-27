@@ -6,7 +6,7 @@ export default function NewsList() {
 	const newsError = newsPage.newsError
 	
 	return (
-		<section className="relative grid grid-cols-3 gap-5 2xl:gap-7">
+		<section className="relative grid grid-cols-2 sm:grid-cols-3 gap-5 2xl:gap-7">
 			{newsData.length === 0 ?(
 				<div className="absolute flex w-full items-center justify-center">
 					<ImageError data={newsError} />
