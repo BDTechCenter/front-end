@@ -23,8 +23,8 @@ export default function NewsCard({ data }: NewsCardProps) {
   }
 
   return (
-    <Link href={href} className="flex flex-col gap-2 cursor-pointer group h-96 2xl:h-[28rem] border" onClick={handleClick}>
-      <div className="h-[50%] 2xl:h-[60%] overflow-hidden">
+    <Link href={href} className="flex flex-col h-[22rem] gap-2 cursor-pointer group" onClick={handleClick}>
+      <div className="h-[70%] overflow-hidden">
       <Image
         src={data.img}
         alt={data.title + " Image"}
@@ -33,9 +33,9 @@ export default function NewsCard({ data }: NewsCardProps) {
         className="w-full h-full scale-125 transition-all duration-500 group-hover:scale-100"
       />
       </div>
-      <div className="flex flex-col group-hover:opacity-60 transition-all p-2">
+      <div className="flex flex-col group-hover:opacity-60 transition-all">
         <p className="text-sm">{data.date}</p>
-        <h1 className="font-bold text-lg 2xl:text-xl">{data.title}</h1>
+        <h1 className="font-bold text-md 2xl:text-lg">{data.title}</h1>
       </div>
     </Link>
   )
