@@ -9,7 +9,7 @@ export default function NewsCardHome({ data, orientation }: NewsCardProps) {
 	return (
 		<div
 			style={{ backgroundImage: `url(${data?.img})` }}
-			className="relative h-full w-full bg-cover bg-center"
+			className="relative h-full w-full cursor-pointer bg-center scale-100 transition-all duration-500 hover:scale-105"
 		>
 			<div className="absolute bottom-0 flex text-left justify-center flex-col w-full h-1/2 p-6 gap-1 2xl:gap-2 z-20">
 				<h1
