@@ -40,14 +40,14 @@ const newsPage = {
 			id: 2,
 			img: "/imgNews4.png",
 			date: "February 09",
-			title: "Taking a Glimpse of What TRPC IS? - DEV Community",
+			title: "The Future of Artificial Intelligence",
 			author: "John Doe",
 		},
 		{
 			id: 3,
 			img: "/imgNews3.png",
 			date: "March 19",
-			title: "The Future of Artificial Intelligence",
+			title: "Web Development Trends in 2024",
 			author: "Matheus Aprigio",
 		},
 		{
