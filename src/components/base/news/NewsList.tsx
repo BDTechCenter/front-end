@@ -25,7 +25,7 @@ export default function NewsList() {
 
 const newsPage = {
 	newsError:{
-		text: "Top news not found",
+		text: "News not found",
 		img: "/noNews.gif",
 	},
 	newsData:[
@@ -33,7 +33,7 @@ const newsPage = {
 			id: 1,
 			img: "/imgNews2.png",
 			date: "January 20",
-			title: "Introduction to Machine Learning Algorithms",
+			title: "Taking a Glimpse of What TRPC IS? - DEV Community",
 			author: "Matheus Aprigio",
 		},
 		{

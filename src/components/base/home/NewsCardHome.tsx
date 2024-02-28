@@ -8,6 +8,7 @@ interface NewsCardProps {
 export default function NewsCardHome({ data, orientation }: NewsCardProps) {
 	return (
 		<div
+			id="newsComponentHomeTest"
 			style={{ backgroundImage: `url(${data?.img})` }}
 			className="relative h-full w-full cursor-pointer bg-center scale-100 transition-all duration-500 hover:scale-105"
 		>
