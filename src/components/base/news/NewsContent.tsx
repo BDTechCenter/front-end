@@ -1,8 +1,7 @@
 "use client";
-
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import Comment from "./Comment";
+import CommentList from "./CommentLIst";
 
 export default function NewsContent() {
 	const path = usePathname();
@@ -30,10 +29,8 @@ export default function NewsContent() {
           <p key={cont[0]} className="text-justify">{cont}</p>
         ))}
 				<div className="w-full h-[2px] bg-[#D9D9D9] mt-20"></div>
-				<h1 className="my-4 font-semibold text-lg text-bdpurple">Comments</h1>
-				{atualNews.comments.map((comment) => (
-					<Comment data={comment}/>
-				))}
+				<h1 className="mt-4 font-semibold text-lg text-bdpurple">Comments</h1>
+				<CommentList data={atualNews.comments}/>
 			</div>
 			<aside className="w-full">
 				<h1 className="text-bdpurple font-bold text-xl">Other News</h1>
@@ -61,18 +58,18 @@ const newsData = [
 			"In short, Python is more than just a programming language; It is a powerful catalyst for innovation and technological progress around the world.",
 		],
 		comments:[
-			{
-				author: "John Doe",
-				comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
-			},
-			{
-				author: "John Doe",
-				comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
-			},
-			{
-				author: "John Doe",
-				comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
-			}
+			// {
+			// 	author: "John Doe",
+			// 	comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
+			// },
+			// {
+			// 	author: "John Doe",
+			// 	comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
+			// },
+			// {
+			// 	author: "John Doe",
+			// 	comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
+			// }
 		]
 	},
 	{
@@ -93,18 +90,18 @@ const newsData = [
 			"In short, Python is more than just a programming language; It is a powerful catalyst for innovation and technological progress around the world.",
 		],
 		comments:[
-			{
-				author: "John Doe",
-				comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
-			},
-			{
-				author: "John Doe",
-				comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
-			},
-			{
-				author: "John Doe",
-				comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
-			}
+			// {
+			// 	author: "Geovana",
+			// 	comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
+			// },
+			// {
+			// 	author: "John Doe",
+			// 	comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
+			// },
+			// {
+			// 	author: "John Doe",
+			// 	comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
+			// }
 		]
 	},
 	{
@@ -159,18 +156,18 @@ const newsData = [
 			"In short, Python is more than just a programming language; It is a powerful catalyst for innovation and technological progress around the world.",
 		],
 		comments:[
-			{
-				author: "John Doe",
-				comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
-			},
-			{
-				author: "John Doe",
-				comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
-			},
-			{
-				author: "John Doe",
-				comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
-			}
+			// {
+			// 	author: "John Doe",
+			// 	comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
+			// },
+			// {
+			// 	author: "John Doe",
+			// 	comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
+			// },
+			// {
+			// 	author: "John Doe",
+			// 	comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
+			// }
 		]
 	},
 ];
