@@ -7,11 +7,11 @@ interface ImageErrorProps {
 
 export default function ImageError({ data }: ImageErrorProps) {
 	return (
-		<div className="flex w-full h-full items-center justify-center">
-			<div className="w-1/2 f-1/2">
+		<div className="flex w-full h-full my-10 flex-col items-center justify-center">
+			<div className="w-1/3 f-1/3">
 				<Image
 					className="w-full h-full"
-					src="/noNews.gif"
+					src={data?.img}
 					alt="Erro"
 					height="800"
 					width="800"
