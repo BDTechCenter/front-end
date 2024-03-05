@@ -53,7 +53,7 @@ const newsPage = {
 		{
 			id: 4,
 			img: "/imgNews.png",
-			date: "December 12",
+			date: "December 17",
 			title: "Web Development Trends in 2024",
 			author: "Jane Smith",
 		},
