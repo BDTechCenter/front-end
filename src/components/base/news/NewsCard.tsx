@@ -23,7 +23,7 @@ export default function NewsCard({ data }: NewsCardProps) {
   }
 
   return (
-    <Link id="componentNewsTestNewsPage" href={href} className="flex flex-col h-[22rem] gap-2 cursor-pointer group border" onClick={handleClick}>
+    <Link id="componentNewsTestNewsPage" href={href} className="flex flex-col h-[22rem] gap-2 cursor-pointer group" onClick={handleClick}>
       <div className="h-[60%] 2xl:h-[75%] overflow-hidden">
       <Image
         src={data.img}
@@ -33,7 +33,7 @@ export default function NewsCard({ data }: NewsCardProps) {
         className="w-full h-full scale-125 transition-all duration-500 group-hover:scale-100"
       />
       </div>
-      <div className="flex flex-col group-hover:opacity-60 transition-all ml-1">
+      <div className="flex flex-col group-hover:opacity-60 transition-all">
         <p className="text-sm">{data.date}</p>
         <h1 className="font-bold text-md 2xl:text-lg">{data.title}</h1>
       </div>
