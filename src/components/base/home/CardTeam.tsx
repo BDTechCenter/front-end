@@ -1,14 +1,9 @@
 "use client";
-import { CardTeamMember } from "@/api/introduction/types";
+import { CardTeamMember } from "@/api/home/types";
 import Image from "next/image";
 
 interface CardTeamProps {
-	data: {
-		name: string;
-		img: string;
-		function: string;
-		url: string;
-	};
+	data: CardTeamMember
 }
 
 export default function CardTeam({ data }: CardTeamProps) {
@@ -29,7 +24,7 @@ export default function CardTeam({ data }: CardTeamProps) {
 				<div className="flex flex-col">
 					<h1 className="text-2xl font-medium">{data?.name}</h1>
 					<h2 className="text-xl text-bdlightpurple font-medium">
-						{data?.function}
+						{data?.functionTeam}
 					</h2>
 				</div>
 			</div>
