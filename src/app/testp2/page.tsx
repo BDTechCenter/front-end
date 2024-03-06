@@ -1,10 +1,12 @@
-import { Button } from "@/components/ui/button";
-
+import NavBar from "@/components/base/common/NavBar";
+import TopBanner from "@/components/base/common/TopBanner";
+import dataTechRadarPage from "@/data/techRadar"
 
 export default function testPage2() {
 	return (
-		<main className="w-full">
-			
+		<main>
+			<NavBar variant="black"/>
+			<TopBanner square text={dataTechRadarPage.banner}/>
 		</main>
 	);
 }

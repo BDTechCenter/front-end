@@ -33,7 +33,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/api/introduction/introduction.js"
-, "src/api/home/home.js", "src/api/introduction/data.js", "src/api/home/data.js"  ],
+, "src/api/home/home.js", "src/api/introduction/data.js", "src/api/home/data.js", "src/data/home.js", "src/data/news.js"  ],
   "exclude": [
     "node_modules"
   ]

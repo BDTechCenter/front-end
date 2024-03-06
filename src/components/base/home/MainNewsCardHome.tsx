@@ -1,17 +1,16 @@
 import { Button } from "@/components/ui/button";
 import NewsCardHome from "./NewsCardHome";
 import ImageError from "../common/ImageError";
+import { dataHomePage } from "@/data/home";
 
 export default function MainNewsCardHome() {
-	const newsList = newsPage.newsList;
-	const newsButton = newsPage.newsButton;
-	const newsError = newsPage.newsError;
+	const newsList = dataHomePage.newsMainListAPIExample;
 
 	return (
 		<div className="flex my-16 h-[35rem] 2xl:h-[40rem] w-full items-center justify-center">
 			<div className="flex flex-col w-[80%] 2xl:w-[70%] h-full gap-10">
 				{newsList.length === 0 ? (
-					<ImageError data={newsError} />
+					<ImageError data={dataHomePage.newsError} />
 				) : (
 					<>
 					<div className="flex flex-row w-full h-full gap-5">
@@ -20,7 +19,7 @@ export default function MainNewsCardHome() {
 						</div>
 						<div className="w-[45%] flex flex-col gap-5 justify-center items-center">
 							{newsList?.slice(1).map((newsItem) => (
-								<NewsCardHome data={newsItem} />
+								<NewsCardHome key={newsItem.text} data={newsItem} />
 							))}
 						</div>
 					</div>
@@ -33,30 +32,3 @@ export default function MainNewsCardHome() {
 		</div>
 	);
 }
-
-const newsPage = {
-	newsButton: {
-		text: "Read More",
-	},
-	newsList: [
-		{
-			img: "/imgNews2.png",
-			text: "Innovation in the development area using Python",
-			data: "February 19"
-		},
-		{
-			img: "/imgNews.png",
-			text: "Innovation in the development area using Python",
-			data: "February 19"
-		},
-		{
-			img: "/imgNews2.png",
-			text: "Innovation in the development area using Python",
-			data: "February 19"
-		}
-	],
-	newsError: {
-		text: "Top news not found",
-		img: "/noNews.gif",
-	},
-};

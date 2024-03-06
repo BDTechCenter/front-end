@@ -2,21 +2,21 @@
 import NavBar from "@/components/base/common/NavBar";
 import TopBanner from "@/components/base/common/TopBanner";
 import MainNewsCardHome from "@/components/base/home/MainNewsCardHome";
-import AllCardFeature from "@/components/base/introduction/AllCardFeature";
-import AllCardTeam from "@/components/base/introduction/AllCardTeam";
-import BannerIntroduction from "@/components/base/introduction/BannerInformateBD";
+import AllCardFeature from "@/components/base/home/AllCardFeature";
+import AllCardTeam from "@/components/base/home/AllCardTeam";
+import BannerIntroduction from "@/components/base/home/BannerInformateBD";
 
 export default function HomePage() {
-  return (
-    <main>
-      <NavBar variant="black" />
-			<TopBanner square text={bannerHome.text}/>
-			<MainNewsCardHome/>
-      <AllCardFeature />
+	return (
+		<main>
+			<NavBar variant="black" />
+			<TopBanner square text={bannerHome.text} />
+			<MainNewsCardHome />
+			<AllCardFeature />
 			<BannerIntroduction />
 			<AllCardTeam />
-    </main>
-  )
+		</main>
+	)
 }
 
 export const bannerHome = {
