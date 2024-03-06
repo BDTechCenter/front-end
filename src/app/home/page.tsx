@@ -2,7 +2,9 @@
 import NavBar from "@/components/base/common/NavBar";
 import TopBanner from "@/components/base/common/TopBanner";
 import MainNewsCardHome from "@/components/base/home/MainNewsCardHome";
-import { Button } from "@/components/ui/button";
+import AllCardFeature from "@/components/base/introduction/AllCardFeature";
+import AllCardTeam from "@/components/base/introduction/AllCardTeam";
+import BannerIntroduction from "@/components/base/introduction/BannerInformateBD";
 
 export default function HomePage() {
   return (
@@ -10,6 +12,9 @@ export default function HomePage() {
       <NavBar variant="black" />
 			<TopBanner square text={bannerHome.text}/>
 			<MainNewsCardHome/>
+      <AllCardFeature />
+			<BannerIntroduction />
+			<AllCardTeam />
     </main>
   )
 }
