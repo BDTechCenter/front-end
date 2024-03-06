@@ -1,6 +1,6 @@
-
 import Comment from "./Comment"
 import ImageError from "../common/ImageError"
+import { dataNewsPage } from "@/data/news"
 
 interface CommentList{
   data: Comment[] | undefined
@@ -11,7 +11,7 @@ export default function CommentList({data}: CommentList) {
   return (
     <div className="w-full">
       {data?.length === 0 ?(
-          <ImageError data={error} />
+          <ImageError data={dataNewsPage.newsError.noCommentError} />
       ):(
         <div className="flex flex-col w-full h-full gap-4">
           {data?.map((comment) => (
@@ -23,8 +23,5 @@ export default function CommentList({data}: CommentList) {
   )
 }
 
-const error={
-  text: "No comments, write yours",
-  img: "/noComment.gif",
-}
+
 
