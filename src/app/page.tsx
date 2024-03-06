@@ -5,12 +5,13 @@ import MainNewsCardHome from "@/components/base/home/MainNewsCardHome";
 import AllCardFeature from "@/components/base/home/AllCardFeature";
 import AllCardTeam from "@/components/base/home/AllCardTeam";
 import BannerIntroduction from "@/components/base/home/BannerInformateBD";
+import { dataHomePage } from "@/data/home";
 
 export default function HomePage() {
 	return (
 		<main>
 			<NavBar variant="black" />
-			<TopBanner square text={bannerHome.text} />
+			<TopBanner square text={dataHomePage.banner.text} />
 			<MainNewsCardHome />
 			<AllCardFeature />
 			<BannerIntroduction />
@@ -18,15 +19,6 @@ export default function HomePage() {
 		</main>
 	)
 }
-
-export const bannerHome = {
-	text: (
-		<p>
-			Follow the main <span className="text-bdlightpurple">news</span> of the
-			moment...
-		</p>
-	),
-};
 
 {/* <TopBanner square text={bannerHome.text} className="flex w-1/2 justify-center items-center">
         <Button

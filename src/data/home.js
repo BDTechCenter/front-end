@@ -3,6 +3,14 @@ import { FaProjectDiagram } from "react-icons/fa";
 import { MdOutlineRadar } from "react-icons/md";
 
 export const dataHomePage={
+  banner:{
+    text: (
+      <p>
+        Follow the main <span className="text-bdlightpurple">news</span> of the
+        moment...
+      </p>
+    ),
+  },
   features:[
     {
       title: "Stay up to date: explore our latest innovation news!",

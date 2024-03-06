@@ -1,4 +1,12 @@
 export const dataNewsPage = {
+  banner:{
+    text:(
+      <p>
+        Follow the main <span className="text-bdlightpurple">news</span> of
+        the moment...
+      </p>
+    )
+  },
   newsError:{
     noNewsError:{
 		  text: "News not found",
