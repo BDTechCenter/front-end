@@ -24,9 +24,6 @@ export default function MainNewsCardHome() {
 							))}
 						</div>
 					</div>
-					<Button variant={"bdpurple"} className="w-full" href="/news">
-						Read More
-					</Button>
 					</>
 				)}
 			</div>
