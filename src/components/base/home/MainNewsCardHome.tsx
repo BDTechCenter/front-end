@@ -8,7 +8,7 @@ export default function MainNewsCardHome() {
 	const newsError = newsPage.newsError;
 
 	return (
-		<div className="flex my-16 h-[35rem] 2xl:h-[40rem] w-full items-center justify-center">
+		<div className="flex my-16 h-[32rem] 2xl:h-[40rem] w-full items-center justify-center">
 			<div className="flex flex-col w-[80%] 2xl:w-[70%] h-full gap-10">
 				{newsList.length === 0 ? (
 					<ImageError data={newsError} />
@@ -24,9 +24,6 @@ export default function MainNewsCardHome() {
 							))}
 						</div>
 					</div>
-					<Button variant={"bdpurple"} className="w-full" href="/news">
-						Read More
-					</Button>
 					</>
 				)}
 			</div>
