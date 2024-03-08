@@ -1,10 +1,14 @@
+"use client";
+import { useState } from "react";
 import NavBar from "@/components/base/common/NavBar";
 import TopBanner from "@/components/base/common/TopBanner";
 import NewsList from "@/components/base/news/NewsList";
 import SearchBar from "@/components/base/news/SearchBar";
+import ModalCreateNews from "@/components/base/news/modalCreateNews";
 import { Button } from "@/components/ui/button";
 
 export default function NewsPage() {
+	const [isOpen, setIsOpen] = useState(false);
 	return (
 		<main className="w-full h-full">
 			<NavBar variant="white" />
@@ -14,8 +18,10 @@ export default function NewsPage() {
               variant="bdlight"
               className="rounded-lg w-1/3 text-xl font-bold py-6 2xl:text-2xl"
 							href=""
+							onClick={() => {setIsOpen(true)}}
             >
               teste
+							
         </Button>
       </TopBanner>
 				<div className="w-[70%] mx-auto absolute left-0 right-0 -bottom-7 z-10">
@@ -24,6 +30,7 @@ export default function NewsPage() {
 			</div>
 			<section className="my-24 mx-28 h-full 2xl:mx-44 2xl:my-36">
 				<NewsList />
+				<ModalCreateNews/>
 			</section>
 		</main>
 	);
