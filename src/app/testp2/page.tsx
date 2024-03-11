@@ -1,4 +1,4 @@
-import ModalCreateNews from "@/components/base/news/modalCreateNews";
+import ModalCreateNews from "@/components/base/news/ModalCreateNews";
 
 
 export default function testPage2() {
