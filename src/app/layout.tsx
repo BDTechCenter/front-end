@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import Providers from "@/services/Providers";
+import hljs from 'highlight.js';
+import 'highlight.js/styles/atom-one-dark.css';
 
 const poppins = Poppins({
 	subsets: ["latin"],
