@@ -24,7 +24,6 @@ export default function InputTextEdit() {
   }, []);
 
   const editorStyle = {
-    flex: '1',
     paddingLeft: '1.75rem',
     marginBottom: '1.25rem',
     marginTop: '0.50rem',
@@ -34,14 +33,15 @@ export default function InputTextEdit() {
     border: '1px solid #E4E4E7',
     backgroundColor: 'transparent',
     borderInput: 'hsl(var(--input))',
-    padding: '0.75rem',
+    padding: '1rem',
     boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-    height: '30rem',
+    height: '200px',
+    overflow: 'hidden',
   };
 
   return (
     <div className='flex w-full justify-center items-center'>
-      <div className='w-[45rem]'>
+      <div className='w-full max-w-[100%]'>
         <div ref={editorRef} style={editorStyle} />
       </div>
     </div>
