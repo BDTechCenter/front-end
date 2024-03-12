@@ -20,7 +20,6 @@ export default function NewsPage() {
             </div>
             <section className="my-24 mx-28 h-full 2xl:mx-44 2xl:my-36">
                 <NewsList />
-								<ModalCreateComment/>
             </section>
         </main>
     );
