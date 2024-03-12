@@ -1,4 +1,4 @@
-import { News } from "@/api/home/types";
+import { News } from "@/api/types/home/types";
 
 interface NewsCardProps {
 	data: News;
@@ -14,20 +14,18 @@ export default function NewsCardHome({ data, orientation }: NewsCardProps) {
 		>
 			<div className="absolute bottom-0 flex text-left justify-center flex-col w-full h-1/2 p-6 gap-1 2xl:gap-2 z-20">
 				<h1
-					className={`${
-						orientation === "relative"
+					className={`${orientation === "relative"
 							? "text-2xl 2xl:text-3xl"
 							: "text-lg 2xl:text-xl"
-					} font-semibold text-white`}
+						} font-semibold text-white`}
 				>
 					{data?.text}
 				</h1>
 				<p
-					className={`${
-						orientation === "relative"
+					className={`${orientation === "relative"
 							? "text-lg 2xl:text-xl"
 							: "text-sm 2xl:text-md"
-					} text-white`}
+						} text-white`}
 				>
 					{data?.data}
 				</p>

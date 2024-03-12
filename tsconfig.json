@@ -32,8 +32,12 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/api/introduction/introduction.js"
-, "src/api/home/home.js", "src/api/introduction/data.js", "src/api/home/data.js"  ],
+    "src/api/types/introduction/introduction.js",
+    "src/api/types/home/home.js",
+    "src/api/types/introduction/data.js",
+    "src/api/types/home/data.js",
+    "src/api/hooks/news/fetch"
+  ],
   "exclude": [
     "node_modules"
   ]

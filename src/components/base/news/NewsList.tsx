@@ -1,61 +1,38 @@
+import { News } from "@/api/types/news/type";
 import ImageError from "../common/ImageError";
 import NewsCard from "./NewsCard";
+import { Error } from "@/api/types/all/type";
 
-export default function NewsList() {
-	const newsData = newsPage.newsData
-	const newsError = newsPage.newsError
-	
+export interface NewsListProps {
+	data?: News[]
+	isLoading?: boolean
+	isError?: boolean
+	massageError?: Error
+}
+
+export default function NewsList({ data, isLoading, isError, massageError }: NewsListProps) {
+
 	return (
 		<section className="relative grid grid-cols-2 sm:grid-cols-3 gap-5 2xl:gap-7">
-			{newsData.length === 0 ?(
-				<div className="absolute flex w-full items-center justify-center">
-					<ImageError data={newsError} />
-				</div>
-			):(
+			{data ? (
 				<>
-					{newsData?.map((news) => (
-					<NewsCard key={news.title} data={news} />
-				))}
+					{data?.map((news) => (
+						<NewsCard key={news.id} data={news} />
+					))}
 				</>
-			)}
-			
+			) : isLoading ? (
+				<></>
+			) : isError ? (
+				<div className="absolute flex w-full items-center justify-center">
+					<ImageError data={massageError} />
+				</div>
+			) : (<></>)}
 		</section>
 	);
 }
 
-const newsPage = {
-	newsError:{
-		text: "News not found",
-		img: "/noNews.gif",
-	},
-	newsData:[
-		{
-			id: 1,
-			img: "/imgNews2.png",
-			date: "January 20",
-			title: "Taking a Glimpse of What TRPC IS? - DEV Community",
-			author: "Matheus Aprigio",
-		},
-		{
-			id: 2,
-			img: "/imgNews4.png",
-			date: "February 09",
-			title: "The Future of Artificial Intelligence",
-			author: "John Doe",
-		},
-		{
-			id: 3,
-			img: "/imgNews3.png",
-			date: "March 19",
-			title: "Web Development Trends in 2024",
-			author: "Matheus Aprigio",
-		},
-		{
-			id: 4,
-			img: "/imgNews.png",
-			date: "December 12",
-			title: "Web Development Trends in 2024",
-			author: "Jane Smith",
-		},
-	]
-}
+{/* */ }
+
+{/* <>
+					
+				</> */}

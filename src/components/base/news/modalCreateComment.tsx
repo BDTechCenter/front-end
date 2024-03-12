@@ -32,7 +32,7 @@ export default function ModalCreateComment() {
         <DialogFooter className="sm:justify-start">
           <DialogClose asChild>
             <Button className="rounded-lg shadow-md p-5 font-semibold text-lg" variant={"bdlight"}>
-              Add
+              Add 
             </Button>
           </DialogClose>
         </DialogFooter>
