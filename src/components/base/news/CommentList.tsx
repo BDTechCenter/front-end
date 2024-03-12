@@ -9,7 +9,7 @@ interface CommentList{
 export default function CommentList({data}: CommentList) {
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full">
       {data?.length === 0 ?(
           <ImageError data={error} />
       ):(
