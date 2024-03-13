@@ -1,6 +1,6 @@
 import api from "../../../services/api"
-import { useQuery } from "@tanstack/react-query"
-import { ContentNews } from "@/api/types/news/type"
+import { QueryFunctionContext, useQuery } from "@tanstack/react-query"
+import { ContentNews, News } from "@/api/types/news/type"
 
 
 async function getNews() {
@@ -8,8 +8,20 @@ async function getNews() {
   return data
 }
 
-function useFetchGetNews() {
+export function useFetchGetNews() {
   return useQuery<ContentNews, Error>({ queryKey: ['news'], queryFn: getNews })
 }
 
-export default useFetchGetNews
+async function getIdNews(ctx: QueryFunctionContext) {
+  const [, id] = ctx.queryKey
+  const { data } = await api.get<News>(`news/${id}`)
+  console.log(data)
+  return data
+}
+
+export function useFetchGetNewsId(id: string){
+  return useQuery<News, Error>({queryKey: ['newsRead', id], queryFn: getIdNews})
+
+}
+
+

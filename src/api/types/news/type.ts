@@ -1,9 +1,13 @@
 export interface News {
-  id: string;
-  imageUrl: string;
-  updateDate: string;
-  title: string;
+  id: string
+  imageUrl: string
+  updateDate: string
+  title: string
   author: string
+  summary: string
+  body: string
+  tags: string[]
+  isPublished: boolean
 }
 
 export interface ContentNews{
@@ -11,6 +15,6 @@ export interface ContentNews{
 }
 
 export interface Comment{
-  author: string,
+  author: string
   comment: string
 }
