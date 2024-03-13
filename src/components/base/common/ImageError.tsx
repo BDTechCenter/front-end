@@ -1,6 +1,7 @@
 import { Error } from "@/api/types/all/type";
 import Image from "next/image";
 
+
 interface ImageErrorProps {
 	data: Error;
 }
