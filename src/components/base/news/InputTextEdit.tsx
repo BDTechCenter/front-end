@@ -3,11 +3,10 @@ import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 
 export interface InputTextEditProps{
-  value: string;
   onChange: (htmlValue: string) => void;
 }
 
-export default function InputTextEdit({value, onChange}: InputTextEditProps) {
+export default function InputTextEdit({ onChange}: InputTextEditProps) {
   const editorRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!editorRef.current) return;
@@ -42,10 +41,10 @@ export default function InputTextEdit({value, onChange}: InputTextEditProps) {
     border: '1px solid #E4E4E7',
     backgroundColor: 'transparent',
     borderInput: 'hsl(var(--input))',
-    padding: '1rem',
+    padding: '0.5rem',
     boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-    height: '200px',
     overflow: 'hidden',
+    height: '18rem',
   };
 
   return (
