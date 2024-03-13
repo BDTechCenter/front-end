@@ -26,7 +26,11 @@ export default function NewsList({ data, isLoading, isError, massageError }: New
 				<div className="absolute flex w-full items-center justify-center">
 					<ImageError data={massageError} />
 				</div>
-			) : (<></>)}
+			) : (
+				<div className="absolute flex w-full items-center justify-center">
+					<ImageError data={massageError} />
+				</div>
+			)}
 		</section>
 	);
 }
