@@ -7,19 +7,27 @@ export interface NewsListProps {
 	data?: News[]
 	isLoading?: boolean
 	isError?: boolean
-	massageError?: Error
+	massageError: Error
+	massageNotFound: Error
 }
 
-export default function NewsList({ data, isLoading, isError, massageError }: NewsListProps) {
+export default function NewsList({ data, isLoading, isError, massageError, massageNotFound }: NewsListProps) {
 
 	return (
 		<section className="relative grid grid-cols-2 sm:grid-cols-3 gap-5 2xl:gap-7">
 			{data ? (
-				<>
+				data.length !== 0 ? (
+					<>
 					{data?.map((news) => (
 						<NewsCard key={news.id} data={news} />
 					))}
 				</>
+				) 
+				: (
+					<div className="absolute flex w-full items-center justify-center">
+						<ImageError data={massageNotFound} />
+					</div>
+				)
 			) : isLoading ? (
 				<></>
 			) : isError ? (
@@ -27,9 +35,7 @@ export default function NewsList({ data, isLoading, isError, massageError }: New
 					<ImageError data={massageError} />
 				</div>
 			) : (
-				<div className="absolute flex w-full items-center justify-center">
-					<ImageError data={massageError} />
-				</div>
+				<></>
 			)}
 		</section>
 	);

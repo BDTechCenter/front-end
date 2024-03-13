@@ -10,7 +10,7 @@ interface NewsCardProps {
 
 export default function NewsCardHome({ data, orientation }: NewsCardProps) {
 	const router = useRouter()
-  const href = `/news/${data.id}`
+  const href = `/news/${data?.id}`
 
   const handleClick = (e: any) => {
     e.preventDefault()
