@@ -5,7 +5,22 @@ export default function NewsContentPage() {
 	return (
 		<main>
 			<NavBar variant="white" />
-			<NewsContent />
+			<NewsContent 
+				massageError={dataNewsContentPage.newsError} 
+				messageErrorContent={dataNewsContentPage.newsErrorNotFound}
+			/>
 		</main>
 	);
 }
+
+export const dataNewsContentPage = {
+	newsErrorNotFound:{
+	text: "News not found",
+	img: "/noNews.gif",
+},
+
+newsError:{
+	text: "Error news not found",
+	img: "/allError.gif",
+},
+};

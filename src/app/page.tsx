@@ -42,6 +42,6 @@ export const dataHomePage = {
 
 	newsError:{
 		text: "Error News",
-		img: "/noNews.gif",
+		img: "/allError.gif",
 	},
 }

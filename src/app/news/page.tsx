@@ -15,7 +15,7 @@ export default function NewsPage() {
         <main className="w-full h-full">
             <NavBar variant="white" />
             <div className="relative">
-                <TopBanner text={newsPageData.bannerNews} className="flex w-1/2 justify-center items-center">
+                <TopBanner text={dataNewsPage.bannerNews} className="flex w-1/2 justify-center items-center">
                     <ModalCreateNews/>
                 </TopBanner>
                 <div className="w-[70%] mx-auto absolute left-0 right-0 -bottom-7 z-10">
@@ -27,22 +27,28 @@ export default function NewsPage() {
                     isLoading={isLoading} 
                     isError={isError} 
                     data={data?.content} 
-                    massageError={newsPageData.newsError} 
+                    massageError={dataNewsPage.newsErrorNotFound} 
+                    massageNotFound={dataNewsPage.newsErrorNotFound}
                 />
             </section>
         </main>
     );
 }
 
-export const newsPageData = {
+export const dataNewsPage = {
     bannerNews:(
         <p>
             Follow the main <span className="text-bdlightpurple">news</span> of
             the moment...
         </p>
     ),
-    newsError:{
-        text: "News not found",
-        img: "/noNews.gif",
-    },
+    newsErrorNotFound:{
+		text: "News not found",
+		img: "/noNews.gif",
+	},
+
+	newsError:{
+		text: "Error News",
+		img: "/allError.gif",
+	},
 };
