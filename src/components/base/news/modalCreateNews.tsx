@@ -1,5 +1,6 @@
 "use client"
 import { Button } from "@/components/ui/button"
+import { useState } from "react"
 import {
   Dialog,
   DialogClose,
@@ -14,6 +15,16 @@ import { Input } from "@/components/ui/input"
 import InputTextEdit from "./InputTextEdit"
 
 export function ModalCreateNews() {
+  const [title, setTitle] = useState('')
+  const [tag, setTag] = useState('')
+  const [content, setContent] = useState('')
+
+  const print = () =>{
+    console.log(title)
+    console.log(tag)
+    console.log(content)
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -25,17 +36,17 @@ export function ModalCreateNews() {
         </DialogHeader>
         <div className="w-[40rem]">
           <h1 className="font-semibold text-md">Title</h1>
-          <Input className="h-10 pl-7 mb-2 text-sm" maxLength={150} />
+          <Input value={title} onChange={setTitle} className="h-10 pl-7 mb-2 text-sm" maxLength={150} />
           <h1 className="font-semibold text-md">Tag</h1>
-          <Input className="h-10 pl-7 mb-2 text-sm" maxLength={150} />
+          <Input value={tag} onChange={setTag} className="h-10 pl-7 mb-2 text-sm" maxLength={150} />
           <h1 className="font-semibold text-md">Content</h1>
           <div className="w-full">
-            <InputTextEdit />
+            <InputTextEdit value={content} onChange={setContent} />
           </div>
         </div>
         <DialogFooter className="sm:justify-start">
           <DialogClose asChild>
-            <Button className="rounded-lg shadow-md p-5 font-semibold text-lg" variant={"bdlight"}>
+            <Button onClick={print} className="rounded-lg shadow-md p-5 font-semibold text-lg" variant={"bdlight"}>
               Add
             </Button>
           </DialogClose>
