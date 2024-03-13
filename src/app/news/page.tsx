@@ -4,7 +4,7 @@ import TopBanner from "@/components/base/common/TopBanner";
 import NewsList from "@/components/base/news/NewsList";
 import SearchBar from "@/components/base/news/SearchBar";
 import { ModalCreateNews } from "@/components/base/news/modalCreateNews";
-import useFetchGetNews from "@/api/hooks/news/queries";
+import { useFetchGetNews } from "@/api/hooks/news/queries";
  
 
 export default function NewsPage() {
