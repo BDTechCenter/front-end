@@ -2,6 +2,7 @@ import { News } from "@/api/types/news/type";
 import ImageError from "../common/ImageError";
 import NewsCard from "./NewsCard";
 import { Error } from "@/api/types/all/type";
+import { NewsCardSkeleton } from "../skeleton/NewsCardSkeleton";
 
 export interface NewsListProps {
 	data?: News[]
@@ -29,7 +30,14 @@ export default function NewsList({ data, isLoading, isError, massageError, massa
 					</div>
 				)
 			) : isLoading ? (
-				<></>
+				<>
+					<NewsCardSkeleton/>
+					<NewsCardSkeleton/>
+					<NewsCardSkeleton/>
+					<NewsCardSkeleton/>
+					<NewsCardSkeleton/>
+					<NewsCardSkeleton/>
+				</>
 			) : isError ? (
 				<div className="absolute flex w-full items-center justify-center">
 					<ImageError data={massageError} />
@@ -42,7 +50,3 @@ export default function NewsList({ data, isLoading, isError, massageError, massa
 }
 
 {/* */ }
-
-{/* <>
-					
-				</> */}

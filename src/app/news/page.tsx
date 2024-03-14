@@ -3,7 +3,7 @@ import NavBar from "@/components/base/common/NavBar";
 import TopBanner from "@/components/base/common/TopBanner";
 import NewsList from "@/components/base/news/NewsList";
 import SearchBar from "@/components/base/news/SearchBar";
-import { ModalCreateNews } from "@/components/base/news/modalCreateNews";
+import { ModalCreateNews } from "@/components/base/news/ModalCreateNews";
 import { useFetchGetNews } from "@/api/hooks/news/queries";
  
 

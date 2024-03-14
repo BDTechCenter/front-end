@@ -2,10 +2,11 @@
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import CommentList from "./CommentList";
-import ModalCreateComment from "./modalCreateComment";
+import ModalCreateComment from "./ModalCreateComment";
 import { useFetchGetNewsId } from "@/api/hooks/news/queries";
 import ImageError from "../common/ImageError";
 import { Error } from "@/api/types/all/type";
+import { NewsContentSkeleton } from "../skeleton/NewsContentSkeleton";
 
 export interface NewsContentProps{
 	massageError: Error
@@ -52,9 +53,9 @@ export default function NewsContent({massageError, messageErrorContent}: NewsCon
 					<aside className="w-[30%]">
 						<h1 className="text-bdpurple font-bold text-xl">Other News</h1>
 					</aside>
-				 </>
+				</>
 			) : isLoading ? (
-				<></>
+				<NewsContentSkeleton/>
 			) : isError ? (
 				<div className="flex w-full h-full items-center justify-center">
 					<ImageError data={massageError} />
@@ -65,3 +66,6 @@ export default function NewsContent({massageError, messageErrorContent}: NewsCon
 		</section>
 	);
 }
+{/* <>
+					
+				 </> */}

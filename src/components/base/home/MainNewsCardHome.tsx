@@ -3,6 +3,7 @@ import NewsCardHome from "./NewsCardHome";
 import ImageError from "../common/ImageError";
 import { News } from "@/api/types/news/type";
 import { Error } from "@/api/types/all/type";
+import { NewsCardHomeSkeleton } from "../skeleton/NewsCardHomeSkeleton";
 
 export interface MainNewsCardHomeProps {
 	data?: News[]
@@ -34,7 +35,15 @@ export default function MainNewsCardHome({data, isLoading, isError, massageError
 							<ImageError data={massageNotFound} />
 						)
 			) : isLoading ? (
-						<></>
+				<div className="flex flex-row w-full h-full gap-5">
+					<div className="w-[55%] h-full">
+						<NewsCardHomeSkeleton/>
+					</div>
+					<div className="w-[45%] flex flex-col gap-5 justify-center items-center">
+						<NewsCardHomeSkeleton/>
+						<NewsCardHomeSkeleton/>
+					</div>
+				</div>
 			) : isError ? (
 				<ImageError data={massageError} />
 			) : (
