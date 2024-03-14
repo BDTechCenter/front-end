@@ -18,10 +18,10 @@ export default function NewsList({ data, isLoading, isError, massageError, massa
 			{data ? (
 				data.length !== 0 ? (
 					<>
-					{data?.map((news) => (
-						<NewsCard key={news.id} data={news} />
-					))}
-				</>
+						{data?.map((news) => (
+							<NewsCard key={news.id} data={news} />
+						))}
+					</>
 				) 
 				: (
 					<div className="absolute flex w-full items-center justify-center">

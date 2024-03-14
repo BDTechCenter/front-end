@@ -11,7 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
-import InputTextEdit from "./InputTextEdit"
+import InputTextEdit from "../common/InputTextEdit"
 
 export default function ModalCreateComment() {
   return (
@@ -32,7 +32,7 @@ export default function ModalCreateComment() {
         <DialogFooter className="sm:justify-start">
           <DialogClose asChild>
             <Button className="rounded-lg shadow-md p-5 font-semibold text-lg" variant={"bdlight"}>
-              Add 
+              Add
             </Button>
           </DialogClose>
         </DialogFooter>
