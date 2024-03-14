@@ -38,11 +38,11 @@ export default function NewsContent({massageError, messageErrorContent}: NewsCon
 							alt={data?.id + "Img"}
 							width={800}
 							height={800}
-							className="w-full max-h-[45rem]"
+							className="w-full max-w-[60rem] max-h-[45rem]"
 						/>
-						<div className="w-full justify-center items-center">
+						<div className="w-full max-w-[60rem] justify-center items-center">
 						{
-							data ? (<div className="text-justify" style={{ wordWrap: 'break-word' }} dangerouslySetInnerHTML={{ __html: data.body }}></div>) : (<></>)
+							data ? (<div className="text-justify w-full" style={{ wordWrap: 'break-word' }} dangerouslySetInnerHTML={{ __html: data.body }}></div>) : (<></>)
 						}
 						</div>
 						<div className="w-full h-[2px] bg-[#D9D9D9] mt-12"></div>
