@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import InputTextEdit from "../common/InputTextEdit"
-import TestImgButton from "./TestImgButton"
+import ImageButton from "./imageButton"
 
 export function ModalCreateNews() {
   const [title, setTitle] = useState('')
@@ -39,7 +39,7 @@ export function ModalCreateNews() {
         <div className="flex gap-1 flex-row w-full overflow-hidden justify-between">
           <div className="w-[40%]">
             <h1 className="font-semibold text-md">Poster</h1>
-            <TestImgButton value={image} onChange={setImage} />
+            <ImageButton value={image} onChange={setImage} />
             <h1 className="font-semibold text-md">Title</h1>
             <Input value={title} onChange={setTitle} className="h-10 pl-7 mb-2 text-sm" maxLength={150} />
             <h1 className="font-semibold text-md">Tag</h1>

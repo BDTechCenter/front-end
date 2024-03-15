@@ -34,9 +34,6 @@ export default function NewsList({ data, isLoading, isError, massageError, massa
 				<NewsCardSkeleton />
 				<NewsCardSkeleton />
 				<NewsCardSkeleton />
-				<NewsCardSkeleton />
-				<NewsCardSkeleton />
-				<NewsCardSkeleton />
 			</>
 		);
 	}

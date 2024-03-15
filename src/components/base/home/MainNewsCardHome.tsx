@@ -6,7 +6,7 @@ import { Error } from "@/api/types/all/type";
 import { NewsCardHomeSkeleton } from "../skeleton/NewsCardHomeSkeleton";
 
 export interface MainNewsCardHomeProps {
-	data: News[]
+	data?: News[]
 	isLoading?: boolean
 	isError?: boolean
 	massageError: Error
