@@ -6,7 +6,7 @@ export function NewsContentSkeleton() {
         <div className="flex flex-col gap-5 w-[70%]">
             <Skeleton className="rounded-none h-7 w-[80%]" />
             <Skeleton className="rounded-md h-20 w-[30%]" />
-            <Skeleton className="h-[45rem] rounded-lg w-full" />
+            <Skeleton className="h-[25rem] rounded-lg w-full" />
             <div className="flex flex-col w-full gap-2">
                 <Skeleton className="rounded-none h-7 w-full" />
                 <Skeleton className="rounded-none h-7 w-full" />
