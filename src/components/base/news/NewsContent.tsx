@@ -1,40 +1,37 @@
-"use client";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import CommentList from "./CommentList";
+import { News } from "@/api/types/news/type";
 import ModalCreateComment from "./ModalCreateComment";
-import { useFetchGetNewsId } from "@/api/hooks/news/queries";
 import ImageError from "../common/ImageError";
 import { Error } from "@/api/types/all/type";
 import { NewsContentSkeleton } from "../skeleton/NewsContentSkeleton";
 
 export interface NewsContentProps{
+	data?:News
+	isLoading?: boolean
+	isError?: boolean
 	massageError: Error
 	messageErrorContent: Error
 }
 
-export default function NewsContent({massageError, messageErrorContent}: NewsContentProps) {
-	const path = usePathname();
-	const newsId = path.split("/")[2];
-	const {isLoading, isError, data} = useFetchGetNewsId(newsId)
-
+export default function NewsContent({data, isLoading, isError, massageError, messageErrorContent}: NewsContentProps) {
 	const newsContentData = () => {
 		return (data? (
 			<>
 				<div className="flex flex-col gap-7 w-[70%]">
-					<h1 className="font-bold text-3xl 2xl:text-4xl">{data?.title}</h1>
+					<h1 className="font-bold text-3xl 2xl:text-4xl">{data.title}</h1>
 					<div className="flex flex-row gap-3 w-full">
 					{data.tags.map((tag)=>(
 						<div key={tag} className="flex justify-center items-center p-2 bg-bdgray rounded-lg font-bold text-sm">{tag}</div>
 					))}
 					</div>
 					<div className="bg-bdgray rounded-lg flex flex-col py-2 px-5 w-[50%]">
-						<p className="font-semibold">{data?.author}</p>
-						<p className="text-xs">{data?.updateDate}</p>
+						<p className="font-semibold">{data.author}</p>
+						<p className="text-xs">{data.updateDate}</p>
 					</div>
 					<Image
-						src={data?.imageUrl}
-						alt={data?.id + "Img"}
+						src={data.imageUrl}
+						alt={data.id + "Img"}
 						width={800}
 						height={800}
 						className="w-full max-w-[60rem] max-h-[45rem]"
