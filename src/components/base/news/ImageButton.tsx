@@ -6,7 +6,7 @@ export interface ImageSelectionProps {
   onChange: (imageUrl: string | null) => void;
 }
 
-const TestImgButton = ({ value, onChange }: ImageSelectionProps) => {
+export default function ImageButton({ value, onChange }: ImageSelectionProps){
   const [previewImage, setPreviewImage] = useState<File | null>(null);
 
   const getFileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,12 +34,10 @@ const TestImgButton = ({ value, onChange }: ImageSelectionProps) => {
               />
             );
           } else {
-            return <p>Choose a poster for your News</p>;
+            return <p className='text-lg 2xl:text-sm'>Choose a poster for your News</p>;
           }
         }, [previewImage])}
       </label>
     </div>
   );
 };
-
-export default TestImgButton;
