@@ -1,7 +1,8 @@
 "use client";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import CommentList from "./CommentLIst";
+import CommentList from "./CommentList";
+import ModalCreateComment from "./modalCreateComment";
 
 export default function NewsContent() {
 	const path = usePathname();
@@ -31,6 +32,7 @@ export default function NewsContent() {
 				<div className="w-full h-[2px] bg-[#D9D9D9] mt-20"></div>
 				<h1 className="mt-4 font-semibold text-lg text-bdpurple">Comments</h1>
 				<CommentList data={atualNews.comments}/>
+				<ModalCreateComment/>
 			</div>
 			<aside className="w-full">
 				<h1 className="text-bdpurple font-bold text-xl">Other News</h1>
