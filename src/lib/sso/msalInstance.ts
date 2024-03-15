@@ -11,6 +11,8 @@ export const msalInstance = new PublicClientApplication(msalConfig);
 msalInstance.initialize().then(() => {
 	// Account selection logic is app dependent. Adjust as needed for different use cases.
 	const accounts = msalInstance.getAllAccounts();
+	console.log(accounts);
+	
 	if (accounts.length > 0) {
 		msalInstance.setActiveAccount(accounts[0]);
 	}
