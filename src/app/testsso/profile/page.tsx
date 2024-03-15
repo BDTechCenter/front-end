@@ -1,4 +1,6 @@
+"use client";
 import ProfileData, { GraphData } from "@/components/base/sso/ProfileData";
+import SignOutButton from "@/components/base/sso/SignOutButton";
 import { callMsGraph } from "@/lib/sso/MsGraphApiCall";
 import { loginRequest } from "@/lib/sso/authConfig";
 import {
@@ -37,7 +39,7 @@ function ProfileContent() {
 	);
 }
 
-function ErrorComponent({error}:{error: any}) {
+function ErrorComponent({ error }: { error: any }) {
 	toast.error(error, {
 		position: "top-right",
 		autoClose: 13,
@@ -51,17 +53,18 @@ function ErrorComponent({error}:{error: any}) {
 	});
 }
 
-export function Profile() {
+export default function Profile() {
 	const authRequest = {
 		...loginRequest,
 	};
 
 	return (
 		<MsalAuthenticationTemplate
-			interactionType={InteractionType.Redirect}
+			interactionType={InteractionType.Popup}
 			authenticationRequest={authRequest}
 		>
 			<ProfileContent />
+			<SignOutButton />
 		</MsalAuthenticationTemplate>
 	);
 }
