@@ -8,7 +8,6 @@ import { ModalCreateNews } from "@/components/base/news/modalCreateNews";
 
 export default function NewsPage() {
     const { isLoading, isError, data } = useFetchGetNews()
-    console.log(data?.content)
 
     return (
         <main className="w-full h-full">
