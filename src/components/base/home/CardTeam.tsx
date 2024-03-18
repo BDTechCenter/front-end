@@ -1,5 +1,5 @@
 "use client";
-import { CardTeamMember } from "@/api/introduction/types";
+import { CardTeamMember } from "@/api/types/introduction/types";
 import Image from "next/image";
 
 interface CardTeamProps {

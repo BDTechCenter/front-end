@@ -1,175 +1,80 @@
-"use client";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import CommentList from "./CommentList";
-import ModalCreateComment from "./modalCreateComment";
+import { News } from "@/api/types/news/type";
+import ModalCreateComment from "./ModalCreateComment";
+import ImageError from "../common/ImageError";
+import { Error } from "@/api/types/all/type";
+import { NewsContentSkeleton } from "../skeleton/NewsContentSkeleton";
 
-export default function NewsContent() {
-	const path = usePathname();
-	const newsId = parseInt(path.split("/")[2]);
-
-	const atualNews = newsData[newsId];
-
-	return (
-		<section className="flex h-full mx-44 my-20 gap-28">
-			<div className="flex flex-col gap-5">
-				<h1 className="font-bold text-3xl 2xl:text-4xl">{atualNews.title}</h1>
-				<p className="text-justify">{atualNews.description}</p>
-				<div className="bg-zinc-100 rounded-lg flex flex-col py-2 px-5 w-[30%]">
-					<p className="font-semibold">{atualNews.author}</p>
-					<p className="text-xs">{atualNews.date}</p>
-				</div>
-				<Image
-					src={atualNews.img}
-					alt={atualNews.id + "Img"}
-					width={800}
-					height={800}
-					className="w-full max-h-[45rem]"
-				/>
-				{atualNews.content.map((cont) => (
-          <p key={cont[0]} className="text-justify">{cont}</p>
-        ))}
-				<div className="w-full h-[2px] bg-[#D9D9D9] mt-20"></div>
-				<h1 className="mt-4 font-semibold text-lg text-bdpurple">Comments</h1>
-				<CommentList data={atualNews.comments}/>
-				<ModalCreateComment/>
-			</div>
-			<aside className="w-full">
-				<h1 className="text-bdpurple font-bold text-xl">Other News</h1>
-			</aside>
-		</section>
-	);
+export interface NewsContentProps{
+	data?:News
+	isLoading?: boolean
+	isError?: boolean
+	massageError: Error
+	messageErrorContent: Error
 }
 
-const newsData = [
-	{
-		id: 1,
-		img: "/imgNews2.png",
-		date: "January 20",
-		title: "Introduction to Machine Learning Algorithms",
-		author: "Matheus Aprigio",
-		description:
-			"Python is a high-level, general-purpose, open-source programming language. It is known for its simple syntax and readability, which makes it a popular choice among beginners and professionals alike. Python supports multiple programming paradigms and has a vast standard library, making it suitable for a wide range of applications, from web development to data analysis and task automation.",
-		content: [
-			"Python is emerging as one of the most influential programming languages ​​in the world. Recognized for its simple syntax and readability, Python is a popular choice for a variety of applications, from web development to data analysis and artificial intelligence.",
+export default function NewsContent({data, isLoading, isError, massageError, messageErrorContent}: NewsContentProps) {
+	const newsContentData = () => {
+		return (data? (
+			<>
+				<div className="flex flex-col gap-7 w-[70%]">
+					<h1 className="font-bold text-3xl 2xl:text-4xl">{data.title}</h1>
+					<div className="flex flex-row gap-3 w-full">
+					{data.tags.map((tag)=>(
+						<div key={tag} className="flex justify-center items-center p-2 bg-bdgray rounded-lg font-bold text-sm">{tag}</div>
+					))}
+					</div>
+					<div className="bg-bdgray rounded-lg flex flex-col py-2 px-5 w-[50%]">
+						<p className="font-semibold">{data.author}</p>
+						<p className="text-xs">{data.updateDate}</p>
+					</div>
+					<Image
+						src={data.imageUrl}
+						alt={data.id + "Img"}
+						width={800}
+						height={800}
+						className="w-full max-w-[60rem] max-h-[45rem]"
+					/>
+					<div className="w-full max-w-[60rem] justify-center items-center">
+					{
+						data ? (<div className="text-justify w-full" style={{ wordWrap: 'break-word' }} dangerouslySetInnerHTML={{ __html: data.body }}></div>) : (<></>)
+					}
+					</div>
+					<div className="w-full h-[2px] bg-[#D9D9D9] mt-12"></div>
+					<h1 className="mt-4 font-semibold text-lg text-bdpurple">Comments</h1>
+					<ModalCreateComment/>
+				</div>
+				<aside className="w-[30%]">
+					<h1 className="text-bdpurple font-bold text-xl">Other News</h1>
+				</aside>
+			</>
+		):(
+		<>
+			<div className="absolute flex w-full items-center justify-center">
+				<ImageError data={massageError} />
+			</div>
+		</>
+		));
+	};
 
-			"With a comprehensive standard library and an active, welcoming community, Python supports programmers of all skill levels. Large companies like Google, Facebook, and Netflix rely on Python for their daily operations due to its flexibility and scalability.",
+	if (isLoading) {
+		return (
+			<NewsContentSkeleton/>
+		);
+	}
 
-			"As we move into the era of artificial intelligence and data analytics, Python continues to be at the forefront of technological innovation, driving progress in areas like machine learning and data science.",
+	if (isError) {
+		return (
+			<div className="flex w-full h-full items-center justify-center">
+				<ImageError data={massageError} />
+			</div>
+		);
+	}
 
-			"In short, Python is more than just a programming language; It is a powerful catalyst for innovation and technological progress around the world.",
-		],
-		comments:[
-			// {
-			// 	author: "John Doe",
-			// 	comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
-			// },
-			// {
-			// 	author: "John Doe",
-			// 	comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
-			// },
-			// {
-			// 	author: "John Doe",
-			// 	comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
-			// }
-		]
-	},
-	{
-		id: 2,
-		img: "/imgNews2.png",
-		date: "February 09",
-		title: "Taking a Glimpse of What TRPC IS? - DEV Community",
-		author: "John Doe",
-		description:
-			"Python is a high-level, general-purpose, open-source programming language. It is known for its simple syntax and readability, which makes it a popular choice among beginners and professionals alike. Python supports multiple programming paradigms and has a vast standard library, making it suitable for a wide range of applications, from web development to data analysis and task automation.",
-		content: [
-			"Python is emerging as one of the most influential programming languages ​​in the world. Recognized for its simple syntax and readability, Python is a popular choice for a variety of applications, from web development to data analysis and artificial intelligence.",
+	if (data) {
+		return newsContentData();
+	}
 
-			"With a comprehensive standard library and an active, welcoming community, Python supports programmers of all skill levels. Large companies like Google, Facebook, and Netflix rely on Python for their daily operations due to its flexibility and scalability.",
-
-			"As we move into the era of artificial intelligence and data analytics, Python continues to be at the forefront of technological innovation, driving progress in areas like machine learning and data science.",
-
-			"In short, Python is more than just a programming language; It is a powerful catalyst for innovation and technological progress around the world.",
-		],
-		comments:[
-			// {
-			// 	author: "Geovana",
-			// 	comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
-			// },
-			// {
-			// 	author: "John Doe",
-			// 	comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
-			// },
-			// {
-			// 	author: "John Doe",
-			// 	comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
-			// }
-		]
-	},
-	{
-		id: 3,
-		img: "/imgNews.png",
-		date: "March 19",
-		title: "The Future of Artificial Intelligence",
-		author: "Matheus Aprigio",
-		description: [
-			"Python is a high-level, general-purpose, open-source programming language. It is known for its simple syntax and readability, which makes it a popular choice among beginners and professionals alike. Python supports multiple programming paradigms and has a vast standard library, making it suitable for a wide range of applications, from web development to data analysis and task automation.",
-		],
-		content: [
-			"Python is emerging as one of the most influential programming languages ​​in the world. Recognized for its simple syntax and readability, Python is a popular choice for a variety of applications, from web development to data analysis and artificial intelligence.",
-
-			"With a comprehensive standard library and an active, welcoming community, Python supports programmers of all skill levels. Large companies like Google, Facebook, and Netflix rely on Python for their daily operations due to its flexibility and scalability.",
-
-			"As we move into the era of artificial intelligence and data analytics, Python continues to be at the forefront of technological innovation, driving progress in areas like machine learning and data science.",
-
-			"In short, Python is more than just a programming language; It is a powerful catalyst for innovation and technological progress around the world.",
-		],
-		comments:[
-			{
-				author: "John Doe",
-				comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
-			},
-			{
-				author: "John Doe",
-				comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
-			},
-			{
-				author: "John Doe",
-				comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
-			}
-		]
-	},
-	{
-		id: 4,
-		img: "/imgNews.png",
-		date: "December 12",
-		title: "Web Development Trends in 2024",
-		author: "Jane Smith",
-		description: [
-			"Python is a high-level, general-purpose, open-source programming language. It is known for its simple syntax and readability, which makes it a popular choice among beginners and professionals alike. Python supports multiple programming paradigms and has a vast standard library, making it suitable for a wide range of applications, from web development to data analysis and task automation.",
-		],
-		content: [
-			"Python is emerging as one of the most influential programming languages ​​in the world. Recognized for its simple syntax and readability, Python is a popular choice for a variety of applications, from web development to data analysis and artificial intelligence.",
-
-			"With a comprehensive standard library and an active, welcoming community, Python supports programmers of all skill levels. Large companies like Google, Facebook, and Netflix rely on Python for their daily operations due to its flexibility and scalability.",
-
-			"As we move into the era of artificial intelligence and data analytics, Python continues to be at the forefront of technological innovation, driving progress in areas like machine learning and data science.",
-
-			"In short, Python is more than just a programming language; It is a powerful catalyst for innovation and technological progress around the world.",
-		],
-		comments:[
-			// {
-			// 	author: "John Doe",
-			// 	comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
-			// },
-			// {
-			// 	author: "John Doe",
-			// 	comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
-			// },
-			// {
-			// 	author: "John Doe",
-			// 	comment: "Great summary about Python! It really captured the essence of this versatile and powerful programming language. I completely agree with the importance of Python in driving innovation in many areas, from web development to artificial intelligence. I believe its prominence at large companies and its crucial role in emerging fields like machine learning further highlights its potential to shape the future of technology."
-			// }
-		]
-	},
-];
+	return null;
+}

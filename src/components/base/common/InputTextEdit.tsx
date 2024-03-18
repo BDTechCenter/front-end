@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
-export default function InputTextEdit() {
-  const editorRef = useRef<HTMLDivElement>(null);
-  const [content, setContent] = useState<string>('');
 
+export interface InputTextEditProps{
+  onChange: (htmlValue: string) => void;
+}
+
+export default function InputTextEdit({ onChange}: InputTextEditProps) {
+  const editorRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!editorRef.current) return;
 
@@ -18,6 +21,11 @@ export default function InputTextEdit() {
       theme: 'snow',
     });
 
+    quill.on('text-change', () => {
+      const newText = quill.root.innerHTML;
+      onChange(newText)
+    });
+
     return () => {
       quill.off('text-change');
     };
@@ -29,14 +37,14 @@ export default function InputTextEdit() {
     marginTop: '0.50rem',
     fontSize: '1rem',
     width: '100%',
-    borderRadius: 'calc(var(--radius) - 2px)',
+    borderRadius: 'calc(var(--radius) - 4px)',
     border: '1px solid #E4E4E7',
     backgroundColor: 'transparent',
     borderInput: 'hsl(var(--input))',
-    padding: '1rem',
+    padding: '0.5rem',
     boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-    height: '200px',
     overflow: 'hidden',
+    height: '18rem',
   };
 
   return (

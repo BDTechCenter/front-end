@@ -1,61 +1,54 @@
+import { News } from "@/api/types/news/type";
 import ImageError from "../common/ImageError";
 import NewsCard from "./NewsCard";
+import { Error } from "@/api/types/all/type";
+import { NewsCardSkeleton } from "../skeleton/NewsCardSkeleton";
 
-export default function NewsList() {
-	const newsData = newsPage.newsData
-	const newsError = newsPage.newsError
-	
-	return (
-		<section className="relative grid grid-cols-2 sm:grid-cols-3 gap-5 2xl:gap-7">
-			{newsData.length === 0 ?(
-				<div className="absolute flex w-full items-center justify-center">
-					<ImageError data={newsError} />
-				</div>
-			):(
-				<>
-					{newsData?.map((news) => (
-					<NewsCard key={news.title} data={news} />
-				))}
-				</>
-			)}
-			
-		</section>
-	);
+export interface NewsListProps {
+	data?: News[];
+	isLoading?: boolean;
+	isError?: boolean;
+	massageError: Error;
+	massageNotFound: Error;
 }
 
-const newsPage = {
-	newsError:{
-		text: "News not found",
-		img: "/noNews.gif",
-	},
-	newsData:[
-		{
-			id: 1,
-			img: "/imgNews2.png",
-			date: "January 20",
-			title: "Taking a Glimpse of What TRPC IS? - DEV Community",
-			author: "Matheus Aprigio",
-		},
-		{
-			id: 2,
-			img: "/imgNews4.png",
-			date: "February 09",
-			title: "The Future of Artificial Intelligence",
-			author: "John Doe",
-		},
-		{
-			id: 3,
-			img: "/imgNews3.png",
-			date: "March 19",
-			title: "Web Development Trends in 2024",
-			author: "Matheus Aprigio",
-		},
-		{
-			id: 4,
-			img: "/imgNews.png",
-			date: "December 12",
-			title: "Web Development Trends in 2024",
-			author: "Jane Smith",
-		},
-	]
+export default function NewsList({ data, isLoading, isError, massageError, massageNotFound }: NewsListProps) {
+
+	const newsCards = () => {
+		return (data?.length !== 0 ? (
+			<>
+				{data?.map((news) => (
+					<NewsCard key={news.id} data={news} />
+				))}
+			</>
+		) : (
+			<div className="absolute flex w-full items-center justify-center">
+				<ImageError data={massageNotFound} />
+			</div>
+		));
+	};
+
+	if (isLoading) {
+		return (
+			<>
+				<NewsCardSkeleton />
+				<NewsCardSkeleton />
+				<NewsCardSkeleton />
+			</>
+		);
+	}
+
+	if (isError) {
+		return (
+			<div className="absolute flex w-full items-center justify-center">
+				<ImageError data={massageError} />
+			</div>
+		);
+	}
+
+	if (data) {
+		return newsCards();
+	}
+
+	return null;
 }

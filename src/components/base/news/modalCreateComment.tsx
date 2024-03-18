@@ -11,13 +11,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
-import InputTextEdit from "./InputTextEdit"
+import InputTextEdit from "../common/InputTextEdit"
 
 export default function ModalCreateComment() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="rounded-lg w-48 shadow-md p-5 font-semibold text-lg mt-10" variant={"bdlight"}>Add Comment</Button>
+        <Button className="rounded-sm w-48 shadow-md p-5 font-semibold text-lg mt-10" variant={"bdlight"}>Add Comment</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

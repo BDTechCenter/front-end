@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
-import { Feature } from "@/api/introduction/types";
+import { Feature } from "@/api/types/introduction/types";
 
 interface featuresProps {
 	data: Feature;
@@ -21,7 +21,7 @@ const viewVariants = cva("flex w-full h-60 xl:h-72", {
 
 interface allFeaturesProps
 	extends featuresProps,
-		VariantProps<typeof viewVariants> {}
+	VariantProps<typeof viewVariants> { }
 
 export default function CardFeature({ data, orientation }: allFeaturesProps) {
 	return (

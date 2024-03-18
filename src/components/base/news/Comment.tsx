@@ -1,10 +1,10 @@
-import { Comment } from "@/api/news/type"
+import { Comment } from "@/api/types/news/type"
 
-interface CommentProps{
+interface CommentProps {
   data: Comment
 }
 
-export default function Comment({data}:CommentProps) {
+export default function Comment({ data }: CommentProps) {
   return (
     <div className="flex flex-col w-full border border-bdlightpurple/20 rounded-md p-4 gap-1">
       <h1 className="text-md 2xl:text-lg font-bold">{data.author}</h1>

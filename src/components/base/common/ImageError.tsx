@@ -1,5 +1,6 @@
-import { Error } from "@/api/all/type";
+import { Error } from "@/api/types/all/type";
 import Image from "next/image";
+
 
 interface ImageErrorProps {
 	data: Error;
@@ -11,14 +12,14 @@ export default function ImageError({ data }: ImageErrorProps) {
 			<div className="w-1/3 f-1/3">
 				<Image
 					className="w-full h-full"
-					src={data?.img}
+					src={data.img}
 					alt="Erro"
 					height="800"
 					width="800"
 				/>
 			</div>
 			<h1 className="text-xl 2xl:text-2xl font-semibold text-bdlightpurple">
-				{data?.text}
+				{data.text}
 			</h1>
 		</div>
 	);
