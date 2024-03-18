@@ -15,7 +15,7 @@ export default function NavBar({variant}: NavBarProps) {
 				height="1000"
 				className="w-screen"
 			/>
-      <Link href="/home" className='w-fit'>
+      <Link href="/" className='w-fit'>
         {variant === "black" ? (
           <Image
           alt="Bosch Logo White"
