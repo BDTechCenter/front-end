@@ -21,7 +21,7 @@ export default function ImageButton({ value, onChange }: ImageSelectionProps){
   return (
     <div className='h-[46%]'>
       <input id='file' className='h-full hidden' type='file' accept='image/*' onChange={getFileImage} />
-      <label htmlFor='file' className='flex justify-center items-center rounded-lg w-full h-full border-2 border-[#E6E6E6] border-dashed cursor-pointer'>
+      <label htmlFor='file' className='flex justify-center items-center rounded-sm w-full h-full border-2 border-[#E6E6E6] border-dashed cursor-pointer'>
         {useMemo(() => {
           if (previewImage) {
             return (

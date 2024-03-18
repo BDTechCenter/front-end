@@ -4,14 +4,14 @@ import TopBanner from "@/components/base/common/TopBanner";
 import NewsList from "@/components/base/news/NewsList";
 import SearchBar from "@/components/base/news/SearchBar";
 import { useFetchGetNews } from "@/api/hooks/news/queries";
-import { ModalCreateNews } from "@/components/base/news/modalCreateNews";
+import { ModalCreateNews } from "@/components/base/news/ModalCreateNews";
 
 export default function NewsPage() {
     const { isLoading, isError, data } = useFetchGetNews()
 
     return (
         <main className="w-full h-full">
-            <NavBar variant="white" />
+            <NavBar variant="black" />
             <div className="relative">
                 <TopBanner text={dataNewsPage.bannerNews} className="flex w-1/2 justify-center items-center">
                     <ModalCreateNews />

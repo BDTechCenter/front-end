@@ -4,16 +4,15 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+
 import { Input } from "@/components/ui/input"
 import InputTextEdit from "../common/InputTextEdit"
-import ImageButton from "./imageButton"
-
+import ImageButton from "./ImageButton"
 export function ModalCreateNews() {
   const [title, setTitle] = useState('')
   const [tag, setTag] = useState('')
@@ -30,7 +29,7 @@ export function ModalCreateNews() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="rounded-lg w-48 p-5 font-semibold text-lg" variant={"bdlight"}>Add News</Button>
+        <Button className="rounded-sm w-48 p-5 font-semibold text-lg" variant={"bdlight"}>Add News</Button>
       </DialogTrigger>
       <DialogContent className="w-[80%] 2xl:w-[55%] h-[80%] 2xl:h-[60%]">
         <DialogHeader>
@@ -52,7 +51,7 @@ export function ModalCreateNews() {
             </div>
             <DialogFooter className="flex w-full justify-end items-end">
               <DialogClose asChild>
-                <Button onClick={print} className="rounded-lg shadow-md p-5 font-semibold text-lg " variant={"bdlight"}>
+                <Button onClick={print} className="rounded-sm shadow-md p-5 font-semibold text-lg " variant={"bdlight"}>
                   Add
                 </Button>
               </DialogClose>

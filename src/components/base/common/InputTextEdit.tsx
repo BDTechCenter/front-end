@@ -37,7 +37,7 @@ export default function InputTextEdit({ onChange}: InputTextEditProps) {
     marginTop: '0.50rem',
     fontSize: '1rem',
     width: '100%',
-    borderRadius: 'calc(var(--radius) - 2px)',
+    borderRadius: 'calc(var(--radius) - 4px)',
     border: '1px solid #E4E4E7',
     backgroundColor: 'transparent',
     borderInput: 'hsl(var(--input))',
