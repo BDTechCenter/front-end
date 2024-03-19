@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input"
 import InputTextEdit from "../common/InputTextEdit"
 import ImageButton from "./ImageButton"
+import InputTags from "../common/InputTags"
 export function ModalCreateNews() {
   const [title, setTitle] = useState('')
   const [tag, setTag] = useState('')
@@ -42,7 +43,7 @@ export function ModalCreateNews() {
             <h1 className="font-semibold text-md">Title</h1>
             <Input value={title} onChange={setTitle} className="h-10 pl-7 mb-2 text-sm" maxLength={150} />
             <h1 className="font-semibold text-md">Tag</h1>
-            <Input value={tag} onChange={setTag} className="h-10 pl-7 mb-2 text-sm" maxLength={150} />
+            <InputTags variant="row"/>
           </div>
           <div className="flex gap-1 flex-col w-[58%]">
             <h1 className="font-semibold text-md w-full text-start">Content</h1>

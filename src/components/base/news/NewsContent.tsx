@@ -6,24 +6,24 @@ import ImageError from "../common/ImageError";
 import { Error } from "@/api/types/all/type";
 import { NewsContentSkeleton } from "../skeleton/NewsContentSkeleton";
 
-export interface NewsContentProps{
-	data?:News
+export interface NewsContentProps {
+	data?: News
 	isLoading?: boolean
 	isError?: boolean
 	massageError: Error
 	messageErrorContent: Error
 }
 
-export default function NewsContent({data, isLoading, isError, massageError, messageErrorContent}: NewsContentProps) {
+export default function NewsContent({ data, isLoading, isError, massageError, messageErrorContent }: NewsContentProps) {
 	const newsContentData = () => {
-		return (data? (
+		return (data ? (
 			<>
 				<div className="flex flex-col gap-7 w-[70%]">
 					<h1 className="font-bold text-3xl 2xl:text-4xl">{data.title}</h1>
 					<div className="flex flex-row gap-3 w-full">
-					{data.tags.map((tag)=>(
-						<div key={tag} className="flex justify-center items-center p-2 bg-bdgray rounded-lg font-bold text-sm">{tag}</div>
-					))}
+						{data.tags.map((tag) => (
+							<div key={tag} className="flex justify-center items-center p-2 bg-bdgray rounded-lg font-bold text-sm">{tag}</div>
+						))}
 					</div>
 					<div className="bg-bdgray rounded-lg flex flex-col py-2 px-5 w-[50%]">
 						<p className="font-semibold">{data.author}</p>
@@ -37,30 +37,30 @@ export default function NewsContent({data, isLoading, isError, massageError, mes
 						className="w-full max-w-[60rem] max-h-[45rem]"
 					/>
 					<div className="w-full max-w-[60rem] justify-center items-center">
-					{
-						data ? (<div className="text-justify w-full" style={{ wordWrap: 'break-word' }} dangerouslySetInnerHTML={{ __html: data.body }}></div>) : (<></>)
-					}
+						{
+							data ? (<div className="text-justify w-full" style={{ wordWrap: 'break-word' }} dangerouslySetInnerHTML={{ __html: data.body }}></div>) : (<></>)
+						}
 					</div>
 					<div className="w-full h-[2px] bg-[#D9D9D9] mt-12"></div>
 					<h1 className="mt-4 font-semibold text-lg text-bdpurple">Comments</h1>
-					<ModalCreateComment/>
+					<ModalCreateComment />
 				</div>
 				<aside className="w-[30%]">
 					<h1 className="text-bdpurple font-bold text-xl">Other News</h1>
 				</aside>
 			</>
-		):(
-		<>
-			<div className="absolute flex w-full items-center justify-center">
-				<ImageError data={massageError} />
-			</div>
-		</>
+		) : (
+			<>
+				<div className="absolute flex w-full items-center justify-center">
+					<ImageError data={massageError} />
+				</div>
+			</>
 		));
 	};
 
 	if (isLoading) {
 		return (
-			<NewsContentSkeleton/>
+			<NewsContentSkeleton />
 		);
 	}
 
