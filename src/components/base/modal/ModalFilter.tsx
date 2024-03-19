@@ -16,6 +16,7 @@ import InputTags from "../common/InputTags";
 
 export default function ModalFilter() {
   const [tags, setTags] = useState<string[]>([])
+  const tagsAsString = tags.join(', ');
   return (
     <Dialog>
       <DialogTrigger className="flex h-full justify-center items-center"><MdTune color="#7A2572" size={27} /></DialogTrigger>
@@ -33,7 +34,7 @@ export default function ModalFilter() {
             <InputTags onChange={setTags} variant="wrap"/>
             <DialogFooter className="flex w-full justify-end items-end">
               <DialogClose asChild>
-                <Button type="submit" onClick={()=>{console.log(tags)}} className="rounded-sm shadow-md p-5 font-semibold text-lg " variant={"bdlight"}>
+                <Button type="submit" onClick={()=>{console.log(tagsAsString)}} className="rounded-sm shadow-md p-5 font-semibold text-lg " variant={"bdlight"}>
                   Filter
                 </Button>
               </DialogClose>
