@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import {
 	Dialog,
 	DialogClose,
@@ -28,31 +28,15 @@ import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export function ModalCreateNews() {
-	const [title, setTitle] = useState("");
-	const [tag, setTag] = useState("");
-	const [content, setContent] = useState("");
-	const [image, setImage] = useState<string | null>("");
-
 	const form = useForm<z.infer<typeof newsSchema>>({
 		resolver: zodResolver(newsSchema),
-		defaultValues: {
-			poster: undefined,
-			title: "",
-			tags: [],
-			content: "",
-		},
 	});
 
 	function onSubmit(values: z.infer<typeof newsSchema>) {
 		console.log(values);
+		console.log("oi");
+		
 	}
-
-	const print = () => {
-		console.log(title);
-		console.log(tag);
-		console.log(content);
-		console.log(image);
-	};
 
 	return (
 		<Dialog>
@@ -73,54 +57,61 @@ export function ModalCreateNews() {
 						onSubmit={form.handleSubmit(onSubmit)}
 						className="flex gap-1 flex-row w-full overflow-hidden justify-between"
 					>
-						<div className="w-[40%]">
+						<div className="w-[40%] flex flex-col gap-5">
 							<FormField
 								control={form.control}
 								name="poster"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Username</FormLabel>
+										<FormLabel className="font-medium text-md">
+											Poster
+										</FormLabel>
 										<FormControl>
-											<Input placeholder="shadcn" {...field} />
+											<ImageButton {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
 								)}
 							/>
-							<h1 className="font-semibold text-md">Poster</h1>
-							<ImageButton value={image} onChange={setImage} />
-							<h1 className="font-semibold text-md">Title</h1>
-							<Input
-								value={title}
-								onChange={setTitle}
-								className="h-10 pl-4 mb-2 text-sm"
-								maxLength={150}
-							/>
-							<h1 className="font-semibold text-md">Tag</h1>
-							<Input
-								value={tag}
-								onChange={setTag}
-								className="h-10 pl-4 mb-2 text-sm"
-								maxLength={150}
+							<FormField
+								control={form.control}
+								name="title"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel className="font-medium text-md">Title</FormLabel>
+										<FormControl>
+											<Input placeholder="Your title here..." {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
 							/>
 						</div>
 						<div className="flex gap-1 flex-col w-[58%]">
-							<h1 className="font-semibold text-md w-full text-start">
-								Content
-							</h1>
-							<div className="w-full">
-								<InputTextEdit onChange={setContent} />
-							</div>
+							<FormField
+								control={form.control}
+								name="content"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel className="font-medium text-md w-full text-start">
+											Content
+										</FormLabel>
+										<FormControl className="w-full">
+											<InputTextEdit {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
 							<DialogFooter className="flex w-full justify-end items-end">
-								<DialogClose asChild>
-									<Button
-										onClick={print}
-										className="rounded-sm shadow-md p-3 font-semibold text-lg "
-										variant={"bdlight"}
-									>
-										Add
-									</Button>
-								</DialogClose>
+								<Button
+									type="submit"
+									onClick={() => onSubmit}
+									className="rounded-sm shadow-md p-2 font-semibold text-base"
+									variant={"bdlight"}
+								>
+									Add
+								</Button>
 							</DialogFooter>
 						</div>
 					</form>

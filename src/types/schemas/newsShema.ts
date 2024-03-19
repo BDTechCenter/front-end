@@ -1,4 +1,4 @@
-import z from "zod"
+import z from "zod";
 
 const MAX_FILE_SIZE = 5000000;
 const ACCEPTED_IMAGE_TYPES = [
@@ -16,7 +16,7 @@ export const newsSchema = z.object({
 			(file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
 			"Only .jpg, .jpeg, .png and .webp formats are supported."
 		),
-	title: z.string(),
+	title: z.string().min(3, { message: "Title must be at least 2 characters." }),
 	tags: z.array(z.string()),
-	content: z.string()
+	content: z.string(),
 });

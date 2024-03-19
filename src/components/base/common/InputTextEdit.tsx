@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import hljs from "highlight.js";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
@@ -20,11 +20,10 @@ const ReactQuill = dynamic(
 
 export interface InputTextEditProps {
 	onChange: (htmlValue: string) => void;
+	value: string;
 }
 
-export default function InputTextEdit({ onChange }: InputTextEditProps) {
-	const [value, setValue] = useState("");
-
+export default function InputTextEdit({ onChange, value }: InputTextEditProps) {
 	const editorStyle = {
 		paddingLeft: "1.75rem",
 		marginBottom: "1.25rem",
@@ -57,7 +56,7 @@ export default function InputTextEdit({ onChange }: InputTextEditProps) {
 					theme="snow"
 					modules={modules}
 					value={value}
-					onChange={setValue}
+					onChange={onChange}
 				/>
 			</div>
 		</div>

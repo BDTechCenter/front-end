@@ -25,7 +25,7 @@ export default function NewsCard({ data }: NewsCardProps) {
           alt={data.title + " Image"}
           width={500}
           height={500}
-          className="w-full h-full scale-125 transition-all duration-500 group-hover:scale-100"
+          className="w-full h-full scale-100 transition-all duration-500 group-hover:scale-125"
         />
       </div>
       <div className="flex flex-col group-hover:opacity-60 transition-all">
