@@ -21,7 +21,7 @@ export default function NewsCardHome({ data, orientation }: NewsCardProps) {
 		<Link className="relative h-full w-full" href={href} onClick={handleClick}>
 		<div
 			
-			id="newsComponentHomeTest"
+			id="componentNewsTest"
 			style={{ backgroundImage: `url(${data?.imageUrl})`, backgroundRepeat: 'no-repeat',
 			backgroundSize: 'cover', }}
 			className="relative h-full w-full cursor-pointer bg-center scale-100 transition-all duration-500 hover:scale-105"

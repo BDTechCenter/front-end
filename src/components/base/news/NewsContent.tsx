@@ -19,7 +19,7 @@ export default function NewsContent({ data, isLoading, isError, massageError, me
 		return (data ? (
 			<>
 				<div className="flex flex-col gap-7 w-[70%]">
-					<h1 className="font-bold text-3xl 2xl:text-4xl">{data.title}</h1>
+					<h1 id="titleAdvanced" className="font-bold text-3xl 2xl:text-4xl">{data.title}</h1>
 					<div className="flex flex-row gap-3 w-full">
 						{data.tags.map((tag) => (
 							<div key={tag} className="flex justify-center items-center p-2 bg-bdgray rounded-lg font-bold text-sm">{tag}</div>
