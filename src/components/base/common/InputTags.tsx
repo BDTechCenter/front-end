@@ -5,9 +5,10 @@ import { toast } from 'react-toastify'
 
 export interface InputTagsProps{
   variant: "wrap"|"row"
+  onChange: (value: string[]) => void
 }
 
-export default function InputTags({variant}: InputTagsProps){
+export default function InputTags({variant, onChange}: InputTagsProps){
   const [tags, setTags] = useState<string[]>([])
   const MaxTegs = 7
 
@@ -28,6 +29,7 @@ export default function InputTags({variant}: InputTagsProps){
     if (event.key === 'Enter' && event.currentTarget.value.trim() !== '') {
       if(tags.length < MaxTegs){
         setTags([...tags, event.currentTarget.value.trim()]);
+        onChange([...tags, event.currentTarget.value.trim()])
       }
       else{
         errorToast()
@@ -38,6 +40,7 @@ export default function InputTags({variant}: InputTagsProps){
 
   const removeTags = (index: number) => {
     setTags([...tags.filter((_, i) => i !== index)]);
+    onChange([...tags.filter((_, i) => i !== index)])
   };
 
   return(
