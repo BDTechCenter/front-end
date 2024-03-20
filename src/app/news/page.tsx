@@ -17,8 +17,10 @@ export default function NewsPage() {
         <main className="w-full h-full">
             <NavBar variant="black" />
             <div className="relative">
-                <TopBanner text={dataNewsPage.bannerNews} className="flex w-1/2 justify-center items-center">
-                    <ModalCreateNews />
+                <TopBanner text={dataNewsPage.bannerNews} className="flex w-1/2 justify-end  items-center">
+                    <div className="flex items-center justify-center w-1/2 h-full">
+                        <ModalCreateNews />
+                    </div>
                 </TopBanner>
                 <div className="w-[70%] mx-auto absolute left-0 right-0 -bottom-7 z-10">
                     <SearchBar />

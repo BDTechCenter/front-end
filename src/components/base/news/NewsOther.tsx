@@ -18,7 +18,7 @@ export default function NewsOther({data}:NewsOutherProps ) {
   }
 
   return (
-    <Link id="componentNewsTest" href={href} className="flex flex-rol h-20 items-center 2xl:h-32 gap-2 cursor-pointer" onClick={handleClick}>
+    <Link id="componentNewsTest" href={href} className="flex flex-rol h-20 items-center 2xl:h-32 gap-2 cursor-pointer group" onClick={handleClick}>
       <div className=" h-full min-w-[40%] max-w-[40%] overflow-hidden">
         <Image
           src={data.imageUrl}
