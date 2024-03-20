@@ -16,11 +16,11 @@ async function getNewsFilter(ctx: QueryFunctionContext) {
 
 async function getNewsOutherNews() {
   const { data } = await api.get<ContentNews>("news/preview?size=3")
-  return data.content
+  return data
 }
 
 export function useFetchGetNewsOutherNews(){
-  return useQuery<News[], Error>({ queryKey: ['news'], queryFn: getNewsOutherNews })
+  return useQuery<ContentNews, Error>({ queryKey: ['news'], queryFn: getNewsOutherNews })
 }
 
 export function useFetchGetNews(tags?: string) {

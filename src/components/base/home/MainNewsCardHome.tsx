@@ -17,13 +17,13 @@ export default function MainNewsCardHome({data, isLoading, isError, massageError
 
 	const newsCardsHome = () => {
 		return (data?.length !== 0 ? (
-			<div className="flex flex-row w-full h-full gap-5">
+			<div className="flex flex-row w-full h-full gap-4">
 				<div className="w-[55%] h-full">
-					<NewsCardHome data={data[0]} orientation={"relative"} />
+					<NewsCardHome data={data[0]}/>
 				</div>
-				<div className="w-[45%] flex flex-col gap-5 justify-center items-center">
+				<div className="w-[45%] h-full flex flex-col gap-3 justify-center items-center">
 					{data?.slice(1).map((newsItem) => (
-						<NewsCardHome key={newsItem.id} data={newsItem} orientation={"relative"} />
+						<NewsCardHome key={newsItem.id} data={newsItem}/>
 					))}
 				</div>
 			</div>

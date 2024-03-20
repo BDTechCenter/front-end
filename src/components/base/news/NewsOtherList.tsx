@@ -15,9 +15,9 @@ export interface NewsOutherListProps{
 export default function NewsOtherList({massageError}: NewsOutherListProps) {
   const { isLoading, isError, data } = useFetchGetNewsOutherNews()
   const newsCards = () => {
-		return (data?.length !== 0 ? (
+		return (data?.content.length !== 0 ? (
 			<div className='flex flex-col gap-5'>
-				{data?.map((news) => (
+				{data?.content.map((news) => (
 					<NewsOuther key={news.id} data={news} />
 				))}
 			</div>

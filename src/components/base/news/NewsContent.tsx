@@ -15,7 +15,7 @@ export interface NewsContentProps {
 	messageErrorContent: Error
 }
 
-export default function NewsContent({ data, isLoading, isError, massageError, messageErrorContent }: NewsContentProps) {
+export default function NewsContent({ data, isLoading, isError, massageError}: NewsContentProps) {
 	const newsContentData = () => {
 		return (data ? (
 			<>
