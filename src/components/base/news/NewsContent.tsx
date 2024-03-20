@@ -1,10 +1,9 @@
 import Image from "next/image";
-import CommentList from "./CommentList";
 import { News } from "@/api/types/news/type";
-import ModalCreateComment from "./ModalCreateComment";
 import ImageError from "../common/ImageError";
 import { Error } from "@/api/types/all/type";
 import { NewsContentSkeleton } from "../skeleton/NewsContentSkeleton";
+import ModalCreateComment from "./ModalCreateComment";
 
 export interface NewsContentProps{
 	data?:News
@@ -43,7 +42,7 @@ export default function NewsContent({data, isLoading, isError, massageError, mes
 					</div>
 					<div className="w-full h-[2px] bg-[#D9D9D9] mt-12"></div>
 					<h1 className="mt-4 font-semibold text-lg text-bdpurple">Comments</h1>
-					<ModalCreateComment/>
+					<ModalCreateComment />
 				</div>
 				<aside className="w-[30%]">
 					<h1 className="text-bdpurple font-bold text-xl">Other News</h1>
