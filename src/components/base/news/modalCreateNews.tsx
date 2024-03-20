@@ -16,16 +16,10 @@ import ImageButton from "./ImageButton"
 import InputTags from "../common/InputTags"
 export function ModalCreateNews() {
   const [title, setTitle] = useState('')
-  const [tag, setTag] = useState('')
   const [content, setContent] = useState('')
   const [image, setImage] = useState<string | null>('')
+  const [tags, setTags] = useState<string[]>([])
 
-  const print = () => {
-    console.log(title)
-    console.log(tag)
-    console.log(content)
-    console.log(image)
-  }
 
   return (
     <Dialog>
@@ -43,7 +37,7 @@ export function ModalCreateNews() {
             <h1 className="font-semibold text-md">Title</h1>
             <Input value={title} onChange={setTitle} className="h-10 pl-7 mb-2 text-sm" maxLength={150} />
             <h1 className="font-semibold text-md">Tag</h1>
-            <InputTags variant="row"/>
+            <InputTags onChange={setTags} variant="row"/>
           </div>
           <div className="flex gap-1 flex-col w-[58%]">
             <h1 className="font-semibold text-md w-full text-start">Content</h1>
