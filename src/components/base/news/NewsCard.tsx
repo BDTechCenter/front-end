@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation'
 import Image from "next/image";
 import Link from 'next/link';
 import { News } from '@/api/types/news/type';
+import { useState } from 'react';
 
 interface NewsCardProps {
   data: News
@@ -11,6 +12,7 @@ interface NewsCardProps {
 export default function NewsCard({ data }: NewsCardProps) {
   const router = useRouter()
   const href = `/news/${data.id}`
+  const [img, setImg] = useState(data.imageUrl)
 
   const handleClick = (e: any) => {
     e.preventDefault()
@@ -21,10 +23,11 @@ export default function NewsCard({ data }: NewsCardProps) {
     <Link id="componentNewsTest" href={href} className="flex flex-col h-72 2xl:h-[28rem] gap-2 cursor-pointer group" onClick={handleClick}>
       <div className=" h-[60%] 2xl:h-[65%] overflow-hidden">
         <Image
-          src={data.imageUrl}
+          src={img}
           alt={data.title + " Image"}
           width={500}
           height={500}
+          onError={() => setImg('/newsNotFound.png')}
           className="w-full h-full scale-125 transition-all duration-500 group-hover:scale-100"
         />
       </div>

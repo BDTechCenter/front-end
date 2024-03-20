@@ -2,6 +2,7 @@ import { News } from "@/api/types/news/type";
 import Image from "next/image";
 import { useRouter } from 'next/navigation'
 import Link from 'next/link';
+import { useState } from 'react';
 
 interface NewsCardProps {
 	data: News;
@@ -10,7 +11,7 @@ interface NewsCardProps {
 export default function NewsCardHome({ data }: NewsCardProps) {
 	const router = useRouter()
   const href = `/news/${data?.id}`
-
+	const [img, setImg] = useState(data.imageUrl)
   const handleClick = (e: any) => {
     e.preventDefault()
     router.push(href)
@@ -27,6 +28,7 @@ export default function NewsCardHome({ data }: NewsCardProps) {
           alt={data.title + " Image"}
           width={500}
           height={500}
+					onError={() => setImg('/newsNotFound.png')}
           className="w-full h-full object-cover "
         />
 			<div className="absolute bottom-0 flex text-left justify-center flex-col w-full h-1/2 p-6 gap-1 2xl:gap-2 z-20">
