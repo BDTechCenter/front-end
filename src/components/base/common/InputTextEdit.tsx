@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import hljs from "highlight.js";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
@@ -23,7 +23,9 @@ export interface InputTextEditProps {
 	value: string;
 }
 
-export default function InputTextEdit({ onChange, value }: InputTextEditProps) {
+import React from 'react'
+
+const InputTextEdit = ({ onChange, value }: InputTextEditProps) => {
 	const editorStyle = {
 		paddingLeft: "1.75rem",
 		marginBottom: "1.25rem",
@@ -62,3 +64,5 @@ export default function InputTextEdit({ onChange, value }: InputTextEditProps) {
 		</div>
 	);
 }
+
+export default InputTextEdit

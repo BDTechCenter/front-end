@@ -27,15 +27,13 @@ import { newsSchema } from "@/types/schemas/newsShema";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-export function ModalCreateNews() {
+export default function ModalCreateNews() {
 	const form = useForm<z.infer<typeof newsSchema>>({
 		resolver: zodResolver(newsSchema),
 	});
 
 	function onSubmit(values: z.infer<typeof newsSchema>) {
 		console.log(values);
-		console.log("oi");
-		
 	}
 
 	return (
@@ -106,7 +104,6 @@ export function ModalCreateNews() {
 							<DialogFooter className="flex w-full justify-end items-end">
 								<Button
 									type="submit"
-									onClick={() => onSubmit}
 									className="rounded-sm shadow-md p-2 font-semibold text-base"
 									variant={"bdlight"}
 								>
