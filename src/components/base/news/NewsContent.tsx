@@ -5,6 +5,7 @@ import ModalCreateComment from "./ModalCreateComment";
 import ImageError from "../common/ImageError";
 import { Error } from "@/api/types/all/type";
 import { NewsContentSkeleton } from "../skeleton/NewsContentSkeleton";
+import NewsOutherList from "./NewsOtherList";
 
 export interface NewsContentProps {
 	data?: News
@@ -47,6 +48,7 @@ export default function NewsContent({ data, isLoading, isError, massageError, me
 				</div>
 				<aside className="w-[30%]">
 					<h1 className="text-bdpurple font-bold text-xl">Other News</h1>
+					<NewsOutherList massageError={massageError}/>
 				</aside>
 			</>
 		) : (

@@ -13,7 +13,6 @@ export interface NewsListProps {
 }
 
 export default function NewsList({ data, isLoading, isError, massageError, massageNotFound }: NewsListProps) {
-
 	const newsCards = () => {
 		return (data?.length !== 0 ? (
 			<>
