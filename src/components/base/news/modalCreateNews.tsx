@@ -24,21 +24,81 @@ import { useForm } from "react-hook-form";
 import { newsSchema } from "@/types/schemas/newsShema";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { msalInstance } from "@/lib/sso/msalInstance";
+import { useMutationPostNews } from "@/api/hooks/news/queries";
+import { toast } from "react-toastify";
 
 export default function ModalCreateNews() {
+	const { data, mutate } = useMutationPostNews();
+
 	const form = useForm<z.infer<typeof newsSchema>>({
 		resolver: zodResolver(newsSchema),
 	});
 
-	function onSubmit(values: z.infer<typeof newsSchema>) {
-		console.log(values);
+	const NewsObject = (values: z.infer<typeof newsSchema>) => {
+		const accountInfo = msalInstance.getActiveAccount();
+		const author: string | undefined = accountInfo?.name || "";
+
+		const formData = new FormData();
+		formData.append("author", author);
+		formData.append("summary", "Test");
+		formData.append("title", values.title);
+		formData.append("body", values.body);
+		formData.append("isPublished", "true");
+
+		// Append tags if present
+		if (values.tags) {
+			formData.append("tags", values.tags.toString());
+		}
+
+		// Append image if present
+		if (values.image) {
+			formData.append("image", values.image);
+		}
+
+		return formData;
+	};
+
+	function OnSubmit(values: z.infer<typeof newsSchema>) {
+		const newsFormData = NewsObject(values);
+
+		console.log(newsFormData);
+
+		mutate(newsFormData, {
+			onSuccess: (data) => {
+				console.log(data);
+				toast.success("News added with success", {
+					position: "top-right",
+					autoClose: 1500,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "light",
+				});
+			},
+			onError: (error) => {
+				console.log(error);
+				toast.error(error.message, {
+					position: "top-right",
+					autoClose: 1500,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "light",
+				});
+			},
+		});
 	}
 
 	const [imageKey, setImageKey] = useState<number>(0);
 
 	useEffect(() => {
 		if (form.formState.isSubmitSuccessful) {
-			form.reset({ poster: null, content: "", tags: [], title: "" });
+			form.reset({ image: null, body: "", tags: [], title: "" });
 			setImageKey((prevKey) => prevKey + 1);
 		}
 	}, [form, form.formState, form.reset]);
@@ -59,13 +119,13 @@ export default function ModalCreateNews() {
 				</DialogHeader>
 				<Form {...form}>
 					<form
-						onSubmit={form.handleSubmit(onSubmit)}
+						onSubmit={form.handleSubmit(OnSubmit)}
 						className="flex gap-1 flex-row w-full overflow-hidden justify-between"
 					>
 						<div className="w-[40%] flex flex-col gap-5">
 							<FormField
 								control={form.control}
-								name="poster"
+								name="image"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel className="font-medium text-md">
@@ -99,7 +159,7 @@ export default function ModalCreateNews() {
 						<div className="flex gap-1 flex-col w-[58%]">
 							<FormField
 								control={form.control}
-								name="content"
+								name="body"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel className="font-medium text-md w-full text-start">

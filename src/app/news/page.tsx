@@ -1,11 +1,12 @@
 "use client";
+
 import NavBar from "@/components/base/common/NavBar";
 import TopBanner from "@/components/base/common/TopBanner";
 import NewsList from "@/components/base/news/NewsList";
 import SearchBar from "@/components/base/news/SearchBar";
 import { useFetchGetNews } from "@/api/hooks/news/queries";
-import { ModalCreateNews } from "@/components/base/news/ModalCreateNews";
 import { useSearchParams } from "next/navigation";
+import ModalCreateNews from "@/components/base/news/modalCreateNews";
 
 export default function NewsPage() {
     const searchParams = useSearchParams()
