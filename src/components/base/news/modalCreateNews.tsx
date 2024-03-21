@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import {
 	Dialog,
 	DialogClose,
@@ -16,7 +16,6 @@ import ImageButton from "./ImageButton";
 import {
 	Form,
 	FormControl,
-	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
@@ -35,6 +34,15 @@ export default function ModalCreateNews() {
 	function onSubmit(values: z.infer<typeof newsSchema>) {
 		console.log(values);
 	}
+
+	const [imageKey, setImageKey] = useState<number>(0);
+
+	useEffect(() => {
+		if (form.formState.isSubmitSuccessful) {
+			form.reset({ poster: null, content: "", tags: [], title: "" });
+			setImageKey((prevKey) => prevKey + 1);
+		}
+	}, [form, form.formState, form.reset]);
 
 	return (
 		<Dialog>
@@ -65,7 +73,7 @@ export default function ModalCreateNews() {
 											Poster
 										</FormLabel>
 										<FormControl>
-											<ImageButton {...field} />
+											<ImageButton key={imageKey} {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -78,7 +86,11 @@ export default function ModalCreateNews() {
 									<FormItem>
 										<FormLabel className="font-medium text-md">Title</FormLabel>
 										<FormControl>
-											<Input placeholder="Your title here..." {...field} />
+											<Input
+												placeholder="Your title here..."
+												maxLength={30}
+												{...field}
+											/>
 										</FormControl>
 										<FormMessage />
 									</FormItem>
