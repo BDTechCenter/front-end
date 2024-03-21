@@ -15,8 +15,10 @@ export interface ContentNews{
 }
 
 export interface Comment{
+  id: number
   author: string
   comment: string
+  publicationDate: string
 }
 
 export interface ContentComment{

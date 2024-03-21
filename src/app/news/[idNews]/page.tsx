@@ -17,7 +17,8 @@ export default function NewsContentPage() {
 					data={data}
 					isLoading={isLoading}
 					isError={isError}
-					massageError={dataNewsContentPage.newsError} 
+					massageError={dataNewsContentPage.newsError}
+					massageCommentError={dataNewsContentPage.commentError}
 					messageErrorContent={dataNewsContentPage.newsErrorNotFound}
 				/>
 			</section>
@@ -27,12 +28,17 @@ export default function NewsContentPage() {
 
 export const dataNewsContentPage = {
 	newsErrorNotFound:{
-	text: "News not found",
+	text: "not found",
 	img: "/noNews.gif",
 },
 
 newsError:{
 	text: "Error news not found",
 	img: "/allError.gif",
+},
+
+commentError:{
+	text: "No comments, write yours",
+	img: "/noComment.gif",
 },
 };
