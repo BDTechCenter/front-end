@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import NavBar from "@/components/base/common/NavBar";
 import TopBanner from "@/components/base/common/TopBanner";
 import NewsList from "@/components/base/news/NewsList";
@@ -42,19 +42,18 @@ export default function NewsPage() {
 }
 
 export const dataNewsPage = {
-    bannerNews: (
-        <p>
-            Follow the main <span className="text-bdlightpurple">news</span> of
-            the moment...
-        </p>
-    ),
-    newsErrorNotFound: {
-        text: "News not found",
-        img: "/noFilter.gif",
-    },
-
-    newsError: {
-        text: "Error News",
-        img: "/allError.gif",
-    },
+  bannerNews: (
+      <p>
+          Follow the main <span className="text-bdlightpurple">news</span> of
+          the moment...
+      </p>
+  ),
+  newsErrorNotFound: {
+      text: "News not found",
+      img: "/noFilter.gif",
+  },
+	newsError: {
+		text: "Error News",
+		img: "/allError.gif",
+	},
 };

@@ -2,7 +2,6 @@ import api from "../../../services/api"
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query"
 import { ContentComment, ContentNews, News } from "@/api/types/news/type"
 
-
 async function getNews() {
   const { data } = await api.get<ContentNews>("news/preview")
   return data

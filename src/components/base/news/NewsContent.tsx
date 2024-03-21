@@ -1,10 +1,9 @@
 import Image from "next/image";
-import CommentList from "./CommentList";
 import { News } from "@/api/types/news/type";
-import ModalCreateComment from "./ModalCreateComment";
 import ImageError from "../common/ImageError";
 import { Error } from "@/api/types/all/type";
 import { NewsContentSkeleton } from "../skeleton/NewsContentSkeleton";
+import ModalCreateComment from "./ModalCreateComment";
 import NewsOutherList from "./NewsOtherList";
 import { useState } from 'react';
 
