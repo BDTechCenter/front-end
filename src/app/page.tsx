@@ -9,7 +9,6 @@ import { useFetchGetMainNews } from "@/api/hooks/home/queries";
 
 export default function Home() {
 	const {isLoading, isError, data} = useFetchGetMainNews()
-	console.log(data?.content)
 	return (
 		<main className="w-full">
 			<NavBar variant="black" />

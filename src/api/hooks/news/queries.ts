@@ -8,14 +8,30 @@ async function getNews() {
   return data
 }
 
-export function useFetchGetNews() {
-  return useQuery<ContentNews, Error>({ queryKey: ['news'], queryFn: getNews })
+async function getNewsFilter(ctx: QueryFunctionContext) {
+  const [, tags] = ctx.queryKey
+  const { data } = await api.get<ContentNews>(`news?tags=${tags}`)
+  return data
 }
+
+async function getNewsOutherNews() {
+  const { data } = await api.get<ContentNews>("news/preview?size=3")
+  return data
+}
+
+export function useFetchGetNewsOutherNews(){
+  return useQuery<ContentNews, Error>({ queryKey: ['news'], queryFn: getNewsOutherNews })
+}
+
+export function useFetchGetNews(tags?: string) {
+  return useQuery<ContentNews, Error>({ queryKey: ['news', tags], queryFn: tags ? getNewsFilter : getNews })
+}
+
+
 
 async function getIdNews(ctx: QueryFunctionContext) {
   const [, id] = ctx.queryKey
   const { data } = await api.get<News>(`news/${id}`)
-  console.log(data)
   return data
 }
 

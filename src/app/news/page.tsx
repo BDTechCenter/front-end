@@ -5,16 +5,22 @@ import NewsList from "@/components/base/news/NewsList";
 import SearchBar from "@/components/base/news/SearchBar";
 import { useFetchGetNews } from "@/api/hooks/news/queries";
 import { ModalCreateNews } from "@/components/base/news/ModalCreateNews";
+import { useSearchParams } from "next/navigation";
 
 export default function NewsPage() {
-    const { isLoading, isError, data } = useFetchGetNews()
+    const searchParams = useSearchParams()
+    const tags = searchParams.get('tags')
+
+    const { isLoading, isError, data } = useFetchGetNews(tags ? tags : "")
 
     return (
         <main className="w-full h-full">
             <NavBar variant="black" />
             <div className="relative">
-                <TopBanner text={dataNewsPage.bannerNews} className="flex w-1/2 justify-center items-center">
-                    <ModalCreateNews />
+                <TopBanner text={dataNewsPage.bannerNews} className="flex w-1/2 justify-end  items-center">
+                    <div className="flex items-center justify-center w-1/2 h-full">
+                        <ModalCreateNews />
+                    </div>
                 </TopBanner>
                 <div className="w-[70%] mx-auto absolute left-0 right-0 -bottom-7 z-10">
                     <SearchBar />
@@ -44,7 +50,7 @@ export const dataNewsPage = {
     ),
     newsErrorNotFound: {
         text: "News not found",
-        img: "/noNews.gif",
+        img: "/noFilter.gif",
     },
 
     newsError: {
