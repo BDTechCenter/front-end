@@ -18,3 +18,7 @@ export interface Comment{
   author: string
   comment: string
 }
+
+export interface ContentComment{
+  content: Comment[]
+}

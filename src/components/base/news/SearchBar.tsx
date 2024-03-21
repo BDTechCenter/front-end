@@ -7,6 +7,9 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { MdFilterAltOff } from "react-icons/md";
+import ModalFilter from "../modal/ModalFilter";
+import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -71,9 +74,10 @@ export default function SearchBar() {
 				>
 					Search
 				</Button>
-				<div>
-					<MdTune color="#7A2572" size={27} />
-				</div>
+				<div className="flex flex-row gap-3 justify-center items-center">
+          <ModalFilter/>
+          <Link href="/news"><MdFilterAltOff className="text-red-600 text-lg"/></Link>
+			  </div>
 			</form>
 		</Form>
 	);
