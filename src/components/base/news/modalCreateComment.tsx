@@ -24,6 +24,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { commentSchema } from "@/types/schemas/commentSchema";
+import { useEffect } from "react";
 
 export default function ModalCreateComment() {
 	const form = useForm<z.infer<typeof commentSchema>>({
@@ -33,6 +34,12 @@ export default function ModalCreateComment() {
 	function onSubmit(values: z.infer<typeof commentSchema>) {
 		console.log(values);
 	}
+
+	useEffect(() => {
+		if (form.formState.isSubmitSuccessful) {
+			form.reset({ content: "" });
+		}
+	}, [form, form.formState, form.reset]);
 
 	return (
 		<Dialog>
