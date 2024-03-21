@@ -1,30 +1,55 @@
 
 import Comment from "./Comment"
 import ImageError from "../common/ImageError"
+import { useFetchGetCommentNewsId } from "@/api/hooks/news/queries"
+import { Error } from "@/api/types/all/type"
+import CommentSkeleton from "../skeleton/CommentSkeleton"
 
-interface CommentList{
-  data: Comment[] | undefined
+interface CommentListProps{
+  massageError: Error
+  massagenotFaoundError: Error
+  id: string
 }
 
-export default function CommentList({data}: CommentList) {
+export default function CommentList({massageError, id, massagenotFaoundError}: CommentListProps) {
+  const { isLoading, isError, data } = useFetchGetCommentNewsId(id)
 
-  return (
-    <div className="w-full h-full">
-      {data?.length === 0 ?(
-          <ImageError data={error} />
-      ):(
-        <div className="flex flex-col w-full h-full gap-4">
-          {data?.map((comment) => (
-            <Comment data={comment}/>
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}
+const commentCards = () => {
+		return (data?.content.length !== 0 ? (
+			<div className='flex flex-col gap-5'>
+				{data?.content.map((comment) => (
+					<Comment key={comment.id} data={comment} />
+				))}
+			</div>
+		) : (
+			<div className="flex justify-center items-center w-full h-96 overflow-y-hidden overflow-x-scroll ">
+				<ImageError data={massageError} />
+			</div>
+		));
+	};
 
-const error={
-  text: "No comments, write yours",
-  img: "/noComment.gif",
+	if (isLoading) {
+		return (
+			<>
+				<CommentSkeleton/>
+				<CommentSkeleton/>
+				<CommentSkeleton/>
+			</>
+		);
+	}
+
+	if (isError) {
+		return (
+			<div className="flex justify-center items-center w-full h-96 overflow-y-hidden overflow-x-scroll ">
+				<ImageError data={massagenotFaoundError} />
+			</div>
+		);
+	}
+
+	if (data) {
+		return commentCards();
+	}
+
+	return null;
 }
 

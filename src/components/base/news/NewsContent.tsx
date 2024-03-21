@@ -13,10 +13,11 @@ export interface NewsContentProps {
 	isLoading?: boolean
 	isError?: boolean
 	massageError: Error
+	massageCommentError: Error
 	messageErrorContent: Error
 }
 
-export default function NewsContent({ data, isLoading, isError, massageError}: NewsContentProps) {
+export default function NewsContent({ data, isLoading, isError, massageError, massageCommentError}: NewsContentProps) {
 	
 	const newsContentData = () => {
 		return (data ? (
@@ -46,6 +47,9 @@ export default function NewsContent({ data, isLoading, isError, massageError}: N
 					</div>
 					<div className="w-full h-[2px] bg-[#D9D9D9] mt-12"></div>
 					<h1 className="mt-4 font-semibold text-lg text-bdpurple">Comments</h1>
+					<div className="w-full max-h-96 overflow-y-scroll">
+						<CommentList massagenotFaoundError={massageCommentError} massageError={massageCommentError} id={data.id}/>
+					</div>
 					<ModalCreateComment />
 				</div>
 				<aside className="w-[30%]">
@@ -55,7 +59,7 @@ export default function NewsContent({ data, isLoading, isError, massageError}: N
 			</>
 		) : (
 			<>
-				<div className="absolute flex w-full items-center justify-center">
+				<div className="flex w-full items-center justify-center">
 					<ImageError data={massageError} />
 				</div>
 			</>

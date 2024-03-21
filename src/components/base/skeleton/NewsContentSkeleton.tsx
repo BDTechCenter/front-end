@@ -26,12 +26,6 @@ export function NewsContentSkeleton() {
             </div>
             <div className="w-full h-[2px] bg-[#D9D9D9] mt-12"></div>
             <Skeleton className="rounded-none h-7 w-[30%]" />
-            <div className="flex mt-10 flex-col w-full gap-7">
-                <Skeleton className="rounded-md h-40 w-full" />
-                <Skeleton className="rounded-md h-40 w-full" />
-                <Skeleton className="rounded-md h-40 w-full" />
-            </div>
-            <Skeleton className="rounded-lg h-10 w-[20%]" />
         </div>
         <aside className="w-[30%]">
             <Skeleton className="rounded-none h-7 w-[50%]" />
