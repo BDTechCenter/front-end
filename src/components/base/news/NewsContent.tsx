@@ -17,7 +17,6 @@ export interface NewsContentProps {
 }
 
 export default function NewsContent({ data, isLoading, isError, massageError}: NewsContentProps) {
-	const [img, setImg] = useState(data?.imageUrl)
 	
 	const newsContentData = () => {
 		return (data ? (
@@ -34,11 +33,10 @@ export default function NewsContent({ data, isLoading, isError, massageError}: N
 						<p className="text-xs">{data.updateDate}</p>
 					</div>
 					<Image
-						src={img}
+						src={data.imageUrl}
 						alt={data.id + "Img"}
 						width={800}
 						height={800}
-						onError={() => setImg('/newsNotFound.png')}
 						className="w-full max-w-[60rem] max-h-[45rem] border"
 					/>
 					<div className="w-full max-w-[60rem] justify-center items-center">
