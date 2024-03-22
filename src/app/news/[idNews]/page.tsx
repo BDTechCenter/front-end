@@ -1,22 +1,12 @@
-"use client"
 import NavBar from "@/components/base/common/NavBar";
-import { usePathname } from "next/navigation";
 import NewsContent from "@/components/base/news/NewsContent";
-import { useFetchGetNewsId } from "@/api/hooks/news/queries";
 
 export default function NewsContentPage() {
-	const path = usePathname();
-	const newsId = path.split("/")[2];
-	const {isLoading, isError, data} = useFetchGetNewsId(newsId)
-
 	return (
 		<main>
 			<NavBar variant="white" />
 			<section className="flex h-full mx-36 my-20 gap-16">
 				<NewsContent
-					data={data}
-					isLoading={isLoading}
-					isError={isError}
 					massageError={dataNewsContentPage.newsError}
 					massageCommentError={dataNewsContentPage.commentError}
 					messageErrorContent={dataNewsContentPage.newsErrorNotFound}
@@ -27,18 +17,18 @@ export default function NewsContentPage() {
 }
 
 export const dataNewsContentPage = {
-	newsErrorNotFound:{
-	text: "not found",
-	img: "/noNews.gif",
-},
+	newsErrorNotFound: {
+		text: "not found",
+		img: "/noNews.gif",
+	},
 
-newsError:{
-	text: "Error news not found",
-	img: "/allError.gif",
-},
+	newsError: {
+		text: "Error news not found",
+		img: "/allError.gif",
+	},
 
-commentError:{
-	text: "No comments, write yours",
-	img: "/noComment.gif",
-},
+	commentError: {
+		text: "No comments, write yours",
+		img: "/noComment.gif",
+	},
 };

@@ -1,28 +1,28 @@
+"use client"
 import Image from "next/image";
-import { News } from "@/api/types/news/type";
 import ImageError from "../common/ImageError";
 import { Error } from "@/api/types/all/type";
 import { NewsContentSkeleton } from "../skeleton/NewsContentSkeleton";
 import NewsOutherList from "./NewsOtherList";
 import CommentList from "./CommentList";
 import ModalCreateComment from "./ModalCreateComment";
+import { useFetchGetNewsId } from "@/api/hooks/news/queries";
+import { usePathname } from "next/navigation";
 
 export interface NewsContentProps {
-	data?: News;
-	isLoading?: boolean;
-	isError?: boolean;
 	massageError: Error;
 	massageCommentError: Error;
 	messageErrorContent: Error;
 }
 
 export default function NewsContent({
-	data,
-	isLoading,
-	isError,
 	massageError,
 	massageCommentError,
 }: NewsContentProps) {
+	const path = usePathname();
+	const newsId = path.split("/")[2];
+	const { isLoading, isError, data } = useFetchGetNewsId(newsId);
+
 	const newsContentData = () => {
 		return data ? (
 			<>

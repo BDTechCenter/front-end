@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
 	FormControl,
@@ -39,9 +41,9 @@ export default function SearchBar() {
 
 	useEffect(() => {
 		if (form.formState.isSubmitSuccessful) {
-			form.reset({ search: "" })
+			form.reset({ search: "" });
 		}
-	}, [form, form.formState, form.reset])
+	}, [form, form.formState, form.reset]);
 
 	return (
 		<Form {...form}>
@@ -69,17 +71,17 @@ export default function SearchBar() {
 				/>
 				<Button
 					type="submit"
-
 					className="rounded-sm bg-bdpurple hover:bg-bdpurple/90"
 				>
 					Search
 				</Button>
 				<div className="flex flex-row gap-3 justify-center items-center">
-          <ModalFilter/>
-          <Link href="/news"><MdFilterAltOff className="text-red-600 text-lg"/></Link>
-			  </div>
+					<ModalFilter />
+					<Link href="/news">
+						<MdFilterAltOff className="text-red-600 text-lg" />
+					</Link>
+				</div>
 			</form>
 		</Form>
 	);
 }
-
