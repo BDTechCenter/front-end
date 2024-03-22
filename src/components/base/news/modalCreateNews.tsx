@@ -31,7 +31,7 @@ import { useMutationPostNews } from "@/api/hooks/news/queries";
 import { toast } from "react-toastify";
 
 export default function ModalCreateNews() {
-	const { data, mutate } = useMutationPostNews();
+	const { mutate } = useMutationPostNews();
 
 	const form = useForm<z.infer<typeof newsSchema>>({
 		resolver: zodResolver(newsSchema),
@@ -47,11 +47,12 @@ export default function ModalCreateNews() {
 		formData.append("title", values.title);
 		formData.append("body", values.body);
 		formData.append("isPublished", "true");
+		formData.append("tags", "test, docker");
 
 		// Append tags if present
-		if (values.tags) {
-			formData.append("tags", values.tags.toString());
-		}
+		// if (values.tags) {
+		// 	formData.append("tags", values.tags.toString());
+		// }
 
 		// Append image if present
 		if (values.image) {
@@ -71,7 +72,7 @@ export default function ModalCreateNews() {
 				console.log(data);
 				toast.success("News added with success", {
 					position: "top-right",
-					autoClose: 1500,
+					autoClose: 3000,
 					hideProgressBar: false,
 					closeOnClick: true,
 					pauseOnHover: true,
@@ -84,7 +85,7 @@ export default function ModalCreateNews() {
 				console.log(error);
 				toast.error(error.message, {
 					position: "top-right",
-					autoClose: 1500,
+					autoClose: 3000,
 					hideProgressBar: false,
 					closeOnClick: true,
 					pauseOnHover: true,
