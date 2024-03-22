@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-import hljs from "highlight.js";
 import "react-quill/dist/quill.snow.css";
+import hljs from "highlight.js";
 import dynamic from "next/dynamic";
 
 const ReactQuill = dynamic(
@@ -22,8 +21,6 @@ export interface InputTextEditProps {
 	onChange: (htmlValue: string) => void;
 	value: string;
 }
-
-import React from 'react'
 
 const InputTextEdit = ({ onChange, value }: InputTextEditProps) => {
 	const editorStyle = {
@@ -63,6 +60,6 @@ const InputTextEdit = ({ onChange, value }: InputTextEditProps) => {
 			</div>
 		</div>
 	);
-}
+};
 
-export default InputTextEdit
+export default InputTextEdit;

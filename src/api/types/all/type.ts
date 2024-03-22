@@ -1,4 +1,4 @@
-export interface Error{
-  text: string
-  img: string
+export interface Error {
+	text: string;
+	img: string;
 }

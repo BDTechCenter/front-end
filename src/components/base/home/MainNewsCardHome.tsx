@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import NewsCardHome from "./NewsCardHome";
 import ImageError from "../common/ImageError";
 import { News } from "@/api/types/news/type";
@@ -14,7 +13,6 @@ export interface MainNewsCardHomeProps {
 }
 
 export default function MainNewsCardHome({data, isLoading, isError, massageError, massageNotFound}: MainNewsCardHomeProps) {
-
 	const newsCardsHome = () => {
 		return (data?.length !== 0 ? (
 			<div className="flex flex-row w-full h-full gap-4">
