@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import hljs from "highlight.js";
 import "react-quill/dist/quill.snow.css";
+import "./quill.css"
 import dynamic from "next/dynamic";
 
 const ReactQuill = dynamic(
@@ -32,8 +33,6 @@ const InputTextEdit = ({ onChange, value }: InputTextEditProps) => {
 		marginTop: "0.50rem",
 		fontSize: "1rem",
 		width: "100%",
-		borderRadius: "calc(var(--radius) - 4px)",
-		border: "1px solid #E4E4E7",
 		backgroundColor: "transparent",
 		borderInput: "hsl(var(--input))",
 		padding: "0.5rem",
@@ -54,6 +53,7 @@ const InputTextEdit = ({ onChange, value }: InputTextEditProps) => {
 		<div className="flex w-full justify-center items-center">
 			<div className="w-full max-w-[100%]">
 				<ReactQuill
+				
 					style={editorStyle}
 					theme="snow"
 					modules={modules}

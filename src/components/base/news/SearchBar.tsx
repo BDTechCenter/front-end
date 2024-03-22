@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { MdTune } from "react-icons/md";
 import z from "zod";
+import { useSearchParams } from "next/navigation";
 import { usePathname } from "next/navigation";
 
 const MAX_LENGTH = 50;
@@ -30,7 +31,9 @@ const searchSchema = z.object({
 });
 
 export default function SearchBar() {
-	const path = usePathname();
+	
+	const path = useSearchParams()
+	const filter = path.has('tags')
 
 
 	const form = useForm<z.infer<typeof searchSchema>>({
@@ -81,9 +84,13 @@ export default function SearchBar() {
 				</Button>
 				<div className="flex flex-row gap-3 justify-center items-center">
 					<ModalFilter />
-					
-
-					
+					{
+					filter 
+					?	
+						<Link href={'/news'}><MdFilterAltOff color="#DC2626" size={20}/></Link> 
+					: 
+						<></>
+					}
 				</div>
 			</form>
 		</Form>
