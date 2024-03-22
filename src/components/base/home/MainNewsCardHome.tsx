@@ -5,54 +5,58 @@ import { Error } from "@/api/types/all/type";
 import { NewsCardHomeSkeleton } from "../skeleton/NewsCardHomeSkeleton";
 
 export interface MainNewsCardHomeProps {
-	data?: News[]
-	isLoading?: boolean
-	isError?: boolean
-	massageError: Error
-	massageNotFound: Error
+	data?: News[];
+	isLoading?: boolean;
+	isError?: boolean;
+	massageError: Error;
+	massageNotFound: Error;
 }
 
-export default function MainNewsCardHome({data, isLoading, isError, massageError, massageNotFound}: MainNewsCardHomeProps) {
+export default function MainNewsCardHome({
+	data,
+	isLoading,
+	isError,
+	massageError,
+	massageNotFound,
+}: MainNewsCardHomeProps) {
 	const newsCardsHome = () => {
-		return (data?.length !== 0 ? (
+		return data?.length !== 0 ? (
 			<div className="flex flex-row w-full h-full gap-4">
 				<div className="w-[55%] h-full">
-					<NewsCardHome data={data[0]}/>
+					<NewsCardHome data={data[0]} />
 				</div>
 				<div className="w-[45%] h-full flex flex-col gap-3 justify-center items-center">
 					{data?.slice(1).map((newsItem) => (
-						<NewsCardHome key={newsItem.id} data={newsItem}/>
+						<NewsCardHome key={newsItem.id} data={newsItem} />
 					))}
 				</div>
 			</div>
 		) : (
 			<ImageError data={massageNotFound} />
-		));
+		);
 	};
 
 	if (isLoading) {
 		return (
 			<div className="flex flex-row w-full h-full gap-5">
 				<div className="w-[55%] h-full">
-					<NewsCardHomeSkeleton/>
+					<NewsCardHomeSkeleton />
 				</div>
 				<div className="w-[45%] flex flex-col gap-5 justify-center items-center">
-					<NewsCardHomeSkeleton/>
-					<NewsCardHomeSkeleton/>
+					<NewsCardHomeSkeleton />
+					<NewsCardHomeSkeleton />
 				</div>
 			</div>
 		);
 	}
 
 	if (isError) {
-		return (
-			<ImageError data={massageError} />
-		);
+		return <ImageError data={massageError} />;
 	}
 
 	if (data) {
 		return newsCardsHome();
 	}
 
-	return null
+	return null;
 }

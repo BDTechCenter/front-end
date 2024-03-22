@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/menubar";
 import { cn } from "@/lib/utils";
 
-export default function SignInButton({className}: {className?: string}) {
+export default function SignInButton({ className }: { className?: string }) {
 	const { instance } = useMsal();
 
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -37,12 +37,17 @@ export default function SignInButton({className}: {className?: string}) {
 		<div className={cn(className)}>
 			<Menubar>
 				<MenubarMenu>
-					<MenubarTrigger onClick={(event) => setAnchorEl(event.currentTarget)}>Login</MenubarTrigger>
+					<MenubarTrigger onClick={(event) => setAnchorEl(event.currentTarget)}>
+						Login
+					</MenubarTrigger>
 					<MenubarContent>
 						<MenubarItem onClick={() => handleLogin("popup")} key="loginPopup">
 							PopUp
 						</MenubarItem>
-						<MenubarItem onClick={() => handleLogin("redirect")} key="loginRedirect">
+						<MenubarItem
+							onClick={() => handleLogin("redirect")}
+							key="loginRedirect"
+						>
 							Redirect
 						</MenubarItem>
 					</MenubarContent>

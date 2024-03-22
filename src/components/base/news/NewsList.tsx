@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import ImageError from "../common/ImageError";
 import NewsCard from "./NewsCard";
@@ -21,7 +21,7 @@ export default function NewsList({
 
 	const { isLoading, isError, data } = useFetchGetNews(tags ? tags : "");
 
-	const newsData = data?.content
+	const newsData = data?.content;
 
 	const newsCards = () => {
 		return newsData?.length !== 0 ? (

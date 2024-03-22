@@ -1,9 +1,9 @@
-import axios from "axios"
+import axios from "axios";
 
-const hostURL = process.env.NEXT_PUBLIC_API_HOST
+const hostURL = process.env.NEXT_PUBLIC_API_HOST;
 
 const api = axios.create({
-  baseURL: `${hostURL}/tech-news/`
-})
+	baseURL: `${hostURL}/tech-news/`,
+});
 
-export default api
+export default api;
