@@ -59,7 +59,7 @@ export function useFetchGetNewsOutherNews() {
 	});
 }
 
-// Post A News
+// POST A News
 async function postNews(newsObject: FormData) {
 	const { data } = await api.post<News>("news", newsObject, {
 		headers: {
@@ -88,5 +88,24 @@ export function useFetchGetCommentNewsId(id: string) {
 	return useQuery<ContentComment, Error>({
 		queryKey: ["comment", id],
 		queryFn: getIdCommentNews,
+	});
+}
+
+// POST Comments
+async function postComment({
+	comment,
+	id,
+}: {
+	comment: { author: string; comment: string };
+	id: string;
+}) {
+	const { data } = await api.post(`comments/${id}`, comment);
+
+	return data;
+}
+
+export function useMutationPostComment() {
+	return useMutation({
+		mutationFn: postComment,
 	});
 }

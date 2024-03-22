@@ -72,7 +72,7 @@ export default function NewsContent({
 							id={data.id}
 						/>
 					</div>
-					<ModalCreateComment />
+					<ModalCreateComment newsId={newsId} />
 				</div>
 				<aside className="w-[30%]">
 					<h1 className="text-bdpurple font-bold text-xl mb-3">Other News</h1>
