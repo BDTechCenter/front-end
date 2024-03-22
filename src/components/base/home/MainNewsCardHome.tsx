@@ -1,32 +1,33 @@
+"use client"
+
 import NewsCardHome from "./NewsCardHome";
 import ImageError from "../common/ImageError";
 import { News } from "@/api/types/news/type";
 import { Error } from "@/api/types/all/type";
 import { NewsCardHomeSkeleton } from "../skeleton/NewsCardHomeSkeleton";
+import { useFetchGetMainNews } from "@/api/hooks/home/queries";
 
 export interface MainNewsCardHomeProps {
-	data?: News[];
-	isLoading?: boolean;
-	isError?: boolean;
 	massageError: Error;
 	massageNotFound: Error;
 }
 
 export default function MainNewsCardHome({
-	data,
-	isLoading,
-	isError,
 	massageError,
 	massageNotFound,
 }: MainNewsCardHomeProps) {
+	const { isLoading, isError, data } = useFetchGetMainNews();
+
+	const mainNewsData = data?.content;
+
 	const newsCardsHome = () => {
-		return data?.length !== 0 ? (
+		return mainNewsData && mainNewsData?.length !== 0 ? (
 			<div className="flex flex-row w-full h-full gap-4">
 				<div className="w-[55%] h-full">
-					<NewsCardHome data={data[0]} />
+					<NewsCardHome data={mainNewsData[0]} />
 				</div>
 				<div className="w-[45%] h-full flex flex-col gap-3 justify-center items-center">
-					{data?.slice(1).map((newsItem) => (
+					{mainNewsData?.slice(1).map((newsItem) => (
 						<NewsCardHome key={newsItem.id} data={newsItem} />
 					))}
 				</div>
