@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import ImageError from "../common/ImageError";
 import { Error } from "@/api/types/all/type";

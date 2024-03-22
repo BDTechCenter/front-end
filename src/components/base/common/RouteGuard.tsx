@@ -1,10 +1,8 @@
 "use client";
-import { ReactNode, useEffect, useState } from "react";
+
+import { ReactNode } from "react";
 import {
-	AuthenticatedTemplate,
 	MsalAuthenticationTemplate,
-	UnauthenticatedTemplate,
-	useMsal,
 } from "@azure/msal-react";
 import { loginRequest } from "@/lib/sso/authConfig";
 import { InteractionType } from "@azure/msal-browser";

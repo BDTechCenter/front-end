@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { MouseEvent, useState } from "react";
 import { MdTune } from "react-icons/md";
 import InputTags from "../common/InputTags";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function ModalFilter() {
 	const [tags, setTags] = useState<string[]>([]);

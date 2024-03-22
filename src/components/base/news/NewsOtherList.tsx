@@ -1,8 +1,6 @@
 "use client";
-import React from "react";
-import NewsCard from "./NewsCard";
+
 import ImageError from "../common/ImageError";
-import { NewsCardSkeleton } from "../skeleton/NewsCardSkeleton";
 import { useFetchGetNewsOutherNews } from "@/api/hooks/news/queries";
 import { Error } from "@/api/types/all/type";
 import NewsOuther from "./NewsOther";
@@ -36,7 +34,6 @@ export default function NewsOtherList({ massageError }: NewsOutherListProps) {
 				<NewsOtherSkeleton />
 			</div>
 		);
-		s;
 	}
 
 	if (isError) {

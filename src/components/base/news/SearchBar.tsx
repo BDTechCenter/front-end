@@ -15,7 +15,6 @@ import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { MdTune } from "react-icons/md";
 import z from "zod";
 
 const MAX_LENGTH = 50;

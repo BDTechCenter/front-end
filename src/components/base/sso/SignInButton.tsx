@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { loginRequest } from "@/lib/sso/authConfig";
 import { useMsal } from "@azure/msal-react";
 import { useState } from "react";
@@ -7,8 +6,6 @@ import {
 	MenubarContent,
 	MenubarItem,
 	MenubarMenu,
-	MenubarSeparator,
-	MenubarShortcut,
 	MenubarTrigger,
 } from "@/components/ui/menubar";
 import { cn } from "@/lib/utils";
