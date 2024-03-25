@@ -3,9 +3,11 @@ import { News } from "@/api/types/news/type";
 import ImageError from "../common/ImageError";
 import { Error } from "@/api/types/all/type";
 import { NewsContentSkeleton } from "../skeleton/NewsContentSkeleton";
-import ModalCreateComment from "./ModalCreateComment";
+
 import NewsOutherList from "./NewsOtherList";
 import { useState } from 'react';
+import CommentList from "./CommentList";
+import ModalCreateComment from "./modalCreateComment";
 
 export interface NewsContentProps {
 	data?: News
@@ -16,8 +18,8 @@ export interface NewsContentProps {
 	messageErrorContent: Error
 }
 
-export default function NewsContent({ data, isLoading, isError, massageError, massageCommentError}: NewsContentProps) {
-	
+export default function NewsContent({ data, isLoading, isError, massageError, massageCommentError }: NewsContentProps) {
+
 	const newsContentData = () => {
 		return (data ? (
 			<>
@@ -47,13 +49,13 @@ export default function NewsContent({ data, isLoading, isError, massageError, ma
 					<div className="w-full h-[2px] bg-[#D9D9D9] mt-12"></div>
 					<h1 className="mt-4 font-semibold text-lg text-bdpurple">Comments</h1>
 					<div className="w-full max-h-96 overflow-y-scroll">
-						<CommentList massagenotFaoundError={massageCommentError} massageError={massageCommentError} id={data.id}/>
+						<CommentList massagenotFaoundError={massageCommentError} massageError={massageCommentError} id={data.id} />
 					</div>
 					<ModalCreateComment />
 				</div>
 				<aside className="w-[30%]">
 					<h1 className="text-bdpurple font-bold text-xl mb-3">Other News</h1>
-					<NewsOutherList massageError={massageError}/>
+					<NewsOutherList massageError={massageError} />
 				</aside>
 			</>
 		) : (

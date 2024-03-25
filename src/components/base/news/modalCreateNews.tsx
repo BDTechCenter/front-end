@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/components/ui/button";
 import { ChangeEvent, useEffect, useState } from "react";
 import {
@@ -53,14 +54,14 @@ export default function ModalCreateNews() {
 					Add News
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="w-[80%] 2xl:w-[55%] h-[80%] 2xl:h-[60%]">
+			<DialogContent className="w-[80%] 2xl:w-[55%] min-w-[43rem] h-[80%] 2xl:h-[60%]">
 				<DialogHeader>
 					<DialogTitle className="text-bdpurple">Create a News</DialogTitle>
 				</DialogHeader>
 				<Form {...form}>
 					<form
 						onSubmit={form.handleSubmit(onSubmit)}
-						className="flex gap-1 flex-row w-full overflow-hidden justify-between"
+						className="flex gap-1 flex-row w-full justify-between"
 					>
 						<div className="w-[40%] flex flex-col gap-5">
 							<FormField
@@ -96,7 +97,7 @@ export default function ModalCreateNews() {
 								)}
 							/>
 						</div>
-						<div className="flex gap-1 flex-col w-[58%]">
+						<div className="flex flex-col w-[58%]">
 							<FormField
 								control={form.control}
 								name="content"
@@ -105,14 +106,14 @@ export default function ModalCreateNews() {
 										<FormLabel className="font-medium text-md w-full text-start">
 											Content
 										</FormLabel>
-										<FormControl className="w-full">
+										<FormControl>
 											<InputTextEdit {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
 								)}
 							/>
-							<DialogFooter className="flex w-full justify-end items-end">
+							<DialogFooter>
 								<Button
 									type="submit"
 									className="rounded-sm shadow-md p-2 font-semibold text-base"

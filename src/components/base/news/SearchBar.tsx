@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/components/ui/button";
 import {
 	FormControl,
@@ -15,6 +16,8 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { MdTune } from "react-icons/md";
 import z from "zod";
+import { useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 const MAX_LENGTH = 50;
 
@@ -28,6 +31,11 @@ const searchSchema = z.object({
 });
 
 export default function SearchBar() {
+	
+	const path = useSearchParams()
+	const filter = path.has('tags')
+
+
 	const form = useForm<z.infer<typeof searchSchema>>({
 		mode: "all",
 		resolver: zodResolver(searchSchema),
@@ -75,9 +83,15 @@ export default function SearchBar() {
 					Search
 				</Button>
 				<div className="flex flex-row gap-3 justify-center items-center">
-          <ModalFilter/>
-          <Link href="/news"><MdFilterAltOff className="text-red-600 text-lg"/></Link>
-			  </div>
+					<ModalFilter />
+					{
+					filter 
+					?	
+						<Link href={'/news'}><MdFilterAltOff color="#DC2626" size={20}/></Link> 
+					: 
+						<></>
+					}
+				</div>
 			</form>
 		</Form>
 	);
