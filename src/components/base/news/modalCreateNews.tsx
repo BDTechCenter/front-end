@@ -39,14 +39,12 @@ export default function ModalCreateNews() {
 
 	const NewsObject = (values: z.infer<typeof newsSchema>) => {
 		const accountInfo = msalInstance.getActiveAccount();
-		const author: string | undefined = accountInfo?.name || "";
+		const author: string = accountInfo?.name || "";
 
 		const formData = new FormData();
 		formData.append("author", author);
-		formData.append("summary", "Test");
 		formData.append("title", values.title);
 		formData.append("body", values.body);
-		formData.append("isPublished", "true");
 		formData.append("tags", "test, docker");
 
 		// Append tags if present
@@ -178,8 +176,8 @@ export default function ModalCreateNews() {
 							<DialogFooter className="flex w-full justify-end items-end">
 								<Button
 									type="submit"
-									className="rounded-sm shadow-md p-2 font-semibold text-base"
-									variant={"bdlight"}
+									className="rounded-sm border p-2 font-semibold text-base"
+									variant="bdlight"
 								>
 									Add
 								</Button>

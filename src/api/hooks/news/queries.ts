@@ -52,7 +52,7 @@ async function getNewsOtherNews() {
 	return data;
 }
 
-export function useFetchGetNewsOutherNews() {
+export function useFetchGetNewsOtherNews() {
 	return useQuery<ContentNews, Error>({
 		queryKey: ["news"],
 		queryFn: getNewsOtherNews,
@@ -96,10 +96,14 @@ async function postComment({
 	comment,
 	id,
 }: {
-	comment: { author: string; comment: string };
+	comment: { author: string | undefined; comment: string };
 	id: string;
 }) {
-	const { data } = await api.post(`comments/${id}`, comment);
+	const { data } = await api.post(`comments/${id}`, comment, {
+		headers: {
+			"Content-Type": "application/json",
+		}
+	});
 
 	return data;
 }

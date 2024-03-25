@@ -16,6 +16,10 @@ const nextConfig = {
 			},
 		],
 	},
+	transpilePackages: [
+		"@bosch-web-dds/spark-ui",
+		"@bosch-web-dds/spark-ui-react",
+	],
 };
 
 export default nextConfig;
