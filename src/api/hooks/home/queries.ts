@@ -5,7 +5,7 @@ import { ContentNews } from "@/api/types/news/type";
 async function getMainNews() {
 	const SIZE = 3;
 	const { data } = await api.get<ContentNews>(
-		`news/preview?sortByView=true&size=${SIZE}`
+		`news/preview?sortBy=view&size=${SIZE}`
 	);
 
 	return data;
