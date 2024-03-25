@@ -4,7 +4,7 @@ import Image from "next/image";
 import ImageError from "../common/ImageError";
 import { Error } from "@/api/types/all/type";
 import { NewsContentSkeleton } from "../skeleton/NewsContentSkeleton";
-import NewsOutherList from "./NewsOtherList";
+import NewsOtherList from "./NewsOtherList";
 import CommentList from "./CommentList";
 import ModalCreateComment from "./ModalCreateComment";
 import { useFetchGetNewsId } from "@/api/hooks/news/queries";
@@ -27,7 +27,7 @@ export default function NewsContent({
 	const newsContentData = () => {
 		return data ? (
 			<>
-				<div className="flex flex-col gap-7 w-[70%]">
+				<div className="flex flex-col gap-7 w-[80%]">
 					<h1 id="titleAdvanced" className="font-bold text-3xl 2xl:text-4xl">
 						{data.title}
 					</h1>
@@ -76,7 +76,7 @@ export default function NewsContent({
 				</div>
 				<aside className="w-[30%]">
 					<h1 className="text-bdpurple font-bold text-xl mb-3">Other News</h1>
-					<NewsOutherList massageError={massageError} />
+					<NewsOtherList massageError={massageError} />
 				</aside>
 			</>
 		) : (

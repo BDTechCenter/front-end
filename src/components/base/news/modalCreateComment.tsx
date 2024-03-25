@@ -87,7 +87,7 @@ export default function ModalCreateComment({ newsId }: { newsId: string }) {
 		<Dialog>
 			<DialogTrigger asChild>
 				<Button
-					className="rounded-sm w-48 shadow-md p-5 font-semibold text-lg mt-10"
+					className="rounded-sm w-48 p-5 border font-semibold text-lg mt-10"
 					variant={"bdlight"}
 				>
 					Add Comment
@@ -116,8 +116,8 @@ export default function ModalCreateComment({ newsId }: { newsId: string }) {
 							<DialogClose asChild>
 								<Button
 									type="submit"
-									className="rounded-lg shadow-md p-5 font-semibold text-lg"
-									variant={"bdlight"}
+									className="rounded-sm border p-4 font-semibold text-base"
+									variant="bdlight"
 								>
 									Add
 								</Button>

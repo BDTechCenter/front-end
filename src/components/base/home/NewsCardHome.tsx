@@ -34,10 +34,10 @@ export default function NewsCardHome({ data }: NewsCardProps) {
 					className="w-full h-full object-cover "
 				/>
 				<div className="absolute bottom-0 flex text-left justify-end flex-col w-full h-1/2 p-6 gap-1 2xl:gap-2 z-20">
-					<h1 className={"text-2xl 2xl:text-3xl font-medium text-white"}>
+					<h1 className={"text-xl 2xl:text-2xl font-medium text-white"}>
 						{data.title}
 					</h1>
-					<p className={"text-lg 2xl:text-xl text-white"}>{data.updateDate}</p>
+					<p className={"text-base 2xl:text-lg text-white"}>{data.updateDate}</p>
 				</div>
 				<div className="absolute bottom-0 bg-gradient-to-t from-black/90 to-transparent to-80% z-10 w-full h-full"></div>
 			</div>

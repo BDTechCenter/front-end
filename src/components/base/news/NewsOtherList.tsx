@@ -1,17 +1,17 @@
 "use client";
 
 import ImageError from "../common/ImageError";
-import { useFetchGetNewsOutherNews } from "@/api/hooks/news/queries";
+import { useFetchGetNewsOtherNews } from "@/api/hooks/news/queries";
 import { Error } from "@/api/types/all/type";
 import NewsOuther from "./NewsOther";
 import NewsOtherSkeleton from "../skeleton/NewsOtherSkeleton";
 
-export interface NewsOutherListProps {
+export interface NewsOtherListProps {
 	massageError: Error;
 }
 
-export default function NewsOtherList({ massageError }: NewsOutherListProps) {
-	const { isLoading, isError, data } = useFetchGetNewsOutherNews();
+export default function NewsOtherList({ massageError }: NewsOtherListProps) {
+	const { isLoading, isError, data } = useFetchGetNewsOtherNews();
 	const newsCards = () => {
 		return data?.content.length !== 0 ? (
 			<div className="flex flex-col gap-5">

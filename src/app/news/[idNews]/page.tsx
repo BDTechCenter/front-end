@@ -5,7 +5,7 @@ export default function NewsContentPage() {
 	return (
 		<main>
 			<NavBar variant="white" />
-			<section className="flex h-full mx-36 my-20 gap-16">
+			<section className="flex h-full mx-36 my-20 gap-14">
 				<NewsContent
 					massageError={dataNewsContentPage.newsError}
 					massageCommentError={dataNewsContentPage.commentError}

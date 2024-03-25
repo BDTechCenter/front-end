@@ -16,7 +16,7 @@ export default function TopBanner({
 	text,
 }: TopBannerProps) {
 	return (
-		<section className="flex h-72 2xl:h-80 bg-bddarkgray relative shadow-sm">
+		<section className="flex h-72 2xl:h-80 bg-bddarkgray relative">
 			<div className="flex flex-col items-center justify-center w-1/2">
 				<div className="w-[75%] justify-start">
 					<div className=" bg-bdpurple h-16 w-16 2xl:h-20 2xl:w-20"></div>

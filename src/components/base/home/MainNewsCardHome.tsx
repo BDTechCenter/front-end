@@ -2,7 +2,6 @@
 
 import NewsCardHome from "./NewsCardHome";
 import ImageError from "../common/ImageError";
-import { News } from "@/api/types/news/type";
 import { Error } from "@/api/types/all/type";
 import { NewsCardHomeSkeleton } from "../skeleton/NewsCardHomeSkeleton";
 import { useFetchGetMainNews } from "@/api/hooks/home/queries";
