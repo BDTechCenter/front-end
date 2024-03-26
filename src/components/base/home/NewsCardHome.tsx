@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useRouter } from 'next/navigation'
 import Link from 'next/link';
 import { useState } from 'react';
+import { IoEyeSharp } from "react-icons/io5";
 
 interface NewsCardProps {
 	data: News;
@@ -42,6 +43,18 @@ export default function NewsCardHome({ data }: NewsCardProps) {
 				>
 					{data.updateDate}
 				</p>
+				<div className="flex flex-row w-full items-center gap-2">
+					<p
+						className={"text-lg 2xl:text-xl text-white"}
+					>
+						<IoEyeSharp />
+					</p>
+					<p
+						className={"text-lg 2xl:text-xl text-white"}
+					>
+						{data.views}
+					</p>
+				</div>
 			</div>
 			<div className="absolute bottom-0 bg-gradient-to-t from-black/90 to-transparent to-80% z-10 w-full h-full"></div>
 		</div>

@@ -8,6 +8,7 @@ export interface News {
   body: string
   tags: string[]
   isPublished: boolean
+  views: number
 }
 
 export interface ContentNews{
