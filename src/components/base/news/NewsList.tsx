@@ -37,7 +37,7 @@ export default function NewsList({ massageError, massageNotFound }: NewsListProp
 				</div>
 			</div>
 		) : (
-			<div className="absolute flex w-full items-center justify-center">
+			<div className="flex w-full items-center justify-center">
 				<ImageError data={massageNotFound} />
 			</div>
 		));
@@ -45,17 +45,17 @@ export default function NewsList({ massageError, massageNotFound }: NewsListProp
 
 	if (isLoading) {
 		return (
-			<>
+			<div className="relative grid grid-cols-2 sm:grid-cols-3 gap-5 2xl:gap-7">
 				<NewsCardSkeleton />
 				<NewsCardSkeleton />
 				<NewsCardSkeleton />
-			</>
+			</div>
 		);
 	}
 
 	if (isError) {
 		return (
-			<div className="absolute flex w-full items-center justify-center">
+			<div className="flex w-full items-center justify-center">
 				<ImageError data={massageError} />
 			</div>
 		);
