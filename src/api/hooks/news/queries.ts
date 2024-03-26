@@ -31,7 +31,7 @@ export function useFetchGetNewsId(id: string) {
 
 
 async function getNewsOutherNews() {
-  const { data } = await api.get<ContentNews>("news/preview?size=3")
+  const { data } = await api.get<ContentNews>("news/preview?size=3&sortBy=relevance")
   return data
 }
 export function useFetchGetNewsOutherNews() {
