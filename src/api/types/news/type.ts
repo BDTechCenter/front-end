@@ -12,6 +12,7 @@ export interface News {
 
 export interface ContentNews{
   content: News[]
+  totalPages: number
 }
 
 export interface Comment{
