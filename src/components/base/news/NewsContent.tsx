@@ -48,7 +48,7 @@ export default function NewsContent({ data, isLoading, isError, massageError, ma
 					</div>
 					<div className="w-full h-[2px] bg-[#D9D9D9] mt-12"></div>
 					<h1 className="mt-4 font-semibold text-lg text-bdpurple">Comments</h1>
-					<div className="w-full max-h-96 overflow-y-scroll">
+					<div className="w-full max-h-96">
 						<CommentList massagenotFaoundError={massageCommentError} massageError={massageCommentError} id={data.id} />
 					</div>
 					<ModalCreateComment />
