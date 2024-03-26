@@ -14,6 +14,8 @@ const buttonVariants = cva(
           "bg-primary text-primary-foreground shadow hover:bg-primary/90",
         bdlight: "bg-white text-bdpurple hover:bg-white/90",
         bdpurple: "bg-bdpurple text-white hover:bg-bdpurple/90",
+        outline: "bg-bdlightpurple rounded-sm text-bdgray ",
+        ghost: "bg-[#e1e1e1] transition-all rounded-sm hover:bg-bdlightpurple/80 hover:text-bdgray",
       },
       size: {
         default: "h-9 px-4 py-2",

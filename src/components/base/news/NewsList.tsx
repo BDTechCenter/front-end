@@ -5,6 +5,9 @@ import { Error } from "@/api/types/all/type";
 import { NewsCardSkeleton } from "../skeleton/NewsCardSkeleton";
 import { useFetchGetNews } from "@/api/hooks/news/queries";
 import { useSearchParams } from "next/navigation";
+import PaginatorURL from "./PaginatorURL";
+
+
 
 export interface NewsListProps {
 	massageError: Error;
@@ -13,17 +16,26 @@ export interface NewsListProps {
 
 export default function NewsList({ massageError, massageNotFound }: NewsListProps) {
 	const searchParams = useSearchParams()
-	const tags = searchParams.get('tags')
+	const tagsUrl = searchParams.get('tags')
+	const pageUrl = searchParams.get('page')
+	
+	const tags = tagsUrl ? tagsUrl : ""
+	const page = pageUrl ? `&page=${pageUrl}` : ""
 
-	const { isLoading, isError, data } = useFetchGetNews(tags ? tags : "")
-
+	const { isLoading, isError, data } = useFetchGetNews(tags, page)
+	
 	const newsCards = () => {
-		return (data?.content.length !== 0 ? (
-			<>
-				{data?.content.map((news) => (
-					<NewsCard key={news.id} data={news} />
-				))}
-			</>
+		return (data?.content.length !== 0 && data ? (
+			<div className="flex flex-col w-full">
+				<div className="relative grid grid-cols-2 sm:grid-cols-3 gap-5 2xl:gap-7">
+					{data.content.map((news) => (
+						<NewsCard key={news.id} data={news} />
+					))}
+				</div>
+				<div>
+					<PaginatorURL totalPages={data.totalPages}/>
+				</div>
+			</div>
 		) : (
 			<div className="absolute flex w-full items-center justify-center">
 				<ImageError data={massageNotFound} />
