@@ -1,5 +1,5 @@
 import api from "../../../services/api"
-import { QueryFunctionContext, useQuery } from "@tanstack/react-query"
+import { QueryFunctionContext, useMutation, useQuery } from "@tanstack/react-query"
 import { ContentComment, ContentNews, News } from "@/api/types/news/type"
 
 async function getNews(ctx: QueryFunctionContext) {
@@ -51,5 +51,19 @@ export function useFetchGetCommentNewsId(id: string) {
 }
 
 
+async function postNewsUpvote(id: string) {
+	const { data } = await api.post<News>(`/news/${id}/upvote`, {
+		headers: {
+			"Content-Type": "multipart/form-data",
+		},
+	});
 
+	return data;
+}
+
+export function useMutationPostNewsUpvote() {
+	return useMutation({
+		mutationFn: postNewsUpvote,
+	});
+}
 
