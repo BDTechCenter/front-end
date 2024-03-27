@@ -1,4 +1,4 @@
-import "react-quill/dist/quill.snow.css";
+import ".//quill.css";
 import hljs from "highlight.js";
 import dynamic from "next/dynamic";
 
@@ -24,9 +24,7 @@ export interface InputTextEditProps {
 
 const InputTextEdit = ({ onChange, value }: InputTextEditProps) => {
 	const editorStyle = {
-		marginBottom: "4rem",
 		backgroundColor: "transparent",
-		height: "16rem",
 		width: "100%"
 	};
 

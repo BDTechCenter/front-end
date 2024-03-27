@@ -29,6 +29,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { msalInstance } from "@/lib/sso/msalInstance";
 import { useMutationPostNews } from "@/api/hooks/news/queries";
 import { toast } from "react-toastify";
+import InputTags from "../common/InputTags";
 
 export default function ModalCreateNews() {
 	const { mutate } = useMutationPostNews();
@@ -114,14 +115,14 @@ export default function ModalCreateNews() {
 					Add News
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="w-[80%] 2xl:w-[55%] min-w-[43rem] h-[80%] 2xl:h-[60%]">
+			<DialogContent className="w-[65rem] h-[40rem] ">
 				<DialogHeader>
 					<DialogTitle className="text-bdpurple">Create a News</DialogTitle>
 				</DialogHeader>
 				<Form {...form}>
 					<form
 						onSubmit={form.handleSubmit(onSubmitForm)}
-						className="flex gap-1 flex-row w-full justify-between"
+						className="flex gap-1 flex-row w-full justify-between overflow-y-scroll overflow-x-scroll"
 					>
 						<div className="w-[40%] flex flex-col gap-5">
 							<FormField
@@ -151,6 +152,19 @@ export default function ModalCreateNews() {
 												maxLength={30}
 												{...field}
 											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="tags"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel className="font-medium text-md">Tags</FormLabel>
+										<FormControl>
+											<InputTags  variant="row" {...field}/>
 										</FormControl>
 										<FormMessage />
 									</FormItem>

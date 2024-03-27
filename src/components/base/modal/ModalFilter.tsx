@@ -37,9 +37,6 @@ export default function ModalFilter() {
 					<DialogDescription>
 						Filter news using your preferred tags.
 					</DialogDescription>
-					<DialogDescription className="text-red-600">
-						Press enter to confirm the tag.
-					</DialogDescription>
 				</DialogHeader>
 				<div className="w-full">
 					<h1 className="font-semibold text-md">Tags</h1>

@@ -9,7 +9,7 @@ import CommentList from "./CommentList";
 import LikeForNews from "./LikeForNews";
 import { useFetchGetNewsId } from "@/api/hooks/news/queries";
 import { usePathname } from "next/navigation";
-import ModalCreateComment from "./modalCreateComment";
+import ModalCreateComment from "./ModalCreateComment";
 
 export interface NewsContentProps {
 	massageError: Error;
