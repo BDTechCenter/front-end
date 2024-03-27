@@ -8,6 +8,7 @@ import NewsOutherList from "./NewsOtherList";
 import { useState } from 'react';
 import CommentList from "./CommentList";
 import ModalCreateComment from "./modalCreateComment";
+import LikeForNews from "./LikeForNews";
 
 export interface NewsContentProps {
 	data?: News
@@ -46,6 +47,8 @@ export default function NewsContent({ data, isLoading, isError, massageError, ma
 							data ? (<div className="text-justify w-full" style={{ wordWrap: 'break-word' }} dangerouslySetInnerHTML={{ __html: data.body }}></div>) : (<></>)
 						}
 					</div>
+					<h1 className="mt-4 font-semibold text-lg text-bdpurple">Is this news relevant to you?</h1>
+					<LikeForNews/>
 					<div className="w-full h-[2px] bg-[#D9D9D9] mt-12"></div>
 					<h1 className="mt-4 font-semibold text-lg text-bdpurple">Comments</h1>
 					<div className="w-full max-h-96">
