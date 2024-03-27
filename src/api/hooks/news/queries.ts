@@ -8,30 +8,29 @@ import {
 	ContentComment,
 	ContentNews,
 	News,
-	NewsPost,
+	UpvoteNews,
 } from "@/api/types/news/type";
 
-// NEWS
-// GET News
-async function getNews() {
-	const { data } = await api.get<ContentNews>("news/preview");
+async function getNews(ctx: QueryFunctionContext) {
+	const [, page] = ctx.queryKey;
+	const { data } = await api.get<ContentNews>(
+		`news/preview?sortBy=latest${page}`
+	);
 	return data;
 }
 
 // GET News w/ Filter
 async function getNewsFilter(ctx: QueryFunctionContext) {
-	const [, tags] = ctx.queryKey;
-	const { data } = await api.get<ContentNews>(`news?tags=${tags}`);
+	const [tags, page] = ctx.queryKey;
+	const { data } = await api.get<ContentNews>(`news?tags=${tags}${page}`);
 	return data;
 }
-
-export function useFetchGetNews(tags?: string) {
+export function useFetchGetNews(tags?: string, page?: string) {
 	return useQuery<ContentNews, Error>({
-		queryKey: ["news", tags],
+		queryKey: [tags, page],
 		queryFn: tags ? getNewsFilter : getNews,
 	});
 }
-
 // GET News By ID
 async function getIdNews(ctx: QueryFunctionContext) {
 	const [, id] = ctx.queryKey;
@@ -48,7 +47,9 @@ export function useFetchGetNewsId(id: string) {
 
 // GET Other News
 async function getNewsOtherNews() {
-	const { data } = await api.get<ContentNews>("news/preview?size=3");
+	const { data } = await api.get<ContentNews>(
+		"news/preview?size=3&sortBy=relevance"
+	);
 	return data;
 }
 
@@ -89,6 +90,24 @@ export function useFetchGetCommentNewsId(id: string) {
 	return useQuery<ContentComment, Error>({
 		queryKey: ["comment", id],
 		queryFn: getIdCommentNews,
+	});
+}
+
+async function postNewsUpvote({ id, formData, token }: UpvoteNews) {
+	const { data } = await api.post(`/news/${id}/upvote`, formData, {
+		headers: {
+			"Content-Type": "multipart/form-data",
+			Accept: "multipart/form-data",
+			Authorization: `Bearer ${token}`,
+		},
+	});
+
+	return data;
+}
+
+export function useMutationPostNewsUpvote() {
+	return useMutation({
+		mutationFn: postNewsUpvote,
 	});
 }
 

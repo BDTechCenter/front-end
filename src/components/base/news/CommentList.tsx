@@ -19,13 +19,13 @@ export default function CommentList({
 
 	const commentCards = () => {
 		return data?.content.length !== 0 ? (
-			<div className="flex flex-col gap-5">
+			<div className="flex flex-col gap-5 overflow-y-scroll">
 				{data?.content.map((comment) => (
 					<Comment key={comment.id} data={comment} />
 				))}
 			</div>
 		) : (
-			<div className="flex justify-center items-center w-full h-96 overflow-y-hidden overflow-x-scroll ">
+			<div className="flex justify-center items-center w-full h-96">
 				<ImageError data={massageError} />
 			</div>
 		);
@@ -43,7 +43,7 @@ export default function CommentList({
 
 	if (isError) {
 		return (
-			<div className="flex justify-center items-center w-full h-96 overflow-y-hidden overflow-x-scroll ">
+			<div className="flex justify-center items-center w-full h-80">
 				<ImageError data={massagenotFaoundError} />
 			</div>
 		);

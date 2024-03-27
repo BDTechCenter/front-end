@@ -26,7 +26,7 @@ const InputTextEdit = ({ onChange, value }: InputTextEditProps) => {
 	const editorStyle = {
 		marginBottom: "4rem",
 		backgroundColor: "transparent",
-		height: "15rem",
+		height: "16rem",
 		width: "100%"
 	};
 

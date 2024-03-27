@@ -6,9 +6,10 @@ import { Error } from "@/api/types/all/type";
 import { NewsContentSkeleton } from "../skeleton/NewsContentSkeleton";
 import NewsOtherList from "./NewsOtherList";
 import CommentList from "./CommentList";
-import ModalCreateComment from "./ModalCreateComment";
+import LikeForNews from "./LikeForNews";
 import { useFetchGetNewsId } from "@/api/hooks/news/queries";
 import { usePathname } from "next/navigation";
+import ModalCreateComment from "./ModalCreateComment";
 
 export interface NewsContentProps {
 	massageError: Error;
@@ -63,9 +64,13 @@ export default function NewsContent({
 							<></>
 						)}
 					</div>
+					<h1 className="mt-4 font-semibold text-lg text-bdpurple">
+						Is this news relevant to you?
+					</h1>
+					<LikeForNews id={data.id} />
 					<div className="w-full h-[2px] bg-[#D9D9D9] mt-12"></div>
 					<h1 className="mt-4 font-semibold text-lg text-bdpurple">Comments</h1>
-					<div className="w-full max-h-96 overflow-y-scroll">
+					<div className="w-full max-h-96">
 						<CommentList
 							massagenotFaoundError={massageCommentError}
 							massageError={massageCommentError}
