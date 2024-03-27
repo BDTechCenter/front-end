@@ -3,6 +3,7 @@ import ProfileData, { GraphData } from "@/components/base/sso/ProfileData";
 import SignOutButton from "@/components/base/sso/SignOutButton";
 import { callMsGraph } from "@/lib/sso/MsGraphApiCall";
 import { loginRequest } from "@/lib/sso/authConfig";
+import { msalInstance } from "@/lib/sso/msalInstance";
 import {
 	InteractionStatus,
 	InteractionRequiredAuthError,
@@ -10,17 +11,22 @@ import {
 	InteractionType,
 } from "@azure/msal-browser";
 import { MsalAuthenticationTemplate, useMsal } from "@azure/msal-react";
+import axios from "axios";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Bounce, toast } from "react-toastify";
 
 function ProfileContent() {
 	const { instance, inProgress } = useMsal();
 	const [graphData, setGraphData] = useState<null | GraphData>(null);
+	const [imageUrl, setImageUrl] = useState<string | undefined>("");
 
 	useEffect(() => {
 		if (!graphData && inProgress === InteractionStatus.None) {
 			callMsGraph()
-				.then((response) => setGraphData(response))
+				.then((response) => {
+					setGraphData(response?.graphMeData), setImageUrl(response?.blobUrl);
+				})
 				.catch((e) => {
 					if (e instanceof InteractionRequiredAuthError) {
 						instance.acquireTokenRedirect({
@@ -35,6 +41,9 @@ function ProfileContent() {
 	return (
 		<div className="p-4 border">
 			{graphData ? <ProfileData graphData={graphData} /> : null}
+			{imageUrl && (
+				<Image width={500} height={500} src={imageUrl} alt="Image" />
+			)}
 		</div>
 	);
 }

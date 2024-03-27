@@ -22,13 +22,23 @@ export interface UpvoteNews{
   token?: string
 }
 
-export interface Comment{
-  id: number
-  author: string
-  comment: string
-  publicationDate: string
+export interface NewsPost {
+	author?: string;
+	title: string;
+	summary: string;
+	body: string;
+	tags?: string[];
+	image?: File | null;
+	isPublished: boolean;
 }
 
-export interface ContentComment{
-  content: Comment[]
+export interface CommentType {
+	id: number;
+	author: string;
+	comment: string;
+	publicationDate: string;
+}
+
+export interface ContentComment {
+	content: CommentType[];
 }

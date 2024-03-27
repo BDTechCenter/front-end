@@ -5,7 +5,6 @@ import {
 	Dialog,
 	DialogClose,
 	DialogContent,
-	DialogDescription,
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
@@ -25,14 +24,57 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { commentSchema } from "@/types/schemas/commentSchema";
 import { useEffect } from "react";
+import { useMutationPostComment } from "@/api/hooks/news/queries";
+import { msalInstance } from "@/lib/sso/msalInstance";
+import { toast } from "react-toastify";
+import api from "@/services/api";
 
-export default function ModalCreateComment() {
+export default function ModalCreateComment({ newsId }: { newsId: string }) {
+	const { mutate } = useMutationPostComment();
+
 	const form = useForm<z.infer<typeof commentSchema>>({
 		resolver: zodResolver(commentSchema),
 	});
 
 	function onSubmit(values: z.infer<typeof commentSchema>) {
-		console.log(values);
+		const accountInfo = msalInstance.getActiveAccount();
+		const author: string = accountInfo?.name || "";
+
+		const postData = new FormData();
+		postData.append('author', author);
+		postData.append('comment', values.content);
+
+		mutate(
+			{ comment: postData, id: newsId },
+			{
+				onSuccess: (data) => {
+					console.log(data);
+					toast.success("Comment added with success", {
+						position: "top-right",
+						autoClose: 3000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "light",
+					});
+				},
+				onError: (error) => {
+					console.log(error);
+					toast.error(error.message, {
+						position: "top-right",
+						autoClose: 3000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "light",
+					});
+				},
+			}
+		);
 	}
 
 	useEffect(() => {
@@ -45,7 +87,7 @@ export default function ModalCreateComment() {
 		<Dialog>
 			<DialogTrigger asChild>
 				<Button
-					className="rounded-sm w-48 shadow-md p-5 font-semibold text-lg mt-10"
+					className="rounded-sm w-48 p-5 border font-semibold text-lg mt-10"
 					variant={"bdlight"}
 				>
 					Add Comment
@@ -70,19 +112,19 @@ export default function ModalCreateComment() {
 								</FormItem>
 							)}
 						/>
+						<DialogFooter className="sm:justify-start">
+							<DialogClose asChild>
+								<Button
+									type="submit"
+									className="rounded-sm border p-4 font-semibold text-base"
+									variant="bdlight"
+								>
+									Add
+								</Button>
+							</DialogClose>
+						</DialogFooter>
 					</form>
 				</Form>
-				<DialogFooter className="sm:justify-start">
-					<DialogClose asChild>
-						<Button
-							type="submit"
-							className="rounded-lg shadow-md p-5 font-semibold text-lg"
-							variant={"bdlight"}
-						>
-							Add
-						</Button>
-					</DialogClose>
-				</DialogFooter>
 			</DialogContent>
 		</Dialog>
 	);

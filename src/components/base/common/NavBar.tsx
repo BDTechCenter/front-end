@@ -1,84 +1,85 @@
 "use client"
-import Image from 'next/image'
-import Link from 'next/link';
-import { cn } from '@/lib/utils';
-import { usePathname} from 'next/navigation';
-import { useState, useEffect } from 'react';
-import { msalInstance } from "@/lib/sso/msalInstance";
-import { Avatar, AvatarFallback, AvatarImage,  } from "@/components/ui/avatar"
 
+import Image from "next/image";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 interface NavBarProps {
-  variant: "black" | "white";
+	variant: "black" | "white";
 }
 
-export default function NavBar({variant}: NavBarProps) {
-  const user = msalInstance.getActiveAccount()
-  const [text, setText]= useState('')
-  const patch = usePathname()
+const textColors = {
+	black: {
+		text: "text-darkforeground",
+		noFocus: "text-darkforeground/60",
+		hover: "hover:text-darkforeground/80",
+	},
+	white: {
+		text: "text-foreground",
+		noFocus: "text-foreground/60",
+		hover: "hover:text-foreground/80",
+	},
+};
 
-  useEffect(()=>{
-    switch(variant){
-      case "black":{
-        setText('text-white')
-        break
-      }
-      case 'white':{
-        setText('text-foreground/60')
-        break
-      }
-      default:{
-        break
-      }
-    }
-  }, [variant, patch])
+const logoImages = {
+	black: "/bsh_logo_white.svg",
+	white: "/bsh_logo_black_red.svg",
+};
 
-  return (
-    <nav className={`flex flex-col ${variant === "black" ? 'bg-bddarkgray' : 'bg-white'}`}>
-      <Image
+export default function NavBar({ variant }: NavBarProps) {
+	const pathname = usePathname();
+	const { text, noFocus, hover } = textColors[variant];
+	const logoSrc = logoImages[variant];
+
+	return (
+		<div
+			className={`flex flex-col ${
+				variant === "black" ? "bg-bddarkgray" : "bg-white"
+			}`}
+		>
+			<Image
 				alt="Bosch Supergraphic"
 				src="/supergraphic.svg"
 				width="1000"
 				height="1000"
 				className="w-screen"
 			/>
-      <div className='w-full flex flex-row justify-between'>
-        <div className='flex flex-row gap-5 items-center'>
-          <Link href="/" className='w-fit'>
-            {variant === "black" ? (
-              <Image
-              alt="Bosch Logo White"
-              src="/bsh_logo_white.svg"
-              width="0"
-              height="0"
-              className="h-12 w-fit"
-            />
-            ) : (
-              <Image
-              alt="Bosch Logo Color"
-              src="/bsh_logo_black_red.svg"
-              width="0"
-              height="0"
-              className="h-12 w-fit"
-            />
-            )}
-          </Link>
-          <Link href={"/"}>
-              <h1 className={cn(`text-sm font-medium ${text}`, patch === "/" ? "text-bdlightpurple" : `hover:text-bdlightpurple ${text}`)}>Home</h1>
-          </Link>
-          <Link href={"/news"}>
-              <h1 className={cn(`text-sm font-medium ${text}`, patch === "/news" ? "text-bdlightpurple" : `hover:text-bdlightpurple ${text}`)}>News</h1>
-          </Link>
-        </div>
-        <div className='flex justify-center items-center mr-5'>
-          <Link href={"/testsso/profile"}>
-            <Avatar className='h-8 w-8'>
-              <AvatarImage src="https://github.com/joaop-ribeiro.png"  />
-              <AvatarFallback>{user?.name}</AvatarFallback>
-            </Avatar>
-          </Link>
-        </div>
-      </div>
-    </nav>
-  )
+			<nav className="flex flex-row gap-5 items-center">
+				<Link href="/" className="w-fit">
+					<Image
+						alt="Bosch Logo White"
+						src={logoSrc}
+						width="0"
+						height="0"
+						className="h-12 w-fit"
+					/>
+				</Link>
+				{navLinks.map((link) => (
+					<Link
+						key={link.href}
+						className={cn(
+							"text-sm font-medium transition-colors",
+							hover,
+							pathname === link.href ? text : noFocus
+						)}
+						href={link.href}
+					>
+						{link.name}
+					</Link>
+				))}
+			</nav>
+		</div>
+	);
 }
+
+const navLinks = [
+	{
+		name: "Home",
+		href: "/",
+	},
+	{
+		name: "News",
+		href: "/news",
+	},
+];

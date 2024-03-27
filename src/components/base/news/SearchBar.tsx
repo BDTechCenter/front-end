@@ -1,4 +1,5 @@
-"use client"
+"use client";
+        
 import { Button } from "@/components/ui/button";
 import {
 	FormControl,
@@ -14,7 +15,6 @@ import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { MdTune } from "react-icons/md";
 import z from "zod";
 import { useSearchParams } from "next/navigation";
 import { usePathname } from "next/navigation";
@@ -47,9 +47,9 @@ export default function SearchBar() {
 
 	useEffect(() => {
 		if (form.formState.isSubmitSuccessful) {
-			form.reset({ search: "" })
+			form.reset({ search: "" });
 		}
-	}, [form, form.formState, form.reset])
+	}, [form, form.formState, form.reset]);
 
 	return (
 		<Form {...form}>
@@ -77,7 +77,6 @@ export default function SearchBar() {
 				/>
 				<Button
 					type="submit"
-
 					className="rounded-sm bg-bdpurple hover:bg-bdpurple/90"
 				>
 					Search
@@ -96,4 +95,3 @@ export default function SearchBar() {
 		</Form>
 	);
 }
-

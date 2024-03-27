@@ -13,8 +13,10 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 	return (
 		<MsalProvider instance={msalInstance}>
 			<RouteGuard>
-			<ToastContainer />
-			<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+				<ToastContainer />
+				<QueryClientProvider client={queryClient}>
+					{children}
+				</QueryClientProvider>
 			</RouteGuard>
 		</MsalProvider>
 	);

@@ -1,5 +1,5 @@
 "use client";
-import { CardTeamMember } from "@/api/types/introduction/types";
+
 import Image from "next/image";
 
 interface CardTeamProps {
@@ -14,10 +14,10 @@ interface CardTeamProps {
 export default function CardTeam({ data }: CardTeamProps) {
 	return (
 		<div
-			className="flex flex-row gap-4 w-96 h-32 border-[1px] rounded-md border-black/10 cursor-pointer"
+			className="flex flex-row gap-4 w-96 h-32 border-[1px] rounded-sm border-black/10 cursor-pointer"
 			onClick={() => window.open(`${data?.url}`)}
 		>
-			<div className="h-full w-4 bg-bdpurple rounded-l-md"></div>
+			<div className="h-full w-4 bg-bdpurple rounded-l-sm"></div>
 			<div className="flex w-full items-center justify-start gap-5">
 				<Image
 					className="w-20 h-2w-20 rounded-full"

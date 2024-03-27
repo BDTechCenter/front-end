@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { FileRejection, FileWithPath, useDropzone } from "react-dropzone";
+import { FileWithPath, useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
 import Image from "next/image";
 
