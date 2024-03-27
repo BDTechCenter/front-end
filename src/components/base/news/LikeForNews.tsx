@@ -4,12 +4,16 @@ import { BiSolidLike } from "react-icons/bi";
 import { msalInstance } from "@/lib/sso/msalInstance";
 import { useState } from 'react';
 
-export default function LikeForNews() {
-  const token = msalInstance.acquireTokenByCode
+interface LikeForNewsProps{
+  id: string
+}
+
+export default function LikeForNews({id}: LikeForNewsProps) {
+  const user = msalInstance.getActiveAccount()
   const [like, setLike] = useState(false)
 
   const likePress = () =>{
-    console.log(token)
+    
     setLike(true)
   }
 
