@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { usePathname} from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { msalInstance } from "@/lib/sso/msalInstance";
 import { Avatar, AvatarFallback, AvatarImage,  } from "@/components/ui/avatar"
 
 
@@ -12,6 +13,7 @@ interface NavBarProps {
 }
 
 export default function NavBar({variant}: NavBarProps) {
+  const user = msalInstance.getActiveAccount()
   const [text, setText]= useState('')
   const patch = usePathname()
 
@@ -72,7 +74,7 @@ export default function NavBar({variant}: NavBarProps) {
           <Link href={"/testsso/profile"}>
             <Avatar className='h-8 w-8'>
               <AvatarImage src="/userImage.png"  />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarFallback>{user?.name}</AvatarFallback>
             </Avatar>
           </Link>
         </div>
