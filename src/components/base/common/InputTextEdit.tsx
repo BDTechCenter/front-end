@@ -24,19 +24,10 @@ export interface InputTextEditProps {
 
 const InputTextEdit = ({ onChange, value }: InputTextEditProps) => {
 	const editorStyle = {
-		paddingLeft: "1.75rem",
-		marginBottom: "1.25rem",
-		marginTop: "0.50rem",
-		fontSize: "1rem",
-		width: "100%",
-		borderRadius: "calc(var(--radius) - 4px)",
-		border: "1px solid #E4E4E7",
+		marginBottom: "4rem",
 		backgroundColor: "transparent",
-		borderInput: "hsl(var(--input))",
-		padding: "0.5rem",
-		boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
-		overflow: "hidden",
-		height: "18rem",
+		height: "15rem",
+		width: "100%"
 	};
 
 	const modules = {
@@ -49,7 +40,7 @@ const InputTextEdit = ({ onChange, value }: InputTextEditProps) => {
 
 	return (
 		<div className="flex w-full justify-center items-center">
-			<div className="w-full max-w-[100%]">
+			<div className="w-full">
 				<ReactQuill
 					style={editorStyle}
 					theme="snow"
