@@ -48,7 +48,7 @@ export default function NewsContent({ data, isLoading, isError, massageError, ma
 						}
 					</div>
 					<h1 className="mt-4 font-semibold text-lg text-bdpurple">Is this news relevant to you?</h1>
-					<LikeForNews/>
+					<LikeForNews id={data.id}/>
 					<div className="w-full h-[2px] bg-[#D9D9D9] mt-12"></div>
 					<h1 className="mt-4 font-semibold text-lg text-bdpurple">Comments</h1>
 					<div className="w-full max-h-96">
