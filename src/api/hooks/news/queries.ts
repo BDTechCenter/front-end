@@ -1,6 +1,6 @@
 import api from "../../../services/api"
 import { QueryFunctionContext, useMutation, useQuery } from "@tanstack/react-query"
-import { ContentComment, ContentNews, News } from "@/api/types/news/type"
+import { ContentComment, ContentNews, News, UpvoteNews } from "@/api/types/news/type"
 
 async function getNews(ctx: QueryFunctionContext) {
   const [, page] = ctx.queryKey
@@ -51,7 +51,7 @@ export function useFetchGetCommentNewsId(id: string) {
 }
 
 
-async function postNewsUpvote(id: string, token: string) {
+async function postNewsUpvote({id, token}: UpvoteNews) {
 	const { data } = await api.post<News>(`/news/${id}/upvote`, {
 		headers: {
 			"Authorization": `token ${token}`,
