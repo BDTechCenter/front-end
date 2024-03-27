@@ -21,7 +21,7 @@ const viewVariants = cva("flex w-full h-60 xl:h-72", {
 
 interface allFeaturesProps
 	extends featuresProps,
-	VariantProps<typeof viewVariants> { }
+		VariantProps<typeof viewVariants> {}
 
 export default function CardFeature({ data, orientation }: allFeaturesProps) {
 	return (

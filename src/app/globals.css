@@ -38,6 +38,9 @@
     --bdgray: #F6F6F6;
     --bdpurple: #7A2572;
     --bdlightpurple: #C438B7;
+
+    --darkforeground: 0 0% 98%;
+    --secondary-darkforeground: 0 0% 98%;
   }
  
   .dark {

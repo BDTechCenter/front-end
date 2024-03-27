@@ -1,4 +1,5 @@
-"use client"
+"use client";
+
 import ImageError from "../common/ImageError";
 import NewsCard from "./NewsCard";
 import { Error } from "@/api/types/all/type";
@@ -11,16 +12,21 @@ export interface NewsListProps {
 	massageNotFound: Error;
 }
 
-export default function NewsList({ massageError, massageNotFound }: NewsListProps) {
-	const searchParams = useSearchParams()
-	const tags = searchParams.get('tags')
+export default function NewsList({
+	massageError,
+	massageNotFound,
+}: NewsListProps) {
+	const searchParams = useSearchParams();
+	const tags = searchParams.get("tags");
 
-	const { isLoading, isError, data } = useFetchGetNews(tags ? tags : "")
+	const { isLoading, isError, data } = useFetchGetNews(tags ? tags : "");
+
+	const newsData = data?.content;
 
 	const newsCards = () => {
-		return (data?.content.length !== 0 ? (
+		return newsData?.length !== 0 ? (
 			<>
-				{data?.content.map((news) => (
+				{newsData?.map((news) => (
 					<NewsCard key={news.id} data={news} />
 				))}
 			</>
@@ -28,7 +34,7 @@ export default function NewsList({ massageError, massageNotFound }: NewsListProp
 			<div className="absolute flex w-full items-center justify-center">
 				<ImageError data={massageNotFound} />
 			</div>
-		));
+		);
 	};
 
 	if (isLoading) {

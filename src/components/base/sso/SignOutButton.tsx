@@ -10,7 +10,7 @@ import {
 import { useState } from "react";
 import { MdAccountCircle } from "react-icons/md";
 
-export default function SignOutButton({className}: {className?: string}) {
+export default function SignOutButton({ className }: { className?: string }) {
 	const { instance } = useMsal();
 
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

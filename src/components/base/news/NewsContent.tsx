@@ -1,33 +1,44 @@
+"use client";
+
 import Image from "next/image";
-import { News } from "@/api/types/news/type";
 import ImageError from "../common/ImageError";
 import { Error } from "@/api/types/all/type";
 import { NewsContentSkeleton } from "../skeleton/NewsContentSkeleton";
-
-import NewsOutherList from "./NewsOtherList";
-import { useState } from 'react';
+import NewsOtherList from "./NewsOtherList";
 import CommentList from "./CommentList";
-import ModalCreateComment from "./modalCreateComment";
+import ModalCreateComment from "./ModalCreateComment";
+import { useFetchGetNewsId } from "@/api/hooks/news/queries";
+import { usePathname } from "next/navigation";
 
 export interface NewsContentProps {
-	data?: News
-	isLoading?: boolean
-	isError?: boolean
-	massageError: Error
-	massageCommentError: Error
-	messageErrorContent: Error
+	massageError: Error;
+	massageCommentError: Error;
+	messageErrorContent: Error;
 }
 
-export default function NewsContent({ data, isLoading, isError, massageError, massageCommentError }: NewsContentProps) {
+export default function NewsContent({
+	massageError,
+	massageCommentError,
+}: NewsContentProps) {
+	const path = usePathname();
+	const newsId = path.split("/")[2];
+	const { isLoading, isError, data } = useFetchGetNewsId(newsId);
 
 	const newsContentData = () => {
-		return (data ? (
+		return data ? (
 			<>
-				<div className="flex flex-col gap-7 w-[70%]">
-					<h1 id="titleAdvanced" className="font-bold text-3xl 2xl:text-4xl">{data.title}</h1>
+				<div className="flex flex-col gap-7 w-[80%]">
+					<h1 id="titleAdvanced" className="font-bold text-3xl 2xl:text-4xl">
+						{data.title}
+					</h1>
 					<div className="flex flex-row gap-3 w-full">
 						{data.tags.map((tag) => (
-							<div key={tag} className="flex justify-center items-center p-2 bg-bdgray rounded-lg text-sm">{tag}</div>
+							<div
+								key={tag}
+								className="flex justify-center items-center p-2 bg-bdgray rounded-lg text-sm"
+							>
+								{tag}
+							</div>
 						))}
 					</div>
 					<div className="bg-bdgray rounded-lg flex flex-col py-2 px-5 w-[50%]">
@@ -42,20 +53,30 @@ export default function NewsContent({ data, isLoading, isError, massageError, ma
 						className="w-full max-w-[60rem] max-h-[45rem] border"
 					/>
 					<div className="w-full max-w-[60rem] justify-center items-center">
-						{
-							data ? (<div className="text-justify w-full" style={{ wordWrap: 'break-word' }} dangerouslySetInnerHTML={{ __html: data.body }}></div>) : (<></>)
-						}
+						{data ? (
+							<div
+								className="text-justify w-full"
+								style={{ wordWrap: "break-word" }}
+								dangerouslySetInnerHTML={{ __html: data.body }}
+							></div>
+						) : (
+							<></>
+						)}
 					</div>
 					<div className="w-full h-[2px] bg-[#D9D9D9] mt-12"></div>
 					<h1 className="mt-4 font-semibold text-lg text-bdpurple">Comments</h1>
 					<div className="w-full max-h-96 overflow-y-scroll">
-						<CommentList massagenotFaoundError={massageCommentError} massageError={massageCommentError} id={data.id} />
+						<CommentList
+							massagenotFaoundError={massageCommentError}
+							massageError={massageCommentError}
+							id={data.id}
+						/>
 					</div>
-					<ModalCreateComment />
+					<ModalCreateComment newsId={newsId} />
 				</div>
 				<aside className="w-[30%]">
 					<h1 className="text-bdpurple font-bold text-xl mb-3">Other News</h1>
-					<NewsOutherList massageError={massageError} />
+					<NewsOtherList massageError={massageError} />
 				</aside>
 			</>
 		) : (
@@ -64,13 +85,11 @@ export default function NewsContent({ data, isLoading, isError, massageError, ma
 					<ImageError data={massageError} />
 				</div>
 			</>
-		));
+		);
 	};
 
 	if (isLoading) {
-		return (
-			<NewsContentSkeleton />
-		);
+		return <NewsContentSkeleton />;
 	}
 
 	if (isError) {

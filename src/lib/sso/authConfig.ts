@@ -4,8 +4,7 @@ import { Configuration, PopupRequest } from "@azure/msal-browser";
 export const msalConfig: Configuration = {
 	auth: {
 		clientId: `${process.env.NEXT_PUBLIC_MSAL_APPID}`,
-		authority:
-			`https://login.microsoftonline.com/${process.env.NEXT_PUBLIC_MSAL_TENANTID}`,
+		authority: `https://login.microsoftonline.com/${process.env.NEXT_PUBLIC_MSAL_TENANTID}`,
 		redirectUri: `${process.env.NEXT_PUBLIC_MSAL_REDIRECTURI}`,
 		postLogoutRedirectUri: "/",
 	},
@@ -22,4 +21,5 @@ export const loginRequest: PopupRequest = {
 // Add here the endpoints for MS Graph API services you would like to use.
 export const graphConfig = {
 	graphMeEndpoint: "https://graph.microsoft.com/v1.0/me",
+	graphMeEndpointPhoto: "https://graph.microsoft.com/v1.0/me/photo/$value",
 };
