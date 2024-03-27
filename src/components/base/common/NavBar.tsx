@@ -73,7 +73,7 @@ export default function NavBar({variant}: NavBarProps) {
         <div className='flex justify-center items-center mr-5'>
           <Link href={"/testsso/profile"}>
             <Avatar className='h-8 w-8'>
-              <AvatarImage src="/userImage.png"  />
+              <AvatarImage src="https://github.com/joaop-ribeiro.png"  />
               <AvatarFallback>{user?.name}</AvatarFallback>
             </Avatar>
           </Link>

@@ -51,13 +51,15 @@ export function useFetchGetCommentNewsId(id: string) {
 }
 
 
-async function postNewsUpvote({id, token}: UpvoteNews) {
-	const { data } = await api.post<News>(`/news/${id}/upvote`, {
+async function postNewsUpvote({id, formData, token}: UpvoteNews) {
+	const { data } = await api.post(`/news/${id}/upvote`, formData, {
 		headers: {
-			"Authorization": `token ${token}`,
+			"Content-Type": "multipart/form-data",
+			Accept: "multipart/form-data",
+			"Authorization": `Bearer ${token}`,
 		},
 	});
-
+	
 	return data;
 }
 

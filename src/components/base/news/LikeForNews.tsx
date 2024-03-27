@@ -11,11 +11,17 @@ interface LikeForNewsProps{
 
 export default function LikeForNews({id}: LikeForNewsProps) {
   const user = msalInstance.getActiveAccount()
+  const token = user ? user.idToken : ''
   const { mutate } = useMutationPostNewsUpvote()
   const [like, setLike] = useState(false)
 
+  console.log(token)
+
   const likePress = () =>{
-    mutate(id, {
+    const formData = new FormData()
+    formData.append("id", "id");
+
+    mutate({id, formData, token}, {
       onSuccess: (data) => {
         console.log(data)
         console.log("CERTO")
@@ -38,32 +44,3 @@ export default function LikeForNews({id}: LikeForNewsProps) {
     </div>
   )
 }
-
-// mutate(newsFormData, {
-//   onSuccess: (data) => {
-//     console.log(data);
-//     toast.success("News added with success", {
-//       position: "top-right",
-//       autoClose: 3000,
-//       hideProgressBar: false,
-//       closeOnClick: true,
-//       pauseOnHover: true,
-//       draggable: true,
-//       progress: undefined,
-//       theme: "light",
-//     });
-//   },
-//   onError: (error) => {
-//     console.log(error);
-//     toast.error(error.message, {
-//       position: "top-right",
-//       autoClose: 3000,
-//       hideProgressBar: false,
-//       closeOnClick: true,
-//       pauseOnHover: true,
-//       draggable: true,
-//       progress: undefined,
-//       theme: "light",
-//     });
-//   },
-// });

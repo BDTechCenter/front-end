@@ -18,7 +18,8 @@ export interface ContentNews{
 
 export interface UpvoteNews{
   id: string
-  token: string
+  formData: FormData
+  token?: string
 }
 
 export interface Comment{
