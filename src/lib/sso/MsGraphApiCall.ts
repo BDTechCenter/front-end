@@ -1,3 +1,4 @@
+import axios from "axios";
 import { loginRequest, graphConfig } from "./authConfig";
 import { msalInstance } from "./msalInstance";
 
@@ -24,7 +25,30 @@ export async function callMsGraph() {
 		headers: headers,
 	};
 
-	return fetch(graphConfig.graphMeEndpoint, options)
-		.then((response) => response.json())
-		.catch((error) => console.log(error));
+	try {
+		const { data } = await axios.get(
+			"https://graph.microsoft.com/v1.0/me/photo/$value",
+			{
+				headers: { Authorization: `Bearer ${response.accessToken}` },
+				responseType: "blob",
+			}
+		);
+
+		const [graphMeResponse] = await Promise.all([
+			fetch(graphConfig.graphMeEndpoint, options),
+		]);
+
+		if (!graphMeResponse.ok) {
+			throw new Error(`Failed to fetch data: ${graphMeResponse.status}`);
+		}
+
+		const graphMeData = await graphMeResponse.json();
+
+		const url = window.URL || window.webkitURL;
+		const blobUrl = url.createObjectURL(data);
+
+		return { graphMeData, blobUrl };
+	} catch (error) {
+		console.error("Error fetching data:", error);
+	}
 }

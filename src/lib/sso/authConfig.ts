@@ -21,4 +21,5 @@ export const loginRequest: PopupRequest = {
 // Add here the endpoints for MS Graph API services you would like to use.
 export const graphConfig = {
 	graphMeEndpoint: "https://graph.microsoft.com/v1.0/me",
+	graphMeEndpointPhoto: "https://graph.microsoft.com/v1.0/me/photo/$value",
 };
