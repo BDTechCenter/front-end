@@ -21,17 +21,17 @@ export default function NewsOther({ data }: NewsOtherProps) {
 		<Link
 			id="componentNewsTest"
 			href={href}
-			className="flex flex-rol h-20 items-center 2xl:h-24 gap-2 cursor-pointer group"
+			className="flex h-20 gap-3 cursor-pointer group"
 			onClick={handleClick}
 		>
-			<div className="h-20 min-w-[40%] max-w-[40%] transition-all group-hover:opacity-60">
+			<div className="h-full w-[50%] transition-all 2xl:w-[40%] group-hover:opacity-60">
 				<Image
 					src={img}
 					alt={data.title + " Image"}
 					width={500}
 					height={500}
 					onError={() => setImg("/newsNotFound.png")}
-					className="h-full w-fit object-cover"
+					className="h-full w-full object-cover"
 				/>
 			</div>
 			<div className="flex w-full flex-col group-hover:opacity-60 transition-all">
