@@ -92,17 +92,11 @@ export function useFetchGetCommentNewsId(id: string) {
 }
 
 // POST Comments
-async function postComment({
-	comment,
-	id,
-}: {
-	comment: { author: string | undefined; comment: string };
-	id: string;
-}) {
+async function postComment({ comment, id }: { comment: FormData; id: string }) {
 	const { data } = await api.post(`comments/${id}`, comment, {
 		headers: {
-			"Content-Type": "application/json",
-		}
+			"Content-Type": "multipart/form-data",
+		},
 	});
 
 	return data;

@@ -27,6 +27,7 @@ import { useEffect } from "react";
 import { useMutationPostComment } from "@/api/hooks/news/queries";
 import { msalInstance } from "@/lib/sso/msalInstance";
 import { toast } from "react-toastify";
+import api from "@/services/api";
 
 export default function ModalCreateComment({ newsId }: { newsId: string }) {
 	const { mutate } = useMutationPostComment();
@@ -37,15 +38,14 @@ export default function ModalCreateComment({ newsId }: { newsId: string }) {
 
 	function onSubmit(values: z.infer<typeof commentSchema>) {
 		const accountInfo = msalInstance.getActiveAccount();
-		const author: string | undefined = accountInfo?.name || "";
+		const author: string = accountInfo?.name || "";
 
-		const comment = {
-			author: author,
-			comment: values.content,
-		};
+		const postData = new FormData();
+		postData.append('author', author);
+		postData.append('comment', values.content);
 
 		mutate(
-			{ comment, id: newsId },
+			{ comment: postData, id: newsId },
 			{
 				onSuccess: (data) => {
 					console.log(data);
