@@ -9,6 +9,12 @@ import CommentList from "./CommentList";
 import ModalCreateComment from "./ModalCreateComment";
 import { useFetchGetNewsId } from "@/api/hooks/news/queries";
 import { usePathname } from "next/navigation";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { MarkdownRenderer } from "../common/MarkdownRenderer";
 
 export interface NewsContentProps {
 	massageError: Error;
@@ -23,6 +29,9 @@ export default function NewsContent({
 	const path = usePathname();
 	const newsId = path.split("/")[2];
 	const { isLoading, isError, data } = useFetchGetNewsId(newsId);
+
+	console.log(data?.body);
+	
 
 	const newsContentData = () => {
 		return data ? (
@@ -53,15 +62,7 @@ export default function NewsContent({
 						className="w-full max-w-[60rem] max-h-[45rem] border"
 					/>
 					<div className="w-full max-w-[60rem] justify-center items-center">
-						{data ? (
-							<div
-								className="text-justify w-full"
-								style={{ wordWrap: "break-word" }}
-								dangerouslySetInnerHTML={{ __html: data.body }}
-							></div>
-						) : (
-							<></>
-						)}
+						{data ? <MarkdownRenderer>{data.body}</MarkdownRenderer> : <></>}
 					</div>
 					<div className="w-full h-[2px] bg-[#D9D9D9] mt-12"></div>
 					<h1 className="mt-4 font-semibold text-lg text-bdpurple">Comments</h1>

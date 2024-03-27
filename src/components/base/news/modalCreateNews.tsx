@@ -120,7 +120,7 @@ export default function ModalCreateNews() {
 				</DialogHeader>
 				<Form {...form}>
 					<form
-						onSubmit={form.handleSubmit(onSubmit)}
+						onSubmit={form.handleSubmit(OnSubmit)}
 						className="flex gap-1 flex-row w-full justify-between"
 					>
 						<div className="w-[40%] flex flex-col gap-5">

@@ -63,7 +63,6 @@ export function useFetchGetNewsOtherNews() {
 async function postNews(newsObject: FormData) {
 	const { data } = await api.post<News>("news", newsObject, {
 		headers: {
-			Accept: "multipart/form-data",
 			"Content-Type": "multipart/form-data",
 		},
 	});
