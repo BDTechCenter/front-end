@@ -1,5 +1,5 @@
 "use client";
-        
+
 import { Button } from "@/components/ui/button";
 import { ChangeEvent, useEffect, useState } from "react";
 import {
@@ -60,7 +60,7 @@ export default function ModalCreateNews() {
 		return formData;
 	};
 
-	function OnSubmit(values: z.infer<typeof newsSchema>) {
+	function onSubmitForm(values: z.infer<typeof newsSchema>) {
 		const newsFormData = NewsObject(values);
 
 		console.log(newsFormData);
@@ -120,7 +120,7 @@ export default function ModalCreateNews() {
 				</DialogHeader>
 				<Form {...form}>
 					<form
-						onSubmit={form.handleSubmit(onSubmit)}
+						onSubmit={form.handleSubmit(onSubmitForm)}
 						className="flex gap-1 flex-row w-full justify-between"
 					>
 						<div className="w-[40%] flex flex-col gap-5">

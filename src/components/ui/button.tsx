@@ -12,6 +12,9 @@ const buttonVariants = cva(
 				default: "bg-primary text-primary-foreground hover:bg-accent",
 				bdlight: "bg-white text-bdpurple transition hover:bg-accent",
 				bdpurple: "bg-bdpurple text-white transition hover:bg-accent",
+				outline:
+				"bg-[#ddd] rounded-sm hover:bg-bdpurple/80 hover:text-white",
+				ghost: "rounded-sm bg-bdpurple text-white",
 			},
 			size: {
 				default: "h-9 px-4 py-2",

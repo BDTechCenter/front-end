@@ -25,7 +25,7 @@ export default function CommentList({
 				))}
 			</div>
 		) : (
-			<div className="flex justify-center items-center w-full h-96">
+			<div className="flex justify-center items-center w-full h-80">
 				<ImageError data={massageError} />
 			</div>
 		);
