@@ -2,7 +2,6 @@
   "name": "front-end",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://10.234.90.77:8766",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
