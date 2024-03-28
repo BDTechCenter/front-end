@@ -58,8 +58,7 @@ export default function NavBar({ variant }: NavBarProps) {
 				{navLinks.map((link) => (
 					<Link
 						key={link.href}
-						className={cn(
-							"text-sm font-medium transition-colors",
+						className={cn("text-sm font-medium transition-colors",
 							hover,
 							pathname === link.href ? text : noFocus
 						)}

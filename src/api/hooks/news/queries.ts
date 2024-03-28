@@ -93,18 +93,21 @@ export function useFetchGetCommentNewsId(id: string) {
 	});
 }
 
-async function postNewsUpvote({ id, formData, token }: UpvoteNews) {
-	const { data } = await api.post(`/news/${id}/upvote`, formData, {
-		headers: {
-			"Content-Type": "multipart/form-data",
-			Accept: "multipart/form-data",
-			Authorization: `Bearer ${token}`,
-		},
-	});
+async function postNewsUpvote(ctx: QueryFunctionContext) {
+	const [id, token] = ctx.queryKey;
+	const { data } = await api.get(`/news/${id}/upvote`);
 
 	return data;
 }
 
+export function useFetchNewsUpvote(id: string, token?: string) {
+	return useQuery({
+		refetchOnWindowFocus: false,
+		enabled: false,
+		queryKey: ["upVote", id, token],
+		queryFn: postNewsUpvote,
+	});
+}
 export function useMutationPostNewsUpvote() {
 	return useMutation({
 		mutationFn: postNewsUpvote,

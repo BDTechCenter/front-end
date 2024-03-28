@@ -157,18 +157,18 @@ export default function ModalCreateNews() {
 									</FormItem>
 								)}
 							/>
-							<FormField
-								control={form.control}
-								name="tags"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel className="font-medium text-md">Tags</FormLabel>
-										<FormControl>
-											<InputTags  variant="row" {...field}/>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
+								<FormField
+									control={form.control}
+									name="tags"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel className="font-medium text-md">Tags</FormLabel>
+											<FormControl>
+												<InputTags  variant="row" {...field}/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
 							/>
 						</div>
 						<div className="flex flex-col w-[58%]">
