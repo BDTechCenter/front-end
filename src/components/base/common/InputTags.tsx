@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { useState, KeyboardEvent } from "react";
 import { IoMdClose } from "react-icons/io";
 import { toast } from "react-toastify";
+import { cn } from "@/lib/utils";
 
 export interface InputTagsProps {
 	variant: "wrap" | "row";
@@ -45,13 +46,11 @@ export default function InputTags({ variant, onChange }: InputTagsProps) {
 	return (
 		<div>
 			<div className="w-full flex flex-row gap-3">
-				<Input maxLength={35} value={value} onChange={setValue} />
+				<Input placeholder="Search your tags..." maxLength={35} value={value} onChange={setValue} />
 				<Button type="button" className="rounded-sm bg-bdpurple hover:bg-bdpurple/90" onClick={addTags}>tag</Button>
 			</div>
 			<div
-				className={`flex ${
-					variant === "wrap" ? "flex-wrap" : "flex-row"
-				} p-1 gap-2 items-center my-5 overflow-y-hidden overflow-x-scroll`}
+				className={cn("flex p-1 gap-2 items-center my-5 overflow-y-hidden overflow-x-scroll", variant === "wrap" ? "flex-wrap" : "flex-row")}
 			>
 				{tags.map((tag, index) => (
 					<span
