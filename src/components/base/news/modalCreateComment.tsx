@@ -27,7 +27,6 @@ import { useEffect } from "react";
 import { useMutationPostComment } from "@/api/hooks/news/queries";
 import { msalInstance } from "@/lib/sso/msalInstance";
 import { toast } from "react-toastify";
-import api from "@/services/api";
 
 export default function ModalCreateComment({ newsId }: { newsId: string }) {
 	const { mutate } = useMutationPostComment();
@@ -41,8 +40,8 @@ export default function ModalCreateComment({ newsId }: { newsId: string }) {
 		const author: string = accountInfo?.name || "";
 
 		const postData = new FormData();
-		postData.append('author', author);
-		postData.append('comment', values.content);
+		postData.append("author", author);
+		postData.append("comment", values.content);
 
 		mutate(
 			{ comment: postData, id: newsId },

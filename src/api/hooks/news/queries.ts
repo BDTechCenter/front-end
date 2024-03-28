@@ -11,6 +11,8 @@ import {
 	NewsPost,
 } from "@/api/types/news/type";
 
+const hostURL = process.env.NEXT_PUBLIC_API_HOST;
+
 // NEWS
 // GET News
 async function getNews() {
@@ -63,8 +65,8 @@ export function useFetchGetNewsOtherNews() {
 async function postNews(newsObject: FormData) {
 	const { data } = await api.post<News>("news", newsObject, {
 		headers: {
-			"Content-Type": "multipart/form-data",
-		},
+			"Content-Type": "multipart/form-data"
+		}
 	});
 
 	return data;
@@ -93,12 +95,7 @@ export function useFetchGetCommentNewsId(id: string) {
 
 // POST Comments
 async function postComment({ comment, id }: { comment: FormData; id: string }) {
-	const { data } = await api.post(`comments/${id}`, comment, {
-		headers: {
-			Accept: "multipart/form-data",
-			"Content-Type": "multipart/form-data",
-		},
-	});
+const { data } = await api.post(`comments/${id}`, comment);
 
 	return data;
 }
@@ -107,4 +104,33 @@ export function useMutationPostComment() {
 	return useMutation({
 		mutationFn: postComment,
 	});
+}
+
+async function postNewsUpvote(ctx: QueryFunctionContext) {
+	const [id, token] = ctx.queryKey;
+	const { data } = await api.get(`/news/${id}/upvote`);
+
+	return data;
+}
+
+export function useFetchNewsUpvote(id: string, token?: string) {
+	return useQuery({
+		refetchOnWindowFocus: false,
+		enabled: false,
+		queryKey: ["upVote", id, token],
+		queryFn: postNewsUpvote,
+	});
+}
+export function useMutationPostNewsUpvote() {
+	return useMutation({
+		mutationFn: postNewsUpvote,
+	});
+}
+
+
+export async function patchNewsUpvote(id: string, token?: string) {
+	api.defaults.headers.post['Authorization'] = `Bearer ${token}`;
+	const { data } = await api.post(`news/${id}/upvote`);
+	
+	return data
 }
