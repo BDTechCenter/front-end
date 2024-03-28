@@ -46,7 +46,7 @@ export default function InputTags({ variant, onChange }: InputTagsProps) {
 		<div>
 			<div className="w-full flex flex-row gap-3">
 				<Input maxLength={35} value={value} onChange={setValue} />
-				<Button className="rounded-sm bg-bdpurple hover:bg-bdpurple/90" onClick={addTags}>tag</Button>
+				<Button type="button" className="rounded-sm bg-bdpurple hover:bg-bdpurple/90" onClick={addTags}>tag</Button>
 			</div>
 			<div
 				className={`flex ${
