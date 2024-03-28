@@ -10,6 +10,9 @@ import {
 	News,
 	UpvoteNews,
 } from "@/api/types/news/type";
+import { headers } from "next/headers";
+
+const hostURL = process.env.NEXT_PUBLIC_API_HOST;
 
 async function getNews(ctx: QueryFunctionContext) {
 	const [, page] = ctx.queryKey;
@@ -93,26 +96,42 @@ export function useFetchGetCommentNewsId(id: string) {
 	});
 }
 
-async function postNewsUpvote(ctx: QueryFunctionContext) {
-	const [id, token] = ctx.queryKey;
-	const { data } = await api.get(`/news/${id}/upvote`);
-
+export async function getNewsUpvote(id: string, token?: string) {
+	api.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+	const { data } = await api.get(`news/${id}/upvote/${token}`);
 	return data;
 }
 
-export function useFetchNewsUpvote(id: string, token?: string) {
-	return useQuery({
-		refetchOnWindowFocus: false,
-		enabled: false,
-		queryKey: ["upVote", id, token],
-		queryFn: postNewsUpvote,
-	});
+export async function patchNewsUpvote(id: string, token?: string) {
+	api.defaults.headers.post['Authorization'] = `Bearer ${token}`;
+	const { data } = await api.post(`news/${id}/upvote`);
+	
+	return data
 }
-export function useMutationPostNewsUpvote() {
-	return useMutation({
-		mutationFn: postNewsUpvote,
-	});
+
+export async function patchNewsUpvoteF(id: string, token?: string) {
+	var headers = new Headers();
+	headers.append('Access-Control-Allow-Origin', '*')
+	headers.append('Accept', 'application/json')
+	headers.append('Content-Type', 'application/json')
+	headers.append('Authorization', `Bearer ${token}`)
+
+	const response = await fetch(`${hostURL}/tech-news/news/${id}/upvote`, {
+		method: 'POST',
+		headers: headers,
+	}).catch(err => console.error(err))
+
+	console.log(response);
 }
+
+
+// export function useFetchNewsUpvote(id: string, token?: string) {
+// 	return useQuery<News, Error>({
+// 		queryKey: [ id, token],
+// 		queryFn: postNewsUpvote,
+// 	});
+// }
+
 
 // POST Comments
 async function postComment({ comment, id }: { comment: FormData; id: string }) {
