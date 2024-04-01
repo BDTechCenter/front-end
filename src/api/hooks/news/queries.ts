@@ -12,6 +12,7 @@ import {
 	CommentPostType
 } from "@/api/types/news/type";
 import { headers } from "next/headers";
+import Error from "next/error";
 
 const hostURL = process.env.NEXT_PUBLIC_API_HOST;
 
@@ -98,32 +99,30 @@ export function useFetchGetCommentNewsId(id: string) {
 }
 
 export async function patchNewsUpvote(id: string, token?: string) {
-	const { data } = await api.get(`news/${id}/upvote`, {
-		headers: {
-			"Autorization": `Bearer kk`
-		}
-	});
-
+	api.defaults.headers["Authorization"] = `Bearer ${token}`
+	const { data } = await api.patch(`news/${id}/upvote`)
 	return data
 }
 
+// PATCH upvote
 // export async function patchNewsUpvote(ctx: QueryFunctionContext) {
 // 	const [id, token] = ctx.queryKey
+// 	api.defaults.headers["Authorization"] = `Bearer ${token}`
 // 	const { data } = await api.get(`news/${id}/upvote`, {
 // 		headers: {
-// 			"Autorization": `Bearer ${token}`
+// 			"Authorization": `Bearer ${token}`
 // 		}
 // 	});
 
 // 	return data
 // }
 
-// export function useFetchNewsUpvote(id: string, token?: string) {
-// 	return useQuery({
-// 		queryKey: [ id, token],
-// 		queryFn: patchNewsUpvote,
+// export function useMutationPatchNewsUpvote() {
+// 	return useMutation({
+// 		mutationFn: patchNewsUpvote,
 // 	});
 // }
+
 
 
 // POST Comments
