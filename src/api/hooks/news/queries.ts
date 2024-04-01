@@ -3,6 +3,7 @@ import {
 	QueryFunctionContext,
 	useMutation,
 	useQuery,
+	useQueryClient,
 } from "@tanstack/react-query";
 import {
 	ContentComment,
@@ -10,8 +11,6 @@ import {
 	News,
 	NewsPost,
 } from "@/api/types/news/type";
-
-const hostURL = process.env.NEXT_PUBLIC_API_HOST;
 
 // NEWS
 // GET News
@@ -65,8 +64,8 @@ export function useFetchGetNewsOtherNews() {
 async function postNews(newsObject: FormData) {
 	const { data } = await api.post<News>("news", newsObject, {
 		headers: {
-			"Content-Type": "multipart/form-data"
-		}
+			"Content-Type": "multipart/form-data",
+		},
 	});
 
 	return data;
@@ -94,43 +93,39 @@ export function useFetchGetCommentNewsId(id: string) {
 }
 
 // POST Comments
-async function postComment({ comment, id }: { comment: FormData; id: string }) {
-const { data } = await api.post(`comments/${id}`, comment);
+async function postComment({ comment, id }: { comment: {author: string, comment: string}; id: string }) {
+	const { data } = await api.post(`comments/${id}`, comment);
 
 	return data;
 }
 
 export function useMutationPostComment() {
+	const queryClient = useQueryClient();
+
 	return useMutation({
 		mutationFn: postComment,
+		onSuccess: (data, variables) => {
+			queryClient.setQueryData(["comment", { id: variables.id }], data);
+		},
 	});
 }
 
-async function postNewsUpvote(ctx: QueryFunctionContext) {
+async function patchNewsUpvote(ctx: QueryFunctionContext) {
 	const [id, token] = ctx.queryKey;
 	const { data } = await api.get(`/news/${id}/upvote`);
 
 	return data;
 }
 
-export function useFetchNewsUpvote(id: string, token?: string) {
-	return useQuery({
-		refetchOnWindowFocus: false,
-		enabled: false,
-		queryKey: ["upVote", id, token],
-		queryFn: postNewsUpvote,
-	});
-}
 export function useMutationPostNewsUpvote() {
 	return useMutation({
-		mutationFn: postNewsUpvote,
+		mutationFn: patchNewsUpvote,
 	});
 }
 
-
-export async function patchNewsUpvote(id: string, token?: string) {
-	api.defaults.headers.post['Authorization'] = `Bearer ${token}`;
+export async function patchNewseUpvote(id: string, token?: string) {
+	api.defaults.headers.post["Authorization"] = `Bearer ${token}`;
 	const { data } = await api.post(`news/${id}/upvote`);
-	
-	return data
+
+	return data;
 }
