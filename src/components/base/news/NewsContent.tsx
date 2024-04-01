@@ -10,6 +10,7 @@ import LikeForNews from "./LikeForNews";
 import { useFetchGetNewsId } from "@/api/hooks/news/queries";
 import { usePathname } from "next/navigation";
 import ModalCreateComment from "./ModalCreateComment";
+import Link from "next/link";
 
 export interface NewsContentProps {
 	massageError: Error;
@@ -34,12 +35,12 @@ export default function NewsContent({
 					</h1>
 					<div className="flex flex-row gap-3 w-full">
 						{data.tags.map((tag) => (
-							<div
+							<Link href={`/news?tags=${tag}`}
 								key={tag}
 								className="flex justify-center items-center p-2 bg-bdgray rounded-lg text-sm"
 							>
 								{tag}
-							</div>
+							</Link>
 						))}
 					</div>
 					<div className="bg-bdgray rounded-lg flex flex-col py-2 px-5 w-[50%]">
