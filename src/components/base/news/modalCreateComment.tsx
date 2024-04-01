@@ -39,9 +39,10 @@ export default function ModalCreateComment({ newsId }: { newsId: string }) {
 		const accountInfo = msalInstance.getActiveAccount();
 		const author: string = accountInfo?.name || "";
 
-		const postData = new FormData();
-		postData.append("author", author);
-		postData.append("comment", values.content);
+		const postData = {
+			"author": author,
+			"comment": values.content
+		};
 
 		mutate(
 			{ comment: postData, id: newsId },
