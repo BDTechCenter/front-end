@@ -3,13 +3,16 @@ import { BiSolidUpvote } from "react-icons/bi";
 import { BiUpvote } from "react-icons/bi";
 import { msalInstance } from "@/lib/sso/msalInstance";
 import { useState } from 'react';
-import { patchNewsUpvote } from '@/api/hooks/news/queries';
+import {  patchNewsUpvote } from '@/api/hooks/news/queries';
+import { toast } from 'react-toastify';
 
 interface LikeForNewsProps {
   id: string
 }
 
 export default function LikeForNews({ id }: LikeForNewsProps) {
+  // const { mutate } = useMutationPatchNewsUpvote()
+  
   const user = msalInstance.getActiveAccount()
   const token = user ? user.idToken : ''
   const [like, setLike] = useState(false)

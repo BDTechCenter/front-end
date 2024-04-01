@@ -33,6 +33,7 @@ import InputTags from "../common/InputTags";
 
 export default function ModalCreateNews() {
 	const { mutate } = useMutationPostNews();
+	const [tags, setTags] = useState<string[]>([]);
 
 	const form = useForm<z.infer<typeof newsSchema>>({
 		resolver: zodResolver(newsSchema),
@@ -46,14 +47,11 @@ export default function ModalCreateNews() {
 		formData.append("author", author);
 		formData.append("title", values.title);
 		formData.append("body", values.body);
-		formData.append("tags", "test, docker");
 
-		// Append tags if present
-		// if (values.tags) {
-		// 	formData.append("tags", values.tags.toString());
-		// }
+		if (values.tags) {
+			formData.append("tags", values.tags?.toString());
+		}
 
-		// Append image if present
 		if (values.image) {
 			formData.append("image", values.image);
 		}
@@ -62,13 +60,11 @@ export default function ModalCreateNews() {
 	};
 
 	function onSubmitForm(values: z.infer<typeof newsSchema>) {
+		console.log(values.tags?.toString())
 		const newsFormData = NewsObject(values);
-
-		console.log(newsFormData);
-
+		
 		mutate(newsFormData, {
 			onSuccess: (data) => {
-				console.log(data);
 				toast.success("News added with success", {
 					position: "top-right",
 					autoClose: 3000,
@@ -81,7 +77,6 @@ export default function ModalCreateNews() {
 				});
 			},
 			onError: (error) => {
-				console.log(error);
 				toast.error(error.message, {
 					position: "top-right",
 					autoClose: 3000,
@@ -98,7 +93,7 @@ export default function ModalCreateNews() {
 
 	const [imageKey, setImageKey] = useState<number>(0);
 
-	useEffect(() => {
+	useEffect(() => { 
 		if (form.formState.isSubmitSuccessful) {
 			form.reset({ image: null, body: "", tags: [], title: "" });
 			setImageKey((prevKey) => prevKey + 1);
@@ -115,7 +110,7 @@ export default function ModalCreateNews() {
 					Add News
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="w-[65rem] h-[40rem] ">
+			<DialogContent className="w-[80%] 2xl:w-[80%] h-[90%] 2xl:h-[55%] ">
 				<DialogHeader>
 					<DialogTitle className="text-bdpurple">Create a News</DialogTitle>
 				</DialogHeader>
@@ -149,7 +144,7 @@ export default function ModalCreateNews() {
 										<FormControl>
 											<Input
 												placeholder="Your title here..."
-												maxLength={30}
+												maxLength={100}
 												{...field}
 											/>
 										</FormControl>
@@ -157,18 +152,18 @@ export default function ModalCreateNews() {
 									</FormItem>
 								)}
 							/>
-								<FormField
-									control={form.control}
-									name="tags"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel className="font-medium text-md">Tags</FormLabel>
-											<FormControl>
-												<InputTags  variant="row" {...field}/>
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
+							<FormField
+								control={form.control}
+								name="tags"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel className="font-medium text-md">Tags</FormLabel>
+										<FormControl>
+											<InputTags onChange={setTags} variant="row" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
 							/>
 						</div>
 						<div className="flex flex-col w-[58%]">
