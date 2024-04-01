@@ -9,6 +9,7 @@ import {
 	ContentNews,
 	News,
 	UpvoteNews,
+	CommentPostType
 } from "@/api/types/news/type";
 import { headers } from "next/headers";
 
@@ -96,51 +97,38 @@ export function useFetchGetCommentNewsId(id: string) {
 	});
 }
 
-export async function getNewsUpvote(id: string, token?: string) {
-	api.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-	const { data } = await api.get(`news/${id}/upvote/${token}`);
-	return data;
-}
-
 export async function patchNewsUpvote(id: string, token?: string) {
-	api.defaults.headers.post['Authorization'] = `Bearer ${token}`;
-	const { data } = await api.post(`news/${id}/upvote`);
-	
+	const { data } = await api.get(`news/${id}/upvote`, {
+		headers: {
+			"Autorization": `Bearer kk`
+		}
+	});
+
 	return data
 }
 
-export async function patchNewsUpvoteF(id: string, token?: string) {
-	var headers = new Headers();
-	headers.append('Access-Control-Allow-Origin', '*')
-	headers.append('Accept', 'application/json')
-	headers.append('Content-Type', 'application/json')
-	headers.append('Authorization', `Bearer ${token}`)
+// export async function patchNewsUpvote(ctx: QueryFunctionContext) {
+// 	const [id, token] = ctx.queryKey
+// 	const { data } = await api.get(`news/${id}/upvote`, {
+// 		headers: {
+// 			"Autorization": `Bearer ${token}`
+// 		}
+// 	});
 
-	const response = await fetch(`${hostURL}/tech-news/news/${id}/upvote`, {
-		method: 'POST',
-		headers: headers,
-	}).catch(err => console.error(err))
-
-	console.log(response);
-}
-
+// 	return data
+// }
 
 // export function useFetchNewsUpvote(id: string, token?: string) {
-// 	return useQuery<News, Error>({
+// 	return useQuery({
 // 		queryKey: [ id, token],
-// 		queryFn: postNewsUpvote,
+// 		queryFn: patchNewsUpvote,
 // 	});
 // }
 
 
 // POST Comments
-async function postComment({ comment, id }: { comment: FormData; id: string }) {
-	const { data } = await api.post(`comments/${id}`, comment, {
-		headers: {
-			Accept: "multipart/form-data",
-			"Content-Type": "multipart/form-data",
-		},
-	});
+async function postComment({ comment, id }: { comment: CommentPostType; id: string }) {
+	const { data } = await api.post(`comments/${id}`, comment);
 
 	return data;
 }

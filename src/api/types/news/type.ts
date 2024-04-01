@@ -38,6 +38,11 @@ export interface CommentType {
 	publicationDate: string;
 }
 
+export interface CommentPostType{
+  author: string
+  comment: string
+}
+
 export interface ContentComment {
 	content: CommentType[];
 }
