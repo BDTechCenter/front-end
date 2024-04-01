@@ -1,8 +1,8 @@
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { CopyBlock, dracula } from "react-code-blocks";
+import React from "react";
 
 type MarkdownRendererProps = {
 	children: string;
@@ -16,14 +16,18 @@ export function MarkdownRenderer({
 			remarkPlugins={[remarkGfm]}
 			rehypePlugins={[rehypeRaw]}
 			components={{
-				pre: ({ node, ...props }) => (
-					<pre className="w-full p-2 my-2 overflow-auto rounded-lg bg-black/10">
-						<code {...props} />
-					</pre>
-				),
-				code: ({ node, ...props }) => (
-					<code className="p-1 rounded-lg bg-black/10" {...props} />
-				),
+				pre: ({ node, children, ...props }) => {
+					return (
+						<pre {...props}>
+							<CopyBlock
+								text={String(children)}
+								language="javascript"
+								theme={dracula}
+								codeBlock
+							/>
+						</pre>
+					);
+				},
 			}}
 			className="overflow-hidden text-sm leading-7"
 		>
