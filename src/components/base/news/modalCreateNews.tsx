@@ -1,5 +1,5 @@
 "use client";
-        
+
 import { Button } from "@/components/ui/button";
 import { ChangeEvent, useEffect, useState } from "react";
 import {
@@ -29,6 +29,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { msalInstance } from "@/lib/sso/msalInstance";
 import { useMutationPostNews } from "@/api/hooks/news/queries";
 import { toast } from "react-toastify";
+import InputTags from "../common/InputTags";
 
 export default function ModalCreateNews() {
 	const { mutate } = useMutationPostNews();
@@ -60,7 +61,7 @@ export default function ModalCreateNews() {
 		return formData;
 	};
 
-	function OnSubmit(values: z.infer<typeof newsSchema>) {
+	function onSubmitForm(values: z.infer<typeof newsSchema>) {
 		const newsFormData = NewsObject(values);
 
 		console.log(newsFormData);
@@ -114,14 +115,14 @@ export default function ModalCreateNews() {
 					Add News
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="w-[80%] 2xl:w-[55%] min-w-[43rem] h-[80%] 2xl:h-[60%]">
+			<DialogContent className="w-[65rem] h-[40rem] ">
 				<DialogHeader>
 					<DialogTitle className="text-bdpurple">Create a News</DialogTitle>
 				</DialogHeader>
 				<Form {...form}>
 					<form
-						onSubmit={form.handleSubmit(onSubmit)}
-						className="flex gap-1 flex-row w-full justify-between"
+						onSubmit={form.handleSubmit(onSubmitForm)}
+						className="flex gap-1 flex-row w-full justify-between overflow-y-scroll overflow-x-scroll"
 					>
 						<div className="w-[40%] flex flex-col gap-5">
 							<FormField
@@ -155,6 +156,19 @@ export default function ModalCreateNews() {
 										<FormMessage />
 									</FormItem>
 								)}
+							/>
+								<FormField
+									control={form.control}
+									name="tags"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel className="font-medium text-md">Tags</FormLabel>
+											<FormControl>
+												<InputTags  variant="row" {...field}/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
 							/>
 						</div>
 						<div className="flex flex-col w-[58%]">

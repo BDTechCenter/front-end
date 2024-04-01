@@ -1,7 +1,9 @@
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState, KeyboardEvent } from "react";
 import { IoMdClose } from "react-icons/io";
 import { toast } from "react-toastify";
+import { cn } from "@/lib/utils";
 
 export interface InputTagsProps {
 	variant: "wrap" | "row";
@@ -9,11 +11,12 @@ export interface InputTagsProps {
 }
 
 export default function InputTags({ variant, onChange }: InputTagsProps) {
+	const [value, setValue] = useState('')
 	const [tags, setTags] = useState<string[]>([]);
 	const MaxTegs = 7;
 
 	const errorToast = () => {
-		toast.error("Cannot add more tags", {
+		toast.error("Cannot add tag", {
 			position: "top-right",
 			autoClose: 1500,
 			hideProgressBar: false,
@@ -25,16 +28,14 @@ export default function InputTags({ variant, onChange }: InputTagsProps) {
 		});
 	};
 
-	const addTags = (event: KeyboardEvent<HTMLInputElement>) => {
-		if (event.key === "Enter" && event.currentTarget.value.trim() !== "") {
-			if (tags.length < MaxTegs) {
-				setTags([...tags, event.currentTarget.value.trim()]);
-				onChange([...tags, event.currentTarget.value.trim()]);
-			} else {
-				errorToast();
-			}
-			event.currentTarget.value = "";
+	const addTags = () => {
+		if (tags.length < MaxTegs && value !== '') {
+			setTags([...tags, value]);
+			onChange([...tags, value]);
+		} else {
+			errorToast();
 		}
+		setValue('')
 	};
 
 	const removeTags = (index: number) => {
@@ -44,11 +45,12 @@ export default function InputTags({ variant, onChange }: InputTagsProps) {
 
 	return (
 		<div>
-			<Input onKeyUp={addTags} maxLength={35} onChange={() => {}} />
+			<div className="w-full flex flex-row gap-3">
+				<Input placeholder="Search your tags..." maxLength={35} value={value} onChange={setValue} />
+				<Button type="button" className="rounded-sm bg-bdpurple hover:bg-bdpurple/90" onClick={addTags}>tag</Button>
+			</div>
 			<div
-				className={`flex ${
-					variant === "wrap" ? "flex-wrap" : "flex-row"
-				} p-1 gap-2 items-center my-5 overflow-y-hidden overflow-x-scroll`}
+				className={cn("flex p-1 gap-2 items-center my-5 overflow-y-hidden overflow-x-scroll", variant === "wrap" ? "flex-wrap" : "flex-row")}
 			>
 				{tags.map((tag, index) => (
 					<span

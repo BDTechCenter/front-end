@@ -1,11 +1,11 @@
-import "react-quill/dist/quill.snow.css";
+import ".//quill.css";
 import hljs from "highlight.js";
 import dynamic from "next/dynamic";
 
 const ReactQuill = dynamic(
 	() => {
 		hljs.configure({
-			languages: ["javascript", "php", "go"],
+			languages: ["javascript", "php", "go", "java", "python"],
 		});
 		// @ts-ignore
 		window.hljs = hljs;
@@ -24,10 +24,7 @@ export interface InputTextEditProps {
 
 const InputTextEdit = ({ onChange, value }: InputTextEditProps) => {
 	const editorStyle = {
-		marginBottom: "4rem",
 		backgroundColor: "transparent",
-		height: "16rem",
-		width: "100%"
 	};
 
 	const modules = {

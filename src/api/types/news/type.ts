@@ -18,7 +18,6 @@ export interface ContentNews{
 
 export interface UpvoteNews{
   id: string
-  formData: FormData
   token?: string
 }
 
@@ -37,6 +36,11 @@ export interface CommentType {
 	author: string;
 	comment: string;
 	publicationDate: string;
+}
+
+export interface CommentPostType{
+  author: string
+  comment: string
 }
 
 export interface ContentComment {

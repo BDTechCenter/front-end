@@ -23,12 +23,10 @@ export default function NewsPage() {
 				</div>
 			</div>
 			<section className="my-24 mx-28 h-full 2xl:mx-44 2xl:my-36">
-				<div className="relative grid grid-cols-2 sm:grid-cols-3 gap-5 2xl:gap-7">
-					<NewsList
-						massageError={dataNewsPage.newsErrorNotFound}
-						massageNotFound={dataNewsPage.newsErrorNotFound}
-					/>
-				</div>
+				<NewsList
+					massageError={dataNewsPage.newsErrorNotFound}
+					massageNotFound={dataNewsPage.newsErrorNotFound}
+				/>
 			</section>
 		</main>
 	);

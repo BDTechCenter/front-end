@@ -9,7 +9,11 @@ import {
 	ContentNews,
 	News,
 	UpvoteNews,
+	CommentPostType
 } from "@/api/types/news/type";
+import { headers } from "next/headers";
+
+const hostURL = process.env.NEXT_PUBLIC_API_HOST;
 
 async function getNews(ctx: QueryFunctionContext) {
 	const [, page] = ctx.queryKey;
@@ -93,32 +97,38 @@ export function useFetchGetCommentNewsId(id: string) {
 	});
 }
 
-async function postNewsUpvote({ id, formData, token }: UpvoteNews) {
-	const { data } = await api.post(`/news/${id}/upvote`, formData, {
+export async function patchNewsUpvote(id: string, token?: string) {
+	const { data } = await api.get(`news/${id}/upvote`, {
 		headers: {
-			"Content-Type": "multipart/form-data",
-			Accept: "multipart/form-data",
-			Authorization: `Bearer ${token}`,
-		},
+			"Autorization": `Bearer kk`
+		}
 	});
 
-	return data;
+	return data
 }
 
-export function useMutationPostNewsUpvote() {
-	return useMutation({
-		mutationFn: postNewsUpvote,
-	});
-}
+// export async function patchNewsUpvote(ctx: QueryFunctionContext) {
+// 	const [id, token] = ctx.queryKey
+// 	const { data } = await api.get(`news/${id}/upvote`, {
+// 		headers: {
+// 			"Autorization": `Bearer ${token}`
+// 		}
+// 	});
+
+// 	return data
+// }
+
+// export function useFetchNewsUpvote(id: string, token?: string) {
+// 	return useQuery({
+// 		queryKey: [ id, token],
+// 		queryFn: patchNewsUpvote,
+// 	});
+// }
+
 
 // POST Comments
-async function postComment({ comment, id }: { comment: FormData; id: string }) {
-	const { data } = await api.post(`comments/${id}`, comment, {
-		headers: {
-			Accept: "multipart/form-data",
-			"Content-Type": "multipart/form-data",
-		},
-	});
+async function postComment({ comment, id }: { comment: CommentPostType; id: string }) {
+	const { data } = await api.post(`comments/${id}`, comment);
 
 	return data;
 }
