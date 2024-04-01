@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 const ReactQuill = dynamic(
 	() => {
 		hljs.configure({
-			languages: ["javascript", "php", "go"],
+			languages: ["javascript", "php", "go", "java", "python"],
 		});
 		// @ts-ignore
 		window.hljs = hljs;
@@ -25,7 +25,6 @@ export interface InputTextEditProps {
 const InputTextEdit = ({ onChange, value }: InputTextEditProps) => {
 	const editorStyle = {
 		backgroundColor: "transparent",
-		width: "100%"
 	};
 
 	const modules = {
