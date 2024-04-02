@@ -16,11 +16,6 @@ export interface ContentNews{
   totalPages: number
 }
 
-export interface UpvoteNews{
-  id: string
-  token?: string
-}
-
 export interface NewsPost {
 	author?: string;
 	title: string;

@@ -9,13 +9,9 @@ import {
 	ContentComment,
 	ContentNews,
 	News,
-	UpvoteNews,
-	CommentPostType
+	CommentPostType,
 } from "@/api/types/news/type";
-import { headers } from "next/headers";
 import Error from "next/error";
-
-const hostURL = process.env.NEXT_PUBLIC_API_HOST;
 
 async function getNews(ctx: QueryFunctionContext) {
 	const [, page] = ctx.queryKey;
@@ -93,40 +89,19 @@ async function getIdCommentNews(ctx: QueryFunctionContext) {
 
 export function useFetchGetCommentNewsId(id: string) {
 	return useQuery<ContentComment, Error>({
-		queryKey: ["comment", id],
+		queryKey: ["comments", id],
 		queryFn: getIdCommentNews,
 	});
 }
 
-export async function patchNewsUpvote(id: string, token?: string) {
-	api.defaults.headers["Authorization"] = `Bearer ${token}`
-	const { data } = await api.patch(`news/${id}/upvote`)
-	return data
-}
-
-// PATCH upvote
-// export async function patchNewsUpvote(ctx: QueryFunctionContext) {
-// 	const [id, token] = ctx.queryKey
-// 	api.defaults.headers["Authorization"] = `Bearer ${token}`
-// 	const { data } = await api.get(`news/${id}/upvote`, {
-// 		headers: {
-// 			"Authorization": `Bearer ${token}`
-// 		}
-// 	});
-
-// 	return data
-// }
-
-// export function useMutationPatchNewsUpvote() {
-// 	return useMutation({
-// 		mutationFn: patchNewsUpvote,
-// 	});
-// }
-
-
-
 // POST Comments
-async function postComment({ comment, id }: { comment: CommentPostType; id: string }) {
+async function postComment({
+	comment,
+	id,
+}: {
+	comment: CommentPostType;
+	id: string;
+}) {
 	const { data } = await api.post(`comments/${id}`, comment);
 
 	return data;
@@ -138,25 +113,26 @@ export function useMutationPostComment() {
 	return useMutation({
 		mutationFn: postComment,
 		onSuccess: (data, variables) => {
-			queryClient.setQueryData(["comment", { id: variables.id }], data);
+			queryClient.setQueryData(["comments", { id: variables.id }], data);
 		},
 	});
 }
 
-async function patchNewsUpvote(ctx: QueryFunctionContext) {
-	const [id, token] = ctx.queryKey;
-	const { data } = await api.get(`/news/${id}/upvote`);
+async function patchNewsUpvote({ empty, id }: { empty: null; id: string }) {
+	const response = await api.patch(`/news/${id}/upvote`, empty, {
+		headers: { "Content-Length": 0 },
+	});
 
-	return data;
+	return response;
 }
 
-export function useMutationPostNewsUpvote() {
+export function useMutationNewsUpvote() {
 	return useMutation({
 		mutationFn: patchNewsUpvote,
 	});
 }
 
-export async function patchNewseUpvote(id: string, token?: string) {
+export async function patchNewseUpvote(id: string) {
 	const { data } = await api.post(`news/${id}/upvote`);
 
 	return data;
