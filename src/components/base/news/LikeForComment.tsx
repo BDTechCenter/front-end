@@ -22,7 +22,6 @@ export default function LikeForComment({
 	const [like, setLike] = useState(alreadyUpVoted);
 
 	const useLikePress = async () => {
-		if (!alreadyUpVoted) {
 			mutate(
 				{ id: id, token: token },
 				{
@@ -53,8 +52,7 @@ export default function LikeForComment({
 					},
 				}
 			);
-			setLike(true);
-		}
+			setLike(!like);
 	};
 
 	return (

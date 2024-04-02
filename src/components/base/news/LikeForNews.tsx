@@ -19,37 +19,37 @@ export default function LikeForNews({ id, alreadyUpVoted }: LikeForNewsProps) {
   const [like, setLike] = useState(alreadyUpVoted)
 
   const useLikePress = async () => {
-    mutate(
-      { id: id, token: token },
-      {
-        onSuccess: (data) => {
-          toast.success("upvote successfully", {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-
-            progress: undefined,
-            theme: "light",
-          });
-        },
-        onError: (error) => {
-          toast.error(error.message, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-        },
-      }
-    );
-    setLike(true);
+      mutate(
+        { id: id, token: token },
+        {
+          onSuccess: (data) => {
+            toast.success("upvote successfully", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+  
+              progress: undefined,
+              theme: "light",
+            });
+          },
+          onError: (error) => {
+            toast.error(error.message, {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          },
+        }
+      );
+      setLike(!like)
   }
 
   return (
@@ -57,7 +57,7 @@ export default function LikeForNews({ id, alreadyUpVoted }: LikeForNewsProps) {
       {!like ?
         <BiUpvote size={22} color="#262626" onClick={useLikePress} className='cursor-pointer' />
         :
-        <BiSolidUpvote size={22} color="#262626" className='cursor-pointer' />
+        <BiSolidUpvote size={22} onClick={useLikePress} color="#262626" className='cursor-pointer' />
       }
     </div>
   )
