@@ -8,6 +8,11 @@ export const msalConfig: Configuration = {
 		redirectUri: `${process.env.NEXT_PUBLIC_MSAL_REDIRECTURI}`,
 		postLogoutRedirectUri: "/",
 	},
+	cache: {
+		cacheLocation: "sessionStorage", // This configures where your cache will be stored
+		storeAuthStateInCookie: true, // Set this to "true" if you are having issues on IE11 or Edge
+		secureCookies: true
+	},
 	system: {
 		allowNativeBroker: false, // Disables WAM Broker
 	},

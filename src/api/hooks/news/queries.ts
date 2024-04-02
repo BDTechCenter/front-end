@@ -3,6 +3,7 @@ import {
 	QueryFunctionContext,
 	useMutation,
 	useQuery,
+	useQueryClient,
 } from "@tanstack/react-query";
 import {
 	ContentComment,
@@ -69,7 +70,6 @@ export function useFetchGetNewsOtherNews() {
 async function postNews(newsObject: FormData) {
 	const { data } = await api.post<News>("news", newsObject, {
 		headers: {
-			Accept: "multipart/form-data",
 			"Content-Type": "multipart/form-data",
 		},
 	});
@@ -133,7 +133,31 @@ async function postComment({ comment, id }: { comment: CommentPostType; id: stri
 }
 
 export function useMutationPostComment() {
+	const queryClient = useQueryClient();
+
 	return useMutation({
 		mutationFn: postComment,
+		onSuccess: (data, variables) => {
+			queryClient.setQueryData(["comment", { id: variables.id }], data);
+		},
 	});
+}
+
+async function patchNewsUpvote(ctx: QueryFunctionContext) {
+	const [id, token] = ctx.queryKey;
+	const { data } = await api.get(`/news/${id}/upvote`);
+
+	return data;
+}
+
+export function useMutationPostNewsUpvote() {
+	return useMutation({
+		mutationFn: patchNewsUpvote,
+	});
+}
+
+export async function patchNewseUpvote(id: string, token?: string) {
+	const { data } = await api.post(`news/${id}/upvote`);
+
+	return data;
 }

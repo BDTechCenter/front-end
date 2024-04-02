@@ -6,11 +6,10 @@ import { Error } from "@/api/types/all/type";
 import { NewsContentSkeleton } from "../skeleton/NewsContentSkeleton";
 import NewsOtherList from "./NewsOtherList";
 import CommentList from "./CommentList";
-import LikeForNews from "./LikeForNews";
+import ModalCreateComment from "./ModalCreateComment";
 import { useFetchGetNewsId } from "@/api/hooks/news/queries";
 import { usePathname } from "next/navigation";
-import ModalCreateComment from "./modalCreateComment";
-import Link from "next/link";
+import { MarkdownRenderer } from "../common/MarkdownRenderer";
 
 export interface NewsContentProps {
 	massageError: Error;
@@ -26,6 +25,9 @@ export default function NewsContent({
 	const newsId = path.split("/")[2];
 	const { isLoading, isError, data } = useFetchGetNewsId(newsId);
 
+	console.log(data?.body);
+	
+
 	const newsContentData = () => {
 		return data ? (
 			<>
@@ -35,13 +37,12 @@ export default function NewsContent({
 					</h1>
 					<div className="flex flex-row gap-3 w-full">
 						{data.tags.map((tag) => (
-							<Link
-								href={`/news?tags=${tag}`}
+							<div
 								key={tag}
 								className="flex justify-center items-center p-2 bg-bdgray rounded-lg text-sm"
 							>
 								{tag}
-							</Link>
+							</div>
 						))}
 					</div>
 					<div className="bg-bdgray rounded-lg flex flex-col py-2 px-5 w-[50%]">
@@ -56,23 +57,11 @@ export default function NewsContent({
 						className="w-full max-w-[60rem] max-h-[45rem] border"
 					/>
 					<div className="w-full max-w-[60rem] justify-center items-center">
-						{data ? (
-							<div
-								className="text-justify w-full"
-								style={{ wordWrap: "break-word" }}
-								dangerouslySetInnerHTML={{ __html: data.body }}
-							></div>
-						) : (
-							<></>
-						)}
+						{data ? <MarkdownRenderer>{data.body}</MarkdownRenderer> : <></>}
 					</div>
-					<h1 className="mt-4 font-semibold text-lg text-bdpurple">
-						Is this news relevant to you?
-					</h1>
-					<LikeForNews id={data.id} />
 					<div className="w-full h-[2px] bg-[#D9D9D9] mt-12"></div>
 					<h1 className="mt-4 font-semibold text-lg text-bdpurple">Comments</h1>
-					<div className="w-full max-h-96">
+					<div className="w-full max-h-96 overflow-y-scroll">
 						<CommentList
 							massagenotFaoundError={massageCommentError}
 							massageError={massageCommentError}
