@@ -4,7 +4,7 @@ import BannerIntroduction from "@/components/base/home/BannerInformateBD";
 import NavBar from "@/components/base/common/NavBar";
 import TopBanner from "@/components/base/common/TopBanner";
 import MainNewsCardHome from "@/components/base/home/MainNewsCardHome";
-import { Suspense } from "react";
+import Footer from "@/components/base/common/Footer";
 
 export default function Home() {
 	return (
@@ -22,6 +22,7 @@ export default function Home() {
 			<AllCardFeature />
 			<BannerIntroduction />
 			<AllCardTeam />
+			<Footer />
 		</main>
 	);
 }

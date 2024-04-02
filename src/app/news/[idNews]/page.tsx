@@ -1,3 +1,4 @@
+import Footer from "@/components/base/common/Footer";
 import NavBar from "@/components/base/common/NavBar";
 import NewsContent from "@/components/base/news/NewsContent";
 
@@ -12,6 +13,7 @@ export default function NewsContentPage() {
 					messageErrorContent={dataNewsContentPage.newsErrorNotFound}
 				/>
 			</section>
+			<Footer />
 		</main>
 	);
 }

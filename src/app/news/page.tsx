@@ -1,4 +1,4 @@
-
+import Footer from "@/components/base/common/Footer";
 import NavBar from "@/components/base/common/NavBar";
 import TopBanner from "@/components/base/common/TopBanner";
 import NewsList from "@/components/base/news/NewsList";
@@ -28,6 +28,7 @@ export default function NewsPage() {
 					massageNotFound={dataNewsPage.newsErrorNotFound}
 				/>
 			</section>
+			<Footer />
 		</main>
 	);
 }
