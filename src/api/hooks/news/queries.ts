@@ -13,8 +13,8 @@ import {
 } from "@/api/types/news/type";
 import Error from "next/error";
 
-const hostURL = process.env.NEXT_PUBLIC_API_HOST;
-
+// News
+// GET news preview
 async function getNews(ctx: QueryFunctionContext) {
 	const [, page] = ctx.queryKey;
 	const { data } = await api.get<ContentNews>(
