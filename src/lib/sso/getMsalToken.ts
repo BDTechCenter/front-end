@@ -13,7 +13,10 @@ export default async function getMsalToken() {
 		...loginRequest,
 		account: account,
 	});
+
 	let token = response.accessToken;
 
-	return token;
+	let idToken = account.idToken
+
+	return {token, idToken};
 }

@@ -4,7 +4,7 @@ import axios, { AxiosInstance, InternalAxiosRequestConfig } from "axios";
 const hostURL = process.env.NEXT_PUBLIC_API_HOST;
 
 interface TokenInfo {
-	token: string | null;
+	token?: string;
 	expiration: number;
 }
 
@@ -14,9 +14,9 @@ const tokenInterceptor = async (
 	config: InternalAxiosRequestConfig<any>
 ): Promise<InternalAxiosRequestConfig<any>> => {
 	if (!cachedToken || Date.now() > cachedToken.expiration) {
-		let token = await getMsalToken();
+		let { token, idToken } = await getMsalToken();
 		// Refresh token if expired or not cached
-		cachedToken = { token, expiration: Date.now() + 3600000 };
+		cachedToken = { token: idToken, expiration: Date.now() + 3600000 };
 	}
 	config.headers.Authorization = `Bearer ${cachedToken?.token}`;
 	return config;
