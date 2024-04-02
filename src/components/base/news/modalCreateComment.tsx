@@ -27,6 +27,7 @@ import { useEffect } from "react";
 import { useMutationPostComment } from "@/api/hooks/news/queries";
 import { msalInstance } from "@/lib/sso/msalInstance";
 import { toast } from "react-toastify";
+import { CommentPostType } from "@/api/types/news/type";
 
 export default function ModalCreateComment({ newsId }: { newsId: string }) {
 	const { mutate } = useMutationPostComment();
@@ -39,10 +40,10 @@ export default function ModalCreateComment({ newsId }: { newsId: string }) {
 		const accountInfo = msalInstance.getActiveAccount();
 		const author: string = accountInfo?.name || "";
 
-		const postData = {
+		const postData: CommentPostType = {
 			"author": author,
 			"comment": values.content
-		};
+	};
 
 		mutate(
 			{ comment: postData, id: newsId },

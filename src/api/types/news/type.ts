@@ -1,14 +1,24 @@
 export interface News {
-	id: string;
-	author: string;
-	creationDate: string;
-	updateDate: string;
-	title: string;
-	summary: string;
-	body: string;
-	tags: string[];
-	imageUrl: string;
-	isPublished: boolean;
+  id: string
+  imageUrl: string
+  updateDate: string
+  title: string
+  author: string
+  summary: string
+  body: string
+  tags: string[]
+  isPublished: boolean
+  views: number
+}
+
+export interface ContentNews{
+  content: News[]
+  totalPages: number
+}
+
+export interface UpvoteNews{
+  id: string
+  token?: string
 }
 
 export interface NewsPost {
@@ -21,15 +31,16 @@ export interface NewsPost {
 	isPublished: boolean;
 }
 
-export interface ContentNews {
-	content: News[];
-}
-
 export interface CommentType {
 	id: number;
 	author: string;
 	comment: string;
 	publicationDate: string;
+}
+
+export interface CommentPostType{
+  author: string
+  comment: string
 }
 
 export interface ContentComment {

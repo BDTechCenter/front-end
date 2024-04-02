@@ -1,11 +1,11 @@
 "use client";
-
 import ImageError from "../common/ImageError";
 import NewsCard from "./NewsCard";
 import { Error } from "@/api/types/all/type";
 import { NewsCardSkeleton } from "../skeleton/NewsCardSkeleton";
 import { useFetchGetNews } from "@/api/hooks/news/queries";
 import { useSearchParams } from "next/navigation";
+import PaginatorURL from "./PaginatorURL";
 
 export interface NewsListProps {
 	massageError: Error;
@@ -17,21 +17,35 @@ export default function NewsList({
 	massageNotFound,
 }: NewsListProps) {
 	const searchParams = useSearchParams();
-	const tags = searchParams.get("tags");
+	const tagsUrl = searchParams.get("tags");
+	const pageUrl = searchParams.get("page");
 
-	const { isLoading, isError, data } = useFetchGetNews(tags ? tags : "");
+	const tags = tagsUrl ? tagsUrl : "";
+	const page = pageUrl ? `&page=${pageUrl}` : "";
 
-	const newsData = data?.content;
+	const { isLoading, isError, data } = useFetchGetNews(tags, page);
 
 	const newsCards = () => {
-		return newsData?.length !== 0 ? (
-			<>
-				{newsData?.map((news) => (
-					<NewsCard key={news.id} data={news} />
-				))}
-			</>
+		return data?.content.length !== 0 && data ? (
+			<div className="flex flex-col w-full">
+				{tagsUrl ? (
+					<h1 className="w-full mb-6 text-bddarkgray text-2xl font-semibold flex justify-start">
+						Filter: {tagsUrl}
+					</h1>
+				) : (
+					<></>
+				)}
+				<div className="relative grid mb-6 grid-cols-2 sm:grid-cols-3 gap-5 2xl:gap-7">
+					{data.content.map((news) => (
+						<NewsCard key={news.id} data={news} />
+					))}
+				</div>
+				<div>
+					<PaginatorURL totalPages={data.totalPages} />
+				</div>
+			</div>
 		) : (
-			<div className="absolute flex w-full items-center justify-center">
+			<div className="flex w-full items-center justify-center">
 				<ImageError data={massageNotFound} />
 			</div>
 		);
@@ -39,17 +53,17 @@ export default function NewsList({
 
 	if (isLoading) {
 		return (
-			<>
+			<div className="relative grid grid-cols-2 sm:grid-cols-3 gap-5 2xl:gap-7">
 				<NewsCardSkeleton />
 				<NewsCardSkeleton />
 				<NewsCardSkeleton />
-			</>
+			</div>
 		);
 	}
 
 	if (isError) {
 		return (
-			<div className="absolute flex w-full items-center justify-center">
+			<div className="flex w-full items-center justify-center">
 				<ImageError data={massageError} />
 			</div>
 		);

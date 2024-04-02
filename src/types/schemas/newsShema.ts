@@ -21,7 +21,7 @@ export const newsSchema = z.object({
 	title: z
 		.string()
 		.min(3, { message: "Title must be at least 3 characters." })
-		.max(29, { message: "Title must be a maximum of 30 characters." }),
+		.max(100, { message: "Title must be a maximum of 100 characters." }),
 	tags: z
 		.array(z.string().max(30, { message: "Max characters of tags is 30." }))
 		.max(7, { message: "You can add up to 7 tags." })
