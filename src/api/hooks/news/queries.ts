@@ -11,7 +11,6 @@ import {
 	UpvoteNews,
 	CommentPostType
 } from "@/api/types/news/type";
-import { headers } from "next/headers";
 import Error from "next/error";
 
 const hostURL = process.env.NEXT_PUBLIC_API_HOST;
@@ -97,31 +96,32 @@ export function useFetchGetCommentNewsId(id: string) {
 		queryFn: getIdCommentNews,
 	});
 }
-
-export async function patchNewsUpvote(id: string, token?: string) {
-	api.defaults.headers["Authorization"] = `Bearer ${token}`
-	const { data } = await api.patch(`news/${id}/upvote`)
+//Upvote
+//PATCH News
+export async function patchNewsUpvote(patchUpvote: UpvoteNews) {
+	api.defaults.headers["Authorization"] = `Bearer ${patchUpvote.token}`
+	const { data } = await api.patch(`news/${patchUpvote.id}/upvote`)
 	return data
 }
 
-// PATCH upvote
-// export async function patchNewsUpvote(ctx: QueryFunctionContext) {
-// 	const [id, token] = ctx.queryKey
-// 	api.defaults.headers["Authorization"] = `Bearer ${token}`
-// 	const { data } = await api.get(`news/${id}/upvote`, {
-// 		headers: {
-// 			"Authorization": `Bearer ${token}`
-// 		}
-// 	});
+export function useMutationPatchNewsUpvote() {
+	return useMutation({
+		mutationFn: patchNewsUpvote,
+	});
+}
 
-// 	return data
-// }
+//PATCH Comment
+export async function patchCommentUpvote(patchUpvote: UpvoteNews) {
+	api.defaults.headers["Authorization"] = `Bearer ${patchUpvote.token}`
+	const { data } = await api.patch(`comments/${patchUpvote.id}/upvote`)
+	return data
+}
 
-// export function useMutationPatchNewsUpvote() {
-// 	return useMutation({
-// 		mutationFn: patchNewsUpvote,
-// 	});
-// }
+export function useMutationPatchCommentUpvote() {
+	return useMutation({
+		mutationFn: patchCommentUpvote,
+	});
+}
 
 
 
