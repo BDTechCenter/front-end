@@ -23,6 +23,19 @@ async function getNews(ctx: QueryFunctionContext) {
 	return data;
 }
 
+//GET News By title
+async function getTitleNews(ctx: QueryFunctionContext){
+	const [, title] = ctx.queryKey
+	// data
+}
+
+// export function useFetchGetTitleNews(title: string) {
+// 	return useQuery<News, Error>({
+// 		queryKey: ["newsRead", title],
+// 		queryFn: getTitleNews,
+// 	});
+// }
+
 // GET News w/ Filter
 async function getNewsFilter(ctx: QueryFunctionContext) {
 	const [tags, page] = ctx.queryKey;
