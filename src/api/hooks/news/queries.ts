@@ -12,6 +12,7 @@ import {
 	CommentPostType
 } from "@/api/types/news/type";
 import Error from "next/error";
+import filter from "@/services/filter";
 
 // News
 // GET news preview
@@ -23,29 +24,17 @@ async function getNews(ctx: QueryFunctionContext) {
 	return data;
 }
 
-//GET News By title
-async function getTitleNews(ctx: QueryFunctionContext){
-	const [, title] = ctx.queryKey
-	// data
-}
-
-// export function useFetchGetTitleNews(title: string) {
-// 	return useQuery<News, Error>({
-// 		queryKey: ["newsRead", title],
-// 		queryFn: getTitleNews,
-// 	});
-// }
-
 // GET News w/ Filter
 async function getNewsFilter(ctx: QueryFunctionContext) {
-	const [tags, page] = ctx.queryKey;
-	const { data } = await api.get<ContentNews>(`news?tags=${tags}${page}`);
+	const [tags, page, title] = ctx.queryKey;
+	const url = filter({tags, page, title})
+	const { data } = await api.get<ContentNews>(`news${tags}${page}${title}`);
 	return data;
 }
-export function useFetchGetNews(tags?: string, page?: string) {
+export function useFetchGetNews(tags?: string, title?:string, page?: string) {
 	return useQuery<ContentNews, Error>({
-		queryKey: [tags, page],
-		queryFn: tags ? getNewsFilter : getNews,
+		queryKey: [tags, page, title],
+		queryFn: tags || title ? getNewsFilter : getNews,
 	});
 }
 // GET News By ID
