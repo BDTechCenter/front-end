@@ -6,10 +6,10 @@ import { Error } from "@/api/types/all/type";
 import { NewsContentSkeleton } from "../skeleton/NewsContentSkeleton";
 import NewsOtherList from "./NewsOtherList";
 import CommentList from "./CommentList";
-import ModalCreateComment from "./ModalCreateComment";
 import { useFetchGetNewsId } from "@/api/hooks/news/queries";
 import { usePathname } from "next/navigation";
 import { MarkdownRenderer } from "../common/MarkdownRenderer";
+import ModalCreateComment from "./modalCreateComment";
 
 export interface NewsContentProps {
 	massageError: Error;
@@ -26,7 +26,6 @@ export default function NewsContent({
 	const { isLoading, isError, data } = useFetchGetNewsId(newsId);
 
 	console.log(data?.body);
-	
 
 	const newsContentData = () => {
 		return data ? (
