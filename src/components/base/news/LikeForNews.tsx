@@ -3,23 +3,53 @@ import { BiSolidUpvote } from "react-icons/bi";
 import { BiUpvote } from "react-icons/bi";
 import { msalInstance } from "@/lib/sso/msalInstance";
 import { useState } from 'react';
-import {  patchNewsUpvote } from '@/api/hooks/news/queries';
+import {  useMutationPatchNewsUpvote } from '@/api/hooks/news/queries';
 import { toast } from 'react-toastify';
 
 interface LikeForNewsProps {
   id: string
+  alreadyUpVoted: boolean
 }
 
-export default function LikeForNews({ id }: LikeForNewsProps) {
-  // const { mutate } = useMutationPatchNewsUpvote()
+export default function LikeForNews({ id, alreadyUpVoted }: LikeForNewsProps) {
+  const { mutate } = useMutationPatchNewsUpvote()
   
   const user = msalInstance.getActiveAccount()
   const token = user ? user.idToken : ''
-  const [like, setLike] = useState(false)
+  const [like, setLike] = useState(alreadyUpVoted)
 
   const useLikePress = async () => {
-    patchNewsUpvote(id, token)
-    setLike(true)
+    mutate(
+      { id: id, token: token },
+      {
+        onSuccess: (data) => {
+          toast.success("upvote successfully", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+
+            progress: undefined,
+            theme: "light",
+          });
+        },
+        onError: (error) => {
+          toast.error(error.message, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        },
+      }
+    );
+    setLike(true);
   }
 
   return (

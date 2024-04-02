@@ -69,7 +69,7 @@ export default function NewsContent({
 					<h1 className="mt-4 font-semibold text-lg text-bdpurple">
 						Is this news relevant to you?
 					</h1>
-					<LikeForNews id={data.id} />
+					<LikeForNews id={data.id} alreadyUpVoted={data.alreadyUpVoted} />
 					<div className="w-full h-[2px] bg-[#D9D9D9] mt-12"></div>
 					<h1 className="mt-4 font-semibold text-lg text-bdpurple">Comments</h1>
 					<div className="w-full max-h-96">

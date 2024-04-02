@@ -1,4 +1,5 @@
 import { CommentType } from "@/api/types/news/type";
+import LikeForComment from "./LikeForComment";
 
 interface CommentProps {
 	data: CommentType;
@@ -13,6 +14,7 @@ export default function Comment({ data }: CommentProps) {
 				style={{ wordWrap: "break-word" }}
 				dangerouslySetInnerHTML={{ __html: data.comment }}
 			></div>
+			<LikeForComment id={data.id} alreadyUpVoted={data.alreadyUpVoted}/>
 		</div>
 	);
 }
