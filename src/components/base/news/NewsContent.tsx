@@ -9,7 +9,7 @@ import CommentList from "./CommentList";
 import LikeForNews from "./LikeForNews";
 import { useFetchGetNewsId } from "@/api/hooks/news/queries";
 import { usePathname } from "next/navigation";
-import ModalCreateComment from "./ModalCreateComment";
+import ModalCreateComment from "./modalCreateComment";
 import Link from "next/link";
 
 export interface NewsContentProps {
@@ -35,7 +35,8 @@ export default function NewsContent({
 					</h1>
 					<div className="flex flex-row gap-3 w-full">
 						{data.tags.map((tag) => (
-							<Link href={`/news?tags=${tag}`}
+							<Link
+								href={`/news?tags=${tag}`}
 								key={tag}
 								className="flex justify-center items-center p-2 bg-bdgray rounded-lg text-sm"
 							>
