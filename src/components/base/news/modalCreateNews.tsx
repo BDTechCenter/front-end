@@ -110,14 +110,14 @@ export default function ModalCreateNews() {
 					Add News
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="w-[80%] 2xl:w-[80%] h-[90%] 2xl:h-[55%] ">
+			<DialogContent className="w-[80%] 2xl:w-[65%] h-[90%] 2xl:h-[70%]">
 				<DialogHeader>
 					<DialogTitle className="text-bdpurple">Create a News</DialogTitle>
 				</DialogHeader>
 				<Form {...form}>
 					<form
 						onSubmit={form.handleSubmit(onSubmitForm)}
-						className="flex gap-1 flex-row w-full justify-between overflow-y-scroll overflow-x-scroll"
+						className="flex gap-1 flex-row w-full justify-between overflow-y-scroll overflow-x-scroll p-2"
 					>
 						<div className="w-[40%] flex flex-col gap-5">
 							<FormField
