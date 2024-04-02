@@ -28,11 +28,13 @@ export default function NewsList({
 	const newsCards = () => {
 		return data?.content.length !== 0 && data ? (
 			<div className="flex flex-col w-full">
-				{tagsUrl ? 
-					<h1 className="w-full mb-6 text-bddarkgray text-2xl font-semibold flex justify-start">Filter: {tagsUrl}</h1>
-					:
+				{tagsUrl ? (
+					<h1 className="w-full mb-6 text-bddarkgray text-2xl font-semibold flex justify-start">
+						Filter: {tagsUrl}
+					</h1>
+				) : (
 					<></>
-				}
+				)}
 				<div className="relative grid mb-6 grid-cols-2 sm:grid-cols-3 gap-5 2xl:gap-7">
 					{data.content.map((news) => (
 						<NewsCard key={news.id} data={news} />
