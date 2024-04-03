@@ -3,16 +3,18 @@ import { BiSolidUpvote } from "react-icons/bi";
 import { BiUpvote } from "react-icons/bi";
 import { msalInstance } from "@/lib/sso/msalInstance";
 import { useState } from 'react';
-import {  useMutationPatchNewsUpvote } from '@/api/hooks/news/queries';
+import {  useMutationPatchUpvote } from '@/api/hooks/news/queries';
 import { toast } from 'react-toastify';
 
 interface LikeForNewsProps {
-  id: string
+  id: string | number
   alreadyUpVoted: boolean
+  method: "comments" | "news"
+  sizeIcon?: number
 }
 
-export default function LikeForNews({ id, alreadyUpVoted }: LikeForNewsProps) {
-  const { mutate } = useMutationPatchNewsUpvote()
+export default function LikeForNews({ id, alreadyUpVoted, method, sizeIcon }: LikeForNewsProps) {
+  const { mutate } = useMutationPatchUpvote()
   
   const user = msalInstance.getActiveAccount()
   const token = user ? user.idToken : ''
@@ -20,10 +22,10 @@ export default function LikeForNews({ id, alreadyUpVoted }: LikeForNewsProps) {
 
   const useLikePress = async () => {
       mutate(
-        { id: id, token: token },
+        { id: id, token: token, method: method },
         {
           onSuccess: (data) => {
-            toast.success("upvote successfully", {
+            toast.success(!like ? "upvote successfully": "upvote removed", {
               position: "top-right",
               autoClose: 3000,
               hideProgressBar: false,
@@ -55,9 +57,9 @@ export default function LikeForNews({ id, alreadyUpVoted }: LikeForNewsProps) {
   return (
     <div className="w-full items-center bg-transparent">
       {!like ?
-        <BiUpvote size={22} color="#262626" onClick={useLikePress} className='cursor-pointer' />
+        <BiUpvote size={sizeIcon} color="#262626" onClick={useLikePress} className='cursor-pointer' />
         :
-        <BiSolidUpvote size={22} onClick={useLikePress} color="#262626" className='cursor-pointer' />
+        <BiSolidUpvote size={sizeIcon} onClick={useLikePress} color="#262626" className='cursor-pointer' />
       }
     </div>
   )

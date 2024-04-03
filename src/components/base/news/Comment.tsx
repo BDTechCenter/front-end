@@ -1,5 +1,5 @@
 import { CommentType } from "@/api/types/news/type";
-import LikeForComment from "./LikeForComment";
+import LikeUpvote from "./LikeUpvote";
 
 interface CommentProps {
 	data: CommentType;
@@ -14,7 +14,7 @@ export default function Comment({ data }: CommentProps) {
 				style={{ wordWrap: "break-word" }}
 				dangerouslySetInnerHTML={{ __html: data.comment }}
 			></div>
-			<LikeForComment id={data.id} alreadyUpVoted={data.alreadyUpVoted}/>
+			<LikeUpvote id={data.id} alreadyUpVoted={data.alreadyUpVoted} method="comments" sizeIcon={18}/>
 		</div>
 	);
 }
