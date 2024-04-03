@@ -1,4 +1,5 @@
 "use client";
+
 import RouteGuard from "@/components/base/common/RouteGuard";
 import { msalInstance } from "@/lib/sso/msalInstance";
 import { MsalProvider } from "@azure/msal-react";

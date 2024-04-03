@@ -24,7 +24,7 @@ export default function NewsOther({ data }: NewsOtherProps) {
 			className="flex h-20 gap-3 cursor-pointer group"
 			onClick={handleClick}
 		>
-			<div className="h-full w-[50%] transition-all 2xl:w-[40%] group-hover:opacity-60">
+			<div className="h-full w-full transition-all 2xl:w-[40%] group-hover:opacity-60">
 				<Image
 					src={img}
 					alt={data.title + " Image"}
