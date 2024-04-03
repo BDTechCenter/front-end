@@ -9,13 +9,20 @@ interface CardTeamProps {
 		function: string;
 		url: string;
 	};
-	fallback: string;
 }
 
-export default function CardTeam({ data, fallback }: CardTeamProps) {
+export default function CardTeam({ data }: CardTeamProps) {
+	const getInitial = (name: string) => {
+		const [firstName, lastName] = name.split(" ");
+		const firstLetterOfFirstName = firstName.charAt(0);
+		const firstLetterOfLastName = lastName.charAt(0);
+		return firstLetterOfFirstName + firstLetterOfLastName;
+	};
+
+	const fallback = getInitial(data.name)
 	return (
 		<div
-			className="flex gap-4 w-full h-full pr-32 border-[1px] rounded-sm border-black/10 cursor-pointer group transition-all hover:drop-shadow-md"
+			className="flex gap-4 w-full h-full border-[1px] rounded-sm border-black/10 cursor-pointer group transition-all hover:drop-shadow-md"
 			onClick={() => window.open(`${data?.url}`)}
 		>
 			<div className="w-4 bg-bdpurple rounded-l-sm transition-all group-hover:opacity-70"></div>

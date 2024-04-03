@@ -1,22 +1,14 @@
 import CardTeam from "./CardTeam";
 
 export default function AllCardTeam() {
-	const getInitial = (name: string) => {
-		const [firstName, lastName] = name.split(" ");
-		const firstLetterOfFirstName = firstName.charAt(0);
-		const firstLetterOfLastName = lastName.charAt(0);
-		return firstLetterOfFirstName + firstLetterOfLastName;
-	};
-
 	return (
 		<section className="flex flex-col gap-12">
 			<div className="flex w-full justify-center items-center">
 				<h1 className="font-semibold text-2xl 2xl:text-3xl">Dev Team</h1>
 			</div>
-			<div className=" mx-auto gap-6 max-w-[80%] w-full items-center justify-center sm:grid sm:grid-cols-1 xl:grid-cols-2 xl:max-w-[50%]">
+			<div className="mx-auto gap-6 max-w-[80%] w-full items-center justify-center grid grid-cols-1 lg:grid-cols-2 lg:max-w-[50%]">
 				{teamData?.map((team) => {
-					const fallback = getInitial(team.name);
-					return <CardTeam key={team.url} data={team} fallback={fallback} />;
+					return <CardTeam key={team.url} data={team} />;
 				})}
 			</div>
 		</section>
@@ -39,7 +31,7 @@ const teamData = [
 	{
 		name: "Luís Beck",
 		img: "https://github.com/luishbeck.png",
-		function: "UI/UX",
+		function: "Back-End",
 		url: "https://github.com/luishbeck",
 	},
 	{

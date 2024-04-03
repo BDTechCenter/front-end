@@ -12,7 +12,7 @@ export default function Home() {
 			<NavBar variant="black" />
 			<TopBanner square text={dataHomePage.bannerHome} />
 			<div className="flex my-16 h-[32rem] 2xl:h-[40rem] w-full items-center justify-center">
-				<div className="flex flex-col w-[80%] 2xl:w-[70%] h-full gap-10">
+				<div className="w-[80%] 2xl:w-[70%] h-full gap-10">
 					<MainNewsCardHome
 						massageError={dataHomePage.newsError}
 						massageNotFound={dataHomePage.newsErrorNotFound}
@@ -29,10 +29,10 @@ export default function Home() {
 
 export const dataHomePage = {
 	bannerHome: (
-		<p>
+		<>
 			Follow the main <span className="text-bdlightpurple">news</span> of the
 			moment...
-		</p>
+		</>
 	),
 	newsErrorNotFound: {
 		text: "News not found",
