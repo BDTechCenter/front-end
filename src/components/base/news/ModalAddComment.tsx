@@ -29,7 +29,7 @@ import { msalInstance } from "@/lib/sso/msalInstance";
 import { toast } from "react-toastify";
 import { CommentPostType } from "@/api/types/news/type";
 
-export default function ModalCreateComment({ newsId }: { newsId: string }) {
+export default function ModalAddComment({ newsId }: { newsId: string }) {
 	const { mutate } = useMutationPostComment();
 
 	const form = useForm<z.infer<typeof commentSchema>>({

@@ -3,7 +3,7 @@ import NavBar from "@/components/base/common/NavBar";
 import TopBanner from "@/components/base/common/TopBanner";
 import NewsList from "@/components/base/news/NewsList";
 import SearchBar from "@/components/base/news/SearchBar";
-import ModalCreateNews from "@/components/base/news/modalCreateNews";
+import ModalAddNews from "@/components/base/news/ModalAddNews";
 
 export default function NewsPage() {
 	return (
@@ -15,7 +15,7 @@ export default function NewsPage() {
 					className="flex w-1/2 justify-end  items-center"
 				>
 					<div className="flex items-center justify-center w-1/2 h-full">
-						<ModalCreateNews />
+						<ModalAddNews />
 					</div>
 				</TopBanner>
 				<div className="w-[70%] mx-auto absolute left-0 right-0 -bottom-7 z-10">
@@ -33,7 +33,7 @@ export default function NewsPage() {
 	);
 }
 
-export const dataNewsPage = {
+const dataNewsPage = {
 	bannerNews: (
 		<p>
 			Follow the main <span className="text-bdlightpurple">news</span> of the

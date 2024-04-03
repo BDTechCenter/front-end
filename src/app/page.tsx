@@ -27,7 +27,7 @@ export default function Home() {
 	);
 }
 
-export const dataHomePage = {
+const dataHomePage = {
 	bannerHome: (
 		<>
 			Follow the main <span className="text-bdlightpurple">news</span> of the
