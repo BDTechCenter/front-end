@@ -10,6 +10,7 @@ import {
 	ContentNews,
 	News,
 	CommentPostType,
+	UpvoteNews,
 } from "@/api/types/news/type";
 import Error from "next/error";
 import filterUrl from "@/services/filter";
