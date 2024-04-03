@@ -17,9 +17,7 @@ import filterUrl from "@/services/filter";
 // News
 // GET news preview
 async function getNews() {
-	const { data } = await api.get<ContentNews>(
-		`news/preview?sortBy=latest`
-	);
+	const { data } = await api.get<ContentNews>(`news/preview?sortBy=latest `);
 	return data;
 }
 
@@ -27,6 +25,7 @@ async function getNews() {
 async function getNewsFilter(ctx: QueryFunctionContext) {
 	const [tags, title] = ctx.queryKey;
 	const url = filterUrl({ filters: { tags, title } });
+	console.log(`news/preview${url}`)
 	const { data } = await api.get<ContentNews>(`news/preview${url}`);
 	return data;
 }
