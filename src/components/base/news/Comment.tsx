@@ -24,11 +24,6 @@ export default function Comment({ data }: CommentProps) {
 			>
 				{data.comment}
 			</ReactMarkdown>
-			{/* <div
-				className="text-[0.75rem] 2xl:text-sm"
-				style={{ wordWrap: "break-word" }}
-				dangerouslySetInnerHTML={{ __html: data.comment }}
-			></div> */}
 		</div>
 	);
 }
