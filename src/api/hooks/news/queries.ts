@@ -27,7 +27,7 @@ async function getNews() {
 async function getNewsFilter(ctx: QueryFunctionContext) {
 	const [tags, title] = ctx.queryKey;
 	const url = filterUrl({ filters: { tags, title } });
-	const { data } = await api.get<ContentNews>(`news${url}`);
+	const { data } = await api.get<ContentNews>(`news/preview${url}`);
 	return data;
 }
 export function useFetchGetNews(tags?: string, title?:string) {

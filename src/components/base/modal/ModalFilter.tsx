@@ -13,16 +13,19 @@ import { Button } from "@/components/ui/button";
 import { MouseEvent, useState } from "react";
 import { MdTune } from "react-icons/md";
 import InputTags from "../common/InputTags";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function ModalFilter() {
 	const [tags, setTags] = useState<string[]>([]);
+	const searchParams = useSearchParams();
 	const router = useRouter();
-	const pathname = usePathname();
+
+	const titleUrl = searchParams.get("title");
+	const pathname = window.location.search;
 
 	const handleClick = (e: MouseEvent<HTMLElement>) => {
 		if (tags?.length > 0) {
-			router.push(pathname + "?tags=" + tags.join(","));
+			router.push(titleUrl ? `${pathname}&tags=${tags.join(",")}` : `?tags=${tags.join(",")}`);
 		}
 	};
 
