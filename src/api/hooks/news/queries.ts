@@ -12,28 +12,27 @@ import {
 	CommentPostType
 } from "@/api/types/news/type";
 import Error from "next/error";
-import filter from "@/services/filter";
+import filterUrl from "@/services/filter";
 
 // News
 // GET news preview
-async function getNews(ctx: QueryFunctionContext) {
-	const [, page] = ctx.queryKey;
+async function getNews() {
 	const { data } = await api.get<ContentNews>(
-		`news/preview?sortBy=latest${page}`
+		`news/preview?sortBy=latest`
 	);
 	return data;
 }
 
 // GET News w/ Filter
 async function getNewsFilter(ctx: QueryFunctionContext) {
-	const [tags, page, title] = ctx.queryKey;
-	const url = filter({tags, page, title})
-	const { data } = await api.get<ContentNews>(`news${tags}${page}${title}`);
+	const [tags, title] = ctx.queryKey;
+	const url = filterUrl({ filters: { tags, title } });
+	const { data } = await api.get<ContentNews>(`news${url}`);
 	return data;
 }
-export function useFetchGetNews(tags?: string, title?:string, page?: string) {
+export function useFetchGetNews(tags?: string, title?:string) {
 	return useQuery<ContentNews, Error>({
-		queryKey: [tags, page, title],
+		queryKey: [tags, title],
 		queryFn: tags || title ? getNewsFilter : getNews,
 	});
 }
@@ -100,31 +99,17 @@ export function useFetchGetCommentNewsId(id: string) {
 }
 //Upvote
 //PATCH News
-export async function patchNewsUpvote(patchUpvote: UpvoteNews) {
+export async function patchUpvote(patchUpvote: UpvoteNews) {
 	api.defaults.headers["Authorization"] = `Bearer ${patchUpvote.token}`
-	const { data } = await api.patch(`news/${patchUpvote.id}/upvote`)
+	const { data } = await api.patch(`${patchUpvote.method}/${patchUpvote.id}/upvote`)
 	return data
 }
 
-export function useMutationPatchNewsUpvote() {
+export function useMutationPatchUpvote() {
 	return useMutation({
-		mutationFn: patchNewsUpvote,
+		mutationFn: patchUpvote,
 	});
 }
-
-//PATCH Comment
-export async function patchCommentUpvote(patchUpvote: UpvoteNews) {
-	api.defaults.headers["Authorization"] = `Bearer ${patchUpvote.token}`
-	const { data } = await api.patch(`comments/${patchUpvote.id}/upvote`)
-	return data
-}
-
-export function useMutationPatchCommentUpvote() {
-	return useMutation({
-		mutationFn: patchCommentUpvote,
-	});
-}
-
 
 
 // POST Comments
