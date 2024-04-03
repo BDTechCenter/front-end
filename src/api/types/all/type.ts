@@ -4,7 +4,6 @@ export interface Error {
 }
 
 export interface Filter{
-	tags?: string
-	page?: string
-	title?: string
+	tags?: string | unknown
+	title?: string | unknown
 }
