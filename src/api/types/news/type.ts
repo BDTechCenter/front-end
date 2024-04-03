@@ -20,6 +20,7 @@ export interface ContentNews{
 export interface UpvoteNews{
   id: string | number
   token?: string
+  method: "comments" | "news"
 }
 
 export interface NewsPost {
