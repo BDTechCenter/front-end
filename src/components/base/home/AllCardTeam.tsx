@@ -6,10 +6,10 @@ export default function AllCardTeam() {
 			<div className="flex w-full justify-center items-center">
 				<h1 className="font-semibold text-2xl 2xl:text-3xl">Dev Team</h1>
 			</div>
-			<div className="grid grid-rows-2 grid-flow-col gap-6 w-full items-center justify-center">
-				{teamData?.map((team) => (
-					<CardTeam data={team} />
-				))}
+			<div className="mx-auto gap-6 max-w-[80%] w-full items-center justify-center grid grid-cols-1 lg:grid-cols-2 lg:max-w-[50%]">
+				{teamData?.map((team) => {
+					return <CardTeam key={team.url} data={team} />;
+				})}
 			</div>
 		</section>
 	);
@@ -18,7 +18,7 @@ export default function AllCardTeam() {
 const teamData = [
 	{
 		name: "João Pedro",
-		img: "/TeamPedrinho.png",
+		img: "https://github.com/joaop-ribeiro.png",
 		function: "Front-End",
 		url: "https://github.com/joaop-ribeiro",
 	},
@@ -31,7 +31,7 @@ const teamData = [
 	{
 		name: "Luís Beck",
 		img: "https://github.com/luishbeck.png",
-		function: "UI/UX",
+		function: "Back-End",
 		url: "https://github.com/luishbeck",
 	},
 	{

@@ -21,7 +21,7 @@ export default function MainNewsCardHome({
 
 	const newsCardsHome = () => {
 		return mainNewsData && mainNewsData?.length !== 0 ? (
-			<div className="flex flex-row w-full h-full gap-4">
+			<div className="flex w-full h-full gap-4">
 				<div className="w-[55%] h-full">
 					<NewsCardHome data={mainNewsData[0]} />
 				</div>
@@ -38,7 +38,7 @@ export default function MainNewsCardHome({
 
 	if (isLoading) {
 		return (
-			<div className="flex flex-row w-full h-full gap-5">
+			<div className="flex w-full h-full gap-5">
 				<div className="w-[55%] h-full">
 					<NewsCardHomeSkeleton />
 				</div>

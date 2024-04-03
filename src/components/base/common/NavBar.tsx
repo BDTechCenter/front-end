@@ -1,9 +1,10 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import UserAvatar from "./UserAvatar";
 
 interface NavBarProps {
 	variant: "black" | "white";
@@ -45,28 +46,34 @@ export default function NavBar({ variant }: NavBarProps) {
 				height="1000"
 				className="w-screen"
 			/>
-			<nav className="flex flex-row gap-5 items-center">
-				<Link href="/" className="w-fit">
-					<Image
-						alt="Bosch Logo White"
-						src={logoSrc}
-						width="0"
-						height="0"
-						className="h-12 w-fit"
-					/>
-				</Link>
-				{navLinks.map((link) => (
-					<Link
-						key={link.href}
-						className={cn("text-sm font-medium transition-colors",
-							hover,
-							pathname === link.href ? text : noFocus
-						)}
-						href={link.href}
-					>
-						{link.name}
+			<nav className="flex justify-between">
+				<div className="flex flex-row gap-5 items-center">
+					<Link href="/" className="w-fit">
+						<Image
+							alt="Bosch Logo White"
+							src={logoSrc}
+							width="0"
+							height="0"
+							className="h-14 w-fit"
+						/>
 					</Link>
-				))}
+					{navLinks.map((link) => (
+						<Link
+							key={link.href}
+							className={cn(
+								"text-sm font-medium transition-colors",
+								hover,
+								pathname === link.href ? text : noFocus
+							)}
+							href={link.href}
+						>
+							{link.name}
+						</Link>
+					))}
+				</div>
+				<div className="h-14 flex justify-center items-center p-4">
+					<UserAvatar />
+				</div>
 			</nav>
 		</div>
 	);

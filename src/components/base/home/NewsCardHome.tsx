@@ -32,7 +32,7 @@ export default function NewsCardHome({ data }: NewsCardProps) {
 					width={500}
 					height={500}
 					onError={() => setImg("/newsNotFound.png")}
-					className="w-full h-full object-cover "
+					className="w-full h-full object-cover"
 				/>
 				<div className="absolute bottom-0 flex text-left justify-end flex-col w-full h-1/2 p-6 gap-1 2xl:gap-2 z-20">
 					<h1 className="text-2xl 2xl:text-3xl font-medium text-white">

@@ -9,6 +9,7 @@ export default function AllCardFeature() {
 			<div className="flex w-full justify-center items-center my-12">
 				<h1 className="font-semibold text-2xl 2xl:text-3xl">Our Features</h1>
 			</div>
+			<div className="max-md:flex max-md:flex-col max-md:gap-5">
 			{features?.map((feature) => (
 				<CardFeature
 					key={feature.title}
@@ -17,6 +18,7 @@ export default function AllCardFeature() {
 					orientation={feature.orientation}
 				/>
 			))}
+			</div>
 		</section>
 	);
 }
