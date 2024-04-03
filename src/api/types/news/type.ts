@@ -9,11 +9,18 @@ export interface News {
   tags: string[]
   isPublished: boolean
   views: number
+  alreadyUpVoted: boolean
 }
 
 export interface ContentNews{
   content: News[]
   totalPages: number
+}
+
+export interface UpvoteNews{
+  id: string | number
+  token?: string
+  method: "comments" | "news"
 }
 
 export interface NewsPost {
@@ -31,6 +38,7 @@ export interface CommentType {
 	author: string;
 	comment: string;
 	publicationDate: string;
+  alreadyUpVoted: boolean
 }
 
 export interface CommentPostType{

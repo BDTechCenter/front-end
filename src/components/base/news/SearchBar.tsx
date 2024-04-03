@@ -1,5 +1,5 @@
 "use client";
-        
+
 import { Button } from "@/components/ui/button";
 import {
 	FormControl,
@@ -16,25 +16,27 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { usePathname } from "next/navigation";
 
-const MAX_LENGTH = 50;
+const MAX_LENGTH = 70;
 
 const searchSchema = z.object({
 	search: z
-		.string()
+		.string({ required_error: "Search terms is required" })
 		.trim()
+		.min(1, "Search terms is required")
 		.max(MAX_LENGTH - 1, {
 			message: `Search terms can be a maximum of ${MAX_LENGTH} characters.`,
 		}),
 });
 
 export default function SearchBar() {
-	
-	const path = useSearchParams()
-	const filter = path.has('tags')
-
+	const searchParams = useSearchParams();
+	const router = useRouter();
+	const tagsUrl = searchParams.get("tags");
+	const titleUrl = searchParams.get("title");
+	const pathname = window.location.search;
 
 	const form = useForm<z.infer<typeof searchSchema>>({
 		mode: "all",
@@ -42,7 +44,9 @@ export default function SearchBar() {
 	});
 
 	function onSubmit(values: z.infer<typeof searchSchema>) {
-		console.log(values);
+		router.push(
+			tagsUrl ? `${pathname}&title=${values.search}` : `?title=${values.search}`
+		);
 	}
 
 	useEffect(() => {
@@ -83,13 +87,13 @@ export default function SearchBar() {
 				</Button>
 				<div className="flex flex-row gap-3 justify-center items-center">
 					<ModalFilter />
-					{
-					filter 
-					?	
-						<Link href={'/news'}><MdFilterAltOff color="#DC2626" size={20}/></Link> 
-					: 
+					{searchParams.has('title') || searchParams.has('tags') ? (
+						<Link href={"/news"}>
+							<MdFilterAltOff color="#DC2626" size={20} />
+						</Link>
+					) : (
 						<></>
-					}
+					)}
 				</div>
 			</form>
 		</Form>
