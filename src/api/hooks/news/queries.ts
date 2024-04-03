@@ -12,29 +12,28 @@ import {
 	UpvoteNews,
 	CommentPostType
 } from "@/api/types/news/type";
-import { headers } from "next/headers";
 import Error from "next/error";
+import filterUrl from "@/services/filter";
 
-const hostURL = process.env.NEXT_PUBLIC_API_HOST;
-
-async function getNews(ctx: QueryFunctionContext) {
-	const [, page] = ctx.queryKey;
-	const { data } = await api.get<ContentNews>(
-		`news/preview?sortBy=latest${page}`
-	);
+// News
+// GET news preview
+async function getNews() {
+	const { data } = await api.get<ContentNews>(`news/preview?sortBy=latest `);
 	return data;
 }
 
 // GET News w/ Filter
 async function getNewsFilter(ctx: QueryFunctionContext) {
-	const [tags, page] = ctx.queryKey;
-	const { data } = await api.get<ContentNews>(`news?tags=${tags}${page}`);
+	const [tags, title] = ctx.queryKey;
+	const url = filterUrl({ filters: { tags, title } });
+	console.log(`news/preview${url}`)
+	const { data } = await api.get<ContentNews>(`news/preview${url}`);
 	return data;
 }
-export function useFetchGetNews(tags?: string, page?: string) {
+export function useFetchGetNews(tags?: string, title?:string) {
 	return useQuery<ContentNews, Error>({
-		queryKey: [tags, page],
-		queryFn: tags ? getNewsFilter : getNews,
+		queryKey: [tags, title],
+		queryFn: tags || title ? getNewsFilter : getNews,
 	});
 }
 // GET News By ID
@@ -97,32 +96,19 @@ export function useFetchGetCommentNewsId(id: string) {
 		queryFn: getIdCommentNews,
 	});
 }
-
-export async function patchNewsUpvote(id: string, token?: string) {
-	api.defaults.headers["Authorization"] = `Bearer ${token}`
-	const { data } = await api.patch(`news/${id}/upvote`)
+//Upvote
+//PATCH News
+export async function patchUpvote(patchUpvote: UpvoteNews) {
+	api.defaults.headers["Authorization"] = `Bearer ${patchUpvote.token}`
+	const { data } = await api.patch(`${patchUpvote.method}/${patchUpvote.id}/upvote`)
 	return data
 }
 
-// PATCH upvote
-// export async function patchNewsUpvote(ctx: QueryFunctionContext) {
-// 	const [id, token] = ctx.queryKey
-// 	api.defaults.headers["Authorization"] = `Bearer ${token}`
-// 	const { data } = await api.get(`news/${id}/upvote`, {
-// 		headers: {
-// 			"Authorization": `Bearer ${token}`
-// 		}
-// 	});
-
-// 	return data
-// }
-
-// export function useMutationPatchNewsUpvote() {
-// 	return useMutation({
-// 		mutationFn: patchNewsUpvote,
-// 	});
-// }
-
+export function useMutationPatchUpvote() {
+	return useMutation({
+		mutationFn: patchUpvote,
+	});
+}
 
 
 // POST Comments

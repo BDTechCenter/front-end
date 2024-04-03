@@ -1,4 +1,5 @@
 import { CommentType } from "@/api/types/news/type";
+import LikeUpvote from "./LikeUpvote";
 import ReactMarkdown from "react-markdown";
 
 interface CommentProps {
@@ -24,11 +25,7 @@ export default function Comment({ data }: CommentProps) {
 			>
 				{data.comment}
 			</ReactMarkdown>
-			{/* <div
-				className="text-[0.75rem] 2xl:text-sm"
-				style={{ wordWrap: "break-word" }}
-				dangerouslySetInnerHTML={{ __html: data.comment }}
-			></div> */}
+			<LikeUpvote id={data.id} alreadyUpVoted={data.alreadyUpVoted} method="comments" sizeIcon={18}/>
 		</div>
 	);
 }

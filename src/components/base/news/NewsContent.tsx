@@ -6,6 +6,7 @@ import { Error } from "@/api/types/all/type";
 import { NewsContentSkeleton } from "../skeleton/NewsContentSkeleton";
 import NewsOtherList from "./NewsOtherList";
 import CommentList from "./CommentList";
+import LikeUpvote from "./LikeUpvote";
 import ModalCreateComment from "./ModalCreateComment";
 import { useFetchGetNewsId } from "@/api/hooks/news/queries";
 import { usePathname } from "next/navigation";
@@ -59,6 +60,10 @@ export default function NewsContent({
 					<div className="w-full max-w-[60rem] justify-center items-center">
 						{data ? <MarkdownRenderer>{data.body}</MarkdownRenderer> : <></>}
 					</div>
+					<h1 className="mt-4 font-semibold text-lg text-bdpurple">
+						Is this news relevant to you?
+					</h1>
+					<LikeUpvote id={data.id} alreadyUpVoted={data.alreadyUpVoted} method="news" sizeIcon={22}/>
 					<div className="w-full h-[2px] bg-[#D9D9D9] mt-12"></div>
 					<h1 className="mt-4 font-semibold text-lg text-bdpurple">Comments</h1>
 					<div className="w-full max-h-96 overflow-y-scroll">

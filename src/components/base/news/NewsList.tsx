@@ -5,7 +5,6 @@ import { Error } from "@/api/types/all/type";
 import { NewsCardSkeleton } from "../skeleton/NewsCardSkeleton";
 import { useFetchGetNews } from "@/api/hooks/news/queries";
 import { useSearchParams } from "next/navigation";
-import PaginatorURL from "./PaginatorURL";
 
 export interface NewsListProps {
 	massageError: Error;
@@ -16,21 +15,21 @@ export default function NewsList({
 	massageError,
 	massageNotFound,
 }: NewsListProps) {
-	const searchParams = useSearchParams();
-	const tagsUrl = searchParams.get("tags");
-	const pageUrl = searchParams.get("page");
+	const searchParams = useSearchParams()
+	const tagsUrl = searchParams.get("tags")
+	const titleUrl = searchParams.get("title")
 
-	const tags = tagsUrl ? tagsUrl : "";
-	const page = pageUrl ? `&page=${pageUrl}` : "";
+	const tags = tagsUrl ? `tags=${tagsUrl}` : ""
+	const title = titleUrl ? `title=${titleUrl}` : ""
 
-	const { isLoading, isError, data } = useFetchGetNews(tags, page);
+	const { isLoading, isError, data } = useFetchGetNews(tags, title )
 
 	const newsCards = () => {
 		return data?.content.length !== 0 && data ? (
 			<div className="flex flex-col w-full">
-				{tagsUrl ? (
+				{tagsUrl || titleUrl ? (
 					<h1 className="w-full mb-6 text-bddarkgray text-2xl font-semibold flex justify-start">
-						Filter: {tagsUrl}
+						Filter: {tagsUrl + " " + titleUrl}
 					</h1>
 				) : (
 					<></>
@@ -39,9 +38,6 @@ export default function NewsList({
 					{data.content.map((news) => (
 						<NewsCard key={news.id} data={news} />
 					))}
-				</div>
-				<div>
-					<PaginatorURL totalPages={data.totalPages} />
 				</div>
 			</div>
 		) : (
