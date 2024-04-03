@@ -60,9 +60,9 @@ export default function ModalCreateNews() {
 	};
 
 	function onSubmitForm(values: z.infer<typeof newsSchema>) {
-		console.log(values.tags?.toString())
+		console.log(values.tags?.toString());
 		const newsFormData = NewsObject(values);
-		
+
 		mutate(newsFormData, {
 			onSuccess: (data) => {
 				toast.success("News added with success", {
@@ -93,7 +93,7 @@ export default function ModalCreateNews() {
 
 	const [imageKey, setImageKey] = useState<number>(0);
 
-	useEffect(() => { 
+	useEffect(() => {
 		if (form.formState.isSubmitSuccessful) {
 			form.reset({ image: null, body: "", tags: [], title: "" });
 			setImageKey((prevKey) => prevKey + 1);
@@ -159,7 +159,7 @@ export default function ModalCreateNews() {
 									<FormItem>
 										<FormLabel className="font-medium text-md">Tags</FormLabel>
 										<FormControl>
-											<InputTags onChange={setTags} variant="row" {...field} />
+											<InputTags variant="row" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>

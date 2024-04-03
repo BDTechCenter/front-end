@@ -7,11 +7,10 @@ import { NewsContentSkeleton } from "../skeleton/NewsContentSkeleton";
 import NewsOtherList from "./NewsOtherList";
 import CommentList from "./CommentList";
 import LikeUpvote from "./LikeUpvote";
-import ModalCreateComment from "./ModalCreateComment";
+import ModalAddComment from "./ModalAddComment";
 import { useFetchGetNewsId } from "@/api/hooks/news/queries";
 import { usePathname } from "next/navigation";
 import { MarkdownRenderer } from "../common/MarkdownRenderer";
-import ModalCreateComment from "./modalCreateComment";
 
 export interface NewsContentProps {
 	massageError: Error;
@@ -73,7 +72,7 @@ export default function NewsContent({
 							id={data.id}
 						/>
 					</div>
-					<ModalCreateComment newsId={newsId} />
+					<ModalAddComment newsId={newsId} />
 				</div>
 				<aside className="w-[30%] h-full max-[850px]:hidden">
 					<h1 className="text-bdpurple font-bold text-xl mb-3">Other News</h1>

@@ -18,7 +18,7 @@ export default function NewsContentPage() {
 	);
 }
 
-export const dataNewsContentPage = {
+const dataNewsContentPage = {
 	newsErrorNotFound: {
 		text: "not found",
 		img: "/noNews.gif",
