@@ -11,7 +11,6 @@ import {
 	InteractionType,
 } from "@azure/msal-browser";
 import { MsalAuthenticationTemplate, useMsal } from "@azure/msal-react";
-import axios from "axios";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Bounce, toast } from "react-toastify";

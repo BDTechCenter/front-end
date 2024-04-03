@@ -1,6 +1,7 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { getInitials } from "@/lib/utils";
 
 interface CardTeamProps {
 	data: {
@@ -12,14 +13,7 @@ interface CardTeamProps {
 }
 
 export default function CardTeam({ data }: CardTeamProps) {
-	const getInitial = (name: string) => {
-		const [firstName, lastName] = name.split(" ");
-		const firstLetterOfFirstName = firstName.charAt(0);
-		const firstLetterOfLastName = lastName.charAt(0);
-		return firstLetterOfFirstName + firstLetterOfLastName;
-	};
-
-	const fallback = getInitial(data.name)
+	const fallback = getInitials(data.name)
 	return (
 		<div
 			className="flex gap-4 w-full h-full border-[1px] rounded-sm border-black/10 cursor-pointer group transition-all hover:drop-shadow-md"
