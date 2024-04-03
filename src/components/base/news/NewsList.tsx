@@ -27,9 +27,9 @@ export default function NewsList({
 	const newsCards = () => {
 		return data?.content.length !== 0 && data ? (
 			<div className="flex flex-col w-full">
-				{tagsUrl ? (
+				{tagsUrl || titleUrl ? (
 					<h1 className="w-full mb-6 text-bddarkgray text-2xl font-semibold flex justify-start">
-						Filter: {tagsUrl}
+						Filter: {tagsUrl + " " + titleUrl}
 					</h1>
 				) : (
 					<></>

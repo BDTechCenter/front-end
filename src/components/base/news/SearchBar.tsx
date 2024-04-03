@@ -87,7 +87,7 @@ export default function SearchBar() {
 				</Button>
 				<div className="flex flex-row gap-3 justify-center items-center">
 					<ModalFilter />
-					{tagsUrl || titleUrl ? (
+					{searchParams.has('title') || searchParams.has('tags') ? (
 						<Link href={"/news"}>
 							<MdFilterAltOff color="#DC2626" size={20} />
 						</Link>
