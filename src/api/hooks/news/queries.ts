@@ -1,6 +1,7 @@
 import api from "../../../services/api";
 import {
 	QueryFunctionContext,
+	useInfiniteQuery,
 	useMutation,
 	useQuery,
 	useQueryClient,
@@ -18,7 +19,7 @@ import filterUrl from "@/services/filter";
 // News
 // GET news preview
 async function getNews() {
-	const { data } = await api.get<ContentNews>(`news/preview?sortBy=latest `);
+	const { data } = await api.get<News[]>(`news/preview?sortBy=latest`);
 	return data;
 }
 
@@ -27,15 +28,40 @@ async function getNewsFilter(ctx: QueryFunctionContext) {
 	const [tags, title] = ctx.queryKey;
 	const url = filterUrl({ filters: { tags, title } });
 	console.log(`news/preview${url}`)
-	const { data } = await api.get<ContentNews>(`news/preview${url}`);
+	const { data } = await api.get<News[]>(`news/preview${url}`);
 	return data;
 }
+
 export function useFetchGetNews(tags?: string, title?:string) {
-	return useQuery<ContentNews, Error>({
-		queryKey: [tags, title],
+	return useQuery<News[], Error>({
+		queryKey: ["newsPreview", tags, title],
 		queryFn: tags || title ? getNewsFilter : getNews,
 	});
 }
+
+async function getNewsFilterScroll(ctx: QueryFunctionContext) {
+	const [pageParam, tags, title] = ctx.queryKey;
+	const filterParam = filterUrl({ filters: { tags, title } });
+
+	const url = tags || title ? `&${filterParam}` : ""
+
+	const { data } = await api.get<ContentNews>(`news/preview?size=3&page=${pageParam}${url}`);
+
+	return data.content;
+}
+
+export function useFetchGetNewsScroll(pageParam: number, tags?: string, title?:string) {
+	return useInfiniteQuery<News[], Error>({
+		queryKey: ["newsPreview", tags, title, pageParam],
+		queryFn: getNewsFilterScroll,
+		initialPageParam: 0,
+		getNextPageParam: (lastPage, allPages) => {
+      return lastPage.length ? allPages.length + 1 : undefined;
+    },
+	});
+}
+
+
 // GET News By ID
 async function getIdNews(ctx: QueryFunctionContext) {
 	const [, id] = ctx.queryKey;
