@@ -7,3 +7,8 @@ export interface Filter{
 	tags?: string | unknown
 	title?: string | unknown
 }
+
+export interface FilterPath{
+	type: "tags" | "title"
+	values: string
+}
