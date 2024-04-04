@@ -47,9 +47,8 @@ export default function ModalCreateNews() {
 		formData.append("author", author);
 		formData.append("title", values.title);
 		formData.append("body", values.body);
-
 		if (values.tags) {
-			formData.append("tags", values.tags?.toString());
+			formData.append("tags", values.tags?.toString().toLocaleLowerCase());
 		}
 
 		if (values.image) {

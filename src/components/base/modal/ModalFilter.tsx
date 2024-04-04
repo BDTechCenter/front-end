@@ -21,11 +21,16 @@ export default function ModalFilter() {
 	const router = useRouter();
 
 	const titleUrl = searchParams.get("title");
+	const tagsUrl = searchParams.get("tags");
 	const pathname = window.location.search;
 
 	const handleClick = (e: MouseEvent<HTMLElement>) => {
 		if (tags?.length > 0) {
-			router.push(titleUrl ? `${pathname}&tags=${tags.join(",")}` : `?tags=${tags.join(",")}`);
+			router.push(
+				titleUrl
+					? `${pathname}&tags=${tags.join(",").toLowerCase()}`
+					: `?tags=${tags.join(",").toLowerCase()}`
+			);
 		}
 	};
 
