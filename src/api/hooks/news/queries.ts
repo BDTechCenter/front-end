@@ -13,7 +13,7 @@ import {
 	UpvoteNews,
 } from "@/api/types/news/type";
 import Error from "next/error";
-import filterUrl from "@/services/filter";
+import { Usefilter } from "@/services/filter";
 
 // News
 // GET news preview
@@ -25,8 +25,7 @@ async function getNews() {
 // GET News w/ Filter
 async function getNewsFilter(ctx: QueryFunctionContext) {
 	const [tags, title] = ctx.queryKey;
-	const url = filterUrl({ filters: { tags, title } });
-	console.log(`news/preview${url}`)
+	const url = Usefilter({ filters: { tags, title } });
 	const { data } = await api.get<ContentNews>(`news/preview${url}`);
 	return data;
 }
