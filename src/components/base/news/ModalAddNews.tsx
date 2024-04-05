@@ -77,6 +77,8 @@ export default function ModalCreateNews() {
 				});
 			},
 			onError: (error) => {
+				console.log(error);
+				
 				toast.error(error.message, {
 					position: "top-right",
 					autoClose: 3000,
