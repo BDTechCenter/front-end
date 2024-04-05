@@ -16,38 +16,35 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
-import { useRouter, useSearchParams } from "next/navigation";
-import { usePathname } from "next/navigation";
-
-const MAX_LENGTH = 70;
-
-const searchSchema = z.object({
-	search: z
-		.string({ required_error: "Search terms is required" })
-		.trim()
-		.min(1, "Search terms is required")
-		.max(MAX_LENGTH - 1, {
-			message: `Search terms can be a maximum of ${MAX_LENGTH} characters.`,
-		}),
-});
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { searchSchema } from "@/types/schemas/newsShema";
+import { UpdateUrlFilter } from "@/services/filter";
 
 export default function SearchBar() {
 	const searchParams = useSearchParams();
 	const router = useRouter();
 	const tagsUrl = searchParams.get("tags");
 	const titleUrl = searchParams.get("title");
-	const pathname = window.location.search;
+	const pathnameDefault = usePathname();
+
+	function onSubmit(values: z.infer<typeof searchSchema>) {
+		UpdateUrlFilter({
+			filters: {
+				filterTag: titleUrl,
+				filterTag2: tagsUrl,
+				type: "title",
+				searchParams: searchParams,
+				pathnameDefault: pathnameDefault,
+				values: values.search,
+				router: router,
+			},
+		});
+	}
 
 	const form = useForm<z.infer<typeof searchSchema>>({
 		mode: "all",
 		resolver: zodResolver(searchSchema),
 	});
-
-	function onSubmit(values: z.infer<typeof searchSchema>) {
-		router.push(
-			tagsUrl ? `${pathname}&title=${values.search}` : `?title=${values.search}`
-		);
-	}
 
 	useEffect(() => {
 		if (form.formState.isSubmitSuccessful) {
@@ -72,7 +69,7 @@ export default function SearchBar() {
 									placeholder="Search Here..."
 									className="bg-zinc-100/60 border-0 focus:ring-0"
 									{...field}
-									maxLength={MAX_LENGTH}
+									maxLength={70}
 								/>
 							</FormControl>
 							<FormMessage />
@@ -87,7 +84,7 @@ export default function SearchBar() {
 				</Button>
 				<div className="flex flex-row gap-3 justify-center items-center">
 					<ModalFilter />
-					{searchParams.has('title') || searchParams.has('tags') ? (
+					{searchParams.has("title") || searchParams.has("tags") ? (
 						<Link href={"/news"}>
 							<MdFilterAltOff color="#DC2626" size={20} />
 						</Link>
