@@ -7,8 +7,9 @@ import { Error } from "@/api/types/all/type";
 import { NewsCardSkeleton } from "../skeleton/NewsCardSkeleton";
 import { useFetchGetNewsScroll } from "@/api/hooks/news/queries";
 import { useSearchParams } from "next/navigation";
-import { News } from "@/api/types/news/type";
+import { ContentNews, News } from "@/api/types/news/type";
 import { useEffect } from "react";
+import LoadingIndicator from "../common/LoadingIndicator";
 
 export interface NewsListProps {
 	messageError: Error;
@@ -30,21 +31,18 @@ export default function NewsList({
 
 	const {
 		data,
-		status,
 		error,
 		isLoading,
 		isError,
 		fetchNextPage,
 		isFetchingNextPage,
 		hasNextPage,
-	} = useFetchGetNewsScroll(0, tags, title);
+	} = useFetchGetNewsScroll(tags, title);
 
 	// const { isLoading, isError, data } = useFetchGetNews(tags, title)
 
 	const newsCards = () => {
-		console.log(data);
-		
-		return data?.pages[0].length !== 0 && data ? (
+		return data?.pages[0].content.length !== 0 && data ? (
 			<div className="flex flex-col w-full">
 				{tagsUrl || titleUrl ? (
 					<h1 className="w-full mb-6 text-bddarkgray text-2xl font-semibold flex justify-start">
@@ -54,9 +52,9 @@ export default function NewsList({
 					<></>
 				)}
 				<div className="relative grid mb-6 grid-cols-2 sm:grid-cols-3 gap-5 2xl:gap-7">
-					{data?.pages.map((news: News[]) =>
-						news.map((newsObj, index) =>
-							news.length == index + 1 ? (
+					{data?.pages.map((news: ContentNews) =>
+						news.content.map((newsObj, index) =>
+							news.content.length == index + 1 ? (
 								<NewsCard innerRef={ref} key={newsObj.id} data={newsObj} />
 							) : (
 								<NewsCard key={newsObj.id} data={newsObj} />
@@ -64,7 +62,7 @@ export default function NewsList({
 						)
 					)}
 				</div>
-				{isFetchingNextPage && <h3>Loading...</h3>}
+				{isFetchingNextPage && (<LoadingIndicator className="mx-auto" />)}
 			</div>
 		) : (
 			<div className="flex w-full items-center justify-center">
@@ -75,7 +73,6 @@ export default function NewsList({
 
 	useEffect(() => {
 		if (inView && hasNextPage) {
-			console.log("Fire!");
 			fetchNextPage();
 		}
 	}, [inView, hasNextPage, fetchNextPage]);
@@ -91,6 +88,7 @@ export default function NewsList({
 	}
 
 	if (isError) {
+		console.log(error);
 		return (
 			<div className="flex w-full items-center justify-center">
 				<ImageError data={messageError} />

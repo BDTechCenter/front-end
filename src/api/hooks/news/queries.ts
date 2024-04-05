@@ -19,7 +19,7 @@ import filterUrl from "@/services/filter";
 // News
 // GET news preview
 async function getNews() {
-	const { data } = await api.get<News[]>(`news/preview?sortBy=latest`);
+	const { data } = await api.get<ContentNews>(`news/preview?sortBy=latest`);
 	return data;
 }
 
@@ -27,40 +27,45 @@ async function getNews() {
 async function getNewsFilter(ctx: QueryFunctionContext) {
 	const [tags, title] = ctx.queryKey;
 	const url = filterUrl({ filters: { tags, title } });
-	console.log(`news/preview${url}`)
-	const { data } = await api.get<News[]>(`news/preview${url}`);
+	console.log(`news/preview${url}`);
+	const { data } = await api.get<ContentNews>(`news/preview${url}`);
 	return data;
 }
 
-export function useFetchGetNews(tags?: string, title?:string) {
-	return useQuery<News[], Error>({
+export function useFetchGetNews(tags?: string, title?: string) {
+	return useQuery<ContentNews, Error>({
 		queryKey: ["newsPreview", tags, title],
 		queryFn: tags || title ? getNewsFilter : getNews,
 	});
 }
 
 async function getNewsFilterScroll(ctx: QueryFunctionContext) {
-	const [pageParam, tags, title] = ctx.queryKey;
+	const [, tags, title] = ctx.queryKey;
+	const pageParam = ctx.pageParam;
 	const filterParam = filterUrl({ filters: { tags, title } });
 
-	const url = tags || title ? `&${filterParam}` : ""
+	const url = tags || title ? `&${filterParam}` : "";
 
-	const { data } = await api.get<ContentNews>(`news/preview?size=3&page=${pageParam}${url}`);
+	const { data } = await api.get<ContentNews>(`news/preview?size=9${url}`, {
+		params: {
+			page: pageParam,
+		},
+	});
 
-	return data.content;
+	return data;
 }
 
-export function useFetchGetNewsScroll(pageParam: number, tags?: string, title?:string) {
-	return useInfiniteQuery<News[], Error>({
-		queryKey: ["newsPreview", tags, title, pageParam],
+export function useFetchGetNewsScroll(tags?: string, title?: string) {
+	return useInfiniteQuery<ContentNews, Error>({
+		queryKey: ["newsPreview", tags, title],
 		queryFn: getNewsFilterScroll,
 		initialPageParam: 0,
-		getNextPageParam: (lastPage, allPages) => {
-      return lastPage.length ? allPages.length + 1 : undefined;
-    },
+		getNextPageParam: (lastPage) => {
+			const nextPage = lastPage.last ? undefined : lastPage.number + 1;
+			return nextPage;
+		},
 	});
 }
-
 
 // GET News By ID
 async function getIdNews(ctx: QueryFunctionContext) {
@@ -125,9 +130,11 @@ export function useFetchGetCommentNewsId(id: string) {
 //Upvote
 //PATCH News
 export async function patchUpvote(patchUpvote: UpvoteNews) {
-	api.defaults.headers["Authorization"] = `Bearer ${patchUpvote.token}`
-	const { data } = await api.patch(`${patchUpvote.method}/${patchUpvote.id}/upvote`)
-	return data
+	api.defaults.headers["Authorization"] = `Bearer ${patchUpvote.token}`;
+	const { data } = await api.patch(
+		`${patchUpvote.method}/${patchUpvote.id}/upvote`
+	);
+	return data;
 }
 
 export function useMutationPatchUpvote() {
@@ -135,7 +142,6 @@ export function useMutationPatchUpvote() {
 		mutationFn: patchUpvote,
 	});
 }
-
 
 // POST Comments
 async function postComment({
