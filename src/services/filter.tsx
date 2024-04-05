@@ -1,9 +1,11 @@
 import { Filter, FilterPath } from "@/api/types/all/type";
-interface filterProps {
+import { useRouter } from "next/router";
+
+interface UseFilterProps {
 	filters: Filter;
 }
 
-export function Usefilter({ filters }: filterProps) {
+export function Usefilter({ filters }: UseFilterProps) {
 	let url = [];
 	for (let key in filters) {
 		if (filters[key] && filters[key] !== " ") {
@@ -11,9 +13,26 @@ export function Usefilter({ filters }: filterProps) {
 		}
 	}
 	if (url.length > 1) {
-    console.log( "?" + url.join("&"))
 		return "?" + url.join("&");
 	}
-  console.log( "?" + url.join(""))
 	return "?" + url.join("");
+}
+
+interface UpdateUrlFilter {
+	filters: FilterPath;
+}
+
+export function UpdateUrlFilter({ filters }: UpdateUrlFilter) {
+	const pathname = window.location.search;
+
+	if (filters.filterTag) {
+		const current = new URLSearchParams(Array.from(filters.searchParams.entries()));
+		current.set(filters.type, filters.values);
+		filters.router.push(`${filters.pathnameDefault}?${current.toString()}`);
+		console.log(`${filters.pathnameDefault}?${current.toString()}`)
+	} else {
+		filters.router.push(
+			filters.filterTag2 ? `${pathname}&${filters.type}=${filters.values}` : `?${filters.type}=${filters.values}`
+		);
+	}
 }

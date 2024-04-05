@@ -18,27 +18,27 @@ import { useForm } from "react-hook-form";
 import z from "zod";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { searchSchema } from "@/types/schemas/newsShema";
+import { UpdateUrlFilter } from "@/services/filter";
 
 export default function SearchBar() {
 	const searchParams = useSearchParams();
 	const router = useRouter();
 	const tagsUrl = searchParams.get("tags");
 	const titleUrl = searchParams.get("title");
-	const pathname = window.location.search;
 	const pathnameDefault = usePathname();
 
 	function onSubmit(values: z.infer<typeof searchSchema>) {
-		if (titleUrl) {
-			const current = new URLSearchParams(Array.from(searchParams.entries()));
-			current.set("title", values.search);
-			router.push(`${pathnameDefault}?${current.toString()}`);
-		} else {
-			router.push(
-				tagsUrl
-					? `${pathname}&title=${values.search}`
-					: `?title=${values.search}`
-			);
-		}
+		UpdateUrlFilter({
+			filters: {
+				filterTag: titleUrl,
+				filterTag2: tagsUrl,
+				type: "title",
+				searchParams: searchParams,
+				pathnameDefault: pathnameDefault,
+				values: values.search,
+				router: router,
+			},
+		});
 	}
 
 	const form = useForm<z.infer<typeof searchSchema>>({
