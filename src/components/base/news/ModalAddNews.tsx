@@ -184,7 +184,7 @@ export default function ModalCreateNews() {
 							<DialogFooter>
 								<Button
 									type="submit"
-									className="rounded-sm border p-2 font-semibold text-base"
+									className="rounded-sm mt-2 border p-2 font-semibold text-base"
 									variant="bdlight"
 								>
 									Add
