@@ -10,14 +10,6 @@
 .ql-container.ql-disabled .ql-editor ul[data-checked] > li::before {
 	pointer-events: none;
 }
-.ql-clipboard {
-	overflow-y: hidden;
-	top: 50%;
-}
-.ql-clipboard p {
-	margin: 0;
-	padding: 0;
-}
 .ql-editor {
   border-width: 1px;
   border-color: hsl(var(--input));
@@ -943,3 +935,7 @@
   border: none;
 	
 } 
+
+.ql-clipboard {
+	display: none !important;
+}
