@@ -2,7 +2,7 @@
 
 import { useInView } from "react-intersection-observer";
 import ImageError from "../common/ImageError";
-import NewsCard from "./NewsCard";
+import NewsCard from "../common/NewsCard";
 import { Error } from "@/api/types/all/type";
 import { NewsCardSkeleton } from "../skeleton/NewsCardSkeleton";
 import { useFetchGetNewsScroll } from "@/api/hooks/news/queries";

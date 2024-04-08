@@ -3,6 +3,8 @@ import ImageError from "../common/ImageError";
 import { useFetchGetCommentNewsId } from "@/api/hooks/news/queries";
 import { Error } from "@/api/types/all/type";
 import CommentSkeleton from "../skeleton/CommentSkeleton";
+import { useQueryClient } from "@tanstack/react-query";
+import { idea } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
 interface CommentListProps {
 	messageError: Error;
@@ -15,7 +17,12 @@ export default function CommentList({
 	id,
 	messagenotFaoundError,
 }: CommentListProps) {
-	const { isLoading, isError, data } = useFetchGetCommentNewsId(id);
+	const queryClient = useQueryClient();
+	const { isLoading, isError, data, isSuccess } = useFetchGetCommentNewsId(id);
+
+	isSuccess && (
+		console.log(queryClient.getQueryData(["comments", id]))
+	)
 
 	const commentCards = () => {
 		return data?.content.length !== 0 ? (

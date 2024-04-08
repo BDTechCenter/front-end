@@ -1,5 +1,4 @@
-import { Filter, FilterPath } from "@/api/types/all/type";
-import { useRouter } from "next/router";
+import { Filter, FilterPath } from "../api/types/all/type";
 
 interface UseFilterProps {
 	filters: Filter;
