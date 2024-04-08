@@ -42,13 +42,6 @@ export default function NewsList({
 	const newsCards = () => {
 		return data?.pages[0].content.length !== 0 && data ? (
 			<div className="flex flex-col w-full">
-				{tagsUrl || titleUrl ? (
-					<h1 className="w-full mb-6 text-bddarkgray text-2xl font-semibold flex justify-start">
-						Filter: {tagsUrl + " " + titleUrl}
-					</h1>
-				) : (
-					<></>
-				)}
 				<div className="relative grid mb-6 grid-cols-2 sm:grid-cols-3 gap-5 2xl:gap-7">
 					{data?.pages.map((news: ContentNews) =>
 						news.content.map((newsObj, index) =>

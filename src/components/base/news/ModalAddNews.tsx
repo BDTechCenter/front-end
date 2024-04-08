@@ -45,9 +45,8 @@ export default function ModalCreateNews() {
 		formData.append("author", author);
 		formData.append("title", values.title);
 		formData.append("body", values.body);
-
 		if (values.tags) {
-			formData.append("tags", values.tags?.toString());
+			formData.append("tags", values.tags?.toString().toLocaleLowerCase());
 		}
 
 		if (values.image) {
@@ -158,7 +157,7 @@ export default function ModalCreateNews() {
 							<DialogFooter>
 								<Button
 									type="submit"
-									className="rounded-sm border p-2 font-semibold text-base"
+									className="rounded-sm mt-2 border p-2 font-semibold text-base"
 									variant="bdlight"
 								>
 									Add
