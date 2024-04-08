@@ -49,7 +49,6 @@ export default function ModalAddComment({ newsId }: { newsId: string }) {
 			{ comment: postData, id: newsId },
 			{
 				onSuccess: (data) => {
-					console.log(data);
 					toast.success("Comment added with success", {
 						position: "top-right",
 						autoClose: 3000,

@@ -26,8 +26,6 @@ export default function NewsContent({
 	const newsId = path.split("/")[2];
 	const { isLoading, isError, data } = useFetchGetNewsId(newsId);
 
-	console.log(data?.body);
-
 	const newsContentData = () => {
 		return data ? (
 			<>
