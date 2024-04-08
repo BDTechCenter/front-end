@@ -3,41 +3,42 @@ import ImageError from "../common/ImageError";
 import NewsCard from "../common/NewsCard";
 import { Error } from "@/api/types/all/type";
 import { NewsCardSkeleton } from "../skeleton/NewsCardSkeleton";
-import { useFetchGetNews } from "@/api/hooks/news/queries";
-import { useSearchParams } from "next/navigation";
+import { useFetchGetUserNews } from "@/api/hooks/user/queries";
+
+import {
+	Carousel,
+	CarouselContent,
+	CarouselItem,
+	CarouselNext,
+	CarouselPrevious,
+} from "@/components/ui/carousel";
 
 export interface NewsListProps {
 	massageError: Error;
 	massageNotFound: Error;
 }
 
-export default function NewsList({
+export default function NewsUserList({
 	massageError,
 	massageNotFound,
 }: NewsListProps) {
-	const searchParams = useSearchParams();
-	const tagsUrl = searchParams.get("tags");
-	const titleUrl = searchParams.get("title");
+	const { isLoading, isError, data } = useFetchGetUserNews();
 
-	const tags = tagsUrl ? `tags=${tagsUrl}` : "";
-	const title = titleUrl ? `title=${titleUrl}` : "";
-
-	const { isLoading, isError, data } = useFetchGetNews(tags, title);
-
-	const newsCards = () => {
+	const newsUserCards = () => {
 		return data?.content.length !== 0 && data ? (
 			<div className="flex flex-col w-full">
-				{tagsUrl || titleUrl ? (
-					<h1 className="w-full mb-6 text-bddarkgray text-2xl font-semibold flex justify-start">
-						Filter: {tagsUrl + " " + titleUrl}
-					</h1>
-				) : (
-					<></>
-				)}
-				<div className="relative grid mb-6 grid-cols-2 sm:grid-cols-3 gap-5 2xl:gap-7">
-					{data.content.map((news) => (
-						<NewsCard key={news.id} data={news} />
-					))}
+				<div className="w-full">
+					<Carousel>
+						<CarouselContent>
+							{data.content.map((news) => (
+								<CarouselItem key={news.id} className="basis-1/3">
+									<NewsCard data={news} />
+								</CarouselItem>
+							))}
+						</CarouselContent>
+						<CarouselPrevious />
+						<CarouselNext />
+					</Carousel>
 				</div>
 			</div>
 		) : (
@@ -66,7 +67,7 @@ export default function NewsList({
 	}
 
 	if (data) {
-		return newsCards();
+		return newsUserCards();
 	}
 
 	return null;
