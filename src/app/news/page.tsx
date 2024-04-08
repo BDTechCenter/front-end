@@ -1,9 +1,11 @@
-import Footer from "@/components/base/common/Footer"
-import NavBar from "@/components/base/common/NavBar"
-import TopBanner from "@/components/base/common/TopBanner"
-import NewsList from "@/components/base/news/NewsList"
-import SearchBar from "@/components/base/news/SearchBar"
-import ModalAddNews from "@/components/base/news/ModalAddNews"
+import Footer from "@/components/base/common/Footer";
+import NavBar from "@/components/base/common/NavBar";
+import TopBanner from "@/components/base/common/TopBanner";
+import NewsList from "@/components/base/news/NewsList";
+import SearchBar from "@/components/base/news/SearchBar";
+import ModalAddNews from "@/components/base/news/ModalAddNews";
+import { RoleGuard } from "@/components/base/common/RoleGuard";
+import { appRoles } from "@/lib/sso/authConfig";
 
 export default function NewsPage() {
 	return (
@@ -14,9 +16,11 @@ export default function NewsPage() {
 					text={dataNewsPage.bannerNews}
 					className="flex w-1/2 justify-end  items-center"
 				>
-					<div className="flex items-center justify-center w-1/2 h-full">
-						<ModalAddNews />
-					</div>
+					<RoleGuard roles={[appRoles.Admin, appRoles.BDUser]}>
+						<div className="flex items-center justify-center w-1/2 h-full">
+							<ModalAddNews />
+						</div>
+					</RoleGuard>
 				</TopBanner>
 				<div className="w-[70%] mx-auto absolute left-0 right-0 -bottom-7 z-10">
 					<SearchBar />
@@ -24,8 +28,8 @@ export default function NewsPage() {
 			</div>
 			<section className="my-24 mx-28 h-full 2xl:mx-44 2xl:my-36">
 				<NewsList
-					massageError={dataNewsPage.newsErrorNotFound}
-					massageNotFound={dataNewsPage.newsErrorNotFound}
+					messageError={dataNewsPage.newsErrorNotFound}
+					messageNotFound={dataNewsPage.newsErrorNotFound}
 				/>
 			</section>
 			<Footer />

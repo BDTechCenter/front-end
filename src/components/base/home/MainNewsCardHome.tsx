@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import NewsCardHome from "./NewsCardHome";
 import ImageError from "../common/ImageError";
@@ -7,13 +7,13 @@ import { NewsCardHomeSkeleton } from "../skeleton/NewsCardHomeSkeleton";
 import { useFetchGetMainNews } from "@/api/hooks/home/queries";
 
 export interface MainNewsCardHomeProps {
-	massageError: Error;
-	massageNotFound: Error;
+	messageError: Error;
+	messageNotFound: Error;
 }
 
 export default function MainNewsCardHome({
-	massageError,
-	massageNotFound,
+	messageError,
+	messageNotFound,
 }: MainNewsCardHomeProps) {
 	const { isLoading, isError, data } = useFetchGetMainNews();
 
@@ -32,7 +32,7 @@ export default function MainNewsCardHome({
 				</div>
 			</div>
 		) : (
-			<ImageError data={massageNotFound} />
+			<ImageError data={messageNotFound} />
 		);
 	};
 
@@ -51,7 +51,7 @@ export default function MainNewsCardHome({
 	}
 
 	if (isError) {
-		return <ImageError data={massageError} />;
+		return <ImageError data={messageError} />;
 	}
 
 	if (data) {

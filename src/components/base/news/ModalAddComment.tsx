@@ -26,7 +26,7 @@ import { commentSchema } from "@/types/schemas/commentSchema";
 import { useEffect } from "react";
 import { useMutationPostComment } from "@/api/hooks/news/queries";
 import { msalInstance } from "@/lib/sso/msalInstance";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { CommentPostType } from "@/api/types/news/type";
 
 export default function ModalAddComment({ newsId }: { newsId: string }) {
@@ -41,41 +41,11 @@ export default function ModalAddComment({ newsId }: { newsId: string }) {
 		const author: string = accountInfo?.name || "";
 
 		const postData: CommentPostType = {
-			"author": author,
-			"comment": values.content
-	};
+			author: author,
+			comment: values.content,
+		};
 
-		mutate(
-			{ comment: postData, id: newsId },
-			{
-				onSuccess: (data) => {
-					console.log(data);
-					toast.success("Comment added with success", {
-						position: "top-right",
-						autoClose: 3000,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: true,
-						progress: undefined,
-						theme: "light",
-					});
-				},
-				onError: (error) => {
-					console.log(error);
-					toast.error(error.message, {
-						position: "top-right",
-						autoClose: 3000,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: true,
-						progress: undefined,
-						theme: "light",
-					});
-				},
-			}
-		);
+		mutate({ comment: postData, id: newsId });
 	}
 
 	useEffect(() => {

@@ -26,13 +26,17 @@ export function UpdateUrlFilter({ filters }: UpdateUrlFilter) {
 	const pathname = window.location.search;
 
 	if (filters.filterTag) {
-		const current = new URLSearchParams(Array.from(filters.searchParams.entries()));
+		const current = new URLSearchParams(
+			Array.from(filters.searchParams.entries())
+		);
 		current.set(filters.type, filters.values);
 		filters.router.push(`${filters.pathnameDefault}?${current.toString()}`);
-		console.log(`${filters.pathnameDefault}?${current.toString()}`)
+		console.log(`${filters.pathnameDefault}?${current.toString()}`);
 	} else {
 		filters.router.push(
-			filters.filterTag2 ? `${pathname}&${filters.type}=${filters.values}` : `?${filters.type}=${filters.values}`
+			filters.filterTag2
+				? `${pathname}&${filters.type}=${filters.values}`
+				: `?${filters.type}=${filters.values}`
 		);
 	}
 }

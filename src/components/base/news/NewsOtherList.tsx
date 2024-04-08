@@ -7,10 +7,10 @@ import NewsOuther from "./NewsOther";
 import NewsOtherSkeleton from "../skeleton/NewsOtherSkeleton";
 
 export interface NewsOtherListProps {
-	massageError: Error;
+	messageError: Error;
 }
 
-export default function NewsOtherList({ massageError }: NewsOtherListProps) {
+export default function NewsOtherList({ messageError }: NewsOtherListProps) {
 	const { isLoading, isError, data } = useFetchGetNewsOtherNews();
 	const newsCards = () => {
 		return data?.content.length !== 0 ? (
@@ -21,7 +21,7 @@ export default function NewsOtherList({ massageError }: NewsOtherListProps) {
 			</div>
 		) : (
 			<div className="absolute flex w-full items-center justify-center">
-				<ImageError data={massageError} />
+				<ImageError data={messageError} />
 			</div>
 		);
 	};
@@ -39,7 +39,7 @@ export default function NewsOtherList({ massageError }: NewsOtherListProps) {
 	if (isError) {
 		return (
 			<div className="absolute flex w-full items-center justify-center">
-				<ImageError data={massageError} />
+				<ImageError data={messageError} />
 			</div>
 		);
 	}

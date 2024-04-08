@@ -1,10 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
 	Dialog,
-	DialogClose,
 	DialogContent,
 	DialogFooter,
 	DialogHeader,
@@ -28,7 +27,6 @@ import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { msalInstance } from "@/lib/sso/msalInstance";
 import { useMutationPostNews } from "@/api/hooks/news/queries";
-import { toast } from "react-toastify";
 import InputTags from "../common/InputTags";
 
 export default function ModalCreateNews() {
@@ -62,32 +60,7 @@ export default function ModalCreateNews() {
 		console.log(values.tags?.toString());
 		const newsFormData = NewsObject(values);
 
-		mutate(newsFormData, {
-			onSuccess: (data) => {
-				toast.success("News added with success", {
-					position: "top-right",
-					autoClose: 3000,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-					theme: "light",
-				});
-			},
-			onError: (error) => {
-				toast.error(error.message, {
-					position: "top-right",
-					autoClose: 3000,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-					theme: "light",
-				});
-			},
-		});
+		mutate(newsFormData);
 	}
 
 	const [imageKey, setImageKey] = useState<number>(0);
