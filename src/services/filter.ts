@@ -12,6 +12,5 @@ export default function filter({filters}: filterProps){
   if(filters.title){
     url.push(filters.title)
   }
-  console.log("?"+url.join('&'))
   return "?"+url.join('&')
 }

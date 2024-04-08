@@ -8,8 +8,8 @@ export default function NewsContentPage() {
 			<NavBar variant="white" />
 			<section className="flex h-full my-20 gap-24 mx-14 max-sm:mx-5 lg:mx-24 xl:mx-36">
 				<NewsContent
-					massageError={dataNewsContentPage.newsError}
-					massageCommentError={dataNewsContentPage.commentError}
+					messageError={dataNewsContentPage.newsError}
+					messageCommentError={dataNewsContentPage.commentError}
 					messageErrorContent={dataNewsContentPage.newsErrorNotFound}
 				/>
 			</section>

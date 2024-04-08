@@ -7,15 +7,15 @@ import { useQueryClient } from "@tanstack/react-query";
 import { idea } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
 interface CommentListProps {
-	massageError: Error;
-	massagenotFaoundError: Error;
+	messageError: Error;
+	messagenotFaoundError: Error;
 	id: string;
 }
 
 export default function CommentList({
-	massageError,
+	messageError,
 	id,
-	massagenotFaoundError,
+	messagenotFaoundError,
 }: CommentListProps) {
 	const queryClient = useQueryClient();
 	const { isLoading, isError, data, isSuccess } = useFetchGetCommentNewsId(id);
@@ -26,14 +26,14 @@ export default function CommentList({
 
 	const commentCards = () => {
 		return data?.content.length !== 0 ? (
-			<div className="flex flex-col gap-5 max-h-[22rem] overflow-y-scroll">
+			<div className="flex flex-col gap-5 max-h-96 overflow-y-scroll">
 				{data?.content.map((comment) => (
 					<Comment key={comment.id} data={comment} />
 				))}
 			</div>
 		) : (
 			<div className="flex justify-center items-center w-full h-80">
-				<ImageError data={massageError} />
+				<ImageError data={messageError} />
 			</div>
 		);
 	};
@@ -51,7 +51,7 @@ export default function CommentList({
 	if (isError) {
 		return (
 			<div className="flex justify-center items-center w-full h-80">
-				<ImageError data={massagenotFaoundError} />
+				<ImageError data={messagenotFaoundError} />
 			</div>
 		);
 	}

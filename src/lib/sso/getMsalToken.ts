@@ -1,7 +1,7 @@
 import { msalInstance } from "@/lib/sso/msalInstance";
 import { loginRequest } from "./authConfig";
 
-export default async function getMsalToken() {
+export async function getMsalToken() {
 	const account = msalInstance.getActiveAccount();
 	if (!account) {
 		throw Error(
@@ -14,9 +14,16 @@ export default async function getMsalToken() {
 		account: account,
 	});
 
-	let token = response.accessToken;
+	let idToken = response.idToken;
 
-	let idToken = account.idToken
+	let token = account.idToken
 
-	return {token, idToken};
+	console.log("ID Token from account: ", token);
+	console.log("ID Token from requisition: ", idToken);
+
+	console.log("its same token?", token === idToken);
+	
+	
+
+	return idToken;
 }

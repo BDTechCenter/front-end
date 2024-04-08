@@ -14,8 +14,8 @@ export default function Home() {
 			<div className="flex my-16 h-[32rem] 2xl:h-[40rem] w-full items-center justify-center">
 				<div className="w-[80%] 2xl:w-[70%] h-full gap-10">
 					<MainNewsCardHome
-						massageError={dataHomePage.newsError}
-						massageNotFound={dataHomePage.newsErrorNotFound}
+						messageError={dataHomePage.newsError}
+						messageNotFound={dataHomePage.newsErrorNotFound}
 					/>
 				</div>
 			</div>
