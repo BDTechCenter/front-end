@@ -15,6 +15,7 @@ import {
 } from "@/api/types/news/type";
 import Error from "next/error";
 import filterUrl from "@/services/filter";
+import toast from "react-hot-toast";
 
 // News
 // GET news preview
@@ -98,18 +99,36 @@ export function useFetchGetNewsOtherNews() {
 
 // POST A News
 async function postNews(newsObject: FormData) {
-	const { data } = await api.post<News>("news", newsObject, {
+	const promise = api.post<News>("news", newsObject, {
 		headers: {
 			"Content-Type": "multipart/form-data",
 		},
 	});
 
-	return data;
+	toast.promise(promise, {
+		loading: "Adding News",
+		success: "News added with success",
+		error: (error) => {
+			console.log(error);
+
+			return error.response.data
+				? `${error.message}:\n${error.response.data.message}`
+				: `${error.message}`;
+		},
+	});
+
+	return await promise;
 }
 
 export function useMutationPostNews() {
+	const queryClient = useQueryClient();
 	return useMutation({
 		mutationFn: postNews,
+		onSuccess: (_, variables) => {
+			queryClient.setQueryData(["news"], (data: any) => {
+				return [...data, { newsObject: variables }];
+			});
+		},
 	});
 }
 
@@ -122,19 +141,20 @@ async function getIdCommentNews(ctx: QueryFunctionContext) {
 }
 
 export function useFetchGetCommentNewsId(id: string) {
+	const queryClient = useQueryClient();
+
 	return useQuery<ContentComment, Error>({
-		queryKey: ["comments", id],
+		queryKey: ["comments"],
 		queryFn: getIdCommentNews,
 	});
 }
+
 //Upvote
 //PATCH News
 export async function patchUpvote(patchUpvote: UpvoteNews) {
-	api.defaults.headers["Authorization"] = `Bearer ${patchUpvote.token}`;
-	const { data } = await api.patch(
-		`${patchUpvote.method}/${patchUpvote.id}/upvote`
-	);
-	return data;
+	const promise = api.patch(`${patchUpvote.method}/${patchUpvote.id}/upvote`);
+
+	return await promise;
 }
 
 export function useMutationPatchUpvote() {
@@ -151,9 +171,20 @@ async function postComment({
 	comment: CommentPostType;
 	id: string;
 }) {
-	const { data } = await api.post(`comments/${id}`, comment);
+	const promise = api.post(`comments/${id}`, comment);
 
-	return data;
+	toast.promise(promise, {
+		loading: "Adding Comment",
+		success: "Comment added with success",
+		error: (error) => {
+			console.log(error);
+			return error.response.data
+				? `${error.message}:\n${error.response.data.message}`
+				: `${error.message}`;
+		},
+	});
+
+	return await promise;
 }
 
 export function useMutationPostComment() {
@@ -161,28 +192,10 @@ export function useMutationPostComment() {
 
 	return useMutation({
 		mutationFn: postComment,
-		onSuccess: (data, variables) => {
-			queryClient.setQueryData(["comments", { id: variables.id }], data);
+		onSuccess: (_, variables) => {
+			queryClient.setQueryData(["comments"], (data: any) => {
+				return [...data, { comment: variables.comment }];
+			});
 		},
 	});
-}
-
-async function patchNewsUpvote({ empty, id }: { empty: null; id: string }) {
-	const response = await api.patch(`/news/${id}/upvote`, empty, {
-		headers: { "Content-Length": 0 },
-	});
-
-	return response;
-}
-
-export function useMutationNewsUpvote() {
-	return useMutation({
-		mutationFn: patchNewsUpvote,
-	});
-}
-
-export async function patchNewseUpvote(id: string) {
-	const { data } = await api.post(`news/${id}/upvote`);
-
-	return data;
 }
