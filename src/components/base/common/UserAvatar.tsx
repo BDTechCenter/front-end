@@ -38,7 +38,7 @@ export default function UserAvatar() {
 	}, [inProgress, instance, imageUrl, account?.name]);
 
 	return (
-		<Link href="/testsso/profile">
+		<Link href="/user">
 			<Avatar>
 				<AvatarImage
 					className="size-full rounded-full"
