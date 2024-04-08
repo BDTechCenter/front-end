@@ -39,8 +39,6 @@ export default function NewsList({
 		hasNextPage,
 	} = useFetchGetNewsScroll(tags, title);
 
-	// const { isLoading, isError, data } = useFetchGetNews(tags, title)
-
 	const newsCards = () => {
 		return data?.pages[0].content.length !== 0 && data ? (
 			<div className="flex flex-col w-full">
@@ -62,7 +60,7 @@ export default function NewsList({
 						)
 					)}
 				</div>
-				{isFetchingNextPage && (<LoadingIndicator className="mx-auto" />)}
+				{isFetchingNextPage && <LoadingIndicator className="mx-auto" />}
 			</div>
 		) : (
 			<div className="flex w-full items-center justify-center">
