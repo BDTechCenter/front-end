@@ -7,6 +7,7 @@ import {
 	CarouselNext,
 } from "@/components/ui/carousel";
 import NewsUserList from "@/components/base/user/NewsUserList";
+import Footer from "@/components/base/common/Footer";
 
 export default function User() {
 	return (
@@ -22,12 +23,13 @@ export default function User() {
 					massageError={dataUserPage.newsError}
 				/>
 			</section>
+			<Footer />
 		</main>
 	);
 }
 
 const dataUserPage = {
-	bannerNews: <p>manage your news and information</p>,
+	bannerNews: <p>Manage your news and information</p>,
 	newsErrorNotFound: {
 		text: "You have no news, write one",
 		img: "/noComment.gif",

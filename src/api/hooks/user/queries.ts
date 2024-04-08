@@ -6,7 +6,6 @@ import { useQuery } from "@tanstack/react-query";
 // GET user news
 async function getUserNews() {
 	const { data } = await api.get<ContentNews>(`news/author`);
-	console.log(data)
 	return data;
 }
 
