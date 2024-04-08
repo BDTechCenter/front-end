@@ -154,3 +154,4 @@ export async function patchNewseUpvote(id: string) {
 
 	return data;
 }
+
