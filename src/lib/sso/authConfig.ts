@@ -28,3 +28,8 @@ export const graphConfig = {
 	graphMeEndpoint: "https://graph.microsoft.com/v1.0/me",
 	graphMeEndpointPhoto: "https://graph.microsoft.com/v1.0/me/photo/$value",
 };
+
+export const appRoles = {
+	Admin: "ADMIN",
+	BDUser: "BDUSER"
+}
