@@ -1,9 +1,9 @@
 "use client";
+
 import ProfileData, { GraphData } from "@/components/base/sso/ProfileData";
 import SignOutButton from "@/components/base/sso/SignOutButton";
 import { callMsGraph } from "@/lib/sso/MsGraphApiCall";
 import { loginRequest } from "@/lib/sso/authConfig";
-import { msalInstance } from "@/lib/sso/msalInstance";
 import {
 	InteractionStatus,
 	InteractionRequiredAuthError,
@@ -13,7 +13,7 @@ import {
 import { MsalAuthenticationTemplate, useMsal } from "@azure/msal-react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { Bounce, toast } from "react-toastify";
+import toast from "react-hot-toast";
 
 function ProfileContent() {
 	const { instance, inProgress } = useMsal();
@@ -24,6 +24,8 @@ function ProfileContent() {
 		if (!graphData && inProgress === InteractionStatus.None) {
 			callMsGraph()
 				.then((response) => {
+					console.log(response);
+
 					setGraphData(response?.graphMeData), setImageUrl(response?.blobUrl);
 				})
 				.catch((e) => {
@@ -48,17 +50,7 @@ function ProfileContent() {
 }
 
 function ErrorComponent({ error }: { error: any }) {
-	toast.error(error, {
-		position: "top-right",
-		autoClose: 13,
-		hideProgressBar: false,
-		closeOnClick: true,
-		pauseOnHover: true,
-		draggable: true,
-		progress: undefined,
-		theme: "light",
-		transition: Bounce,
-	});
+	toast.error(error);
 }
 
 export default function Profile() {

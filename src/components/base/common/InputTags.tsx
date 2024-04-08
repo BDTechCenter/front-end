@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState, KeyboardEvent } from "react";
 import { IoMdClose } from "react-icons/io";
-import { toast } from "react-toastify";
 import { cn } from "@/lib/utils";
+import toast from "react-hot-toast";
 
 export interface InputTagsProps {
 	variant: "wrap" | "row";
@@ -16,16 +16,7 @@ export default function InputTags({ variant, onChange }: InputTagsProps) {
 	const MaxTegs = 7;
 
 	const errorToast = () => {
-		toast.error("Cannot add tag", {
-			position: "top-right",
-			autoClose: 1500,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-			theme: "light",
-		});
+		toast.error("Cannot add tag");
 	};
 
 	const addTags = () => {

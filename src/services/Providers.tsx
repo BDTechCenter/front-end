@@ -3,19 +3,17 @@
 import RouteGuard from "@/components/base/common/RouteGuard";
 import { msalInstance } from "@/lib/sso/msalInstance";
 import { MsalProvider } from "@azure/msal-react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { useState } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Toaster } from 'react-hot-toast';
+import { queryClient } from "./queryClient";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
-	const [queryClient] = useState(() => new QueryClient());
 
 	return (
 		<MsalProvider instance={msalInstance}>
 			<RouteGuard>
-				<ToastContainer />
+				<Toaster />
 				<QueryClientProvider client={queryClient}>
 					{children}
 					<ReactQueryDevtools />
