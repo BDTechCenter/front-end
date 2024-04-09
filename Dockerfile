@@ -1,10 +1,10 @@
-FROM node:latest
+FROM node:lts-alpine3.18
 
 WORKDIR /app
 
 COPY package.json /app/
 
-RUN npm install && npm install -g next
+RUN npm install
 
 COPY . /app
 
