@@ -1,6 +1,6 @@
 import { CommentType } from "@/api/types/news/type";
 import LikeUpvote from "./LikeUpvote";
-import ReactMarkdown from "react-markdown";
+import { MarkdownRenderer } from "../common/MarkdownRenderer";
 
 interface CommentProps {
 	data: CommentType;
@@ -8,24 +8,19 @@ interface CommentProps {
 
 export default function Comment({ data }: CommentProps) {
 	return (
-		<div className="flex flex-col w-[80%] border border-bdlightpurple/20 rounded-sm p-4 gap-1">
-			<h1 className="text-md 2xl:text-lg font-bold">{data.author}</h1>
-			<ReactMarkdown
-				components={{
-					pre: ({ node, ...props }) => (
-						<div className="w-full p-2 my-2 overflow-auto rounded-lg bg-black/10">
-							<pre {...props} />
-						</div>
-					),
-					code: ({ node, ...props }) => (
-						<code className="p-1 rounded-lg bg-black/10" {...props} />
-					),
-				}}
-				className="overflow-hidden text-sm leading-7"
-			>
-				{data.comment}
-			</ReactMarkdown>
-			<LikeUpvote id={data.id} alreadyUpVoted={data.alreadyUpVoted} method="comments" sizeIcon={18}/>
+		<div className="flex w-[80%] items-start border border-bdlightpurple/20 rounded-sm p-4 gap-1">
+			<div className="flex flex-col w-full">
+				<h1 className="text-md 2xl:text-lg font-bold">{data.author}</h1>
+				<MarkdownRenderer>{data.comment}</MarkdownRenderer>
+			</div>
+			<div>
+				<LikeUpvote
+					id={data.id}
+					alreadyUpVoted={data.alreadyUpVoted}
+					method="comments"
+					sizeIcon={18}
+				/>
+			</div>
 		</div>
 	);
 }
