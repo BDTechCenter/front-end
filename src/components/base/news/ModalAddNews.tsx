@@ -1,10 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
 	Dialog,
-	DialogClose,
 	DialogContent,
 	DialogFooter,
 	DialogHeader,
@@ -28,12 +27,11 @@ import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { msalInstance } from "@/lib/sso/msalInstance";
 import { useMutationPostNews } from "@/api/hooks/news/queries";
-import { toast } from "react-toastify";
 import InputTags from "../common/InputTags";
 
 export default function ModalCreateNews() {
-	const { mutate } = useMutationPostNews();
-	const [tags, setTags] = useState<string[]>([]);
+	const [open, setOpen] = useState(false);
+	const { mutateAsync } = useMutationPostNews();
 
 	const form = useForm<z.infer<typeof newsSchema>>({
 		resolver: zodResolver(newsSchema),
@@ -47,9 +45,8 @@ export default function ModalCreateNews() {
 		formData.append("author", author);
 		formData.append("title", values.title);
 		formData.append("body", values.body);
-
 		if (values.tags) {
-			formData.append("tags", values.tags?.toString());
+			formData.append("tags", values.tags?.toString().toLocaleLowerCase());
 		}
 
 		if (values.image) {
@@ -59,49 +56,23 @@ export default function ModalCreateNews() {
 		return formData;
 	};
 
-	function onSubmitForm(values: z.infer<typeof newsSchema>) {
-		console.log(values.tags?.toString());
+	async function onSubmitForm(values: z.infer<typeof newsSchema>) {
 		const newsFormData = NewsObject(values);
 
-		mutate(newsFormData, {
-			onSuccess: (data) => {
-				toast.success("News added with success", {
-					position: "top-right",
-					autoClose: 3000,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-					theme: "light",
-				});
-			},
-			onError: (error) => {
-				toast.error(error.message, {
-					position: "top-right",
-					autoClose: 3000,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-					theme: "light",
-				});
-			},
-		});
+		await mutateAsync(newsFormData).then(() => setOpen(false));
 	}
 
 	const [imageKey, setImageKey] = useState<number>(0);
 
 	useEffect(() => {
 		if (form.formState.isSubmitSuccessful) {
-			form.reset({ image: null, body: "", tags: [], title: "" });
+			form.reset({ image: null, body: "", tags: undefined, title: "" });
 			setImageKey((prevKey) => prevKey + 1);
 		}
 	}, [form, form.formState, form.reset]);
 
 	return (
-		<Dialog>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
 				<Button
 					className="rounded-sm w-48 p-5 font-semibold text-lg"
@@ -185,7 +156,7 @@ export default function ModalCreateNews() {
 							<DialogFooter>
 								<Button
 									type="submit"
-									className="rounded-sm border p-2 font-semibold text-base"
+									className="rounded-sm mt-2 border p-2 font-semibold text-base"
 									variant="bdlight"
 								>
 									Add

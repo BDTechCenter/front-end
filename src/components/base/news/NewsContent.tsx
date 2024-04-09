@@ -13,20 +13,18 @@ import { usePathname } from "next/navigation";
 import { MarkdownRenderer } from "../common/MarkdownRenderer";
 
 export interface NewsContentProps {
-	massageError: Error;
-	massageCommentError: Error;
+	messageError: Error;
+	messageCommentError: Error;
 	messageErrorContent: Error;
 }
 
 export default function NewsContent({
-	massageError,
-	massageCommentError,
+	messageError,
+	messageCommentError,
 }: NewsContentProps) {
 	const path = usePathname();
 	const newsId = path.split("/")[2];
 	const { isLoading, isError, data } = useFetchGetNewsId(newsId);
-
-	console.log(data?.body);
 
 	const newsContentData = () => {
 		return data ? (
@@ -62,13 +60,18 @@ export default function NewsContent({
 					<h1 className="mt-4 font-semibold text-lg text-bdpurple">
 						Is this news relevant to you?
 					</h1>
-					<LikeUpvote id={data.id} alreadyUpVoted={data.alreadyUpVoted} method="news" sizeIcon={22}/>
+					<LikeUpvote
+						id={data.id}
+						alreadyUpVoted={data.alreadyUpVoted}
+						method="news"
+						sizeIcon={22}
+					/>
 					<div className="w-full h-[2px] bg-[#D9D9D9] mt-12"></div>
 					<h1 className="mt-4 font-semibold text-lg text-bdpurple">Comments</h1>
-					<div className="w-full max-h-96 overflow-y-scroll">
+					<div className="w-full">
 						<CommentList
-							massagenotFaoundError={massageCommentError}
-							massageError={massageCommentError}
+							messagenotFaoundError={messageCommentError}
+							messageError={messageCommentError}
 							id={data.id}
 						/>
 					</div>
@@ -76,13 +79,13 @@ export default function NewsContent({
 				</div>
 				<aside className="w-[30%] h-full max-[850px]:hidden">
 					<h1 className="text-bdpurple font-bold text-xl mb-3">Other News</h1>
-					<NewsOtherList massageError={massageError} />
+					<NewsOtherList messageError={messageError} />
 				</aside>
 			</>
 		) : (
 			<>
 				<div className="flex w-full items-center justify-center">
-					<ImageError data={massageError} />
+					<ImageError data={messageError} />
 				</div>
 			</>
 		);
@@ -95,7 +98,7 @@ export default function NewsContent({
 	if (isError) {
 		return (
 			<div className="flex w-full h-full items-center justify-center">
-				<ImageError data={massageError} />
+				<ImageError data={messageError} />
 			</div>
 		);
 	}

@@ -5,12 +5,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { News } from "@/api/types/news/type";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 interface NewsCardProps {
 	data: News;
+	innerRef?: React.Ref<HTMLParagraphElement>;
 }
 
-export default function NewsCard({ data }: NewsCardProps) {
+export default function NewsCard({ data, innerRef, ...props }: NewsCardProps) {
 	const router = useRouter();
 	const href = `/news/${data.id}`;
 	const [img, setImg] = useState(data.imageUrl);
@@ -27,7 +29,11 @@ export default function NewsCard({ data }: NewsCardProps) {
 			className="flex flex-col h-72 2xl:h-[28rem] gap-2 cursor-pointer group"
 			onClick={handleClick}
 		>
-			<div className=" h-[60%] 2xl:h-[65%] overflow-hidden">
+			<div
+				className="h-[60%] 2xl:h-[65%] overflow-hidden"
+				ref={innerRef}
+				{...props}
+			>
 				<Image
 					src={img}
 					alt={data.title + " Image"}

@@ -5,46 +5,46 @@ import { Error } from "@/api/types/all/type";
 import CommentSkeleton from "../skeleton/CommentSkeleton";
 
 interface CommentListProps {
-	massageError: Error;
-	massagenotFaoundError: Error;
+	messageError: Error;
+	messagenotFaoundError: Error;
 	id: string;
 }
 
 export default function CommentList({
-	massageError,
+	messageError,
 	id,
-	massagenotFaoundError,
+	messagenotFaoundError,
 }: CommentListProps) {
 	const { isLoading, isError, data } = useFetchGetCommentNewsId(id);
 
 	const commentCards = () => {
-		return data?.content.length !== 0 ? (
-			<div className="flex flex-col gap-5 max-h-[22rem] overflow-y-scroll">
-				{data?.content.map((comment) => (
+		return data ? (
+			<div className="flex flex-col gap-5 max-h-96 overflow-y-scroll">
+				{data?.map((comment) => (
 					<Comment key={comment.id} data={comment} />
 				))}
 			</div>
 		) : (
 			<div className="flex justify-center items-center w-full h-80">
-				<ImageError data={massageError} />
+				<ImageError data={messageError} />
 			</div>
 		);
 	};
 
 	if (isLoading) {
 		return (
-			<>
+			<div className="flex flex-col gap-5 max-h-96 overflow-y-scroll">
 				<CommentSkeleton />
 				<CommentSkeleton />
 				<CommentSkeleton />
-			</>
+			</div>
 		);
 	}
 
 	if (isError) {
 		return (
 			<div className="flex justify-center items-center w-full h-80">
-				<ImageError data={massagenotFaoundError} />
+				<ImageError data={messagenotFaoundError} />
 			</div>
 		);
 	}

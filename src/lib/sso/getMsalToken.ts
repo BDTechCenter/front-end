@@ -1,7 +1,7 @@
 import { msalInstance } from "@/lib/sso/msalInstance";
 import { loginRequest } from "./authConfig";
 
-export default async function getMsalToken() {
+export async function getMsalToken() {
 	const account = msalInstance.getActiveAccount();
 	if (!account) {
 		throw Error(
@@ -14,9 +14,7 @@ export default async function getMsalToken() {
 		account: account,
 	});
 
-	let token = response.accessToken;
+	let idToken = response.idToken;
 
-	let idToken = account.idToken
-
-	return {token, idToken};
+	return idToken;
 }

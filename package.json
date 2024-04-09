@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky"
   },
   "dependencies": {
     "@azure/msal-browser": "^3.11.0",
@@ -20,10 +21,12 @@
     "@radix-ui/react-menubar": "^1.0.4",
     "@radix-ui/react-slot": "^1.0.2",
     "@tanstack/react-query": "^5.22.2",
+    "@tanstack/react-query-devtools": "^5.28.14",
     "@types/highlightjs": "^9.12.6",
     "axios": "^1.6.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "embla-carousel-react": "^8.0.1",
     "highlight.js": "^11.9.0",
     "katex": "^0.16.9",
     "lucide-react": "^0.356.0",
@@ -33,11 +36,12 @@
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.51.1",
+    "react-hot-toast": "^2.4.1",
     "react-icons": "^5.0.1",
+    "react-intersection-observer": "^9.8.1",
     "react-markdown": "^9.0.1",
     "react-quill": "^2.0.0",
     "react-syntax-highlighter": "^15.5.0",
-    "react-toastify": "^10.0.4",
     "rehype-raw": "^7.0.0",
     "remark-disable-tokenizers": "^1.1.0",
     "remark-gfm": "^4.0.0",
@@ -55,7 +59,9 @@
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
+    "husky": "^9.0.11",
     "postcss": "^8",
+    "prettier": "^3.2.5",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }

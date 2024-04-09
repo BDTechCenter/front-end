@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
-	DialogClose,
 	DialogContent,
 	DialogFooter,
 	DialogHeader,
@@ -23,59 +22,32 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { commentSchema } from "@/types/schemas/commentSchema";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMutationPostComment } from "@/api/hooks/news/queries";
 import { msalInstance } from "@/lib/sso/msalInstance";
-import { toast } from "react-toastify";
 import { CommentPostType } from "@/api/types/news/type";
 
 export default function ModalAddComment({ newsId }: { newsId: string }) {
-	const { mutate } = useMutationPostComment();
+	const { mutateAsync } = useMutationPostComment();
+	const [open, setOpen] = useState(false);
 
 	const form = useForm<z.infer<typeof commentSchema>>({
 		resolver: zodResolver(commentSchema),
 	});
 
-	function onSubmit(values: z.infer<typeof commentSchema>) {
+	async function onSubmit(values: z.infer<typeof commentSchema>) {
 		const accountInfo = msalInstance.getActiveAccount();
 		const author: string = accountInfo?.name || "";
 
 		const postData: CommentPostType = {
-			"author": author,
-			"comment": values.content
-	};
+			author: author,
+			comment: values.content,
+		};
 
-		mutate(
-			{ comment: postData, id: newsId },
-			{
-				onSuccess: (data) => {
-					console.log(data);
-					toast.success("Comment added with success", {
-						position: "top-right",
-						autoClose: 3000,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: true,
-						progress: undefined,
-						theme: "light",
-					});
-				},
-				onError: (error) => {
-					console.log(error);
-					toast.error(error.message, {
-						position: "top-right",
-						autoClose: 3000,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: true,
-						progress: undefined,
-						theme: "light",
-					});
-				},
-			}
+		await mutateAsync({ comment: postData, id: newsId }).then(() =>
+			setOpen(false)
 		);
+
 	}
 
 	useEffect(() => {
@@ -85,7 +57,7 @@ export default function ModalAddComment({ newsId }: { newsId: string }) {
 	}, [form, form.formState, form.reset]);
 
 	return (
-		<Dialog>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
 				<Button
 					className="rounded-sm w-48 p-5 border font-semibold text-lg mt-10"
@@ -114,15 +86,13 @@ export default function ModalAddComment({ newsId }: { newsId: string }) {
 							)}
 						/>
 						<DialogFooter className="sm:justify-start">
-							<DialogClose asChild>
-								<Button
-									type="submit"
-									className="rounded-sm border p-4 font-semibold text-base"
-									variant="bdlight"
-								>
-									Add
-								</Button>
-							</DialogClose>
+							<Button
+								type="submit"
+								className="rounded-sm border p-4 font-semibold text-base"
+								variant="bdlight"
+							>
+								Add
+							</Button>
 						</DialogFooter>
 					</form>
 				</Form>

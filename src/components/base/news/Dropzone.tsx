@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { FileWithPath, useDropzone } from "react-dropzone";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import Image from "next/image";
 
 export default function Dropzone({
@@ -57,16 +57,7 @@ export default function Dropzone({
 			</label>
 
 			{fileRejections.length > 0 &&
-				toast.error(`Rejected File`, {
-					position: "top-right",
-					autoClose: 1500,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-					theme: "light",
-				})}
+				toast.error(`Rejected File`)}
 		</section>
 	);
 }

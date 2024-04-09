@@ -30,3 +30,13 @@ export const newsSchema = z.object({
 		.string({ required_error: "Content is required." })
 		.min(10, { message: "Content must be at least 10 characters." }),
 });
+
+export const searchSchema = z.object({
+	search: z
+		.string({ required_error: "Search terms is required" })
+		.trim()
+		.min(1, "Search terms is required")
+		.max(70 - 1, {
+			message: `Search terms can be a maximum of ${70} characters.`,
+		}),
+});
