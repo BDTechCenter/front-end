@@ -21,21 +21,6 @@ import toast from "react-hot-toast";
 
 // News
 // GET News w/ Filter
-async function getNewsFilter(ctx: QueryFunctionContext) {
-	const [tags, title] = ctx.queryKey;
-	const url = usefilter({ filters: { tags, title } });
-	console.log(`news/preview${url}`);
-	const { data } = await api.get<ContentNews>(`news/preview${url}`);
-	return data;
-}
-
-export function useFetchGetNews(tags?: string, title?: string) {
-	return useQuery<ContentNews, Error>({
-		queryKey: ["newsPreview", tags, title],
-		queryFn: tags || title ? getNewsFilter : getNews,
-	});
-}
-
 async function getNewsFilterScroll(ctx: QueryFunctionContext) {
 	const [, tags, title] = ctx.queryKey;
 	const pageParam = ctx.pageParam;

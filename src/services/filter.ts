@@ -4,7 +4,7 @@ interface UseFilterProps {
 	filters: Filter;
 }
 
-export function Usefilter({ filters }: UseFilterProps) {
+export function usefilter({ filters }: UseFilterProps) {
 	let url = [];
 	for (let key in filters) {
 		if (filters[key as keyof Filter] && filters[key as keyof Filter] !== " ") {
@@ -12,9 +12,9 @@ export function Usefilter({ filters }: UseFilterProps) {
 	}
 	}
 	if (url.length > 1) {
-    return url.join("&");
+    return "&" + url.join("&");
   }
-  return url.join("");
+  return "&" + url.join("");
 }
 
 interface UpdateUrlFilter {
