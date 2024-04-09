@@ -34,7 +34,7 @@ export default function ModalFilter() {
 					type: "tags",
 					searchParams: searchParams,
 					pathnameDefault: pathnameDefault,
-					values: tags.join('%2C').toLowerCase(),
+					values: tags.join(',').toLowerCase(),
 					router: router,
 				},
 			});
