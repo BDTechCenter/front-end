@@ -12,9 +12,9 @@ export function Usefilter({ filters }: UseFilterProps) {
 	}
 	}
 	if (url.length > 1) {
-		return "?" + url.join("&");
-	}
-	return "?" + url.join("");
+    return url.join("&");
+  }
+  return url.join("");
 }
 
 interface UpdateUrlFilter {
@@ -39,3 +39,4 @@ export function UpdateUrlFilter({ filters }: UpdateUrlFilter) {
 		);
 	}
 }
+

@@ -33,11 +33,11 @@ export default function CommentList({
 
 	if (isLoading) {
 		return (
-			<>
+			<div className="flex flex-col gap-5 max-h-96 overflow-y-scroll">
 				<CommentSkeleton />
 				<CommentSkeleton />
 				<CommentSkeleton />
-			</>
+			</div>
 		);
 	}
 

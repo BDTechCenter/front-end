@@ -16,20 +16,14 @@ import {
 	QueryDataNews,
 } from "@/api/types/news/type";
 import Error from "next/error";
-import { Usefilter } from "@/services/filter";
+import {usefilter} from "@/services/filter";
 import toast from "react-hot-toast";
 
 // News
-// GET news preview
-async function getNews() {
-	const { data } = await api.get<ContentNews>(`news/preview?sortBy=latest`);
-	return data;
-}
-
 // GET News w/ Filter
 async function getNewsFilter(ctx: QueryFunctionContext) {
 	const [tags, title] = ctx.queryKey;
-	const url = Usefilter({ filters: { tags, title } });
+	const url = usefilter({ filters: { tags, title } });
 	console.log(`news/preview${url}`);
 	const { data } = await api.get<ContentNews>(`news/preview${url}`);
 	return data;
@@ -45,10 +39,11 @@ export function useFetchGetNews(tags?: string, title?: string) {
 async function getNewsFilterScroll(ctx: QueryFunctionContext) {
 	const [, tags, title] = ctx.queryKey;
 	const pageParam = ctx.pageParam;
-	const filterParam = Usefilter({ filters: { tags, title } });
+	const filterParam = usefilter({ filters: { tags, title } });
 
-	const url = tags || title ? `&${filterParam}` : undefined;
+	const url = tags || title ? `${filterParam}` : undefined;
 
+	console.log(`news/preview?size=9${url}`)
 	const { data } = await api.get<ContentNews>(`news/preview?size=9${url}`, {
 		params: {
 			page: pageParam,
