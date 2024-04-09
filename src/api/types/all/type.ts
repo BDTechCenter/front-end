@@ -7,6 +7,7 @@ export interface Error {
 }
 
 export interface Filter {
+	[key: string]: string | unknown;
 	tags?: string | unknown;
 	title?: string | unknown;
 }

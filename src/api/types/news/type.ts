@@ -26,6 +26,10 @@ export interface ContentNews {
 	empty: boolean;
 }
 
+export interface QueryDataNews {
+	pages: ContentNews[]
+}
+
 export interface Pageable {
 	pageNumber: number;
 	pageSize: number;
