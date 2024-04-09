@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { forwardRef, ForwardRefRenderFunction, useState } from "react";
 import Image from "next/image";
 
 export interface ImageSelectionProps {
 	onChange: (file: File) => void;
 }
 
-const ImageButton = ({ onChange }: ImageSelectionProps) => {
+const ImageButton: ForwardRefRenderFunction<
+	HTMLInputElement,
+	ImageSelectionProps
+> = ({ onChange }, ref) => {
 	const [previewImage, setPreviewImage] = useState<File | null>(null);
 
 	const getFileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,8 +20,9 @@ const ImageButton = ({ onChange }: ImageSelectionProps) => {
 	};
 
 	return (
-		<section className="h-56">
+		<div className="h-56">
 			<input
+				ref={ref}
 				id="file"
 				className="h-full hidden"
 				type="file"
@@ -42,8 +46,8 @@ const ImageButton = ({ onChange }: ImageSelectionProps) => {
 					<p className="text-lg 2xl:text-sm">Choose a poster for your News</p>
 				)}
 			</label>
-		</section>
+		</div>
 	);
 };
 
-export default ImageButton;
+export default forwardRef(ImageButton);

@@ -1,6 +1,7 @@
 import ".//quill.css";
 import hljs from "highlight.js";
 import dynamic from "next/dynamic";
+import { forwardRef, ForwardRefRenderFunction } from "react";
 
 const ReactQuill = dynamic(
 	() => {
@@ -22,7 +23,10 @@ export interface InputTextEditProps {
 	value: string;
 }
 
-const InputTextEdit = ({ onChange, value }: InputTextEditProps) => {
+const InputTextEdit: ForwardRefRenderFunction<
+	HTMLInputElement,
+	InputTextEditProps
+> = ({ onChange, value }, ref) => {
 	const editorStyle = {
 		backgroundColor: "transparent",
 	};
@@ -36,7 +40,7 @@ const InputTextEdit = ({ onChange, value }: InputTextEditProps) => {
 	};
 
 	return (
-		<div className="flex w-full justify-center items-center">
+		<div className="flex w-full justify-center items-center" ref={ref}>
 			<div className="w-full">
 				<ReactQuill
 					style={editorStyle}
@@ -50,4 +54,4 @@ const InputTextEdit = ({ onChange, value }: InputTextEditProps) => {
 	);
 };
 
-export default InputTextEdit;
+export default forwardRef(InputTextEdit);
