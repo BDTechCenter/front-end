@@ -5,6 +5,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import UserAvatar from "./UserAvatar";
+import { RxExternalLink } from "react-icons/rx";
 
 interface NavBarProps {
 	variant: "black" | "white";
@@ -61,13 +62,14 @@ export default function NavBar({ variant }: NavBarProps) {
 						<Link
 							key={link.href}
 							className={cn(
-								"text-sm font-medium transition-colors",
+								"flex justify-center items-center gap-1 text-sm font-medium transition-colors",
 								hover,
 								pathname === link.href ? text : noFocus
 							)}
 							href={link.href}
+							target={link.external ? "_blank" : undefined}
 						>
-							{link.name}
+							{link.name} {link.external && <RxExternalLink />}
 						</Link>
 					))}
 				</div>
@@ -79,7 +81,13 @@ export default function NavBar({ variant }: NavBarProps) {
 	);
 }
 
-const navLinks = [
+interface navLinksProps {
+	name: string;
+	href: string;
+	external?: boolean;
+}
+
+const navLinks: navLinksProps[] = [
 	{
 		name: "Home",
 		href: "/",
@@ -87,5 +95,10 @@ const navLinks = [
 	{
 		name: "News",
 		href: "/news",
+	},
+	{
+		name: "Bosch Tube",
+		href: "https://bosch.mediaspace.de.kaltura.com/channel/BD-Innovation/22606",
+		external: true,
 	},
 ];
