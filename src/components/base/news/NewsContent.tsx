@@ -11,7 +11,6 @@ import ModalAddComment from "./ModalAddComment";
 import { useFetchGetNewsId } from "@/api/hooks/news/queries";
 import { usePathname } from "next/navigation";
 import { MarkdownRenderer } from "../common/MarkdownRenderer";
-import { Link } from "lucide-react";
 
 export interface NewsContentProps {
 	messageError: Error;
