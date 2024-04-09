@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { News } from "@/api/types/news/type";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 interface NewsCardProps {
 	data: News;

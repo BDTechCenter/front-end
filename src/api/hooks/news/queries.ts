@@ -14,7 +14,7 @@ import {
 	UpvoteNews,
 } from "@/api/types/news/type";
 import Error from "next/error";
-import filterUrl from "@/services/filter";
+import {usefilter} from "@/services/filter";
 import toast from "react-hot-toast";
 
 // News
@@ -27,7 +27,7 @@ async function getNews() {
 // GET News w/ Filter
 async function getNewsFilter(ctx: QueryFunctionContext) {
 	const [tags, title] = ctx.queryKey;
-	const url = filterUrl({ filters: { tags, title } });
+	const url = usefilter({ filters: { tags, title } });
 	console.log(`news/preview${url}`);
 	const { data } = await api.get<ContentNews>(`news/preview${url}`);
 	return data;
@@ -43,7 +43,7 @@ export function useFetchGetNews(tags?: string, title?: string) {
 async function getNewsFilterScroll(ctx: QueryFunctionContext) {
 	const [, tags, title] = ctx.queryKey;
 	const pageParam = ctx.pageParam;
-	const filterParam = filterUrl({ filters: { tags, title } });
+	const filterParam = usefilter({ filters: { tags, title } });
 
 	const url = tags || title ? `&${filterParam}` : "";
 
