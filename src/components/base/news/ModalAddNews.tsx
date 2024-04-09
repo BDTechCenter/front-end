@@ -30,8 +30,8 @@ import { useMutationPostNews } from "@/api/hooks/news/queries";
 import InputTags from "../common/InputTags";
 
 export default function ModalCreateNews() {
-	const { mutate } = useMutationPostNews();
-	const [tags, setTags] = useState<string[]>([]);
+	const [open, setOpen] = useState(false);
+	const { mutateAsync } = useMutationPostNews();
 
 	const form = useForm<z.infer<typeof newsSchema>>({
 		resolver: zodResolver(newsSchema),
@@ -56,24 +56,23 @@ export default function ModalCreateNews() {
 		return formData;
 	};
 
-	function onSubmitForm(values: z.infer<typeof newsSchema>) {
-		console.log(values.tags?.toString());
+	async function onSubmitForm(values: z.infer<typeof newsSchema>) {
 		const newsFormData = NewsObject(values);
 
-		mutate(newsFormData);
+		await mutateAsync(newsFormData).then(() => setOpen(false));
 	}
 
 	const [imageKey, setImageKey] = useState<number>(0);
 
 	useEffect(() => {
 		if (form.formState.isSubmitSuccessful) {
-			form.reset({ image: null, body: "", tags: [], title: "" });
+			form.reset({ image: null, body: "", tags: undefined, title: "" });
 			setImageKey((prevKey) => prevKey + 1);
 		}
 	}, [form, form.formState, form.reset]);
 
 	return (
-		<Dialog>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
 				<Button
 					className="rounded-sm w-48 p-5 font-semibold text-lg"

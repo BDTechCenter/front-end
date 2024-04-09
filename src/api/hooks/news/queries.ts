@@ -12,6 +12,8 @@ import {
 	News,
 	CommentPostType,
 	UpvoteNews,
+	CommentType,
+	QueryDataNews,
 } from "@/api/types/news/type";
 import Error from "next/error";
 import {usefilter} from "@/services/filter";
@@ -39,7 +41,7 @@ async function getNewsFilterScroll(ctx: QueryFunctionContext) {
 	const pageParam = ctx.pageParam;
 	const filterParam = usefilter({ filters: { tags, title } });
 
-	const url = tags || title ? `${filterParam}` : "";
+	const url = tags || title ? `${filterParam}` : undefined;
 
 	console.log(`news/preview?size=9${url}`)
 	const { data } = await api.get<ContentNews>(`news/preview?size=9${url}`, {
@@ -120,8 +122,8 @@ export function useMutationPostNews() {
 	return useMutation({
 		mutationFn: postNews,
 		onSuccess: (_, variables) => {
-			queryClient.setQueryData(["news"], (data: any) => {
-				return [...data, { newsObject: variables }];
+			queryClient.setQueryData(["newsPreview"], (data: any) => {
+				console.log(data);
 			});
 		},
 	});
@@ -132,14 +134,12 @@ export function useMutationPostNews() {
 async function getIdCommentNews(ctx: QueryFunctionContext) {
 	const [, id] = ctx.queryKey;
 	const { data } = await api.get<ContentComment>(`comments/${id}`);
-	return data;
+	return data.content;
 }
 
 export function useFetchGetCommentNewsId(id: string) {
-	const queryClient = useQueryClient();
-
-	return useQuery<ContentComment, Error>({
-		queryKey: ["comments"],
+	return useQuery<CommentType[], Error>({
+		queryKey: ["comments", id],
 		queryFn: getIdCommentNews,
 	});
 }
@@ -188,9 +188,12 @@ export function useMutationPostComment() {
 	return useMutation({
 		mutationFn: postComment,
 		onSuccess: (_, variables) => {
-			queryClient.setQueryData(["comments"], (data: any) => {
-				return [...data, { comment: variables.comment }];
-			});
+			queryClient.setQueryData(
+				["comments", variables.id],
+				(data: CommentType[]) => {
+					return [...data, variables.comment];
+				}
+			);
 		},
 	});
 }

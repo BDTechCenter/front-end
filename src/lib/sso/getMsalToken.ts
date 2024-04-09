@@ -16,14 +16,5 @@ export async function getMsalToken() {
 
 	let idToken = response.idToken;
 
-	let token = account.idToken
-
-	console.log("ID Token from account: ", token);
-	console.log("ID Token from requisition: ", idToken);
-
-	console.log("its same token?", token === idToken);
-	
-	
-
 	return idToken;
 }
