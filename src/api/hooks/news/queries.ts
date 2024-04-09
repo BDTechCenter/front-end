@@ -18,12 +18,6 @@ import {usefilter} from "@/services/filter";
 import toast from "react-hot-toast";
 
 // News
-// GET news preview
-async function getNews() {
-	const { data } = await api.get<ContentNews>(`news/preview?sortBy=latest`);
-	return data;
-}
-
 // GET News w/ Filter
 async function getNewsFilter(ctx: QueryFunctionContext) {
 	const [tags, title] = ctx.queryKey;
@@ -45,8 +39,9 @@ async function getNewsFilterScroll(ctx: QueryFunctionContext) {
 	const pageParam = ctx.pageParam;
 	const filterParam = usefilter({ filters: { tags, title } });
 
-	const url = tags || title ? `&${filterParam}` : "";
+	const url = tags || title ? `${filterParam}` : "";
 
+	console.log(`news/preview?size=9${url}`)
 	const { data } = await api.get<ContentNews>(`news/preview?size=9${url}`, {
 		params: {
 			page: pageParam,
