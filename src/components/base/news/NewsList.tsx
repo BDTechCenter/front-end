@@ -2,7 +2,6 @@
 
 import { useInView } from "react-intersection-observer";
 import ImageError from "../common/ImageError";
-import NewsCard from "../common/NewsCard";
 import { Error } from "@/api/types/all/type";
 import { NewsCardSkeleton } from "../skeleton/NewsCardSkeleton";
 import { useFetchGetNewsScroll } from "@/api/hooks/news/queries";
@@ -10,6 +9,7 @@ import { useSearchParams } from "next/navigation";
 import { ContentNews, News } from "@/api/types/news/type";
 import { useEffect } from "react";
 import LoadingIndicator from "../common/LoadingIndicator";
+import NewsCard from "../common/NewsCard";
 
 export interface NewsListProps {
 	messageError: Error;
@@ -24,8 +24,8 @@ export default function NewsList({
 	const tagsUrl = searchParams.get("tags");
 	const titleUrl = searchParams.get("title");
 
-	const tags = tagsUrl ? `tags=${tagsUrl}` : "";
-	const title = titleUrl ? `title=${titleUrl}` : "";
+	const tags = tagsUrl ? `tags=${tagsUrl}` : undefined;
+	const title = titleUrl ? `title=${titleUrl}` : undefined;
 
 	const { ref, inView } = useInView();
 
