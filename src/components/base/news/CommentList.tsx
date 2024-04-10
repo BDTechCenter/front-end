@@ -1,7 +1,7 @@
-import Comment from "./Comment";
-import ImageError from "../common/ImageError";
 import { useFetchGetCommentNewsId } from "@/api/hooks/news/queries";
 import { Error } from "@/api/types/all/type";
+import Comment from "./Comment";
+import ImageError from "../common/ImageError";
 import CommentSkeleton from "../skeleton/CommentSkeleton";
 
 interface CommentListProps {
@@ -18,7 +18,7 @@ export default function CommentList({
 	const { isLoading, isError, data } = useFetchGetCommentNewsId(id);
 
 	const commentCards = () => {
-		return data ? (
+		return data?.length !== 0 ? (
 			<div className="flex flex-col gap-5 max-h-96 overflow-y-scroll">
 				{data?.map((comment) => (
 					<Comment key={comment.id} data={comment} />
