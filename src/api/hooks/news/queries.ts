@@ -1,4 +1,3 @@
-import api from "../../../services/api";
 import {
 	QueryFunctionContext,
 	useInfiniteQuery,
@@ -6,18 +5,19 @@ import {
 	useQuery,
 	useQueryClient,
 } from "@tanstack/react-query";
+import Error from "next/error";
+import toast from "react-hot-toast";
 import {
+	CommentPostType,
+	CommentType,
 	ContentComment,
 	ContentNews,
 	News,
-	CommentPostType,
-	UpvoteNews,
-	CommentType,
 	QueryDataNews,
+	UpvoteNews,
 } from "@/api/types/news/type";
-import Error from "next/error";
 import { usefilter } from "@/services/filter";
-import toast from "react-hot-toast";
+import api from "../../../services/api";
 
 // News
 // GET News w/ Filter

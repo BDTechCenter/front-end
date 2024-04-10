@@ -1,9 +1,9 @@
 "use client"
 
-import SignInButton from "@/components/base/sso/SignInButton";
-import { Button } from "@/components/ui/button";
 import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
 import { useRouter } from "next/navigation";
+import SignInButton from "@/components/base/sso/SignInButton";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const router = useRouter()

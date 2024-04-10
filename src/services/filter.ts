@@ -30,7 +30,6 @@ export function UpdateUrlFilter({ filters }: UpdateUrlFilter) {
 		);
 		current.set(filters.type, filters.values);
 		filters.router.push(`${filters.pathnameDefault}?${current.toString()}`);
-		console.log(`${filters.pathnameDefault}?${current.toString()}`);
 	} else {
 		filters.router.push(
 			filters.filterTag2

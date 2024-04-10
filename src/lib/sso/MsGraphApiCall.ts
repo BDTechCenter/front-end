@@ -1,5 +1,5 @@
 import axios from "axios";
-import { loginRequest, graphConfig } from "./authConfig";
+import { graphConfig, loginRequest } from "./authConfig";
 import { msalInstance } from "./msalInstance";
 
 export async function callMsGraph() {

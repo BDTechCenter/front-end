@@ -1,15 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import ImageError from "../common/ImageError";
+import { usePathname } from "next/navigation";
 import { Error } from "@/api/types/all/type";
+import { useFetchGetNewsId } from "@/api/hooks/news/queries";
+import ImageError from "../common/ImageError";
 import { NewsContentSkeleton } from "../skeleton/NewsContentSkeleton";
 import NewsOtherList from "./NewsOtherList";
 import CommentList from "./CommentList";
 import LikeUpvote from "./LikeUpvote";
 import ModalAddComment from "./ModalAddComment";
-import { useFetchGetNewsId } from "@/api/hooks/news/queries";
-import { usePathname } from "next/navigation";
 import { MarkdownRenderer } from "../common/MarkdownRenderer";
 
 export interface NewsContentProps {

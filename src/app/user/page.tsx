@@ -3,8 +3,8 @@ import TopBanner from "@/components/base/common/TopBanner";
 import {
 	Carousel,
 	CarouselContent,
-	CarouselPrevious,
 	CarouselNext,
+	CarouselPrevious,
 } from "@/components/ui/carousel";
 import NewsUserList from "@/components/base/user/NewsUserList";
 import Footer from "@/components/base/common/Footer";

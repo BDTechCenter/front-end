@@ -1,19 +1,19 @@
 "use client";
 
-import ProfileData, { GraphData } from "@/components/base/sso/ProfileData";
-import SignOutButton from "@/components/base/sso/SignOutButton";
-import { callMsGraph } from "@/lib/sso/MsGraphApiCall";
-import { loginRequest } from "@/lib/sso/authConfig";
 import {
-	InteractionStatus,
-	InteractionRequiredAuthError,
 	AccountInfo,
+	InteractionRequiredAuthError,
+	InteractionStatus,
 	InteractionType,
 } from "@azure/msal-browser";
 import { MsalAuthenticationTemplate, useMsal } from "@azure/msal-react";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { loginRequest } from "@/lib/sso/authConfig";
+import { callMsGraph } from "@/lib/sso/MsGraphApiCall";
+import SignOutButton from "@/components/base/sso/SignOutButton";
+import ProfileData, { GraphData } from "@/components/base/sso/ProfileData";
 
 function ProfileContent() {
 	const { instance, inProgress } = useMsal();

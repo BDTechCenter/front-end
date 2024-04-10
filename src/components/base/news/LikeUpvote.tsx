@@ -1,10 +1,10 @@
 import React from "react";
 import { BiSolidUpvote } from "react-icons/bi";
 import { BiUpvote } from "react-icons/bi";
-import { msalInstance } from "@/lib/sso/msalInstance";
 import { useState } from "react";
-import { useMutationPatchUpvote } from "@/api/hooks/news/queries";
 import toast from "react-hot-toast";
+import { msalInstance } from "@/lib/sso/msalInstance";
+import { useMutationPatchUpvote } from "@/api/hooks/news/queries";
 
 interface LikeForNewsProps {
 	id: string | number;
