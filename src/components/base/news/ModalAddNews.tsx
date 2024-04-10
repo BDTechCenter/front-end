@@ -28,6 +28,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { msalInstance } from "@/lib/sso/msalInstance";
 import { useMutationPostNews } from "@/api/hooks/news/queries";
 import InputTags from "../common/InputTags";
+import { resizeFile } from "@/lib/utils";
 
 export default function ModalCreateNews() {
 	const [open, setOpen] = useState(false);
@@ -37,7 +38,7 @@ export default function ModalCreateNews() {
 		resolver: zodResolver(newsSchema),
 	});
 
-	const NewsObject = (values: z.infer<typeof newsSchema>) => {
+	const NewsObject = async (values: z.infer<typeof newsSchema>) => {
 		const accountInfo = msalInstance.getActiveAccount();
 		const author: string = accountInfo?.name || "";
 
@@ -50,14 +51,16 @@ export default function ModalCreateNews() {
 		}
 
 		if (values.image) {
-			formData.append("image", values.image);
+			await resizeFile(values.image).then((image) => {
+				formData.append("image", image);
+			});
 		}
 
 		return formData;
 	};
 
 	async function onSubmitForm(values: z.infer<typeof newsSchema>) {
-		const newsFormData = NewsObject(values);
+		const newsFormData = await NewsObject(values);
 
 		await mutateAsync(newsFormData).then(() => setOpen(false));
 	}
