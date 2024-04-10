@@ -53,6 +53,7 @@ export function useFetchGetNewsScroll(tags?: string, title?: string) {
 // GET News By ID
 async function getIdNews(ctx: QueryFunctionContext) {
 	const [, id] = ctx.queryKey;
+	console.log(`news/${id}`)
 	const { data } = await api.get<News>(`news/${id}`);
 	return data;
 }
@@ -61,6 +62,16 @@ export function useFetchGetNewsId(id: string) {
 	return useQuery<News, Error>({
 		queryKey: ["newsRead", id],
 		queryFn: getIdNews,
+	});
+}
+
+
+export function useFetchGetNewsIdRefetch(id: string) {
+	return useQuery<News, Error>({
+		queryKey: ["newsRead", id],
+		queryFn: getIdNews,
+		enabled: false,
+		refetchOnWindowFocus: false
 	});
 }
 
