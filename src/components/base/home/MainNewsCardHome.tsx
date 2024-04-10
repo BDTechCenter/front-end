@@ -1,10 +1,10 @@
 "use client";
 
+import { Error } from "@/api/types/all/type";
+import { useFetchGetMainNews } from "@/api/hooks/home/queries";
 import NewsCardHome from "./NewsCardHome";
 import ImageError from "../common/ImageError";
-import { Error } from "@/api/types/all/type";
 import { NewsCardHomeSkeleton } from "../skeleton/NewsCardHomeSkeleton";
-import { useFetchGetMainNews } from "@/api/hooks/home/queries";
 
 export interface MainNewsCardHomeProps {
 	messageError: Error;

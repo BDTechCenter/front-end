@@ -1,5 +1,5 @@
-import { getMsalToken } from "@/lib/sso/getMsalToken";
 import axios, { AxiosInstance, InternalAxiosRequestConfig } from "axios";
+import { getMsalToken } from "@/lib/sso/getMsalToken";
 
 const hostURL = process.env.NEXT_PUBLIC_API_HOST;
 

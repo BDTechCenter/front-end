@@ -1,27 +1,20 @@
 "use client";
 
-import ImageError from "../common/ImageError";
 import { useFetchGetNewsOtherNews } from "@/api/hooks/news/queries";
-import { Error } from "@/api/types/all/type";
-import NewsOuther from "./NewsOther";
+import ImageError from "../common/ImageError";
+import NewsOther from "./NewsOther";
 import NewsOtherSkeleton from "../skeleton/NewsOtherSkeleton";
 
-export interface NewsOtherListProps {
-	messageError: Error;
-}
-
-export default function NewsOtherList({ messageError }: NewsOtherListProps) {
+export default function NewsOtherList() {
 	const { isLoading, isError, data } = useFetchGetNewsOtherNews();
 	const newsCards = () => {
 		return data?.content.length !== 0 ? (
 			<div className="flex flex-col gap-5">
-				{data?.content.map((news) => (
-					<NewsOuther key={news.id} data={news} />
-				))}
+				{data?.content.map((news) => <NewsOther key={news.id} data={news} />)}
 			</div>
 		) : (
 			<div className="absolute flex w-full items-center justify-center">
-				<ImageError data={messageError} />
+				<ImageError data={errorNewsOther.notFound} />
 			</div>
 		);
 	};
@@ -39,7 +32,7 @@ export default function NewsOtherList({ messageError }: NewsOtherListProps) {
 	if (isError) {
 		return (
 			<div className="absolute flex w-full items-center justify-center">
-				<ImageError data={messageError} />
+				<ImageError data={errorNewsOther.error} />
 			</div>
 		);
 	}
@@ -50,3 +43,15 @@ export default function NewsOtherList({ messageError }: NewsOtherListProps) {
 
 	return null;
 }
+
+const errorNewsOther = {
+	notFound: {
+		text: "Other News not found",
+		img: "/noNews.gif",
+	},
+
+	error: {
+		text: "Error othernews",
+		img: "/allError.gif",
+	},
+};

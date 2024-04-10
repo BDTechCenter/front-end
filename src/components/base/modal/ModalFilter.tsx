@@ -1,20 +1,20 @@
 "use client";
+import { MouseEvent, useState } from "react";
+import { MdTune } from "react-icons/md";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Button } from "@/components/ui/button";
 import {
 	Dialog,
+	DialogClose,
 	DialogContent,
 	DialogDescription,
-	DialogClose,
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { MouseEvent, useState } from "react";
-import { MdTune } from "react-icons/md";
-import InputTags from "../common/InputTags";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { UpdateUrlFilter } from "@/services/filter";
+import InputTags from "../common/InputTags";
 
 export default function ModalFilter() {
 	const [tags, setTags] = useState<string[]>([]);

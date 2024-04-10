@@ -1,10 +1,6 @@
 "use client";
-import ImageError from "../common/ImageError";
-import NewsCard from "../common/NewsCard";
 import { Error } from "@/api/types/all/type";
-import { NewsCardSkeleton } from "../skeleton/NewsCardSkeleton";
 import { useFetchGetUserNews } from "@/api/hooks/user/queries";
-
 import {
 	Carousel,
 	CarouselContent,
@@ -12,6 +8,10 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from "@/components/ui/carousel";
+import ImageError from "../common/ImageError";
+import NewsCard from "../common/NewsCard";
+import { NewsCardSkeleton } from "../skeleton/NewsCardSkeleton";
+
 
 export interface NewsListProps {
 	massageError: Error;

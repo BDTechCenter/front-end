@@ -1,7 +1,7 @@
-import CardFeature from "./CardFeature";
 import { BiNews } from "react-icons/bi";
 import { FaProjectDiagram } from "react-icons/fa";
 import { MdOutlineRadar } from "react-icons/md";
+import CardFeature from "./CardFeature";
 
 export default function AllCardFeature() {
 	return (

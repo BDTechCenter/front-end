@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { News } from "@/api/types/news/type";
 import { useRouter } from "next/navigation";
+import { News } from "@/api/types/news/type";
 import { limitString } from "@/lib/utils";
 
 interface NewsOtherProps {
@@ -36,7 +36,9 @@ export default function NewsOther({ data }: NewsOtherProps) {
 				/>
 			</div>
 			<div className="flex w-full flex-col group-hover:opacity-60 transition-all">
-				<h1 className="font-semibold text-sm 2xl:text-base">{limitString(data.title, 20)}</h1>
+				<h1 className="font-semibold text-sm 2xl:text-base">
+					{limitString(data.title, 20)}
+				</h1>
 				<p className="text-xs">{limitString(data.author, 16)}</p>
 				<p className="text-xs">{data.updateDate}</p>
 			</div>

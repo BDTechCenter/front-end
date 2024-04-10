@@ -1,5 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+// @ts-ignore
+import Resizer from "@meghoshpritam/react-image-file-resizer";
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -15,3 +17,20 @@ export const getInitials = (name: string) => {
 	const firstLetterOfLastName = lastName.charAt(0);
 	return firstLetterOfFirstName + firstLetterOfLastName;
 };
+
+export const resizeFile = (file: File) =>
+	new Promise((resolve: (value: File) => void) => {
+		Resizer.imageFileResizer({
+			file,
+			maxWidth: 800,
+			maxHeight: 600,
+			compressFormat: "JPEG",
+			quality: 100,
+			rotation: 0,
+			keepAspectRatio: true,
+			responseUriFunc: (uri: File) => {
+				resolve(uri);
+			},
+			outputType: "file",
+		});
+	});

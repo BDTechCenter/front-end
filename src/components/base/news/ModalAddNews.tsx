@@ -1,18 +1,10 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import {
-	Dialog,
-	DialogContent,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import InputTextEdit from "../common/InputTextEdit";
-import ImageButton from "./ImageButton";
+import { useForm } from "react-hook-form";
+import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { newsSchema } from "@/types/schemas/newsShema";
 import {
 	Form,
 	FormControl,
@@ -21,12 +13,21 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-import { useForm } from "react-hook-form";
-import { newsSchema } from "@/types/schemas/newsShema";
-import z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Input } from "@/components/ui/input";
+import {
+	Dialog,
+	DialogContent,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { msalInstance } from "@/lib/sso/msalInstance";
 import { useMutationPostNews } from "@/api/hooks/news/queries";
+import { resizeFile } from "@/lib/utils";
+import ImageButton from "./ImageButton";
+import InputTextEdit from "../common/InputTextEdit";
 import InputTags from "../common/InputTags";
 
 export default function ModalCreateNews() {
@@ -37,7 +38,7 @@ export default function ModalCreateNews() {
 		resolver: zodResolver(newsSchema),
 	});
 
-	const NewsObject = (values: z.infer<typeof newsSchema>) => {
+	const NewsObject = async (values: z.infer<typeof newsSchema>) => {
 		const accountInfo = msalInstance.getActiveAccount();
 		const author: string = accountInfo?.name || "";
 
@@ -50,14 +51,16 @@ export default function ModalCreateNews() {
 		}
 
 		if (values.image) {
-			formData.append("image", values.image);
+			await resizeFile(values.image).then((image) => {
+				formData.append("image", image);
+			});
 		}
 
 		return formData;
 	};
 
 	async function onSubmitForm(values: z.infer<typeof newsSchema>) {
-		const newsFormData = NewsObject(values);
+		const newsFormData = await NewsObject(values);
 
 		await mutateAsync(newsFormData).then(() => setOpen(false));
 	}

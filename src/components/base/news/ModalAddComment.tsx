@@ -1,15 +1,10 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-	Dialog,
-	DialogContent,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@/components/ui/dialog";
-import InputTextEdit from "../common/InputTextEdit";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { useEffect, useState } from "react";
+import { commentSchema } from "@/types/schemas/commentSchema";
 import {
 	Form,
 	FormControl,
@@ -18,14 +13,19 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { commentSchema } from "@/types/schemas/commentSchema";
-import { useEffect, useState } from "react";
+import {
+	Dialog,
+	DialogContent,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { useMutationPostComment } from "@/api/hooks/news/queries";
 import { msalInstance } from "@/lib/sso/msalInstance";
 import { CommentPostType } from "@/api/types/news/type";
+import InputTextEdit from "../common/InputTextEdit";
 
 export default function ModalAddComment({ newsId }: { newsId: string }) {
 	const { mutateAsync } = useMutationPostComment();
@@ -47,7 +47,6 @@ export default function ModalAddComment({ newsId }: { newsId: string }) {
 		await mutateAsync({ comment: postData, id: newsId }).then(() =>
 			setOpen(false)
 		);
-
 	}
 
 	useEffect(() => {

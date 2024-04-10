@@ -1,13 +1,9 @@
+import { forwardRef, ForwardRefRenderFunction, useState } from "react";
+import { IoMdClose } from "react-icons/io";
+import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-	useState,
-	ForwardRefRenderFunction,
-	forwardRef,
-} from "react";
-import { IoMdClose } from "react-icons/io";
 import { cn } from "@/lib/utils";
-import toast from "react-hot-toast";
 
 export interface InputTagsProps {
 	variant: "wrap" | "row";
@@ -45,6 +41,7 @@ const InputTags: ForwardRefRenderFunction<HTMLInputElement, InputTagsProps> = (
 		<div>
 			<div className="w-full flex flex-row gap-3">
 				<Input
+					ref={ref}
 					placeholder="Search your tags..."
 					maxLength={35}
 					value={value}

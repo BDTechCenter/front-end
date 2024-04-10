@@ -30,8 +30,7 @@ export default function Home() {
 const dataHomePage = {
 	bannerHome: (
 		<>
-			Follow the main <span className="text-bdlightpurple">news</span> of the
-			moment...
+			Empowering <span className="text-bdlightpurple">Innovation</span> Welcome to Tech Center!
 		</>
 	),
 	newsErrorNotFound: {
