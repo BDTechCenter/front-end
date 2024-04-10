@@ -20,7 +20,7 @@ export default function NewsContent() {
 	if (data) {
 		return (
 			<>
-				<div className="flex flex-col gap-4 w-[80%] max-[850px]:w-full ">
+				<div className="flex flex-col gap-4 w-[80%] max-[850px]:w-full break-words">
 					<h1 id="titleAdvanced" className="font-bold text-3xl 2xl:text-4xl">
 						{data.title}
 					</h1>
