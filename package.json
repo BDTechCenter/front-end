@@ -7,12 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint-fix": "next lint --fix",
     "prepare": "husky"
   },
   "dependencies": {
     "@azure/msal-browser": "^3.11.0",
     "@azure/msal-react": "^2.0.12",
     "@hookform/resolvers": "^3.3.4",
+    "@meghoshpritam/react-image-file-resizer": "^1.0.3",
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-context-menu": "^2.1.5",
     "@radix-ui/react-dialog": "^1.0.5",
