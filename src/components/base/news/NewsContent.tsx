@@ -12,22 +12,13 @@ import LikeUpvote from "./LikeUpvote";
 import ModalAddComment from "./ModalAddComment";
 import { MarkdownRenderer } from "../common/MarkdownRenderer";
 
-export interface NewsContentProps {
-	messageError: Error;
-	messageCommentError: Error;
-	messageErrorContent: Error;
-}
-
-export default function NewsContent({
-	messageError,
-	messageCommentError,
-}: NewsContentProps) {
+export default function NewsContent() {
 	const path = usePathname();
 	const newsId = path.split("/")[2];
 	const { isLoading, isError, data } = useFetchGetNewsId(newsId);
 
-	const newsContentData = () => {
-		return data ? (
+	if (data) {
+		return (
 			<>
 				<div className="flex flex-col gap-4 w-[80%] max-[850px]:w-full ">
 					<h1 id="titleAdvanced" className="font-bold text-3xl 2xl:text-4xl">
@@ -69,43 +60,49 @@ export default function NewsContent({
 					<div className="w-full h-[2px] bg-[#D9D9D9] mt-12"></div>
 					<h1 className="mt-4 font-semibold text-lg text-bdpurple">Comments</h1>
 					<div className="w-full">
-						<CommentList
-							messagenotFaoundError={messageCommentError}
-							messageError={messageCommentError}
-							id={data.id}
-						/>
+						<CommentList id={data.id} />
 					</div>
 					<ModalAddComment newsId={newsId} />
 				</div>
 				<aside className="w-[30%] h-full max-[850px]:hidden">
 					<h1 className="text-bdpurple font-bold text-xl mb-3">Other News</h1>
-					<NewsOtherList messageError={messageError} />
+					<NewsOtherList />
 				</aside>
 			</>
-		) : (
-			<>
-				<div className="flex w-full items-center justify-center">
-					<ImageError data={messageError} />
-				</div>
-			</>
 		);
-	};
+	}
+
+	if (!data) {
+		return (
+			<div className="flex w-full h-full items-center justify-center">
+				<ImageError data={errorNews.notFound} />
+			</div>
+		);
+	}
 
 	if (isLoading) {
 		return <NewsContentSkeleton />;
 	}
 
-	if (isError) {
+	if (isError || !data) {
 		return (
 			<div className="flex w-full h-full items-center justify-center">
-				<ImageError data={messageError} />
+				<ImageError data={errorNews.error} />
 			</div>
 		);
 	}
 
-	if (data) {
-		return newsContentData();
-	}
-
 	return null;
 }
+
+const errorNews = {
+	notFound: {
+		text: "News not found",
+		img: "/noNews.gif",
+	},
+
+	error: {
+		text: "Error news",
+		img: "/allError.gif",
+	},
+};
