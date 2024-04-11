@@ -32,7 +32,7 @@ export default function NewsUserList({
 						<CarouselContent>
 							{data.content.map((news) => (
 								<CarouselItem key={news.id} className="basis-1/3">
-									<NewsCard data={news} />
+									<NewsCard variant="userNews" data={news} />
 								</CarouselItem>
 							))}
 						</CarouselContent>
