@@ -13,9 +13,11 @@ let cachedToken: TokenInfo | null = null;
 const tokenInterceptor = async (
 	config: InternalAxiosRequestConfig<any>
 ): Promise<InternalAxiosRequestConfig<any>> => {
+	if (!cachedToken || Date.now() > cachedToken.expiration) {
 		let idToken = await getMsalToken();
 		// Refresh token if expired or not cached
 		cachedToken = { token: idToken, expiration: Date.now() + 3600000 };
+	}
 	config.headers.Authorization = `Bearer ${cachedToken?.token}`;
 	return config;
 };
