@@ -42,7 +42,7 @@ export default function NewsCard({ data, innerRef, ...props }: NewsCardProps) {
 					onError={() => setImg("/newsNotFound.png")}
 				/>
 			</div>
-			<div className="flex flex-col group-hover:opacity-60 transition-all">
+			<div className="flex flex-col group-hover:opacity-60 transition-all break-words">
 				<p className="text-sm">{data.updateDate}</p>
 				<h1 className="font-bold text-md 2xl:text-lg">{data.title}</h1>
 			</div>
