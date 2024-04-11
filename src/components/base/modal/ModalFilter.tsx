@@ -55,7 +55,7 @@ export default function ModalFilter() {
 				</DialogHeader>
 				<div className="w-full">
 					<h1 className="font-semibold text-md">Tags</h1>
-					<InputTags onChange={setTags} variant="wrap" />
+					<InputTags onChange={setTags} variant="wrap" valueList={tags}/>
 					<DialogFooter className="flex w-full justify-end items-end">
 						<DialogClose asChild>
 							<Button

@@ -1,25 +1,27 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
-	useState,
-	ForwardRefRenderFunction,
 	forwardRef,
+	ForwardRefRenderFunction,
+	useEffect,
+	useState,
 } from "react";
 import { IoMdClose } from "react-icons/io";
-import { cn } from "@/lib/utils";
 import toast from "react-hot-toast";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 export interface InputTagsProps {
 	variant: "wrap" | "row";
+	valueList?: string[]
 	onChange: (value: string[]) => void;
 }
 
 const InputTags: ForwardRefRenderFunction<HTMLInputElement, InputTagsProps> = (
-	{ variant, onChange },
+	{ variant, onChange, valueList },
 	ref
 ) => {
 	const [value, setValue] = useState("");
-	const [tags, setTags] = useState<string[]>([]);
+	const [tags, setTags] = useState<string[]>(valueList? valueList : []);
 	const MaxTegs = 7;
 
 	const errorToast = () => {
@@ -27,6 +29,7 @@ const InputTags: ForwardRefRenderFunction<HTMLInputElement, InputTagsProps> = (
 	};
 
 	const addTags = () => {
+		console.log(valueList);
 		if (tags.length < MaxTegs && value !== "") {
 			setTags([...tags, value]);
 			onChange([...tags, value]);
@@ -41,10 +44,17 @@ const InputTags: ForwardRefRenderFunction<HTMLInputElement, InputTagsProps> = (
 		onChange([...tags.filter((_, i) => i !== index)]);
 	};
 
+	useEffect(() => {
+		if (!valueList) {
+			setTags([]);
+		}
+	}, [valueList]);
+
 	return (
 		<div>
 			<div className="w-full flex flex-row gap-3">
 				<Input
+					ref={ref}
 					placeholder="Search your tags..."
 					maxLength={35}
 					value={value}
@@ -64,7 +74,7 @@ const InputTags: ForwardRefRenderFunction<HTMLInputElement, InputTagsProps> = (
 					variant === "wrap" ? "flex-wrap" : "flex-row"
 				)}
 			>
-				{tags.map((tag, index) => (
+				{tags?.map((tag, index) => (
 					<span
 						className="flex gap-1 flex-row items-center p-2 rounded-sm border border-bdlightpurple/80"
 						key={index}
