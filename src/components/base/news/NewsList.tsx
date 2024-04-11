@@ -46,9 +46,9 @@ export default function NewsList({
 					{data?.pages.map((news: ContentNews) =>
 						news.content.map((newsObj, index) =>
 							news.content.length == index + 1 ? (
-								<NewsCard innerRef={ref} key={newsObj.id} data={newsObj} />
+								<NewsCard variant="anyNews" innerRef={ref} key={newsObj.id} data={newsObj} />
 							) : (
-								<NewsCard key={newsObj.id} data={newsObj} />
+								<NewsCard variant="anyNews" key={newsObj.id} data={newsObj} />
 							)
 						)
 					)}
