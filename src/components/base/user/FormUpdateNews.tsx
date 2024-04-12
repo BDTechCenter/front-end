@@ -1,5 +1,5 @@
 import {
-	useFetchGetNewsIdRefetch,
+	useFetchGetNewsId,
 	useMutationPostNews,
 } from "@/api/hooks/news/queries";
 import { msalInstance } from "@/lib/sso/msalInstance";
@@ -8,14 +8,18 @@ import { useState } from "react";
 import { z } from "zod";
 import { FormNewsLayout } from "../common/FormNewsLayout";
 import { FaPencil } from "react-icons/fa6";
+import { useMutationPatchNews } from "@/api/hooks/user/queries";
+import { AlertUpdateNews } from "./AlertUpdateNews";
 
 interface FormNewsLayoutProps {
 	id: string;
 }
 
 export function FormUpdateNews({ id }: FormNewsLayoutProps) {
-	const { mutateAsync } = useMutationPostNews();
+	const { mutateAsync } = useMutationPatchNews();
 	const [open, setOpen] = useState(false);
+
+	const { data } = useFetchGetNewsId(id);
 
 	const NewsObject = (values: z.infer<typeof newsSchema>) => {
 		const accountInfo = msalInstance.getActiveAccount();
@@ -37,19 +41,26 @@ export function FormUpdateNews({ id }: FormNewsLayoutProps) {
 
 	async function onSubmitForm(values: z.infer<typeof newsSchema>) {
 		const newsFormData = NewsObject(values);
-
-		await mutateAsync(newsFormData).then(() => setOpen(false));
+		await mutateAsync({ newsObject: newsFormData, id: id }).then(() =>
+			setOpen(false)
+		);
 	}
 
-	return (
+	return data ? (
 		<FormNewsLayout
 			formData={{
 				open: open,
-				title: <FaPencil size={15} color="#000" />,
+				title: "Update",
 				idForm: "formUpdateNews",
 				OnSubmit: onSubmitForm,
-				idNews: id
+				idNews: id,
+				defaultValues: {
+					title: data.title,
+					tags: data.tags,
+					body: data.body,
+				},
+				alertSubmit: <AlertUpdateNews />,
 			}}
 		/>
-	);
+	) : null;
 }

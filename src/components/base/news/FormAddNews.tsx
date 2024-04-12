@@ -5,6 +5,7 @@ import { msalInstance } from "@/lib/sso/msalInstance";
 import { newsSchema } from "@/types/schemas/newsShema";
 import { z } from "zod";
 import { useState } from "react";
+import { AlertAddNews } from "./AlertAddNews";
 
 export function FormAddNews() {
 	const [open, setOpen] = useState(false);
@@ -44,6 +45,7 @@ export function FormAddNews() {
 				title: "Add News",
 				idForm: "formAddNews",
 				OnSubmit: onSubmitForm,
+				alertSubmit: <AlertAddNews/>
 			}}
 		/>
 	);
