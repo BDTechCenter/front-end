@@ -4,9 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { News } from "@/api/types/news/type";
 import { useState } from "react";
-import AlertLayout from "./AlertLayout";
-import { FormUpdateNews } from "../user/FormUpdateNews";
-import { MdDelete } from "react-icons/md";
+import { MenuPopoverEditNews } from "../user/MenuPopoverEditNews";
 
 interface NewsCardProps {
 	data: News;
@@ -33,18 +31,7 @@ export default function NewsCard({
 		<div className="relative">
 			{variant === "userNews" ? (
 				<div className="flex gap-1 relative justify-end items-center z-10 top-12 right-1">
-					<AlertLayout
-						alert={{
-							title: "Delete News?",
-							description:
-								"If you delete the news it will no longer be visible to other users.",
-							nameButton: <MdDelete size={15} color="#FFF"/>,
-							nameButtonAction: "Delete",
-							Action: () => {},
-							variantButton: "delete",
-						}}
-					/>
-					<FormUpdateNews id={data.id} />
+					<MenuPopoverEditNews id={data.id} />
 				</div>
 			) : (
 				<></>
