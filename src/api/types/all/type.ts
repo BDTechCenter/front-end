@@ -1,5 +1,6 @@
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { ReadonlyURLSearchParams } from "next/navigation";
+import { title } from "process";
 
 export interface Error {
 	text: string;
@@ -31,10 +32,19 @@ export interface AlertType {
 		| "default"
 		| "outline";
 	nameButton: string | any;
+	type?: "submit" | "reset" | "button" | undefined;
 	title: string;
 	description: string;
 	nameButtonAction: string;
-	Action: () => void;
+	Action?: () => void;
+	idForm?: string;
+}
+
+interface DefaultValuesType {
+	title?: string;
+	body?: string;
+	image?: File | undefined;
+	tags?: string[];
 }
 
 export interface FormType {
@@ -44,4 +54,6 @@ export interface FormType {
 	OnSubmit: (values: any) => void;
 	idForm?: string;
 	idNews?: string;
+	defaultValues?: DefaultValuesType;
+	alertSubmit: JSX.Element
 }
