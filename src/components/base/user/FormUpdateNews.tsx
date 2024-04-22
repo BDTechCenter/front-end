@@ -10,6 +10,7 @@ import { FormNewsLayout } from "../common/FormNewsLayout";
 import { FaPencil } from "react-icons/fa6";
 import { useMutationPatchNews } from "@/api/hooks/user/queries";
 import { AlertUpdateNews } from "./AlertUpdateNews";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface FormNewsLayoutProps {
 	id: string;
