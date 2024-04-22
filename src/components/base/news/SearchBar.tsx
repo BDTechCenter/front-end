@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { MdFilterAltOff } from "react-icons/md";
-import ModalFilter from "../modal/ModalFilter";
+import ModalFilter from "./ModalFilter";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";

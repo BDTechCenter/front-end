@@ -4,11 +4,10 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
-import AlertLayout from "../common/AlertLayout";
 import { FormUpdateNews } from "./FormUpdateNews";
 import { IoMenu } from "react-icons/io5";
-import { useMutationPatchArchive } from "@/api/hooks/user/queries";
-import { AlertDeleteNews } from "./AlertDeleteNews";
+import { AlertArchiveNews } from "./AlertArchiveNews";
+
 
 interface MenuPopoverEditNewsProps {
 	id: string;
@@ -32,7 +31,7 @@ export function MenuPopoverEditNews({ id }: MenuPopoverEditNewsProps) {
 					</div>
 					<div className="grid gap-2">
 						<div className="grid grid-cols-3 items-center gap-4">
-							<AlertDeleteNews id={id} />
+							<AlertArchiveNews id={id} />
 						</div>
 						<div className="grid grid-cols-3 items-center gap-4">
 							<FormUpdateNews id={id} />

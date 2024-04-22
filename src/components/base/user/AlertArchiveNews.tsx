@@ -5,7 +5,7 @@ interface AlertDeleteNewsProps{
   id: string
 }
 
-export function AlertDeleteNews({id}: AlertDeleteNewsProps) {
+export function AlertArchiveNews({id}: AlertDeleteNewsProps) {
 	const { mutateAsync } = useMutationPatchArchive();
 
 	async function archiveNews() {
@@ -15,11 +15,11 @@ export function AlertDeleteNews({id}: AlertDeleteNewsProps) {
 	return (
 		<AlertLayout
 			alert={{
-				title: "Delete News?",
+				title: "Archive News?",
 				description:
-					"If you delete the news it will no longer be visible to other users.",
-				nameButton: "Delete",
-				nameButtonAction: "Delete",
+					"If you archive the news it will no longer be visible to other users.",
+				nameButton: "Archive",
+				nameButtonAction: "Archive",
 				Action: archiveNews,
 				variantButton: "delete",
 			}}
