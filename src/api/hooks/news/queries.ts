@@ -27,8 +27,6 @@ async function getNewsFilterScroll(ctx: QueryFunctionContext) {
 	const filterParam = usefilter({ filters: { tags, title } });
 
 	const url = tags || title ? `${filterParam}` : undefined;
-
-	console.log(`news/preview?size=9${url}`)
 	const { data } = await api.get<ContentNews>(`news/preview?size=9${url}`, {
 		params: {
 			page: pageParam,
@@ -51,7 +49,7 @@ export function useFetchGetNewsScroll(tags?: string, title?: string) {
 }
 
 // GET News By ID
-async function getIdNews(ctx: QueryFunctionContext) {
+export async function getIdNews(ctx: QueryFunctionContext) {
 	const [, id] = ctx.queryKey;
 	const { data } = await api.get<News>(`news/${id}`);
 	return data;

@@ -1,20 +1,22 @@
 import { ContentNews, News } from "@/api/types/news/type";
 import api from "@/services/api";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { QueryFunctionContext, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { title } from "process";
 import toast from "react-hot-toast";
+import { getIdNews } from "../news/queries";
 
 // News
 // GET user news
-async function getUserNews() {
-	const { data } = await api.get<ContentNews>(`news/author?sortBy=published`);
-	console.log(data);
+async function getUserNews(ctx: QueryFunctionContext) {
+	const [, status] = ctx.queryKey;
+	console.log(`news/author?sortBy=${status}`)
+	const { data } = await api.get<ContentNews>(`news/author?sortBy=${status}`);
 	return data;
 }
 
-export function useFetchGetUserNews() {
+export function useFetchGetUserNews(status?: string) {
 	return useQuery<ContentNews, Error>({
-		queryKey: ["news"],
+		queryKey: ["userNews", status],
 		queryFn: getUserNews,
 	});
 }
@@ -49,25 +51,8 @@ export function useMutationPatchNews() {
 	return useMutation({
 		mutationFn: patchNews,
 		onSuccess: (_, variables) => {
-			queryClient.setQueryData(["newsRead", variables.id], (data: News) => {
-				const newsEdited: any = {};
-				variables.newsObject.forEach((value, key) => (newsEdited[key] = value));
-				const newData = { ...data, ...newsEdited };
-
-				return [newData];
-			});
-			queryClient.setQueryData(["news"], (data: ContentNews) => {
-				const updatedNews = data.content.map((news) => {
-					if (news.id === variables.newsObject.get("id")) {
-						const updatedTitle = variables.newsObject.get("title");
-						if (updatedTitle) {
-							return { ...news, title: updatedTitle };
-						}
-					}
-					return news;
-				});
-				return updatedNews;
-			});
+			queryClient.fetchQuery({queryKey: ["newsRead", variables.id], queryFn:  getIdNews})
+			queryClient.fetchQuery({queryKey: ["userNews"], queryFn: getUserNews })
 		},
 	});
 }
@@ -98,13 +83,7 @@ export function useMutationPatchArchive() {
 	return useMutation({
 		mutationFn: patchArchive,
 		onSuccess: (_, variables) => {
-			queryClient.setQueryData(["news"], (data: ContentNews) => {
-				const filteredContent = data.content.filter(
-					(item) => item.id !== variables
-				);
-				const filteredData = { ...data, content: filteredContent };
-				return filteredData;
-			});
+			queryClient.fetchQuery({queryKey: ["userNews"], queryFn: getUserNews })
 		},
 	});
 }
