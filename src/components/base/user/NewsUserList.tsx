@@ -12,6 +12,8 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from "@/components/ui/carousel";
+import { LinkFilterNewsUser } from "./LinkFilterNewsUser";
+import { useState } from "react";
 
 export interface NewsListProps {
 	massageError: Error;
@@ -23,24 +25,29 @@ export default function NewsUserList({
 	massageNotFound,
 }: NewsListProps) {
 	const { isLoading, isError, data } = useFetchGetUserNews();
+	const [title, setTitle] = useState("Published");
+
+	console.log(data);
+	
 
 	const newsUserCards = () => {
 		return data?.content.length !== 0 && data ? (
-			<div className="flex flex-col w-full">
-				<div className="w-full">
-					<Carousel>
-						<CarouselContent>
-							{data.content.map((news) => (
-								<CarouselItem key={news.id} className="basis-1/3">
-									<NewsCard variant="userNews" data={news} />
-								</CarouselItem>
-							))}
-						</CarouselContent>
-						<CarouselPrevious />
-						<CarouselNext />
-					</Carousel>
+				<div className="flex flex-col w-full">
+					<h1 className="text-xl font-medium">News {title}!</h1>
+					<div className="w-full">
+						<Carousel>
+							<CarouselContent>
+								{data.content.map((news) => (
+									<CarouselItem key={news.id} className="basis-1/3">
+										<NewsCard variant="userNews" data={news} />
+									</CarouselItem>
+								))}
+							</CarouselContent>
+							<CarouselPrevious />
+							<CarouselNext />
+						</Carousel>
+					</div>
 				</div>
-			</div>
 		) : (
 			<div className="flex w-full items-center justify-center">
 				<ImageError data={massageNotFound} />
