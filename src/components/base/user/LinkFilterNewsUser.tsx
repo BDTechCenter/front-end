@@ -8,13 +8,25 @@ import { useEffect, useState } from "react";
 export function LinkFilterNewsUser() {
 	const searchParams = useSearchParams();
 
-	useEffect(() => {}, [searchParams]);
 
-	const [nameButton, setNameButton] = useState("Archived"); // Published
-	const [nameUrl, setNameUrl] = useState("archived"); // /
+	const filterNews = searchParams.get("news")
+	const status = filterNews ? filterNews : ''
+	const [nameButton, setNameButton] = useState('Error');
+
+	useEffect(() => {
+
+		if(status === "published"){
+			setNameButton('archived')
+		}
+		else if(status === "archived"){
+			setNameButton('published')
+		}
+
+	}, [searchParams]);
+	
 
 	return (
-		<Link href={`user/${nameUrl}`}>
+		<Link href={`user?news=${nameButton}`}>
 			<Button
 				className=" border rounded-sm p-5 font-semibold text-lg"
 				variant={"bdlight"}

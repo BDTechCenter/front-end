@@ -13,7 +13,8 @@ import {
 	CarouselPrevious,
 } from "@/components/ui/carousel";
 import { LinkFilterNewsUser } from "./LinkFilterNewsUser";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 export interface NewsListProps {
 	massageError: Error;
@@ -24,30 +25,38 @@ export default function NewsUserList({
 	massageError,
 	massageNotFound,
 }: NewsListProps) {
-	const { isLoading, isError, data } = useFetchGetUserNews();
-	const [title, setTitle] = useState("Published");
+	const searchParams = useSearchParams();
+	const filterNews = searchParams.get("news");
+	const status = filterNews ? filterNews : "";
+	const { isLoading, isError, data } = useFetchGetUserNews(status);
+	const [title, setTitle] = useState('Error');
 
-	console.log(data);
-	
+	useEffect(() => {
+		if (status === "published") {
+			setTitle("Published");
+		} else if (status === "archived") {
+			setTitle("Archived");
+		}
+	}, [searchParams]);
 
 	const newsUserCards = () => {
 		return data?.content.length !== 0 && data ? (
-				<div className="flex flex-col w-full">
-					<h1 className="text-xl font-medium">News {title}!</h1>
-					<div className="w-full">
-						<Carousel>
-							<CarouselContent>
-								{data.content.map((news) => (
-									<CarouselItem key={news.id} className="basis-1/3">
-										<NewsCard variant="userNews" data={news} />
-									</CarouselItem>
-								))}
-							</CarouselContent>
-							<CarouselPrevious />
-							<CarouselNext />
-						</Carousel>
-					</div>
+			<div className="flex flex-col w-full">
+				<h1 className="text-xl font-medium">News {title}!</h1>
+				<div className="w-full">
+					<Carousel>
+						<CarouselContent>
+							{data.content.map((news) => (
+								<CarouselItem key={news.id} className="basis-1/3">
+									<NewsCard variant="userNews" data={news} />
+								</CarouselItem>
+							))}
+						</CarouselContent>
+						<CarouselPrevious />
+						<CarouselNext />
+					</Carousel>
 				</div>
+			</div>
 		) : (
 			<div className="flex w-full items-center justify-center">
 				<ImageError data={massageNotFound} />
