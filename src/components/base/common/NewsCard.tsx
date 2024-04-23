@@ -31,7 +31,7 @@ export default function NewsCard({
 		<div className="relative">
 			{variant === "userNews" ? (
 				<div className="flex gap-1 relative justify-end items-center z-10 top-12 right-1">
-					<MenuPopoverEditNews id={data.id} />
+					<MenuPopoverEditNews id={data.id} isPublished={data.isPublished}/>
 				</div>
 			) : (
 				<></>
