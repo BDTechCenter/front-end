@@ -7,10 +7,11 @@ import { getIdNews } from "../news/queries";
 
 // News
 // GET user news
-async function getUserNews(ctx: QueryFunctionContext) {
+export async function getUserNews(ctx: QueryFunctionContext) {
 	const [, status] = ctx.queryKey;
-	console.log(`news/author?sortBy=${status}`)
-	const { data } = await api.get<ContentNews>(`news/author?sortBy=${status}`);
+	const filter = status === undefined ? "published" : status
+	console.log(`news/author?sortBy=${filter}`)
+	const { data } = await api.get<ContentNews>(`news/author?sortBy=${filter}`);
 	return data;
 }
 
@@ -46,14 +47,8 @@ async function patchNews({
 }
 
 export function useMutationPatchNews() {
-	const queryClient = useQueryClient();
-
 	return useMutation({
 		mutationFn: patchNews,
-		onSuccess: (_, variables) => {
-			queryClient.fetchQuery({queryKey: ["newsRead", variables.id], queryFn:  getIdNews})
-			queryClient.fetchQuery({queryKey: ["userNews"], queryFn: getUserNews })
-		},
 	});
 }
 
@@ -72,18 +67,33 @@ async function patchArchive(id: string) {
 				: `${error.message}`;
 		},
 	});
-
-	console.log(archive);
 	return await archive;
 }
 
-export function useMutationPatchArchive() {
-	const queryClient = useQueryClient();
+async function patchPublish(id: string) {
+	const publish = api.patch<News>(`news/${id}/publish`);
 
+	toast.promise(publish, {
+		loading: "Publish news",
+		success: "Publish news with success",
+		error: (error) => {
+			console.log(error);
+			return error.response.data
+				? `${error.message}:\n${error.response.data.message}`
+				: `${error.message}`;
+		},
+	});
+	return await publish;
+}
+
+export function useMutationPatchArchive() {
 	return useMutation({
 		mutationFn: patchArchive,
-		onSuccess: (_, variables) => {
-			queryClient.fetchQuery({queryKey: ["userNews"], queryFn: getUserNews })
-		},
+	});
+}
+
+export function useMutationPatchPublish() {
+	return useMutation({
+		mutationFn: patchPublish,
 	});
 }
