@@ -1,15 +1,18 @@
-import { useMutationPatchArchive } from "@/api/hooks/user/queries";
+import { getUserNews, useMutationPatchArchive } from "@/api/hooks/user/queries";
 import AlertLayout from "../common/AlertLayout";
+import { useQueryClient } from "@tanstack/react-query";
 
-interface AlertDeleteNewsProps{
-  id: string
+interface AlertDeleteNewsProps {
+	id: string;
 }
 
-export function AlertArchiveNews({id}: AlertDeleteNewsProps) {
+export function AlertArchiveNews({ id }: AlertDeleteNewsProps) {
 	const { mutateAsync } = useMutationPatchArchive();
+	const queryClient = useQueryClient();
 
 	async function archiveNews() {
 		await mutateAsync(id);
+		const data = await queryClient.fetchQuery({queryKey: ["userNews", "published"], queryFn: getUserNews })
 	}
 
 	return (

@@ -1,16 +1,12 @@
-import {
-	useFetchGetNewsId,
-	useMutationPostNews,
-} from "@/api/hooks/news/queries";
+import { getIdNews, useFetchGetNewsId } from "@/api/hooks/news/queries";
 import { msalInstance } from "@/lib/sso/msalInstance";
 import { newsSchema } from "@/types/schemas/newsShema";
 import { useState } from "react";
 import { z } from "zod";
 import { FormNewsLayout } from "../common/FormNewsLayout";
-import { FaPencil } from "react-icons/fa6";
-import { useMutationPatchNews } from "@/api/hooks/user/queries";
+import { getUserNews, useMutationPatchNews } from "@/api/hooks/user/queries";
 import { AlertUpdateNews } from "./AlertUpdateNews";
-import { useQueryClient } from "@tanstack/react-query";
+import { queryClient } from "@/services/queryClient";
 
 interface FormNewsLayoutProps {
 	id: string;
@@ -45,6 +41,11 @@ export function FormUpdateNews({ id }: FormNewsLayoutProps) {
 		await mutateAsync({ newsObject: newsFormData, id: id }).then(() =>
 			setOpen(false)
 		);
+		await queryClient.fetchQuery({
+			queryKey: ["newsRead", data?.id],
+			queryFn: getIdNews,
+		});
+		await queryClient.fetchQuery({ queryKey: ["userNews", "published"], queryFn: getUserNews });
 	}
 
 	return data ? (
