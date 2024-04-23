@@ -32,7 +32,7 @@ async function getNewsFilterScroll(ctx: QueryFunctionContext) {
 			page: pageParam,
 		},
 	});
-
+	console.log(data)
 	return data;
 }
 
