@@ -10,7 +10,7 @@ export function LinkFilterNewsUser() {
 
 
 	const filterNews = searchParams.get("news")
-	const status = filterNews ? filterNews : ''
+	const status = filterNews ? filterNews : 'published'
 	const [nameButton, setNameButton] = useState('Error');
 
 	useEffect(() => {

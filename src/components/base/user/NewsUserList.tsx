@@ -12,7 +12,6 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from "@/components/ui/carousel";
-import { LinkFilterNewsUser } from "./LinkFilterNewsUser";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
@@ -27,17 +26,21 @@ export default function NewsUserList({
 }: NewsListProps) {
 	const searchParams = useSearchParams();
 	const filterNews = searchParams.get("news");
-	const status = filterNews ? filterNews : "";
-	const { isLoading, isError, data } = useFetchGetUserNews(status);
+	const status = filterNews ? filterNews : "published";
+	const { isLoading, isError, data, refetch } = useFetchGetUserNews(status);
 	const [title, setTitle] = useState('Error');
 
 	useEffect(() => {
 		if (status === "published") {
 			setTitle("Published");
-		} else if (status === "archived") {
+		} 
+		if (status === "archived") {
 			setTitle("Archived");
 		}
-	}, [searchParams]);
+		if (status === ""){
+			setTitle("Published")
+		}
+	}, [searchParams, status]);
 
 	const newsUserCards = () => {
 		return data?.content.length !== 0 && data ? (

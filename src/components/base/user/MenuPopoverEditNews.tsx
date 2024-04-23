@@ -7,19 +7,23 @@ import {
 import { FormUpdateNews } from "./FormUpdateNews";
 import { IoMenu } from "react-icons/io5";
 import { AlertArchiveNews } from "./AlertArchiveNews";
-
+import { AlertPublishedNews } from "./AlertPublishNews";
 
 interface MenuPopoverEditNewsProps {
 	id: string;
+	isPublished: boolean;
 }
 
-export function MenuPopoverEditNews({ id }: MenuPopoverEditNewsProps) {
-	
-
+export function MenuPopoverEditNews({
+	id,
+	isPublished,
+}: MenuPopoverEditNewsProps) {
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
-				<Button variant="bdlight"><IoMenu size={15}/></Button>
+				<Button variant="bdlight">
+					<IoMenu size={15} />
+				</Button>
 			</PopoverTrigger>
 			<PopoverContent className="w-80">
 				<div className="grid gap-4">
@@ -31,11 +35,19 @@ export function MenuPopoverEditNews({ id }: MenuPopoverEditNewsProps) {
 					</div>
 					<div className="grid gap-2">
 						<div className="grid grid-cols-3 items-center gap-4">
-							<AlertArchiveNews id={id} />
+							{!isPublished ? (
+								<AlertPublishedNews id={id} />
+							) : (
+								<AlertArchiveNews id={id} />
+							)}
 						</div>
-						<div className="grid grid-cols-3 items-center gap-4">
-							<FormUpdateNews id={id} />
-						</div>
+						{isPublished ? (
+							<div className="grid grid-cols-3 items-center gap-4">
+								<FormUpdateNews id={id} />
+							</div>
+						) : (
+							<></>
+						)}
 					</div>
 				</div>
 			</PopoverContent>
