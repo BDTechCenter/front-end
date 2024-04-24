@@ -1,6 +1,11 @@
-import { ContentNews, News } from "@/api/types/news/type";
+import { ContentComment, ContentNews, News } from "@/api/types/news/type";
 import api from "@/services/api";
-import { QueryFunctionContext, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+	QueryFunctionContext,
+	useMutation,
+	useQuery,
+	useQueryClient,
+} from "@tanstack/react-query";
 import { title } from "process";
 import toast from "react-hot-toast";
 import { getIdNews } from "../news/queries";
@@ -9,8 +14,7 @@ import { getIdNews } from "../news/queries";
 // GET user news
 export async function getUserNews(ctx: QueryFunctionContext) {
 	const [, status] = ctx.queryKey;
-	const filter = status === undefined ? "published" : status
-	console.log(`news/author?sortBy=${filter}`)
+	const filter = status === undefined ? "published" : status;
 	const { data } = await api.get<ContentNews>(`news/author?sortBy=${filter}`);
 	return data;
 }
@@ -96,4 +100,21 @@ export function useMutationPatchPublish() {
 	return useMutation({
 		mutationFn: patchPublish,
 	});
+}
+
+// News
+// GET user comments
+
+export async function getUserComments() {
+	const { data } = await api.get<ContentComment>(
+		`comments/author`
+	);
+	return data;
+}
+
+export function useFetchGetUserComments(){
+	return useQuery<ContentComment, Error>({
+		queryKey: ["userComments"],
+		queryFn: getUserComments
+	})
 }
