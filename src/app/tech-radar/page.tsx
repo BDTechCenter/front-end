@@ -1,29 +1,25 @@
+"use client";
+
+import { HomepageOption } from "@/api/types/radar";
+import QuadrantGrid from "@/components/base/radar/quadrant-grid/QuadrantGrid";
+import { featuredOnly } from "@/components/base/radar/utils";
+import RadarGrid from "@/components/base/radar/radar-grid/RadarGrid";
+import NavBar from "@/components/base/common/NavBar";
+import Footer from "@/components/base/common/Footer";
 import {
-	HomepageOption,
-	TechRadarConfigData,
-	TechRadarData,
-} from "@/api/types/radar";
-import { Language } from "@/api/types/radar/language";
-import { HeroHeadline } from "@/components/base/radar/HeroHeadline/HeroHeadline";
-import { featuredOnly, useFetch } from "@/lib/utils";
+	useFetchGetRadarConfig,
+	useFetchGetRadarOpinion,
+} from "@/api/hooks/radar/queries";
+import TopBanner from "@/components/base/common/TopBanner";
 
 export default function TechRadarPage() {
-	const data = useFetch<TechRadarData>("/radar-config/db1-opinion.json");
+	const { data } = useFetchGetRadarOpinion();
 
-	const config = useFetch<TechRadarConfigData>("/radar-config/config.json");
+	const { data: config } = useFetchGetRadarConfig();
 
-  const content = useFetch<Language>("/radar-config/en.json");
+	if (data && config) {
+		const { items } = data;
 
-  const contentRadar = content?.translation.techRadar
-  
-
-	if (data && config && contentRadar) {
-		const { items, releases } = data;
-
-    const publishedLabel = contentRadar.pageIndex.publishedLabel;
-
-		const newestRelease = releases.slice(-1)[0];
-		const numberOfReleases = releases.length;
 		const showChart =
 			config.homepageContent === HomepageOption.chart ||
 			config.homepageContent === HomepageOption.both;
@@ -31,23 +27,19 @@ export default function TechRadarPage() {
 			config.homepageContent === HomepageOption.columns ||
 			config.homepageContent === HomepageOption.both;
 
-      return (
-        <main>
-          <div className="headline-group">
-            <HeroHeadline alt={`${contentRadar.versionLabel} #${numberOfReleases}`}>
-              {contentRadar.radarName}
-            </HeroHeadline>
-          </div>
-          {/* {showChart && <RadarGrid items={featuredOnly(items)} config={config} />}
-          {showColumns && (
-            <QuadrantGrid items={featuredOnly(items)} config={config} />
-          )} */}
-          <div className="publish-date">
-            {publishedLabel} {newestRelease}
-          </div>
-        </main>
-      );
+		return (
+			<main className="bg-bddarkgray">
+				<NavBar variant="black" />
+				<TopBanner
+					text="Tech Radar - BD/INN"
+					className="flex w-1/2 justify-end items-center"
+				></TopBanner>
+				{showChart && <RadarGrid items={featuredOnly(items)} config={config} />}
+				{showColumns && (
+					<QuadrantGrid items={featuredOnly(items)} config={config} />
+				)}
+				<Footer />
+			</main>
+		);
 	}
-
-	
 }
