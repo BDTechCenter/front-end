@@ -55,9 +55,10 @@ function renderBlip(
 		blip,
 		className: "blip",
 		fill: blip.colour,
-		"data-background-color": blip.colour,
-		"data-text-color": blip.txtColour,
-		"data-tip": blip.title,
+		"data-tooltip-id": "blip",
+		tooltipBg: blip.colour,
+		tooltipTxtColor: blip.txtColour,
+		"data-tooltip-content": blip.title,
 		key: index,
 	};
 	switch (blip.flag) {
@@ -68,6 +69,7 @@ function renderBlip(
 		default:
 			return <DefaultBlip {...props} config={config} />;
 	}
+	
 }
 
 export default function BlipPoints({

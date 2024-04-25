@@ -16,12 +16,12 @@ interface BadgeProps extends VariantProps<typeof badgeVariants> {
 }
 
 const badgeVariants = cva(
-	"text-white inline-block box-border uppercase align-middle my-0 mx-auto overflow-hidden border border-zinc-400",
+	"text-black box-border px-4 py-1 uppercase align-middle my-0 mx-auto overflow-hidden border border-zinc-400",
 	{
 		variants: {
 			lg: {
-				true: "rounded-2xl text-sm h-8 px-0 ",
-				false: "rounded-xl text-xs h-6 px-0 ",
+				true: "rounded-3xl text-sm h-8",
+				false: "rounded-2xl text-xs h-6",
 			},
 		},
 		defaultVariants: {

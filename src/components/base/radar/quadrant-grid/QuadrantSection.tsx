@@ -1,12 +1,10 @@
-import { useTranslation } from "react-i18next";
 import Link from "next/link";
-import { ConfigData, Group, RingName } from "@/api/types/radar";
+import { ConfigData, Group } from "@/api/types/radar";
 import ItemList from "./ItemList";
 import Badge from "./Badge";
 import Flag from "./Flag";
 
 const renderList = (
-	t: Function,
 	ringName: string,
 	quadrantName: string,
 	groups: Group,
@@ -30,9 +28,9 @@ const renderList = (
 				<Badge type={ringName}>{ringName}</Badge>
 			</div>
 			{itemsInRing.map((item) => (
-				<span key={item.name} className="text-xl block mb-3">
+				<span key={item.name} className="block mb-3">
 					<Link
-						className="text-white pointer hover:underline"
+						className="text-black pointer hover:opacity-75"
 						href={`${item.quadrant}/${item.name}`}
 					>
 						{item.title}
@@ -45,7 +43,6 @@ const renderList = (
 };
 
 const renderRing = (
-	t: Function,
 	ringName: string,
 	quadrantName: string,
 	groups: Group,
@@ -65,7 +62,7 @@ const renderRing = (
 			key={ringName}
 			className="box-border px-2 flex-[0_0_25%] mb-6 max-md:basis-1/2"
 		>
-			{renderList(t, ringName, quadrantName, groups, big)}
+			{renderList(ringName, quadrantName, groups, big)}
 		</div>
 	);
 };
@@ -74,40 +71,27 @@ export default function QuadrantSection({
 	quadrantName,
 	groups,
 	config,
-	big = true,
+	big = false,
 }: {
 	quadrantName: string;
 	groups: Group;
 	config: ConfigData;
 	big?: boolean;
 }) {
-	const { t } = useTranslation();
 	return (
 		<div>
 			<div className="mb-5">
 				<div className="flex items-center justify-between">
 					<div className="flex-[0_1_auto]">
-						<h4 className="m-0 p-0 text-white text-lg font-normal">
-							{t(`quadrants.${quadrantName}`)}
+						<h4 className="m-0 p-0 text-black text-lg font-normal">
+							{config.quadrants[quadrantName]}
 						</h4>
 					</div>
-					{!big && (
-						<div className="flex-[0_1_auto]">
-							<Link
-								className="inline-block relative h-6 text-sm border-0 text-zinc-400 pointer hover:after:content-none hover:after:left-0 hover:after:-bottom-2 hover:after:w-full hover:after:border-b-2 hover:after:border-gray-400"
-								href={`${quadrantName}`}
-							>
-								<span className="" />
-								{t("zoom-in")}
-							</Link>
-						</div>
-					)}
 				</div>
 			</div>
-			<div className="flex flex-wrap">
+			<div className="flex flex-wrap gap-5">
 				{config.rings.map((ringName: string) =>
 					renderRing(
-						t,
 						ringName,
 						quadrantName,
 						groups,

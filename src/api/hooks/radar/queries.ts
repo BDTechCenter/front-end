@@ -6,7 +6,7 @@ import { TechRadarConfigData, TechRadarData } from "@/api/types/radar";
 
 async function getRadarConfig() {
 	const { data } = await axios.get<TechRadarConfigData>(
-		"https://techradar.free.beeceptor.com/radar/config"
+		"http://localhost:7777/config"
 	);
 
 	return data;
@@ -21,7 +21,7 @@ export function useFetchGetRadarConfig() {
 
 async function getRadarOpinion() {
 	const { data } = await axios.get<TechRadarData>(
-		"https://techradar.free.beeceptor.com/radar/opinion"
+		"http://localhost:7777/opinion"
 	);
 
 	return data;

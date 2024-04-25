@@ -1,5 +1,6 @@
 import * as d3 from "d3";
-import { useTranslation } from "react-i18next";
+import {Tooltip } from "react-tooltip";
+
 import { ConfigData, Item } from "@/api/types/radar";
 import { XAxis, YAxis } from "./Axes";
 import QuadrantRings from "./QuarantRings";
@@ -27,27 +28,24 @@ function RingLabel({
 		distanceFromCentre =
 			previousRingRadius + (ringRadius - previousRingRadius) / 2;
 
-	const { t } = useTranslation();
 
 	return (
 		<g className="uppercase text-xs font-bold">
-			{/* Right hand-side label */}
 			<text
 				x={xScale(distanceFromCentre)}
 				y={yScale(0)}
 				textAnchor="middle"
 				dy=".35em"
 			>
-				{t(`rings.${ring}`)}
+				{ring}
 			</text>
-			{/* Left hand-side label */}
 			<text
 				x={xScale(-distanceFromCentre)}
 				y={yScale(0)}
 				textAnchor="middle"
 				dy=".35em"
 			>
-				{t(`rings.${ring}`)}
+				{ring}
 			</text>
 		</g>
 	);
@@ -110,6 +108,7 @@ export default function RadarChart({
 					config={config}
 				/>
 			</svg>
+			<Tooltip id="blip" />
 		</div>
 	);
 }

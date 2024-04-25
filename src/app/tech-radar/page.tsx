@@ -4,7 +4,6 @@ import { HomepageOption } from "@/api/types/radar";
 import QuadrantGrid from "@/components/base/radar/quadrant-grid/QuadrantGrid";
 import { featuredOnly } from "@/components/base/radar/utils";
 import RadarGrid from "@/components/base/radar/radar-grid/RadarGrid";
-import NavBar from "@/components/base/common/NavBar";
 import Footer from "@/components/base/common/Footer";
 import {
 	useFetchGetRadarConfig,
@@ -28,8 +27,8 @@ export default function TechRadarPage() {
 			config.homepageContent === HomepageOption.both;
 
 		return (
-			<main className="bg-bddarkgray">
-				<NavBar variant="black" />
+			<main className="">
+				{/* <NavBar variant="black" /> */}
 				<TopBanner
 					text="Tech Radar - BD/INN"
 					className="flex w-1/2 justify-end items-center"

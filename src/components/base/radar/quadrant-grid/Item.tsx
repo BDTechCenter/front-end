@@ -22,7 +22,7 @@ export default function Item({
 	return (
 		<Link
 			className={cn(
-				"p-2 border-b-zinc-400 block transition color-zinc-400 box-border",
+				"p-2 border-b-zinc-400 block transition color-zinc-400 box-border hover:opacity-75",
 				{
 					"first:border-t-0 last:border-b-0": noLeadingBorder,
 					"is-active": active,
@@ -32,7 +32,7 @@ export default function Item({
 			style={style}
 		>
 			<div
-				className={cn("text-base text-white", {
+				className={cn("text-lg text-black", {
 					"text-zinc-300": greyedOut,
 				})}
 			>

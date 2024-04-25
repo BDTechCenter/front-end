@@ -9,7 +9,7 @@ export default function RadarGrid({
 	config: ConfigData;
 }) {
 	return (
-		<div>
+		<div className="bg-bddarkgray">
 			<RadarChart items={items} config={config} />
 		</div>
 	);

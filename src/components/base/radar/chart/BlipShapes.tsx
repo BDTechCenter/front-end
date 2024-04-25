@@ -3,9 +3,10 @@ import { Blip, ConfigData } from "@/api/types/radar";
 interface VisualBlipProps {
 	className: string;
 	fill: string;
-	"data-background-color": string;
-	"data-text-color": string;
-	"data-tip": string;
+	"data-tooltip-id": string,
+	tooltipBg: string;
+	tooltipTxtColor: string;
+	"data-tooltip-content": string;
 	key: number;
 }
 
