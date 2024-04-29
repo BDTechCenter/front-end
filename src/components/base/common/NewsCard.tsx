@@ -53,7 +53,7 @@ export default function NewsCard({
 						width={500}
 						height={500}
 						className="w-full h-full scale-100 transition-all duration-500 group-hover:scale-125"
-						onError={() => setImg("/newsNotFound.png")}
+						onError={() => setImg("/imageDefault.jpg")}
 					/>
 				</div>
 				<div className="flex flex-col group-hover:opacity-60 transition-all">

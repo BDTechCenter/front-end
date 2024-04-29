@@ -1,55 +1,58 @@
 "use client";
-import ImageError from "../common/ImageError";
-import NewsCard from "../common/NewsCard";
-import { Error } from "@/api/types/all/type";
-import { NewsCardSkeleton } from "../skeleton/NewsCardSkeleton";
-import { useFetchGetUserNews } from "@/api/hooks/user/queries";
-
+import { useFetchGetUserComments } from "@/api/hooks/user/queries";
+import CommentSkeleton from "../skeleton/CommentSkeleton";
 import {
 	Carousel,
 	CarouselContent,
-	CarouselItem,
-	CarouselNext,
 	CarouselPrevious,
+	CarouselNext,
 } from "@/components/ui/carousel";
-import { useEffect, useState } from "react";
+import ImageError from "../common/ImageError";
+import Comment from "../common/Comment";
+import { Error } from "@/api/types/all/type";
 import { useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
 
-export interface NewsListProps {
+export interface CommentsUserListProps {
 	massageError: Error;
 	massageNotFound: Error;
 }
 
-export default function NewsUserList({massageError,massageNotFound,}: NewsListProps) {
+export function CommentsUserList({
+	massageError,
+	massageNotFound,
+}: CommentsUserListProps) {
+	const { isLoading, isError, data } = useFetchGetUserComments();
 	const searchParams = useSearchParams();
 	const filterNews = searchParams.get("news");
 	const status = filterNews ? filterNews : "published";
-	const { isLoading, isError, data } = useFetchGetUserNews(status);
-	const [title, setTitle] = useState('Error');
+	const [title, setTitle] = useState("Error");
 
 	useEffect(() => {
 		if (status === "published") {
 			setTitle("Published");
-		} 
+		}
 		if (status === "archived") {
 			setTitle("Archived");
 		}
-		if (status === ""){
-			setTitle("Published")
+		if (status === "") {
+			setTitle("Published");
 		}
 	}, [searchParams, status]);
 
-	const newsUserCards = () => {
+	const commentUserCards = () => {
 		return data?.content.length !== 0 && data ? (
 			<div className="flex flex-col w-full">
-				<h1 className="text-xl font-medium">News {title}!</h1>
+				<h1 className="text-xl font-medium">Comments {title}!</h1>
 				<div className="w-full">
 					<Carousel>
-						<CarouselContent>
-							{data.content.map((news) => (
-								<CarouselItem key={news.id} className="basis-1/3">
-									<NewsCard variant="userNews" data={news} />
-								</CarouselItem>
+						<CarouselContent className="p-4 gap-5">
+							{data.content.map((comment) => (
+								<Comment
+									key={comment.id}
+									data={comment}
+									variant="userComment"
+								/>
 							))}
 						</CarouselContent>
 						<CarouselPrevious />
@@ -67,9 +70,9 @@ export default function NewsUserList({massageError,massageNotFound,}: NewsListPr
 	if (isLoading) {
 		return (
 			<div className="relative grid grid-cols-2 sm:grid-cols-3 gap-5 2xl:gap-7">
-				<NewsCardSkeleton />
-				<NewsCardSkeleton />
-				<NewsCardSkeleton />
+				<CommentSkeleton />
+				<CommentSkeleton />
+				<CommentSkeleton />
 			</div>
 		);
 	}
@@ -83,7 +86,7 @@ export default function NewsUserList({massageError,massageNotFound,}: NewsListPr
 	}
 
 	if (data) {
-		return newsUserCards();
+		return status !== "archived" ? commentUserCards() : <></>;
 	}
 
 	return null;

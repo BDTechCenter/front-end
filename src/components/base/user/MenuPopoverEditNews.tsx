@@ -21,7 +21,7 @@ export function MenuPopoverEditNews({
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
-				<Button variant="bdlight">
+				<Button variant="bdlight" className="border">
 					<IoMenu size={15} />
 				</Button>
 			</PopoverTrigger>
