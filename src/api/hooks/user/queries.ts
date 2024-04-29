@@ -118,3 +118,23 @@ export function useFetchGetUserComments(){
 		queryFn: getUserComments
 	})
 }
+
+async function patchDelete(id: number) {
+	const deleteComment = api.delete(`comments/${id}`);
+
+	toast.promise(deleteComment, {
+		loading: "Delete Comment",
+		success: "Delete Comment with success",
+		error: (error) => {
+			console.log(id);
+			return "Delete Comment Error";
+		},
+	});
+	return await deleteComment;
+}
+
+export function useMutationPatchDelete() {
+	return useMutation({
+		mutationFn: patchDelete,
+	});
+}
