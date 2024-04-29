@@ -2,15 +2,14 @@ import NavBar from "@/components/base/common/NavBar";
 import TopBanner from "@/components/base/common/TopBanner";
 import NewsUserList from "@/components/base/user/NewsUserList";
 import Footer from "@/components/base/common/Footer";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import Link from "next/link";
 import { LinkFilterNewsUser } from "@/components/base/user/LinkFilterNewsUser";
 import { RoleGuard } from "@/components/base/common/RoleGuard";
-import { FormAddNews } from "@/components/base/news/FormAddNews";
 import { appRoles } from "@/lib/sso/authConfig";
+import { CommentsUserList } from "@/components/base/user/CommentsUserList";
+import { useSearchParams } from "next/navigation";
 
 export default function User() {
+	
 	return (
 		<main className="w-full h-full">
 			<NavBar variant="black" />
@@ -24,13 +23,17 @@ export default function User() {
 					</div>
 				</RoleGuard>
 			</TopBanner>
-			<section className="my-20 mx-28 h-full 2xl:mx-44 2xl:my-36">
+			<section className="gap- 12 my-20 mx-28 h-full 2xl:mx-44 2xl:my-36">
 				<RoleGuard roles={[appRoles.Admin, appRoles.BDUser]}>
 					<NewsUserList
 						massageNotFound={dataUserPage.newsErrorNotFound}
 						massageError={dataUserPage.newsError}
 					/>
 				</RoleGuard>
+				<CommentsUserList
+					massageNotFound={dataUserPage.commentsErrorNotFound}
+					massageError={dataUserPage.commentsError}
+				/>
 			</section>
 			<Footer />
 		</main>
@@ -39,12 +42,22 @@ export default function User() {
 
 const dataUserPage = {
 	bannerNews: <p>Manage your news and information</p>,
+
 	newsErrorNotFound: {
 		text: "You have no news, write one",
 		img: "/noComment.gif",
 	},
 	newsError: {
 		text: "Error News",
+		img: "/allError.gif",
+	},
+
+	commentsErrorNotFound: {
+		text: "No comments, write yours",
+		img: "/noComment.gif",
+	},
+	commentsError: {
+		text: "Error Comments",
 		img: "/allError.gif",
 	},
 };
