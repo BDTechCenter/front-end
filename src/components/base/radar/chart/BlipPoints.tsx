@@ -1,20 +1,22 @@
+"use client"
 import { ScaleLinear } from "d3";
 import Link from "next/link";
-import { Blip, ConfigData, FlagType, Item, Point } from "@/api/types/radar";
+import { Blip, FlagType, Item, Point, Quadrant } from "@/api/types/radar";
+import { chartConfig, chartRings } from "@/services/radarConstants";
+import { useFetchGetItemsRadar } from "@/api/hooks/radar/queries";
 import { ChangedBlip, DefaultBlip, NewBlip } from "./BlipShapes";
 
 function generateCoordinates(
 	blip: Blip,
 	xScale: ScaleLinear<number, number>,
-	yScale: ScaleLinear<number, number>,
-	config: ConfigData
+	yScale: ScaleLinear<number, number>
 ): Point {
 	const pi = Math.PI,
-		ringRadius = config.chartConfig.ringsAttributes[blip.ringPosition].radius,
+		ringRadius = chartConfig.ringsAttributes[blip.ringPosition].radius,
 		previousRingRadius =
 			blip.ringPosition === 0
 				? 0
-				: config.chartConfig.ringsAttributes[blip.ringPosition - 1].radius,
+				: chartConfig.ringsAttributes[blip.ringPosition - 1].radius,
 		ringPadding = 0.7;
 
 	// radian between 0 and 90 degrees
@@ -46,97 +48,104 @@ function distanceBetween(point1: Point, point2: Point): number {
 	return Math.sqrt(a * a + b * b);
 }
 
-function renderBlip(
-	blip: Blip,
-	index: number,
-	config: ConfigData
-): JSX.Element {
+function renderBlip(blip: Blip, index: number): JSX.Element {
 	const props = {
 		blip,
 		className: "blip",
-		fill: blip.colour,
+		fill: blip.color,
 		"data-tooltip-id": "blip",
-		tooltipBg: blip.colour,
-		tooltipTxtColor: blip.txtColour,
+		tooltipBg: blip.color,
+		tooltipTxtColor: blip.txtColor,
 		"data-tooltip-content": blip.title,
 		key: index,
 	};
 	switch (blip.flag) {
 		case FlagType.new:
-			return <NewBlip {...props} config={config} />;
+			return <NewBlip {...props} />;
 		case FlagType.changed:
-			return <ChangedBlip {...props} config={config} />;
+			return <ChangedBlip {...props} />;
 		default:
-			return <DefaultBlip {...props} config={config} />;
+			return <DefaultBlip {...props} />;
 	}
-	
 }
 
 export default function BlipPoints({
-	items,
 	xScale,
 	yScale,
-	config,
+	quadrants,
 }: {
-	items: Item[];
 	xScale: ScaleLinear<number, number>;
 	yScale: ScaleLinear<number, number>;
-	config: ConfigData;
+	quadrants: Quadrant[] | undefined;
 }) {
-	const blips: Blip[] = items.reduce((list: Blip[], item: Item) => {
-		if (!item.ring || !item.quadrant) {
-			// skip the blip if it doesn't have a ring or quadrant assigned
-			return list;
-		}
-		const quadrantConfig = config.quadrantsMap[item.quadrant];
-		if (!quadrantConfig) {
-			return list;
-		}
+	const { data: items } = useFetchGetItemsRadar();
 
-		let blip: Blip = {
-			...item,
-			quadrantPosition: quadrantConfig.position,
-			ringPosition: config.rings.findIndex((r) => r === item.ring),
-			colour: quadrantConfig.colour,
-			txtColour: quadrantConfig.txtColour,
-			coordinates: { x: 0, y: 0 },
-		};
+	console.log("Items: ", items);
+	
+	const blips: Blip[] | undefined = items?.reduce(
+		(list: Blip[], item: Item) => {
+			if (!item.ring || !item.quadrantId) {
+				console.log("Missing");
+				
+				// skip the blip if it doesn't have a ring or quadrant assigned
+				return list;
+			}
+			const quadrantConfig = quadrants?.find((quadrant) => {
+				return quadrant.id === item.quadrantId;
+			});
+			if (!quadrantConfig) {
+				return list;
+			}
 
-		let point: Point;
-		let counter = 1;
-		let distanceBetweenCheck: boolean;
-		do {
-			const localpoint = generateCoordinates(blip, xScale, yScale, config);
-			point = localpoint;
-			counter++;
-			/*
-            Generate position of the new blip until it has a satisfactory distance to every other blip (so that they don't touch each other)
-            and quadrant borders (so that they don't overlap quadrants)
-            This feels pretty inefficient, but good enough for now.
-            */
-			distanceBetweenCheck = list.some(
-				(b) =>
-					distanceBetween(localpoint, b.coordinates) <
-					config.chartConfig.blipSize + config.chartConfig.blipSize / 2
+			let blip: Blip = {
+				...item,
+				quadrantName: quadrantConfig.name,
+				quadrantPosition: quadrantConfig.position,
+				ringPosition: chartRings.findIndex((r) => r === item.ring),
+				color: quadrantConfig.color,
+				txtColor: quadrantConfig.txtColor,
+				coordinates: { x: 0, y: 0 },
+			};
+
+			console.log("BLIP:", blip);
+			
+			let point: Point;
+			let counter = 1;
+			let distanceBetweenCheck: boolean;
+			do {
+				const localpoint = generateCoordinates(blip, xScale, yScale);
+				point = localpoint;
+				counter++;
+				/*
+				Generate position of the new blip until it has a satisfactory distance to every other blip (so that they don't touch each other)
+				and quadrant borders (so that they don't overlap quadrants)
+				This feels pretty inefficient, but good enough for now.
+			*/
+				distanceBetweenCheck = list.some(
+					(b) =>
+						distanceBetween(localpoint, b.coordinates) <
+						chartConfig.blipSize + chartConfig.blipSize / 2
+				);
+			} while (
+				counter < 100 &&
+				(Math.abs(point.x - xScale(0)) < 15 ||
+					Math.abs(point.y - yScale(0)) < 15 ||
+					distanceBetweenCheck)
 			);
-		} while (
-			counter < 100 &&
-			(Math.abs(point.x - xScale(0)) < 15 ||
-				Math.abs(point.y - yScale(0)) < 15 ||
-				distanceBetweenCheck)
-		);
 
-		blip.coordinates = point;
+			blip.coordinates = point;
 
-		list.push(blip);
-		return list;
-	}, []);
+			list.push(blip);
+			return list;
+		},
+		[]
+	);
 
 	return (
 		<g className="blips">
-			{blips.map((blip, index) => (
-				<Link href={`${blip.quadrant}/${blip.name}`} key={index}>
-					{renderBlip(blip, index, config)}
+			{blips?.map((blip, index) => (
+				<Link href={`${blip.quadrantId}/${blip.title.toLowerCase()}`} key={index}>
+					{renderBlip(blip, index)}
 				</Link>
 			))}
 		</g>

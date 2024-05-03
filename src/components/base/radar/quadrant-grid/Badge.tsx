@@ -16,7 +16,7 @@ interface BadgeProps extends VariantProps<typeof badgeVariants> {
 }
 
 const badgeVariants = cva(
-	"text-black box-border px-4 py-1 uppercase align-middle my-0 mx-auto overflow-hidden border border-zinc-400",
+	"text-white font-semibold box-border px-4 py-1 uppercase align-middle my-0 mx-auto overflow-hidden border border-zinc-400",
 	{
 		variants: {
 			lg: {
@@ -35,7 +35,7 @@ export default function Badge({ type, lg, children }: BadgeProps) {
 		<span
 			className={cn(
 				badgeVariants({ lg }),
-				badgeTypes[type as keyof typeof badgeTypes], "h-8 "
+				badgeTypes[type as keyof typeof badgeTypes], "h-8"
 			)}
 		>
 			{children}

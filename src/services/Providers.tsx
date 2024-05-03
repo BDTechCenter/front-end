@@ -11,13 +11,13 @@ import { queryClient } from "./queryClient";
 export default function Providers({ children }: { children: React.ReactNode }) {
 	return (
 		<MsalProvider instance={msalInstance}>
-			{/* <RouteGuard> */}
-			<Toaster />
-			<QueryClientProvider client={queryClient}>
-				{children}
-				<ReactQueryDevtools />
-			</QueryClientProvider>
-			{/* </RouteGuard> */}
+			<RouteGuard>
+				<Toaster />
+				<QueryClientProvider client={queryClient}>
+					{children}
+					<ReactQueryDevtools />
+				</QueryClientProvider>
+			</RouteGuard>
 		</MsalProvider>
 	);
 }

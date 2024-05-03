@@ -18,7 +18,7 @@ export enum FlagType {
 	default = "default",
 }
 
-export type Item = ItemAttributes & {
+export type ItemOld = ItemAttributes & {
 	featured: boolean;
 	bodyPt: string;
 	bodyEn: string;
@@ -27,6 +27,16 @@ export type Item = ItemAttributes & {
 	flag: FlagType;
 	revisions: Revision[];
 };
+
+export interface Item {
+	id: string;
+	title: string;
+	ring: string;
+	expectation: string;
+	quadrantId: string;
+	isActive: boolean;
+	flag: FlagType;
+}
 
 export type Revision = ItemAttributes & {
 	body: string;
@@ -54,7 +64,7 @@ export interface TechRadarConfigData {
 	};
 }
 
-export type Quadrant = {
+export type QuadrantI = {
 	[name: string]: Item[];
 };
 
@@ -72,8 +82,22 @@ export enum HomepageOption {
 }
 
 export type Group = {
-	[quadrant: string]: Quadrant;
+	[quadrant: string]: QuadrantGroup;
 };
+
+export interface Quadrant {
+	id: string;
+	name: string;
+	title: string;
+	color: string;
+	txtColor: string;
+	position: number;
+	description: string;
+}
+
+export interface QuadrantGroup {
+	[name: string]: Item[];
+}
 
 export interface ConfigData {
 	tags?: string[];
@@ -103,17 +127,27 @@ export enum StorageKey {
 	language = "language",
 }
 
-export type RingName = "all" | "adopt" | "trial" | "assess" | "hold"
+export type RingName = "all" | "adopt" | "trial" | "assess" | "hold";
+
+export type BlipOld = Item & {
+	quadrantPosition: number;
+	ringPosition: number;
+	color: string;
+	txtColor: string;
+	coordinates: Point;
+	flag: FlagType;
+};
 
 export type Blip = Item & {
-  quadrantPosition: number;
-  ringPosition: number;
-  colour: string;
-  txtColour: string;
-  coordinates: Point;
+	quadrantName: string;
+	quadrantPosition: number;
+	ringPosition: number;
+	color: string;
+	txtColor: string;
+	coordinates: Point;
 };
 
 export type Point = {
-  x: number;
-  y: number;
+	x: number;
+	y: number;
 };

@@ -1,7 +1,8 @@
 import * as d3 from "d3";
-import {Tooltip } from "react-tooltip";
+import { Tooltip } from "react-tooltip";
 
-import { ConfigData, Item } from "@/api/types/radar";
+import { Quadrant } from "@/api/types/radar";
+import { chartConfig, chartRings } from "@/services/radarConstants";
 import { XAxis, YAxis } from "./Axes";
 import QuadrantRings from "./QuarantRings";
 import BlipPoints from "./BlipPoints";
@@ -10,24 +11,19 @@ function RingLabel({
 	ring,
 	xScale,
 	yScale,
-	config,
 }: {
 	ring: string;
 	xScale: d3.ScaleLinear<number, number>;
 	yScale: d3.ScaleLinear<number, number>;
-	config: ConfigData;
 }) {
-	const ringIndex = config.rings.findIndex((r) => r === ring);
+	const ringIndex = chartRings.findIndex((r) => r === ring);
 
-	const ringRadius = config.chartConfig.ringsAttributes[ringIndex].radius,
+	const ringRadius = chartConfig.ringsAttributes[ringIndex].radius,
 		previousRingRadius =
-			ringIndex === 0
-				? 0
-				: config.chartConfig.ringsAttributes[ringIndex - 1].radius,
+			ringIndex === 0 ? 0 : chartConfig.ringsAttributes[ringIndex - 1].radius,
 		// middle point in between two ring arcs
 		distanceFromCentre =
 			previousRingRadius + (ringRadius - previousRingRadius) / 2;
-
 
 	return (
 		<g className="uppercase text-xs font-bold">
@@ -52,29 +48,25 @@ function RingLabel({
 }
 
 export default function RadarChart({
-	items,
-	config,
+	quadrants,
 }: {
-	items: Item[];
-	config: ConfigData;
+	quadrants: Quadrant[];
 }) {
 	const xScale = d3
 		.scaleLinear()
-		.domain(config.chartConfig.scale)
-		.range([0, config.chartConfig.size]);
+		.domain(chartConfig.scale)
+		.range([0, chartConfig.size]);
 	const yScale = d3
 		.scaleLinear()
-		.domain(config.chartConfig.scale)
-		.range([config.chartConfig.size, 0]);
+		.domain(chartConfig.scale)
+		.range([chartConfig.size, 0]);
 
 	return (
 		<div
 			className="fill-white text-xs text-center relative my-0 mx-auto"
-			style={{ maxWidth: `${config.chartConfig.size}px` }}
+			style={{ maxWidth: `${chartConfig.size}px` }}
 		>
-			<svg
-				viewBox={`0 0 ${config.chartConfig.size} ${config.chartConfig.size + 100}`}
-			>
+			<svg viewBox={`0 0 ${chartConfig.size} ${chartConfig.size + 100}`}>
 				<g transform={`translate(${xScale(0)}, 0)`}>
 					<YAxis scale={yScale} />
 				</g>
@@ -82,31 +74,19 @@ export default function RadarChart({
 					<XAxis scale={xScale} />
 				</g>
 
-				{Object.values(config.quadrantsMap).map((value, index) => (
+				{quadrants?.map((quadrant) => (
 					<QuadrantRings
-						key={index}
-						quadrant={value}
+						key={quadrant.name}
+						quadrant={quadrant}
 						xScale={xScale}
-						config={config}
 					/>
 				))}
 
-				{Array.from(config.rings).map((ring: string, index) => (
-					<RingLabel
-						key={index}
-						ring={ring}
-						xScale={xScale}
-						yScale={yScale}
-						config={config}
-					/>
+				{chartRings.map((ring: string, index) => (
+					<RingLabel key={index} ring={ring} xScale={xScale} yScale={yScale} />
 				))}
 
-				<BlipPoints
-					items={items}
-					xScale={xScale}
-					yScale={yScale}
-					config={config}
-				/>
+				<BlipPoints xScale={xScale} yScale={yScale} quadrants={quadrants} />
 			</svg>
 			<Tooltip id="blip" />
 		</div>

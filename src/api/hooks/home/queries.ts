@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { ContentNews } from "@/api/types/news/type";
-import api from "../../../services/api";
+import { apiNews } from "../../../services/api";
 
 async function getMainNews() {
 	const SIZE = 3;
-	const { data } = await api.get<ContentNews>(
+	const { data } = await apiNews.get<ContentNews>(
 		`news/preview?sortBy=view&size=${SIZE}`
 	);
 

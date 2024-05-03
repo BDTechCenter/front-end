@@ -1,5 +1,6 @@
 import * as d3 from "d3";
-import { ConfigData, QuadrantConfig } from "@/api/types/radar";
+import { Quadrant } from "@/api/types/radar";
+import { chartConfig, chartRings } from "@/services/radarConstants";
 
 const arcAngel = [
 	[(3 * Math.PI) / 2, (4 * Math.PI) / 2],
@@ -11,11 +12,10 @@ const arcAngel = [
 function arcPath(
 	quadrantPosition: number,
 	ringPosition: number,
-	xScale: d3.ScaleLinear<number, number>,
-	config: ConfigData
+	xScale: d3.ScaleLinear<number, number>
 ) {
 	const [startAngle, endAngle] = arcAngel[quadrantPosition - 1];
-	const arcAttrs = config.chartConfig.ringsAttributes[ringPosition],
+	const arcAttrs = chartConfig.ringsAttributes[ringPosition],
 		ringRadiusPx = xScale(arcAttrs.radius) - xScale(0),
 		arc = d3.arc();
 
@@ -32,11 +32,9 @@ function arcPath(
 export default function QuadrantRings({
 	quadrant,
 	xScale,
-	config,
 }: {
-	quadrant: QuadrantConfig;
+	quadrant: Quadrant;
 	xScale: d3.ScaleLinear<number, number>;
-	config: ConfigData;
 }) {
 	// order from top-right clockwise
 	const gradientAttributes = [
@@ -46,7 +44,7 @@ export default function QuadrantRings({
 		{ x: xScale(0), y: xScale(0), cx: 0, cy: 0, r: 1 },
 	];
 	const gradientId = `${quadrant.position}-radial-gradient`,
-		quadrantSize = config.chartConfig.size / 2;
+		quadrantSize = chartConfig.size / 2;
 
 	return (
 		<g className="quadrant-ring">
@@ -56,12 +54,8 @@ export default function QuadrantRings({
 					id={gradientId}
 					{...gradientAttributes[quadrant.position - 1]}
 				>
-					<stop offset="0%" stopColor={quadrant.colour}></stop>
-					<stop
-						offset="100%"
-						stopColor={quadrant.colour}
-						stopOpacity="0"
-					></stop>
+					<stop offset="0%" stopColor={quadrant.color}></stop>
+					<stop offset="100%" stopColor={quadrant.color} stopOpacity="0"></stop>
 				</radialGradient>
 			</defs>
 
@@ -76,11 +70,11 @@ export default function QuadrantRings({
 			/>
 
 			{/* Rings' arcs */}
-			{Array.from(config.rings).map((ringPosition, index) => (
+			{chartRings.map((_, index) => (
 				<path
 					key={index}
-					fill={quadrant.colour}
-					d={arcPath(quadrant.position, index, xScale, config)}
+					fill={quadrant.color}
+					d={arcPath(quadrant.position, index, xScale)}
 					style={{
 						transform: `translate(${quadrantSize}px, ${quadrantSize}px)`,
 					}}

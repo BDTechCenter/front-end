@@ -1,16 +1,16 @@
-import { ConfigData, Item } from "@/api/types/radar";
-import RadarChart from "../chart/RadarChart";
+"use client"
 
-export default function RadarGrid({
-	items,
-	config,
-}: {
-	items: Item[];
-	config: ConfigData;
-}) {
+import { useFetchGetQuadrants } from "@/api/hooks/radar/queries";
+import RadarChart from "../chart/RadarChart";
+import LoadingIndicator from "../../common/LoadingIndicator";
+
+export default function RadarGrid() {
+	const { data, isLoading } = useFetchGetQuadrants();
+
 	return (
 		<div className="bg-bddarkgray">
-			<RadarChart items={items} config={config} />
+			{data && <RadarChart quadrants={data} />}
+			{isLoading && <LoadingIndicator dark className="m-auto h-full" />}
 		</div>
 	);
 }

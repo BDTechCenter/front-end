@@ -28,7 +28,7 @@ export default function Item({
 					"is-active": active,
 				}
 			)}
-			href={`${item.quadrant}/${item.name}`}
+			href={`${item.quadrantId}/${item.title}`}
 			style={style}
 		>
 			<div
@@ -39,9 +39,6 @@ export default function Item({
 				{item.title}
 				<Flag item={item} />
 			</div>
-			{item.info && (
-				<div className="mt-1 text-xs text-zinc-500">{item.info}</div>
-			)}
 		</Link>
 	);
 }

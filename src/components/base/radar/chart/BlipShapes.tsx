@@ -1,9 +1,10 @@
-import { Blip, ConfigData } from "@/api/types/radar";
+import { Blip } from "@/api/types/radar";
+import { chartConfig } from "@/services/radarConstants";
 
 interface VisualBlipProps {
 	className: string;
 	fill: string;
-	"data-tooltip-id": string,
+	"data-tooltip-id": string;
 	tooltipBg: string;
 	tooltipTxtColor: string;
 	"data-tooltip-content": string;
@@ -12,38 +13,28 @@ interface VisualBlipProps {
 
 export function ChangedBlip({
 	blip,
-	config,
 	...props
-}: { blip: Blip; config: ConfigData } & VisualBlipProps) {
-	const centeredX = blip.coordinates.x - config.chartConfig.blipSize / 2,
-		centeredY = blip.coordinates.y - config.chartConfig.blipSize / 2;
+}: { blip: Blip } & VisualBlipProps) {
+	const centeredX = blip.coordinates.x - chartConfig.blipSize / 2,
+		centeredY = blip.coordinates.y - chartConfig.blipSize / 2;
 
 	return (
 		<rect
 			transform={`rotate(-45 ${centeredX} ${centeredY})`}
 			x={centeredX}
 			y={centeredY}
-			width={config.chartConfig.blipSize}
-			height={config.chartConfig.blipSize}
+			width={chartConfig.blipSize}
+			height={chartConfig.blipSize}
 			rx="3"
 			{...props}
 		/>
 	);
 }
 
-export function NewBlip({
-	blip,
-	config,
-	...props
-}: { blip: Blip; config: ConfigData } & VisualBlipProps) {
-	const centeredX = blip.coordinates.x - config.chartConfig.blipSize / 2,
-		centeredY = blip.coordinates.y - config.chartConfig.blipSize / 2;
+export function NewBlip({ blip, ...props }: { blip: Blip } & VisualBlipProps) {
+	const centeredX = blip.coordinates.x - chartConfig.blipSize / 2,
+		centeredY = blip.coordinates.y - chartConfig.blipSize / 2;
 
-	/*
-    The below is a predefined path of a triangle with rounded corners.
-    I didn't find any more human friendly way of doing this as all examples I found have tons of lines of code
-    e.g. https://observablehq.com/@perlmonger42/interactive-rounded-corners-on-svg-polygons-using-d3-js
-    */
 	return (
 		<path
 			transform={`translate(${centeredX}, ${centeredY})`}
@@ -55,12 +46,11 @@ export function NewBlip({
 
 export function DefaultBlip({
 	blip,
-	config,
 	...props
-}: { blip: Blip; config: ConfigData } & VisualBlipProps) {
+}: { blip: Blip } & VisualBlipProps) {
 	return (
 		<circle
-			r={config.chartConfig.blipSize / 2}
+			r={chartConfig.blipSize / 2}
 			cx={blip.coordinates.x}
 			cy={blip.coordinates.y}
 			{...props}

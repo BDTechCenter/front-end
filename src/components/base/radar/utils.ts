@@ -1,11 +1,14 @@
-import { Group, Item, Quadrant } from "@/api/types/radar";
+import { Group, Item, Quadrant, QuadrantGroup } from "@/api/types/radar";
 
-export const featuredOnly = (items: Item[]) =>
-	items.filter((item) => item.featured);
-export const nonFeaturedOnly = (items: Item[]) =>
-	items.filter((item) => !item.featured);
+export const activeOnly = (items: Item[]) =>
+	items.filter((item) => item.isActive);
+export const nonActiveOnly = (items: Item[]) =>
+	items.filter((item) => !item.isActive);
 
-const addItemToQuadrant = (quadrant: Quadrant = {}, item: Item): Quadrant => ({
+const addItemToQuadrant = (
+	quadrant: QuadrantGroup = {},
+	item: Item
+): QuadrantGroup => ({
 	...quadrant,
 	[item.ring]: addItemToRing(quadrant[item.ring], item),
 });
@@ -18,7 +21,7 @@ export const groupByQuadrants = (items: Item[]): Group =>
 	items.reduce(
 		(quadrants, item: Item) => ({
 			...quadrants,
-			[item.quadrant]: addItemToQuadrant(quadrants[item.quadrant], item),
+			[item.quadrantId]: addItemToQuadrant(quadrants[item.quadrantId], item),
 		}),
-		{} as { [k: string]: Quadrant }
+		{} as { [k: string]: QuadrantGroup }
 	);

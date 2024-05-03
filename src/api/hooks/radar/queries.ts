@@ -1,35 +1,32 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { TechRadarConfigData, TechRadarData } from "@/api/types/radar";
+import {
+	Item,
+	Quadrant,
+} from "@/api/types/radar";
+import { apiRadar } from "@/services/api";
 
-//techradar.free.beeceptor.com/radar/config
-
-async function getRadarConfig() {
-	const { data } = await axios.get<TechRadarConfigData>(
-		"http://localhost:7777/config"
-	);
+async function getQuadrants() {
+	const { data } = await apiRadar.get<Quadrant[]>("quadrants");
 
 	return data;
 }
 
-export function useFetchGetRadarConfig() {
-	return useQuery<TechRadarConfigData, Error>({
-		queryKey: ["radarConfig"],
-		queryFn: getRadarConfig,
+export function useFetchGetQuadrants() {
+	return useQuery<Quadrant[], Error>({
+		queryKey: ["quadrants"],
+		queryFn: getQuadrants,
 	});
 }
 
-async function getRadarOpinion() {
-	const { data } = await axios.get<TechRadarData>(
-		"http://localhost:7777/opinion"
-	);
+async function getItemsRadar() {
+	const { data } = await apiRadar.get<Item[]>("items");
 
 	return data;
 }
 
-export function useFetchGetRadarOpinion() {
-	return useQuery<TechRadarData, Error>({
-		queryKey: ["radarOpinion"],
-		queryFn: getRadarOpinion,
+export function useFetchGetItemsRadar() {
+	return useQuery<Item[], Error>({
+		queryKey: ["itemsQuadrant"],
+		queryFn: getItemsRadar,
 	});
 }

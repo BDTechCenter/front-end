@@ -1,7 +1,7 @@
 import React from "react";
 import { Item as ItemType } from "@/api/types/radar";
 import Item from "./Item";
-import { featuredOnly, nonFeaturedOnly } from "../utils";
+import { activeOnly, nonActiveOnly } from "../utils";
 
 interface ItemListProps {
 	items: ItemType[];
@@ -20,8 +20,8 @@ export default function ItemList({
 	headerStyle = {},
 	itemStyle = [],
 }: ItemListProps) {
-	const featuredItems = featuredOnly(items);
-	const nonFeaturedItems = nonFeaturedOnly(items);
+	const activeItems = activeOnly(items);
+	const nonActiveItems = nonActiveOnly(items);
 
 	return (
 		<div className="mb-6">
@@ -29,23 +29,23 @@ export default function ItemList({
 				{children}
 			</div>
 			<div className="item-list__list">
-				{featuredItems.map((item, i) => (
+				{activeItems.map((item, i) => (
 					<Item
-						key={item.name}
+						key={item.id}
 						item={item}
 						noLeadingBorder={noLeadingBorder}
-						active={activeItem?.name === item.name}
+						active={activeItem?.title === item.title}
 						style={itemStyle[i]}
 						greyedOut={false}
 					/>
 				))}
-				{nonFeaturedItems.map((item, i) => (
+				{nonActiveItems.map((item, i) => (
 					<Item
-						key={item.name}
+						key={item.id}
 						item={item}
 						noLeadingBorder={noLeadingBorder}
-						active={activeItem?.name === item.name}
-						style={itemStyle[featuredItems.length + i]}
+						active={activeItem?.title === item.title}
+						style={itemStyle[activeItems.length + i]}
 						greyedOut={true}
 					/>
 				))}
