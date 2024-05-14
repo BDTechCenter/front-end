@@ -1,4 +1,3 @@
-import api from "../../../services/api";
 import {
 	QueryFunctionContext,
 	useInfiniteQuery,
@@ -6,18 +5,19 @@ import {
 	useQuery,
 	useQueryClient,
 } from "@tanstack/react-query";
+import Error from "next/error";
+import toast from "react-hot-toast";
 import {
+	CommentPostType,
+	CommentType,
 	ContentComment,
 	ContentNews,
 	News,
-	CommentPostType,
-	UpvoteNews,
-	CommentType,
 	QueryDataNews,
+	UpvoteNews,
 } from "@/api/types/news/type";
-import Error from "next/error";
-import {usefilter} from "@/services/filter";
-import toast from "react-hot-toast";
+import { usefilter } from "@/services/filter";
+import api from "../../../services/api";
 
 // News
 // GET News w/ Filter
@@ -37,8 +37,10 @@ async function getNewsFilterScroll(ctx: QueryFunctionContext) {
 }
 
 export function useFetchGetNewsScroll(tags?: string, title?: string) {
+	const queryKeyUpdt =
+		tags || title ? ["newsPreview", tags, title] : ["newsPreview"];
 	return useInfiniteQuery<ContentNews, Error>({
-		queryKey: ["newsPreview", tags, title],
+		queryKey: queryKeyUpdt,
 		queryFn: getNewsFilterScroll,
 		initialPageParam: 0,
 		getNextPageParam: (lastPage) => {
@@ -114,9 +116,10 @@ export function useMutationPostNews() {
 	const queryClient = useQueryClient();
 	return useMutation({
 		mutationFn: postNews,
-		onSuccess: (_, variables) => {
-			queryClient.setQueryData(["newsPreview"], (data: any) => {
-				console.log(data);
+		onSuccess: () => {
+			queryClient.invalidateQueries({
+				queryKey: ["newsPreview"],
+				refetchType: "active",
 			});
 		},
 	});

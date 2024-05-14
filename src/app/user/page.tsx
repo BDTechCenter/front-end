@@ -1,5 +1,11 @@
 import NavBar from "@/components/base/common/NavBar";
 import TopBanner from "@/components/base/common/TopBanner";
+import {
+	Carousel,
+	CarouselContent,
+	CarouselNext,
+	CarouselPrevious,
+} from "@/components/ui/carousel";
 import NewsUserList from "@/components/base/user/NewsUserList";
 import Footer from "@/components/base/common/Footer";
 import { LinkFilterNewsUser } from "@/components/base/user/LinkFilterNewsUser";
@@ -9,7 +15,6 @@ import { CommentsUserList } from "@/components/base/user/CommentsUserList";
 import { useSearchParams } from "next/navigation";
 
 export default function User() {
-	
 	return (
 		<main className="w-full h-full">
 			<NavBar variant="black" />
@@ -26,13 +31,13 @@ export default function User() {
 			<section className="gap- 12 my-20 mx-28 h-full 2xl:mx-44 2xl:my-36">
 				<RoleGuard roles={[appRoles.Admin, appRoles.BDUser]}>
 					<NewsUserList
-						massageNotFound={dataUserPage.newsErrorNotFound}
-						massageError={dataUserPage.newsError}
+						messageNotFound={dataUserPage.newsErrorNotFound}
+						messageError={dataUserPage.newsError}
 					/>
 				</RoleGuard>
 				<CommentsUserList
-					massageNotFound={dataUserPage.commentsErrorNotFound}
-					massageError={dataUserPage.commentsError}
+					messageNotFound={dataUserPage.commentsErrorNotFound}
+					messageError={dataUserPage.commentsError}
 				/>
 			</section>
 			<Footer />

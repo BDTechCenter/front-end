@@ -14,13 +14,13 @@ import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 
 export interface CommentsUserListProps {
-	massageError: Error;
-	massageNotFound: Error;
+	messageError: Error;
+	messageNotFound: Error;
 }
 
 export function CommentsUserList({
-	massageError,
-	massageNotFound,
+	messageError,
+	messageNotFound,
 }: CommentsUserListProps) {
 	const { isLoading, isError, data } = useFetchGetUserComments();
 	const searchParams = useSearchParams();
@@ -62,7 +62,7 @@ export function CommentsUserList({
 			</div>
 		) : (
 			<div className="flex w-full items-center justify-center">
-				<ImageError data={massageNotFound} />
+				<ImageError data={messageNotFound} />
 			</div>
 		);
 	};
@@ -80,7 +80,7 @@ export function CommentsUserList({
 	if (isError) {
 		return (
 			<div className="flex w-full items-center justify-center">
-				<ImageError data={massageError} />
+				<ImageError data={messageError} />
 			</div>
 		);
 	}

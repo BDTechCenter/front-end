@@ -1,14 +1,14 @@
-import { cn } from "@/lib/utils";
 import { useMsal } from "@azure/msal-react";
 import {
 	Menubar,
-	MenubarMenu,
-	MenubarTrigger,
 	MenubarContent,
 	MenubarItem,
+	MenubarMenu,
+	MenubarTrigger,
 } from "@radix-ui/react-menubar";
 import { useState } from "react";
 import { MdAccountCircle } from "react-icons/md";
+import { cn } from "@/lib/utils";
 
 export default function SignOutButton({ className }: { className?: string }) {
 	const { instance } = useMsal();

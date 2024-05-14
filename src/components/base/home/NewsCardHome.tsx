@@ -1,11 +1,11 @@
 "use client";
 
-import { News } from "@/api/types/news/type";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
 import { IoEyeSharp } from "react-icons/io5";
+import { News } from "@/api/types/news/type";
 
 interface NewsCardProps {
 	data: News;

@@ -1,6 +1,6 @@
-import { loginRequest } from "@/lib/sso/authConfig";
 import { useMsal } from "@azure/msal-react";
 import { useState } from "react";
+import { loginRequest } from "@/lib/sso/authConfig";
 import {
 	Menubar,
 	MenubarContent,

@@ -55,6 +55,7 @@ const InputTags: ForwardRefRenderFunction<HTMLInputElement, InputTagsProps> = (
 			<div className="w-full flex flex-row gap-3">
 				<Input
 					ref={ref}
+					ref={ref}
 					placeholder="Search your tags..."
 					maxLength={35}
 					value={value}

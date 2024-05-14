@@ -1,10 +1,8 @@
 "use client";
-import ImageError from "../common/ImageError";
-import NewsCard from "../common/NewsCard";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Error } from "@/api/types/all/type";
-import { NewsCardSkeleton } from "../skeleton/NewsCardSkeleton";
 import { useFetchGetUserNews } from "@/api/hooks/user/queries";
-
 import {
 	Carousel,
 	CarouselContent,
@@ -12,30 +10,34 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from "@/components/ui/carousel";
-import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import ImageError from "../common/ImageError";
+import NewsCard from "../common/NewsCard";
+import { NewsCardSkeleton } from "../skeleton/NewsCardSkeleton";
 
 export interface NewsListProps {
-	massageError: Error;
-	massageNotFound: Error;
+	messageError: Error;
+	messageNotFound: Error;
 }
 
-export default function NewsUserList({massageError,massageNotFound,}: NewsListProps) {
+export default function NewsUserList({
+	messageError,
+	messageNotFound,
+}: NewsListProps) {
 	const searchParams = useSearchParams();
 	const filterNews = searchParams.get("news");
 	const status = filterNews ? filterNews : "published";
 	const { isLoading, isError, data } = useFetchGetUserNews(status);
-	const [title, setTitle] = useState('Error');
+	const [title, setTitle] = useState("Error");
 
 	useEffect(() => {
 		if (status === "published") {
 			setTitle("Published");
-		} 
+		}
 		if (status === "archived") {
 			setTitle("Archived");
 		}
-		if (status === ""){
-			setTitle("Published")
+		if (status === "") {
+			setTitle("Published");
 		}
 	}, [searchParams, status]);
 
@@ -59,7 +61,7 @@ export default function NewsUserList({massageError,massageNotFound,}: NewsListPr
 			</div>
 		) : (
 			<div className="flex w-full items-center justify-center">
-				<ImageError data={massageNotFound} />
+				<ImageError data={messageNotFound} />
 			</div>
 		);
 	};
@@ -77,7 +79,7 @@ export default function NewsUserList({massageError,massageNotFound,}: NewsListPr
 	if (isError) {
 		return (
 			<div className="flex w-full items-center justify-center">
-				<ImageError data={massageError} />
+				<ImageError data={messageError} />
 			</div>
 		);
 	}

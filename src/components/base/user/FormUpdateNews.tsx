@@ -7,6 +7,7 @@ import { FormNewsLayout } from "../common/FormNewsLayout";
 import { getUserNews, useMutationPatchNews } from "@/api/hooks/user/queries";
 import { AlertUpdateNews } from "./AlertUpdateNews";
 import { queryClient } from "@/services/queryClient";
+import { resizeFile } from "@/lib/utils";
 
 interface FormNewsLayoutProps {
 	id: string;
@@ -18,7 +19,7 @@ export function FormUpdateNews({ id }: FormNewsLayoutProps) {
 
 	const { data } = useFetchGetNewsId(id);
 
-	const NewsObject = (values: z.infer<typeof newsSchema>) => {
+	const NewsObject = async (values: z.infer<typeof newsSchema>) => {
 		const accountInfo = msalInstance.getActiveAccount();
 		const author: string = accountInfo?.name || "";
 
@@ -31,13 +32,15 @@ export function FormUpdateNews({ id }: FormNewsLayoutProps) {
 		}
 
 		if (values.image) {
-			formData.append("image", values.image);
+			await resizeFile(values.image).then((image) => {
+				formData.append("image", image);
+			});
 		}
 		return formData;
 	};
 
 	async function onSubmitForm(values: z.infer<typeof newsSchema>) {
-		const newsFormData = NewsObject(values);
+		const newsFormData = await NewsObject(values);
 		await mutateAsync({ newsObject: newsFormData, id: id }).then(() =>
 			setOpen(false)
 		);

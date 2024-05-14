@@ -1,6 +1,6 @@
-import api from "../../../services/api";
 import { useQuery } from "@tanstack/react-query";
 import { ContentNews } from "@/api/types/news/type";
+import api from "../../../services/api";
 
 async function getMainNews() {
 	const SIZE = 3;

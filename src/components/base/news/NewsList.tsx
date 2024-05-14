@@ -1,13 +1,13 @@
 "use client";
 
 import { useInView } from "react-intersection-observer";
-import ImageError from "../common/ImageError";
-import { Error } from "@/api/types/all/type";
-import { NewsCardSkeleton } from "../skeleton/NewsCardSkeleton";
-import { useFetchGetNewsScroll } from "@/api/hooks/news/queries";
 import { useSearchParams } from "next/navigation";
-import { ContentNews, News } from "@/api/types/news/type";
 import { useEffect } from "react";
+import { Error } from "@/api/types/all/type";
+import { useFetchGetNewsScroll } from "@/api/hooks/news/queries";
+import { ContentNews, News } from "@/api/types/news/type";
+import ImageError from "../common/ImageError";
+import { NewsCardSkeleton } from "../skeleton/NewsCardSkeleton";
 import LoadingIndicator from "../common/LoadingIndicator";
 import NewsCard from "../common/NewsCard";
 
