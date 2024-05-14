@@ -1,5 +1,5 @@
 import { useFetchGetCommentNewsId } from "@/api/hooks/news/queries";
-import Comment from "./Comment";
+import Comment from "../common/Comment";
 import ImageError from "../common/ImageError";
 import CommentSkeleton from "../skeleton/CommentSkeleton";
 
@@ -13,7 +13,9 @@ export default function CommentList({ id }: CommentListProps) {
 	const commentCards = () => {
 		return data?.length !== 0 ? (
 			<div className="flex flex-col gap-5 max-h-96 overflow-y-scroll">
-				{data?.map((comment) => <Comment key={comment.id} data={comment} />)}
+				{data?.map((comment) => (
+					<Comment key={comment.id} variant="anyComment" data={comment} />
+				))}
 			</div>
 		) : (
 			<div className="flex justify-center items-center w-full h-80">

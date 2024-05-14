@@ -3,9 +3,9 @@ import NavBar from "@/components/base/common/NavBar";
 import TopBanner from "@/components/base/common/TopBanner";
 import NewsList from "@/components/base/news/NewsList";
 import SearchBar from "@/components/base/news/SearchBar";
-import ModalAddNews from "@/components/base/news/ModalAddNews";
 import { RoleGuard } from "@/components/base/common/RoleGuard";
 import { appRoles } from "@/lib/sso/authConfig";
+import {FormAddNews} from "@/components/base/news/FormAddNews";
 
 export default function NewsPage() {
 	return (
@@ -18,7 +18,7 @@ export default function NewsPage() {
 				>
 					<RoleGuard roles={[appRoles.Admin, appRoles.BDUser]}>
 						<div className="flex items-center justify-center w-1/2 h-full">
-							<ModalAddNews />
+							<FormAddNews />
 						</div>
 					</RoleGuard>
 				</TopBanner>
