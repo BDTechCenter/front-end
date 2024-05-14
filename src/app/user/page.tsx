@@ -1,3 +1,4 @@
+import { useSearchParams } from "next/navigation";
 import NavBar from "@/components/base/common/NavBar";
 import TopBanner from "@/components/base/common/TopBanner";
 import {
@@ -12,7 +13,6 @@ import { LinkFilterNewsUser } from "@/components/base/user/LinkFilterNewsUser";
 import { RoleGuard } from "@/components/base/common/RoleGuard";
 import { appRoles } from "@/lib/sso/authConfig";
 import { CommentsUserList } from "@/components/base/user/CommentsUserList";
-import { useSearchParams } from "next/navigation";
 
 export default function User() {
 	return (

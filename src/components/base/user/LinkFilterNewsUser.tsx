@@ -1,20 +1,18 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 
 export function LinkFilterNewsUser() {
 	const searchParams = useSearchParams();
-
 
 	const filterNews = searchParams.get("news")
 	const status = filterNews ? filterNews : 'published'
 	const [nameButton, setNameButton] = useState('Error');
 
 	useEffect(() => {
-
 		if(status === "published"){
 			setNameButton('archived')
 		}
@@ -22,7 +20,7 @@ export function LinkFilterNewsUser() {
 			setNameButton('published')
 		}
 
-	}, [searchParams]);
+	}, [searchParams, status]);
 	
 
 	return (

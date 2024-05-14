@@ -1,3 +1,4 @@
+import { IoMenu } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 import {
 	Popover,
@@ -5,7 +6,6 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 import { FormUpdateNews } from "./FormUpdateNews";
-import { IoMenu } from "react-icons/io5";
 import { AlertArchiveNews } from "./AlertArchiveNews";
 import { AlertPublishedNews } from "./AlertPublishNews";
 

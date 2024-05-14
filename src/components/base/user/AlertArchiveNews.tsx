@@ -1,6 +1,6 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { getUserNews, useMutationPatchArchive } from "@/api/hooks/user/queries";
 import AlertLayout from "../common/AlertLayout";
-import { useQueryClient } from "@tanstack/react-query";
 
 interface AlertDeleteNewsProps {
 	id: string;

@@ -1,13 +1,13 @@
-import { ContentComment, ContentNews, News } from "@/api/types/news/type";
-import api from "@/services/api";
+import { title } from "process";
 import {
 	QueryFunctionContext,
 	useMutation,
 	useQuery,
 	useQueryClient,
 } from "@tanstack/react-query";
-import { title } from "process";
 import toast from "react-hot-toast";
+import { ContentComment, ContentNews, News } from "@/api/types/news/type";
+import api from "@/services/api";
 import { getIdNews } from "../news/queries";
 
 // News

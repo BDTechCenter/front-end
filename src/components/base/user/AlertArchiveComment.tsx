@@ -1,9 +1,9 @@
+import { useQueryClient } from "@tanstack/react-query";
 import {
 	getUserComments,
 	useMutationPatchDelete,
 } from "@/api/hooks/user/queries";
 import AlertLayout from "../common/AlertLayout";
-import { useQueryClient } from "@tanstack/react-query";
 
 interface AlertDeleteCommentProps {
 	id: number;

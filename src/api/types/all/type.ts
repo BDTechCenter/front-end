@@ -1,6 +1,6 @@
+import { title } from "process";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { ReadonlyURLSearchParams } from "next/navigation";
-import { title } from "process";
 
 export interface Error {
 	text: string;

@@ -1,8 +1,8 @@
+import { FaTrashCan } from "react-icons/fa6";
 import { CommentType } from "@/api/types/news/type";
+import { cn } from "@/lib/utils";
 import LikeUpvote from "../news/LikeUpvote";
 import { MarkdownRenderer } from "./MarkdownRenderer";
-import { cn } from "@/lib/utils";
-import { FaTrashCan } from "react-icons/fa6";
 import { AlertArchiveComment } from "../user/AlertArchiveComment";
 
 interface CommentProps {

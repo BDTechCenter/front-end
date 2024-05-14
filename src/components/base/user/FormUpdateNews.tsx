@@ -1,13 +1,13 @@
+import { useState } from "react";
+import { z } from "zod";
 import { getIdNews, useFetchGetNewsId } from "@/api/hooks/news/queries";
 import { msalInstance } from "@/lib/sso/msalInstance";
 import { newsSchema } from "@/types/schemas/newsShema";
-import { useState } from "react";
-import { z } from "zod";
-import { FormNewsLayout } from "../common/FormNewsLayout";
 import { getUserNews, useMutationPatchNews } from "@/api/hooks/user/queries";
-import { AlertUpdateNews } from "./AlertUpdateNews";
 import { queryClient } from "@/services/queryClient";
 import { resizeFile } from "@/lib/utils";
+import { FormNewsLayout } from "../common/FormNewsLayout";
+import { AlertUpdateNews } from "./AlertUpdateNews";
 
 interface FormNewsLayoutProps {
 	id: string;

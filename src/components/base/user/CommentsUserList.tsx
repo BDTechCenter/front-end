@@ -1,17 +1,17 @@
 "use client";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useFetchGetUserComments } from "@/api/hooks/user/queries";
-import CommentSkeleton from "../skeleton/CommentSkeleton";
 import {
 	Carousel,
 	CarouselContent,
-	CarouselPrevious,
 	CarouselNext,
+	CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Error } from "@/api/types/all/type";
+import CommentSkeleton from "../skeleton/CommentSkeleton";
 import ImageError from "../common/ImageError";
 import Comment from "../common/Comment";
-import { Error } from "@/api/types/all/type";
-import { useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
 
 export interface CommentsUserListProps {
 	messageError: Error;

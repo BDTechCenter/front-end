@@ -3,11 +3,11 @@
 import { z } from "zod";
 import { useState } from "react";
 import { useMutationPostNews } from "@/api/hooks/news/queries";
-import { FormNewsLayout } from "../common/FormNewsLayout";
 import { msalInstance } from "@/lib/sso/msalInstance";
 import { newsSchema } from "@/types/schemas/newsShema";
-import { AlertAddNews } from "./AlertAddNews";
 import { resizeFile } from "@/lib/utils";
+import { AlertAddNews } from "./AlertAddNews";
+import { FormNewsLayout } from "../common/FormNewsLayout";
 
 export function FormAddNews() {
 	const [open, setOpen] = useState(false);
