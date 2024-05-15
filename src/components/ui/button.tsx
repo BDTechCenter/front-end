@@ -10,10 +10,9 @@ const buttonVariants = cva(
 		variants: {
 			variant: {
 				default: "bg-primary text-primary-foreground hover:bg-accent",
-				bdlight: "bg-white text-bdpurple transition hover:bg-accent",
-				bdpurple: "bg-bdpurple text-white transition hover:bg-accent",
-				outline:
-				"bg-[#ddd] rounded-sm hover:bg-bdpurple/80 hover:text-white",
+				bdlight: "bg-white text-bdpurple transition hover:opacity-70",
+				bdpurple: "bg-bdpurple text-white transition hover:opacity-70",
+				outline: "bg-[#ddd] rounded-sm hover:bg-bdpurple/80 hover:text-white",
 				ghost: "rounded-sm bg-bdpurple text-white",
 			},
 			size: {
