@@ -4,19 +4,20 @@ import { cn } from "@/lib/utils";
 
 const badgeTypes = {
 	all: "bg-zinc-500 border-zinc-500",
-	adopt: "bg-green-500 border-green-500",
-	trial: "bg-amber-500 border-amber-500",
-	assess: "bg-cyan-500 border-cyan-500",
-	hold: "bg-red-500 border-red-500",
+	adopt: "bg-bdgreen border-bdgreen",
+	trial: "bg-bdblue border-bdblue",
+	observe: "bg-bdlightpurple border-bdlightpurple",
+	hold: "bg-bdpurple border-bdpurple",
 };
 
 interface BadgeProps extends VariantProps<typeof badgeVariants> {
 	children: ReactNode;
+	className?: string;
 	type: keyof typeof badgeTypes | string;
 }
 
 const badgeVariants = cva(
-	"text-white font-semibold box-border px-4 py-1 uppercase align-middle my-0 mx-auto overflow-hidden border border-zinc-400",
+	"text-white font-semibold box-border px-4 py-1 uppercase align-middle my-auto mx-auto overflow-hidden border border-zinc-400",
 	{
 		variants: {
 			lg: {
@@ -30,12 +31,14 @@ const badgeVariants = cva(
 	}
 );
 
-export default function Badge({ type, lg, children }: BadgeProps) {
+export default function Badge({ type, lg, children, className }: BadgeProps) {
 	return (
 		<span
 			className={cn(
 				badgeVariants({ lg }),
-				badgeTypes[type as keyof typeof badgeTypes], "h-8"
+				badgeTypes[type as keyof typeof badgeTypes],
+				className,
+				"h-8 select-none"
 			)}
 		>
 			{children}

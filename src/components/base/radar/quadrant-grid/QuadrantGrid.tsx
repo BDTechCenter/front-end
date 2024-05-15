@@ -1,16 +1,17 @@
-"use client"
+"use client";
+
 import { Group } from "@/api/types/radar";
 import {
 	useFetchGetItemsRadar,
 	useFetchGetQuadrants,
 } from "@/api/hooks/radar/queries";
-import QuadrantSection from "./QuadrantSection";
+import { QuadrantSection } from "./QuadrantSection";
 import { groupByQuadrants } from "../utils";
 
 const renderQuadrant = (
 	quadrantName: string,
 	quadrantId: string,
-	groups: Group,
+	groups: Group
 ) => {
 	return (
 		<div

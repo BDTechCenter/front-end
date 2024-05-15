@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Group, Quadrant } from "@/api/types/radar";
+import { Group } from "@/api/types/radar";
 import { chartRings } from "@/services/radarConstants";
+import { cn } from "@/lib/utils";
 import ItemList from "./ItemList";
 import Badge from "./Badge";
 import Flag from "./Flag";
@@ -9,7 +10,8 @@ const renderList = (
 	ringName: string,
 	quadrantId: string,
 	groups: Group,
-	big: boolean
+	big: boolean,
+	white?: boolean
 ) => {
 	const itemsInRing = groups[quadrantId][ringName] || [];
 
@@ -31,11 +33,16 @@ const renderList = (
 			{itemsInRing.map((item) => (
 				<span key={item.id} className="block mb-3">
 					<Link
-						className="text-black text-base pointer hover:opacity-75"
-						href={`${item.quadrantId}/${item.title.toLowerCase()}`}
+						className={cn(
+							"text-base pointer transition-colors",
+							!white
+								? "text-foreground hover:text-foreground/50"
+								: "text-white hover:text-white/50"
+						)}
+						href={`/tech-radar/${item.quadrantId}/${item.id}`}
 					>
 						{item.title}
-						{/* <Flag item={item} short /> */}
+						<Flag item={item} short={!white} />
 					</Link>
 				</span>
 			))}
@@ -43,11 +50,12 @@ const renderList = (
 	);
 };
 
-const renderRing = (
+export const renderRing = (
 	ringName: string,
 	quadrantId: string,
 	groups: Group,
-	big: boolean
+	big: boolean,
+	white?: boolean
 ) => {
 	if (
 		!groups[quadrantId] ||
@@ -59,14 +67,14 @@ const renderRing = (
 	return (
 		<div
 			key={ringName}
-			className="box-border px-2 flex-[0_0_25%] mb-6 max-md:basis-1/2"
+			className={cn("box-border px-2 flex mb-6 max-md:basis-1/2", )}
 		>
-			{renderList(ringName, quadrantId, groups, big)}
+			{renderList(ringName, quadrantId, groups, big, white)}
 		</div>
 	);
 };
 
-export default function QuadrantSection({
+export function QuadrantSection({
 	quadrantTitle,
 	quadrantId,
 	groups,
@@ -88,7 +96,7 @@ export default function QuadrantSection({
 					</div>
 				</div>
 			</div>
-			<div className="flex flex-wrap gap-5">
+			<div className="flex flex-wrap gap-7">
 				{chartRings.map((ringName: string) =>
 					renderRing(ringName, quadrantId, groups, big)
 				)}

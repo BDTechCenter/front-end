@@ -28,7 +28,7 @@ export default function Item({
 					"is-active": active,
 				}
 			)}
-			href={`${item.quadrantId}/${item.title}`}
+			href={`/tech-radar/${item.quadrantId}/${item.id}`}
 			style={style}
 		>
 			<div

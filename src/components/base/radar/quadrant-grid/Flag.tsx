@@ -24,8 +24,9 @@ export default function Flag({
 		return (
 			<span
 				className={cn(
-					"text-xs py-1 px-2 relative rounded-full align-middle left-2 text-black",
-					item.flag === FlagType.new ? "bg-red-500" : "bg-cyan-500"
+					"text-xs py-1 px-2 relative rounded-full align-middle left-2 select-none",
+					item.flag === FlagType.new && "bg-cyan-500 text-white",
+					item.flag === FlagType.changed && "bg-amber-500 text-black"
 				)}
 				title={title}
 			>
