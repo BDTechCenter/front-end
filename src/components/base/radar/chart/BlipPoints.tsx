@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { ScaleLinear } from "d3";
 import Link from "next/link";
 import { Blip, FlagType, Item, Point, Quadrant } from "@/api/types/radar";
@@ -54,18 +54,18 @@ function renderBlip(blip: Blip, index: number): JSX.Element {
 		className: "blip",
 		fill: blip.color,
 		"data-tooltip-id": "blip",
-		tooltipBg: blip.color,
-		tooltipTxtColor: blip.txtColor,
+		tooltipbg: blip.color,
+		tooltiptxtcolor: blip.txtColor,
 		"data-tooltip-content": blip.title,
-		key: index,
 	};
+
 	switch (blip.flag) {
 		case FlagType.new:
-			return <NewBlip {...props} />;
+			return <NewBlip key={index} {...props} />;
 		case FlagType.changed:
-			return <ChangedBlip {...props} />;
+			return <ChangedBlip key={index} {...props} />;
 		default:
-			return <DefaultBlip {...props} />;
+			return <DefaultBlip key={index} {...props} />;
 	}
 }
 
@@ -80,13 +80,11 @@ export default function BlipPoints({
 }) {
 	const { data: items } = useFetchGetItemsRadar();
 
-	console.log("Items: ", items);
-	
 	const blips: Blip[] | undefined = items?.reduce(
 		(list: Blip[], item: Item) => {
 			if (!item.ring || !item.quadrantId) {
 				console.log("Missing");
-				
+
 				// skip the blip if it doesn't have a ring or quadrant assigned
 				return list;
 			}
@@ -107,8 +105,6 @@ export default function BlipPoints({
 				coordinates: { x: 0, y: 0 },
 			};
 
-			console.log("BLIP:", blip);
-			
 			let point: Point;
 			let counter = 1;
 			let distanceBetweenCheck: boolean;
@@ -144,7 +140,7 @@ export default function BlipPoints({
 	return (
 		<g className="blips">
 			{blips?.map((blip, index) => (
-				<Link href={`${blip.quadrantId}/${blip.title.toLowerCase()}`} key={index}>
+				<Link href={`/tech-radar/${blip.quadrantId}/${blip.id}`} key={index}>
 					{renderBlip(blip, index)}
 				</Link>
 			))}

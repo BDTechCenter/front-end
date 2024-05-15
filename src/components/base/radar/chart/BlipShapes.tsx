@@ -5,8 +5,8 @@ interface VisualBlipProps {
 	className: string;
 	fill: string;
 	"data-tooltip-id": string;
-	tooltipBg: string;
-	tooltipTxtColor: string;
+	tooltipbg: string;
+	tooltiptxtcolor: string;
 	"data-tooltip-content": string;
 	key: number;
 }
