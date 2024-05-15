@@ -6,7 +6,7 @@ import NavBar from "@/components/base/common/NavBar";
 
 export default function TechRadarPage() {
 	return (
-		<main className="">
+		<main>
 			<NavBar variant="black" />
 			<TopBanner
 				text="Tech Radar - BD/INN"

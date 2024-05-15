@@ -13,7 +13,7 @@ import { getInitials } from "@/lib/utils";
 
 export default function UserAvatar() {
 	const { instance, inProgress } = useMsal();
-	const [imageUrl, setImageUrl] = useState<string | undefined>("");
+	const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
 	const [fallback, setFallback] = useState<string | undefined>("");
 
 	const account = instance.getActiveAccount();
