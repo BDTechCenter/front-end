@@ -67,7 +67,7 @@ interface Rings {
   all: string;
   adopt: string;
   trial: string;
-  assess: string;
+  observe: string;
   hold: string;
 }
 
