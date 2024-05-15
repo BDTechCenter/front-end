@@ -58,6 +58,8 @@ const config = {
         bdgray: "#F6F6F6",
 				bdpurple: "#7A2572",
 				bdlightpurple: "#C438B7",
+        bdblue: "#007BC0",
+        bdgreen: "#18837E"
       },
       borderRadius: {
         lg: "var(--radius)",
