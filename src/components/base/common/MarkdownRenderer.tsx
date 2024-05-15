@@ -29,7 +29,7 @@ export function MarkdownRenderer({
 					);
 				},
 			}}
-			className="overflow-hidden text-sm leading-7 text-justify"
+			className="flex flex-col gap-5 text-justify text-base overflow-hidden leading-7"
 		>
 			{markdown}
 		</Markdown>

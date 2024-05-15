@@ -17,7 +17,7 @@ import {
 	UpvoteNews,
 } from "@/api/types/news/type";
 import { usefilter } from "@/services/filter";
-import api from "../../../services/api";
+import { apiNews } from "../../../services/api";
 
 // News
 // GET News w/ Filter
@@ -53,7 +53,7 @@ export function useFetchGetNewsScroll(tags?: string, title?: string) {
 // GET News By ID
 export async function getIdNews(ctx: QueryFunctionContext) {
 	const [, id] = ctx.queryKey;
-	const { data } = await api.get<News>(`news/${id}`);
+	const { data } = await apiNews.get<News>(`news/${id}`);
 	return data;
 }
 
@@ -76,7 +76,7 @@ export function useFetchGetNewsIdRefetch(id: string) {
 
 // GET Other News
 async function getNewsOtherNews() {
-	const { data } = await api.get<ContentNews>(
+	const { data } = await apiNews.get<ContentNews>(
 		"news/preview?size=3&sortBy=relevance"
 	);
 	return data;
@@ -91,7 +91,7 @@ export function useFetchGetNewsOtherNews() {
 
 // POST A News
 async function postNews(newsObject: FormData) {
-	const promise = api.post<News>("news", newsObject, {
+	const promise = apiNews.post<News>("news", newsObject, {
 		headers: {
 			"Content-Type": "multipart/form-data",
 		},
@@ -129,7 +129,7 @@ export function useMutationPostNews() {
 // GET Comments By ID
 async function getIdCommentNews(ctx: QueryFunctionContext) {
 	const [, id] = ctx.queryKey;
-	const { data } = await api.get<ContentComment>(`comments/${id}`);
+	const { data } = await apiNews.get<ContentComment>(`comments/${id}`);
 	return data.content;
 }
 
@@ -143,7 +143,9 @@ export function useFetchGetCommentNewsId(id: string) {
 //Upvote
 //PATCH News
 export async function patchUpvote(patchUpvote: UpvoteNews) {
-	const promise = api.patch(`${patchUpvote.method}/${patchUpvote.id}/upvote`);
+	const promise = apiNews.patch(
+		`${patchUpvote.method}/${patchUpvote.id}/upvote`
+	);
 
 	return await promise;
 }
@@ -162,7 +164,7 @@ async function postComment({
 	comment: CommentPostType;
 	id: string;
 }) {
-	const promise = api.post(`comments/${id}`, comment);
+	const promise = apiNews.post(`comments/${id}`, comment);
 
 	toast.promise(promise, {
 		loading: "Adding Comment",

@@ -97,6 +97,10 @@ const navLinks: navLinksProps[] = [
 		href: "/news",
 	},
 	{
+		name: "Tech Radar",
+		href: "/tech-radar",
+	},
+	{
 		name: "Bosch Tube",
 		href: "https://bosch.mediaspace.de.kaltura.com/channel/BD-Innovation/22606",
 		external: true,

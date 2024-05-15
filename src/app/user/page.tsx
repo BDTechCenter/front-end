@@ -1,12 +1,7 @@
 import { useSearchParams } from "next/navigation";
 import NavBar from "@/components/base/common/NavBar";
 import TopBanner from "@/components/base/common/TopBanner";
-import {
-	Carousel,
-	CarouselContent,
-	CarouselNext,
-	CarouselPrevious,
-} from "@/components/ui/carousel";
+
 import NewsUserList from "@/components/base/user/NewsUserList";
 import Footer from "@/components/base/common/Footer";
 import { LinkFilterNewsUser } from "@/components/base/user/LinkFilterNewsUser";
