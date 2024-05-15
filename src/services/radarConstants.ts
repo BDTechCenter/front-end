@@ -22,4 +22,4 @@ export const chartConfig = {
 	],
 };
 
-export const chartRings = ["ADOPT", "TRIAL", "ASSESS", "HOLD"];
+export const chartRings = ["ADOPT", "TRIAL", "OBSERVE", "HOLD"];
