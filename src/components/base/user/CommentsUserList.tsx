@@ -1,32 +1,31 @@
 "use client";
-import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Error } from "@/api/types/all/type";
-import { useFetchGetUserNews } from "@/api/hooks/user/queries";
+import { useEffect, useState } from "react";
+import { useFetchGetUserComments } from "@/api/hooks/user/queries";
 import {
 	Carousel,
 	CarouselContent,
-	CarouselItem,
 	CarouselNext,
 	CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Error } from "@/api/types/all/type";
+import CommentSkeleton from "../skeleton/CommentSkeleton";
 import ImageError from "../common/ImageError";
-import NewsCard from "../common/NewsCard";
-import { NewsCardSkeleton } from "../skeleton/NewsCardSkeleton";
+import Comment from "../common/Comment";
 
-export interface NewsListProps {
+export interface CommentsUserListProps {
 	messageError: Error;
 	messageNotFound: Error;
 }
 
-export default function NewsUserList({
+export function CommentsUserList({
 	messageError,
 	messageNotFound,
-}: NewsListProps) {
+}: CommentsUserListProps) {
+	const { isLoading, isError, data } = useFetchGetUserComments();
 	const searchParams = useSearchParams();
 	const filterNews = searchParams.get("news");
 	const status = filterNews ? filterNews : "published";
-	const { isLoading, isError, data } = useFetchGetUserNews(status);
 	const [title, setTitle] = useState("Error");
 
 	useEffect(() => {
@@ -41,17 +40,19 @@ export default function NewsUserList({
 		}
 	}, [searchParams, status]);
 
-	const newsUserCards = () => {
+	const commentUserCards = () => {
 		return data?.content.length !== 0 && data ? (
 			<div className="flex flex-col w-full">
-				<h1 className="text-xl font-medium">News {title}!</h1>
+				<h1 className="text-xl font-medium">Comments {title}!</h1>
 				<div className="w-full">
 					<Carousel>
-						<CarouselContent>
-							{data.content.map((news) => (
-								<CarouselItem key={news.id} className="basis-1/3">
-									<NewsCard variant="userNews" data={news} />
-								</CarouselItem>
+						<CarouselContent className="p-4 gap-5">
+							{data.content.map((comment) => (
+								<Comment
+									key={comment.id}
+									data={comment}
+									variant="userComment"
+								/>
 							))}
 						</CarouselContent>
 						<CarouselPrevious />
@@ -69,9 +70,9 @@ export default function NewsUserList({
 	if (isLoading) {
 		return (
 			<div className="relative grid grid-cols-2 sm:grid-cols-3 gap-5 2xl:gap-7">
-				<NewsCardSkeleton />
-				<NewsCardSkeleton />
-				<NewsCardSkeleton />
+				<CommentSkeleton />
+				<CommentSkeleton />
+				<CommentSkeleton />
 			</div>
 		);
 	}
@@ -85,7 +86,7 @@ export default function NewsUserList({
 	}
 
 	if (data) {
-		return newsUserCards();
+		return status !== "archived" ? commentUserCards() : <></>;
 	}
 
 	return null;

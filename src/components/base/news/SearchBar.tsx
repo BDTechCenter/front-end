@@ -18,7 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { searchSchema } from "@/types/schemas/newsShema";
 import { UpdateUrlFilter } from "@/services/filter";
-import ModalFilter from "../modal/ModalFilter";
+import ModalFilter from "./ModalFilter";
 
 export default function SearchBar() {
 	const searchParams = useSearchParams();

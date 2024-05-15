@@ -31,7 +31,7 @@ const teamData = [
 	{
 		name: "Luís Beck",
 		img: "https://github.com/luishbeck.png",
-		function: "Back-End",
+		function: "Back-End | Devops",
 		url: "https://github.com/luishbeck",
 	},
 	{

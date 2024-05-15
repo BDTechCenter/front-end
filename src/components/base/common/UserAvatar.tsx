@@ -38,7 +38,7 @@ export default function UserAvatar() {
 	}, [inProgress, instance, imageUrl, account?.name]);
 
 	return (
-		<Link href="/user">
+		<Link href="/user?news=published">
 			<Avatar>
 				<AvatarImage
 					className="size-full rounded-full"

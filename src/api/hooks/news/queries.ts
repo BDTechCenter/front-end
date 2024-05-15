@@ -26,14 +26,13 @@ async function getNewsFilterScroll(ctx: QueryFunctionContext) {
 	const pageParam = ctx.pageParam;
 	const filterParam = usefilter({ filters: { tags, title } });
 
-	const url = tags || title ? `${filterParam}` : "";
-
-	const { data } = await apiNews.get<ContentNews>(`news/preview?size=9${url}`, {
+	const url = tags || title ? `${filterParam}` : undefined;
+	const { data } = await api.get<ContentNews>(`news/preview?size=9${url}`, {
 		params: {
 			page: pageParam,
 		},
 	});
-
+	console.log(data)
 	return data;
 }
 
@@ -52,7 +51,7 @@ export function useFetchGetNewsScroll(tags?: string, title?: string) {
 }
 
 // GET News By ID
-async function getIdNews(ctx: QueryFunctionContext) {
+export async function getIdNews(ctx: QueryFunctionContext) {
 	const [, id] = ctx.queryKey;
 	const { data } = await apiNews.get<News>(`news/${id}`);
 	return data;
@@ -62,6 +61,16 @@ export function useFetchGetNewsId(id: string) {
 	return useQuery<News, Error>({
 		queryKey: ["newsRead", id],
 		queryFn: getIdNews,
+	});
+}
+
+
+export function useFetchGetNewsIdRefetch(id: string) {
+	return useQuery<News, Error>({
+		queryKey: ["newsRead", id],
+		queryFn: getIdNews,
+		enabled: false,
+		refetchOnWindowFocus: false
 	});
 }
 

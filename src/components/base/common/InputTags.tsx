@@ -1,4 +1,9 @@
-import { forwardRef, ForwardRefRenderFunction, useState } from "react";
+import {
+	forwardRef,
+	ForwardRefRenderFunction,
+	useEffect,
+	useState,
+} from "react";
 import { IoMdClose } from "react-icons/io";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
@@ -7,15 +12,16 @@ import { cn } from "@/lib/utils";
 
 export interface InputTagsProps {
 	variant: "wrap" | "row";
+	valueList?: string[]
 	onChange: (value: string[]) => void;
 }
 
 const InputTags: ForwardRefRenderFunction<HTMLInputElement, InputTagsProps> = (
-	{ variant, onChange },
+	{ variant, onChange, valueList },
 	ref
 ) => {
 	const [value, setValue] = useState("");
-	const [tags, setTags] = useState<string[]>([]);
+	const [tags, setTags] = useState<string[]>(valueList? valueList : []);
 	const MaxTegs = 7;
 
 	const errorToast = () => {
@@ -23,6 +29,7 @@ const InputTags: ForwardRefRenderFunction<HTMLInputElement, InputTagsProps> = (
 	};
 
 	const addTags = () => {
+		console.log(valueList);
 		if (tags.length < MaxTegs && value !== "") {
 			setTags([...tags, value]);
 			onChange([...tags, value]);
@@ -36,6 +43,12 @@ const InputTags: ForwardRefRenderFunction<HTMLInputElement, InputTagsProps> = (
 		setTags([...tags.filter((_, i) => i !== index)]);
 		onChange([...tags.filter((_, i) => i !== index)]);
 	};
+
+	useEffect(() => {
+		if (!valueList) {
+			setTags([]);
+		}
+	}, [valueList]);
 
 	return (
 		<div>
@@ -61,7 +74,7 @@ const InputTags: ForwardRefRenderFunction<HTMLInputElement, InputTagsProps> = (
 					variant === "wrap" ? "flex-wrap" : "flex-row"
 				)}
 			>
-				{tags.map((tag, index) => (
+				{tags?.map((tag, index) => (
 					<span
 						className="flex gap-1 flex-row items-center p-2 rounded-sm border border-bdlightpurple/80"
 						key={index}
