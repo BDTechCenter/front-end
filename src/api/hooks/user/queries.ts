@@ -2,12 +2,10 @@ import {
 	QueryFunctionContext,
 	useMutation,
 	useQuery,
-	useQueryClient,
 } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { ContentComment, ContentNews, News } from "@/api/types/news/type";
-import api from "@/services/api";
-import { getIdNews } from "../news/queries";
+import { apiNews as api } from "@/services/api";
 
 // News
 // GET user news
@@ -105,17 +103,15 @@ export function useMutationPatchPublish() {
 // GET user comments
 
 export async function getUserComments() {
-	const { data } = await api.get<ContentComment>(
-		`comments/author`
-	);
+	const { data } = await api.get<ContentComment>(`comments/author`);
 	return data;
 }
 
-export function useFetchGetUserComments(){
+export function useFetchGetUserComments() {
 	return useQuery<ContentComment, Error>({
 		queryKey: ["userComments"],
-		queryFn: getUserComments
-	})
+		queryFn: getUserComments,
+	});
 }
 
 async function patchDelete(id: number) {

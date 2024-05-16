@@ -5,7 +5,7 @@ import NewsList from "@/components/base/news/NewsList";
 import SearchBar from "@/components/base/news/SearchBar";
 import { RoleGuard } from "@/components/base/common/RoleGuard";
 import { appRoles } from "@/lib/sso/authConfig";
-import {FormAddNews} from "@/components/base/news/FormAddNews";
+import { FormAddNews } from "@/components/base/news/FormAddNews";
 
 export default function NewsPage() {
 	return (

@@ -58,7 +58,7 @@ export default function NewsCard({
 				</div>
 				<div className="flex flex-col group-hover:opacity-60 transition-all">
 					<p className="text-sm">{data.updateDate}</p>
-					<h1 className="font-bold text-md 2xl:text-lg">{data.title}</h1>
+					<h1 className="font-bold text-md truncate 2xl:text-lg">{data.title}</h1>
 				</div>
 			</Link>
 		</div>
