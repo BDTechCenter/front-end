@@ -67,10 +67,10 @@ export default function ModalAddComment({ newsId }: { newsId: string }) {
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle className="text-bdpurple">Create a News</DialogTitle>
+					<DialogTitle className="text-bdpurple">Create a Comment</DialogTitle>
 				</DialogHeader>
 				<Form {...form}>
-					<form onSubmit={form.handleSubmit(onSubmit)}>
+					<form className="flex flex-col gap-2" onSubmit={form.handleSubmit(onSubmit)}>
 						<FormField
 							control={form.control}
 							name="content"

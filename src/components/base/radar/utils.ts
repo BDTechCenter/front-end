@@ -28,7 +28,7 @@ export const groupByQuadrants = (items: Item[]): Group =>
 
 export const stylesMap = [
 	"top-0 left-0",
-	"top-0 right-0 items-end",
+	"top-0 right-0 text-right",
 	"bottom-0 left-0",
-	"bottom-0 right-0 items-end",
+	"bottom-0 right-0 text-right",
 ];
