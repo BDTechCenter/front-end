@@ -56,7 +56,7 @@ export function FormNewsLayout({ formData }: ModalCreateNewsProps) {
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
 				<Button
-					className=" border rounded-sm p-5 font-semibold text-lg"
+					className="border rounded-sm p-5 font-semibold text-lg"
 					variant={"bdlight"}
 				>
 					{formData.title}

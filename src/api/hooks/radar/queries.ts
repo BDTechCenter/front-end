@@ -1,6 +1,11 @@
-import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
+import {
+	QueryFunctionContext,
+	useMutation,
+	useQuery,
+} from "@tanstack/react-query";
 import { Item, ItemDetails, Quadrant, QuadrantItems } from "@/api/types/radar";
 import { apiRadar } from "@/services/api";
+import { ItemRadarValues } from "@/api/types/all/type";
 
 async function getQuadrants() {
 	const { data } = await apiRadar.get<Quadrant[]>("quadrants");
@@ -53,5 +58,17 @@ export function useFetchGetRadarQuadrantItem(id: string) {
 	return useQuery<QuadrantItems, Error>({
 		queryKey: ["quadrantItems", id],
 		queryFn: getRadarQuadrantItem,
+	});
+}
+
+async function postItemRadar(item: FormData) {
+	const { data } = await apiRadar.post<ItemRadarValues>("items", item);
+
+	return data;
+}
+
+export function useMutateItemsRadar() {
+	return useMutation({
+		mutationFn: postItemRadar,
 	});
 }

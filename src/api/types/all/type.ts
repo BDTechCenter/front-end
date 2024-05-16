@@ -1,7 +1,6 @@
-import { title } from "process";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { ReadonlyURLSearchParams } from "next/navigation";
-import { RingName } from "../radar";
+import { Expectation, QuadrantsID, RingName } from "../radar";
 
 export interface Error {
 	text: string;
@@ -48,10 +47,11 @@ interface NewsValues {
 	tags?: string[];
 }
 
-interface ItemRadarValues {
+export interface ItemRadarValues {
 	title?: string;
-	ring?: RingName
-	expectation?: string
+	ring?: RingName;
+	expectation?: Expectation;
+	quadrant?: QuadrantsID;
 	body?: string;
 }
 
@@ -69,4 +69,4 @@ export type FormTypeNews = FormType<NewsValues> & {
 	idNews?: string;
 };
 
-export type FormTypeItem = FormType<ItemRadarValues>
+export type FormTypeItem = FormType<ItemRadarValues>;

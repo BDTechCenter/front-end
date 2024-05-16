@@ -1,6 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
-import { stylesMap } from "../radar/utils";
 
 export default function RadarSkeleton() {
 	return (
@@ -21,3 +20,10 @@ export default function RadarSkeleton() {
 		</div>
 	);
 }
+
+export const stylesMap = [
+	"top-0 left-0",
+	"top-0 right-0 items-end",
+	"bottom-0 left-0",
+	"bottom-0 right-0 items-end",
+];

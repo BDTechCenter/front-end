@@ -12,10 +12,31 @@ export type ItemAttributes = {
 	tags?: string[];
 };
 
-export enum FlagType {
+export enum Flag {
 	new = "NEW",
 	changed = "CHANGED",
 	default = "DEFAULT",
+}
+
+export enum Expectation {
+	unknown = "UNKNOWN",
+	zero_two = "ZERO_TWO",
+	two_five = "TWO_FIVE",
+	five_ten = "FIVE_TEN",
+}
+
+export enum QuadrantsID {
+	first_quadrant = "FIRST_QUADRANT",
+	second_quadrant = "SECOND_QUADRANT",
+	third_quadrant = "THIRD_QUADRANT",
+	fourth_quadrant = "FOURTH_QUADRANT",
+}
+
+export enum RingName {
+	adopt = "ADOPT",
+	trial = "TRIAL",
+	observe = "OBSERVE",
+	hold = "HOLD",
 }
 
 export type ItemOld = ItemAttributes & {
@@ -24,13 +45,13 @@ export type ItemOld = ItemAttributes & {
 	bodyEn: string;
 	bodyEs: string;
 	info: string;
-	flag: FlagType;
+	flag: Flag;
 	revisions: Revision[];
 };
 
 export interface ItemDetails {
 	id: string;
-	flag: FlagType;
+	flag: Flag;
 	isActive: boolean;
 	authorEmail: string;
 	revisions: string[];
@@ -39,7 +60,7 @@ export interface ItemDetails {
 	publicationDate: null;
 	updateDate: string;
 	ring: string;
-	expectation: string;
+	expectation: Expectation;
 	quadrantId: string;
 	body: string;
 }
@@ -48,10 +69,10 @@ export interface Item {
 	id: string;
 	title: string;
 	ring: string;
-	expectation: string;
+	expectation: Expectation;
 	quadrantId: string;
 	isActive: boolean;
-	flag: FlagType;
+	flag: Flag;
 }
 
 export interface QuadrantItems {
@@ -151,15 +172,13 @@ export enum StorageKey {
 	language = "language",
 }
 
-export type RingName = "all" | "adopt" | "trial" | "observe" | "hold";
-
 export type BlipOld = Item & {
 	quadrantPosition: number;
 	ringPosition: number;
 	color: string;
 	txtColor: string;
 	coordinates: Point;
-	flag: FlagType;
+	flag: Flag;
 };
 
 export type Blip = Item & {
