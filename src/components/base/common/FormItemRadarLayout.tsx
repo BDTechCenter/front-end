@@ -1,3 +1,13 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+	Dialog,
+	DialogContent,
+	DialogTitle,
+	DialogTrigger,
+} from "@radix-ui/react-dialog";
+import { useEffect, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { z } from "zod";
 import { FormTypeItem } from "@/api/types/all/type";
 import { Button } from "@/components/ui/button";
 import { DialogFooter, DialogHeader } from "@/components/ui/dialog";
@@ -10,19 +20,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { itemRadarSchema } from "@/types/schemas/itemRadarShema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-	Dialog,
-	DialogContent,
-	DialogTitle,
-	DialogTrigger,
-} from "@radix-ui/react-dialog";
-import { useEffect, useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { z } from "zod";
+import { comboboxOpts } from "@/services/radarConstants";
 import InputTextEdit from "./InputTextEdit";
 import { Combobox } from "./Combobox";
-import { comboboxOpts } from "@/services/radarConstants";
 
 interface ModalCreateItemRadarProps {
 	formData: FormTypeItem;

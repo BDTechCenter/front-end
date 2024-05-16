@@ -2,6 +2,8 @@
 
 import { Check, ChevronsUpDown } from "lucide-react";
 
+import { ControllerRenderProps, UseFormReturn } from "react-hook-form";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,8 +18,6 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
-import { ControllerRenderProps, UseFormReturn } from "react-hook-form";
-import { useState } from "react";
 
 interface ICombobox {
 	title: string;

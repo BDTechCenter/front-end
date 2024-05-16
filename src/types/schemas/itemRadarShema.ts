@@ -1,5 +1,5 @@
-import { Expectation, QuadrantsID, RingName } from "@/api/types/radar";
 import { z } from "zod";
+import { Expectation, QuadrantsID, RingName } from "@/api/types/radar";
 
 export const itemRadarSchema = z.object({
 	title: z.string().max(30, { message: "Max characters of title is 30." }),
