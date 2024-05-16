@@ -21,14 +21,13 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { newsSchema } from "@/types/schemas/newsShema";
-import { FormType } from "@/api/types/all/type";
+import { FormTypeNews } from "@/api/types/all/type";
 import InputTextEdit from "./InputTextEdit";
 import ImageButton from "../news/ImageButton";
 import InputTags from "./InputTags";
-import { AlertUpdateNews } from "../user/AlertUpdateNews";
 
 interface ModalCreateNewsProps {
-	formData: FormType;
+	formData: FormTypeNews;
 }
 
 export function FormNewsLayout({ formData }: ModalCreateNewsProps) {
