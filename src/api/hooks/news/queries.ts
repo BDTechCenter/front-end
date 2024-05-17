@@ -13,7 +13,6 @@ import {
 	ContentComment,
 	ContentNews,
 	News,
-	QueryDataNews,
 	UpvoteNews,
 } from "@/api/types/news/type";
 import { usefilter } from "@/services/filter";
@@ -26,8 +25,9 @@ async function getNewsFilterScroll(ctx: QueryFunctionContext) {
 	const pageParam = ctx.pageParam;
 	const filterParam = usefilter({ filters: { tags, title } });
 
-	const url = tags || title ? `${filterParam}` : undefined;
-	const { data } = await api.get<ContentNews>(`news/preview?size=9${url}`, {
+	console.log(filterParam)
+	const url = tags || title ? `${filterParam}` : "";
+	const { data } = await apiNews.get<ContentNews>(`news/preview?size=9${url}`, {
 		params: {
 			page: pageParam,
 		},
