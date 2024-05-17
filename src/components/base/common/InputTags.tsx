@@ -65,7 +65,7 @@ const InputTags: ForwardRefRenderFunction<HTMLInputElement, InputTagsProps> = (
 					className="rounded-sm bg-bdpurple hover:bg-bdpurple/90"
 					onClick={addTags}
 				>
-					tag
+					Tag
 				</Button>
 			</div>
 			<div
