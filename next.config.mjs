@@ -8,7 +8,7 @@ const nextConfig = {
 			},
 			{
 				protocol: "http",
-				hostname: "10.234.90.77",
+				hostname: "*",
 			},
 			{
 				protocol: "http",
