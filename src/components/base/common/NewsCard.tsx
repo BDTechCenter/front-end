@@ -28,7 +28,7 @@ export default function NewsCard({
 	};
 
 	return (
-		<div className="relative">
+		<div className="relative mb-5">
 			{variant === "userNews" ? (
 				<div className="flex gap-1 relative justify-end items-center z-10 top-12 right-1">
 					<MenuPopoverEditNews id={data.id} isPublished={data.isPublished}/>
@@ -39,7 +39,7 @@ export default function NewsCard({
 			<Link
 				id="componentNewsTest"
 				href={href}
-				className="flex relative flex-col h-72 2xl:h-[28rem] gap-2 cursor-pointer group"
+				className="flex flex-col max-h-96 gap-2 cursor-pointer group"
 				onClick={handleClick}
 			>
 				<div
@@ -56,9 +56,9 @@ export default function NewsCard({
 						onError={() => setImg("/imageDefault.jpg")}
 					/>
 				</div>
-				<div className="flex flex-col group-hover:opacity-60 transition-all">
+				<div className="flex flex-col w-full group-hover:opacity-60 transition-all">
 					<p className="text-sm">{data.updateDate}</p>
-					<h1 className="font-bold text-md 2xl:text-lg">{data.title}</h1>
+					<h1 className="font-bold text-md 2xl:text-lg  truncate">{data.title}</h1>
 				</div>
 			</Link>
 		</div>

@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { ContentComment, ContentNews, News } from "@/api/types/news/type";
-import api from "@/services/api";
+import { apiNews } from "@/services/api"
 import { getIdNews } from "../news/queries";
 
 // News
@@ -14,7 +14,7 @@ import { getIdNews } from "../news/queries";
 export async function getUserNews(ctx: QueryFunctionContext) {
 	const [, status] = ctx.queryKey;
 	const filter = status === undefined ? "published" : status;
-	const { data } = await api.get<ContentNews>(`news/author?sortBy=${filter}`);
+	const { data } = await apiNews.get<ContentNews>(`news/author?sortBy=${filter}`);
 	return data;
 }
 
@@ -33,7 +33,7 @@ async function patchNews({
 	newsObject: FormData;
 	id: string;
 }) {
-	const promise = api.patch<News>(`news/${id}`, newsObject);
+	const promise = apiNews.patch<News>(`news/${id}`, newsObject);
 
 	toast.promise(promise, {
 		loading: "Updated news",
@@ -58,7 +58,7 @@ export function useMutationPatchNews() {
 // ARCHIVE user news
 
 async function patchArchive(id: string) {
-	const archive = api.patch<News>(`news/${id}/archive`);
+	const archive = apiNews.patch<News>(`news/${id}/archive`);
 
 	toast.promise(archive, {
 		loading: "Delete news",
@@ -74,7 +74,7 @@ async function patchArchive(id: string) {
 }
 
 async function patchPublish(id: string) {
-	const publish = api.patch<News>(`news/${id}/publish`);
+	const publish = apiNews.patch<News>(`news/${id}/publish`);
 
 	toast.promise(publish, {
 		loading: "Publish news",
@@ -105,7 +105,7 @@ export function useMutationPatchPublish() {
 // GET user comments
 
 export async function getUserComments() {
-	const { data } = await api.get<ContentComment>(
+	const { data } = await apiNews.get<ContentComment>(
 		`comments/author`
 	);
 	return data;
@@ -119,7 +119,7 @@ export function useFetchGetUserComments(){
 }
 
 async function patchDelete(id: number) {
-	const deleteComment = api.delete(`comments/${id}`);
+	const deleteComment = apiNews.delete(`comments/${id}`);
 
 	toast.promise(deleteComment, {
 		loading: "Delete Comment",

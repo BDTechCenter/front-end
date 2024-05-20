@@ -53,6 +53,7 @@
     "rehype-raw": "^7.0.0",
     "remark-disable-tokenizers": "^1.1.0",
     "remark-gfm": "^4.0.0",
+    "resizer": "^0.0.6",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4",
