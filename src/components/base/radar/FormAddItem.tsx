@@ -3,39 +3,40 @@
 import { useState } from "react";
 import { z } from "zod";
 import { itemRadarSchema } from "@/types/schemas/itemRadarShema";
+import { useMutateItemsRadar } from "@/api/hooks/radar/queries";
 import { FormItemRadarLayout } from "../common/FormItemRadarLayout";
 import AlertLayout from "../common/AlertLayout";
 
 export function FormAddItem() {
 	const [open, setOpen] = useState(false);
+	const { mutateAsync } = useMutateItemsRadar();
 
 	const ItemRadarObject = async (values: z.infer<typeof itemRadarSchema>) => {
-		const formData = new FormData();
-		formData.append("isActive", "true");
-		formData.append("title", values.title);
-		formData.append("quadrant", values.quadrant);
-		formData.append("ring", values.ring);
-		formData.append("expectation", values.expectation);
-		formData.append("body", values.body);
+		const techData = {
+			isActive: true,
+			title: values.title,
+			quadrant: values.quadrant,
+			ring: values.ring,
+			expectation: values.expectation,
+			body: values.body,
+		};
 
-		return formData;
+		return techData;
 	};
 
 	async function onSubmitForm(values: z.infer<typeof itemRadarSchema>) {
-		const itemFormData = await ItemRadarObject(values);
+		const itemData = await ItemRadarObject(values);
 
 		console.log("Log: ", values);
-		console.log("itemRadar: ", itemFormData);
 
-		// await mutateAsync(newsFormData).then(() => setOpen(false));
-    setOpen(false)
+		await mutateAsync(itemData).then(() => setOpen(false));
 	}
 
 	return (
 		<FormItemRadarLayout
 			formData={{
 				open: open,
-				title: "Add Item For Radar",
+				title: "Add Tech",
 				idForm: "formAddItemRadar",
 				OnSubmit: onSubmitForm,
 				alertSubmit: <AlertAddNews idForm="formAddItemRadar" />,

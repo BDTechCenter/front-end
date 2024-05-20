@@ -39,16 +39,6 @@ export enum RingName {
 	hold = "HOLD",
 }
 
-export type ItemOld = ItemAttributes & {
-	featured: boolean;
-	bodyPt: string;
-	bodyEn: string;
-	bodyEs: string;
-	info: string;
-	flag: Flag;
-	revisions: Revision[];
-};
-
 export interface ItemDetails {
 	id: string;
 	flag: Flag;
@@ -72,7 +62,16 @@ export interface Item {
 	expectation: Expectation;
 	quadrantId: string;
 	isActive: boolean;
-	flag: Flag;
+	flag?: Flag;
+}
+
+export interface ItemObj {
+	isActive: boolean;
+	title: string;
+	quadrant: QuadrantsID;
+	ring: RingName;
+	expectation: Expectation;
+	body: string;
 }
 
 export interface QuadrantItems {

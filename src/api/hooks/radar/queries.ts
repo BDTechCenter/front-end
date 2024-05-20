@@ -2,10 +2,11 @@ import {
 	QueryFunctionContext,
 	useMutation,
 	useQuery,
+	useQueryClient,
 } from "@tanstack/react-query";
-import { Item, ItemDetails, Quadrant, QuadrantItems } from "@/api/types/radar";
+import toast from "react-hot-toast";
+import { Item, ItemDetails, ItemObj, Quadrant, QuadrantItems } from "@/api/types/radar";
 import { apiRadar } from "@/services/api";
-import { ItemRadarValues } from "@/api/types/all/type";
 
 async function getQuadrants() {
 	const { data } = await apiRadar.get<Quadrant[]>("quadrants");
@@ -61,14 +62,34 @@ export function useFetchGetRadarQuadrantItem(id: string) {
 	});
 }
 
-async function postItemRadar(item: FormData) {
-	const { data } = await apiRadar.post<ItemRadarValues>("items", item);
+async function postItemRadar(item: ItemObj) {
+	const promise = apiRadar.post<ItemDetails>("items", item);
 
-	return data;
+	toast.promise(promise, {
+		loading: "Adding tech",
+		success: "Tech added with success",
+		error: (error) => {
+			console.log(error);
+
+			return error.response.data
+				? `${error.message}:\n${error.response.data.message}`
+				: `${error.message}`;
+		},
+	});
+
+	return await promise;
 }
 
 export function useMutateItemsRadar() {
+	const queryClient = useQueryClient();
+
 	return useMutation({
 		mutationFn: postItemRadar,
+		onSuccess: () => {
+			queryClient.invalidateQueries({
+				queryKey: ["itemsQuadrant"],
+				refetchType: "active",
+			});
+		},
 	});
 }

@@ -1,8 +1,8 @@
-import { Flag } from "@/api/types/radar";
+import { Flag as FlagType } from "@/api/types/radar";
 import { cn } from "@/lib/utils";
 
 interface ItemFlag {
-	flag: Flag;
+	flag: FlagType;
 }
 
 export default function Flag({
@@ -14,7 +14,7 @@ export default function Flag({
 }) {
 	const ucFirst = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
-	if (item.flag !== Flag.default) {
+	if (item.flag !== FlagType.default) {
 		let name = String(item.flag);
 		let title = ucFirst(item.flag);
 		if (short === true) {
@@ -25,8 +25,8 @@ export default function Flag({
 			<span
 				className={cn(
 					"text-xs py-1 px-2 relative rounded-full align-middle left-2 select-none",
-					item.flag === Flag.new && "bg-cyan-500 text-white",
-					item.flag === Flag.changed && "bg-amber-500 text-black"
+					item.flag === FlagType.new && "bg-cyan-500 text-white",
+					item.flag === FlagType.changed && "bg-amber-500 text-black"
 				)}
 				title={title}
 			>

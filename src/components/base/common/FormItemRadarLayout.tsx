@@ -1,17 +1,20 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-	Dialog,
-	DialogContent,
-	DialogTitle,
-	DialogTrigger,
-} from "@radix-ui/react-dialog";
+
 import { useEffect, useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { FormTypeItem } from "@/api/types/all/type";
 import { Button } from "@/components/ui/button";
-import { DialogFooter, DialogHeader } from "@/components/ui/dialog";
 import {
+	Dialog,
+	DialogContent,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+	Form,
 	FormControl,
 	FormField,
 	FormItem,
@@ -20,7 +23,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { itemRadarSchema } from "@/types/schemas/itemRadarShema";
-import { comboboxOpts } from "@/services/radarConstants";
 import InputTextEdit from "./InputTextEdit";
 import { Combobox } from "./Combobox";
 
@@ -30,6 +32,7 @@ interface ModalCreateItemRadarProps {
 
 export function FormItemRadarLayout({ formData }: ModalCreateItemRadarProps) {
 	const [open, setOpen] = useState(formData.open);
+
 	const form = useForm<z.infer<typeof itemRadarSchema>>({
 		defaultValues: {
 			title: formData.defaultValues?.title,
@@ -64,11 +67,11 @@ export function FormItemRadarLayout({ formData }: ModalCreateItemRadarProps) {
 						Create a Item For Radar
 					</DialogTitle>
 				</DialogHeader>
-				<FormProvider {...form}>
+				<Form {...form}>
 					<form
 						id={formData.idForm}
 						onSubmit={form.handleSubmit(formData.OnSubmit)}
-						className="flex gap-1 flex-col w-full justify-between overflow-y-scroll overflow-x-scroll p-2"
+						className="flex gap-3 flex-col w-full justify-between overflow-y-scroll overflow-x-scroll p-2"
 					>
 						<FormField
 							control={form.control}
@@ -78,8 +81,8 @@ export function FormItemRadarLayout({ formData }: ModalCreateItemRadarProps) {
 									<FormLabel className="font-medium text-md">Title</FormLabel>
 									<FormControl>
 										<Input
-											placeholder="Item title here..."
-											maxLength={100}
+											placeholder="Item title..."
+											maxLength={30}
 											{...field}
 										/>
 									</FormControl>
@@ -153,7 +156,7 @@ export function FormItemRadarLayout({ formData }: ModalCreateItemRadarProps) {
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel className="font-medium text-md w-full text-start">
-										Content
+										Description
 									</FormLabel>
 									<FormControl>
 										<InputTextEdit {...field} />
@@ -164,8 +167,65 @@ export function FormItemRadarLayout({ formData }: ModalCreateItemRadarProps) {
 						/>
 						<DialogFooter>{formData.alertSubmit}</DialogFooter>
 					</form>
-				</FormProvider>
+				</Form>
 			</DialogContent>
 		</Dialog>
 	);
 }
+
+export const comboboxOpts = {
+	ring: [
+		{
+			label: "Adopt",
+			value: "ADOPT",
+		},
+		{
+			label: "Trial",
+			value: "TRIAL",
+		},
+		{
+			label: "Observe",
+			value: "OBSERVE",
+		},
+		{
+			label: "Hold",
+			value: "HOLD",
+		},
+	],
+	expectation: [
+		{
+			label: "Unknown",
+			value: "UNKNOWN",
+		},
+		{
+			label: "0 - 2",
+			value: "ZERO_TWO",
+		},
+		{
+			label: "2 - 5",
+			value: "TWO_FIVE",
+		},
+		{
+			label: "5 - 10",
+			value: "FIVE_TEN",
+		},
+	],
+	quadrant: [
+		{
+			label: "Languages & Frameworks",
+			value: "FIRST_QUADRANT",
+		},
+		{
+			label: "Methods & Patterns",
+			value: "SECOND_QUADRANT",
+		},
+		{
+			label: "Platform & Operations",
+			value: "THIRD_QUADRANT",
+		},
+		{
+			label: "Tools",
+			value: "FOURTH_QUADRANT",
+		},
+	],
+};

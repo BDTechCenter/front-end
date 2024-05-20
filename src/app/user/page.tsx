@@ -30,10 +30,7 @@ export default function User() {
 						messageError={dataUserPage.newsError}
 					/>
 				</RoleGuard>
-				<CommentsUserList
-					messageNotFound={dataUserPage.commentsErrorNotFound}
-					messageError={dataUserPage.commentsError}
-				/>
+				<CommentsUserList messageError={dataUserPage.commentsError} />
 			</section>
 			<Footer />
 		</main>

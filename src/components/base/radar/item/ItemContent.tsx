@@ -1,7 +1,9 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { useMsal } from "@azure/msal-react";
 import { useFetchGetRadarItemDetail } from "@/api/hooks/radar/queries";
+import { Button } from "@/components/ui/button";
 import { MarkdownRenderer } from "../../common/MarkdownRenderer";
 import ImageError from "../../common/ImageError";
 import { RadarItemSkeleton } from "../../skeleton/RadarItemSkeleton";
@@ -9,16 +11,21 @@ import Badge from "../quadrant-grid/Badge";
 import Footer from "../../common/Footer";
 
 export default function ItemContent() {
+	const { instance } = useMsal();
 	const path = usePathname();
 	const itemId = path.split("/")[3];
-	const { data, isLoading, isError } =
-		useFetchGetRadarItemDetail(itemId);
+	const { data, isLoading, isError } = useFetchGetRadarItemDetail(itemId);
+
+	const editable = instance?.getActiveAccount()?.username === data?.authorEmail;
 
 	return (
 		<div className="flex flex-col justify-between w-full my-16 gap-5 mx-14 max-sm:mx-5 lg:mx-24 xl:mx-36">
 			{data && (
 				<div className="flex flex-col gap-4">
-					<h1 className="text-bdpurple text-3xl font-bold">{data.title}</h1>
+					<div className="flex justify-between">
+						<h1 className="text-bdpurple text-3xl font-bold">{data.title}</h1>
+						{editable && <Button variant="bdpurple">Edit</Button>}
+					</div>
 					<div className="flex gap-5 items-center">
 						<div>
 							<Badge className="ml-0" type={data.ring.toLowerCase()}>

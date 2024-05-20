@@ -1,18 +1,18 @@
 "use client";
 
 import { Check, ChevronsUpDown } from "lucide-react";
-
-import { ControllerRenderProps, UseFormReturn } from "react-hook-form";
 import { useState } from "react";
+import { ControllerRenderProps, UseFormReturn } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
 	Command,
 	CommandEmpty,
-	CommandGroup,
 	CommandInput,
 	CommandItem,
+	CommandList,
 } from "@/components/ui/command";
+import { FormControl } from "@/components/ui/form";
 import {
 	Popover,
 	PopoverContent,
@@ -21,7 +21,7 @@ import {
 
 interface ICombobox {
 	title: string;
-	items: { value: string; label: string }[];
+	items: any[];
 	form: UseFormReturn<any>;
 	field: ControllerRenderProps<any>;
 }
@@ -32,29 +32,32 @@ export function Combobox({ title, items, form, field }: ICombobox) {
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
 			<PopoverTrigger asChild>
-				<Button
-					variant="outline"
-					role="combobox"
-					aria-expanded={open}
-					className="w-[200px] justify-between"
-				>
-					{field.value
-						? items.find((item) => item.value === field.value)?.label
-						: `Select ${title}...`}
-					<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-				</Button>
+				<FormControl>
+					<Button
+						variant="outline"
+						role="combobox"
+						aria-expanded={open}
+						className="flex justify-between"
+					>
+						{field.value
+							? items.find((item) => item.value === field.value)?.label
+							: `Select ${title}...`}
+						<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+					</Button>
+				</FormControl>
 			</PopoverTrigger>
-			<PopoverContent className="w-[200px] p-0">
+			<PopoverContent className="p-0">
 				<Command>
 					<CommandInput placeholder={`Search ${title}...`} />
 					<CommandEmpty>No {title} found.</CommandEmpty>
-					<CommandGroup>
+					<CommandList>
 						{items.map((item) => (
 							<CommandItem
 								key={item.value}
 								value={item.value}
 								onSelect={() => {
-									form.setValue(`${item}`, item.value);
+									form.setValue(`${field.name}`, item.value);
+									setOpen(false);
 								}}
 							>
 								<Check
@@ -66,7 +69,7 @@ export function Combobox({ title, items, form, field }: ICombobox) {
 								{item.label}
 							</CommandItem>
 						))}
-					</CommandGroup>
+					</CommandList>
 				</Command>
 			</PopoverContent>
 		</Popover>

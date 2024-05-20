@@ -63,7 +63,7 @@ export default function RadarChart({
 
 	return (
 		<div
-			className="fill-white text-xs text-center relative pt-20 my-0 mx-auto"
+			className="fill-white text-xs text-center relative pt-20 my-0 mx-auto z-10"
 			style={{ maxWidth: `${chartConfig.size}px` }}
 		>
 			<svg viewBox={`0 0 ${chartConfig.size} ${chartConfig.size + 100}`}>

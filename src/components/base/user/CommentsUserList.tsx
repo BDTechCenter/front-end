@@ -15,13 +15,9 @@ import Comment from "../common/Comment";
 
 export interface CommentsUserListProps {
 	messageError: Error;
-	messageNotFound: Error;
 }
 
-export function CommentsUserList({
-	messageError,
-	messageNotFound,
-}: CommentsUserListProps) {
+export function CommentsUserList({ messageError }: CommentsUserListProps) {
 	const { isLoading, isError, data } = useFetchGetUserComments();
 	const searchParams = useSearchParams();
 	const filterNews = searchParams.get("news");
@@ -41,29 +37,27 @@ export function CommentsUserList({
 	}, [searchParams, status]);
 
 	const commentUserCards = () => {
-		return data?.content.length !== 0 && data ? (
-			<div className="flex flex-col w-full">
-				<h1 className="text-xl font-medium">Comments {title}!</h1>
-				<div className="w-full">
-					<Carousel>
-						<CarouselContent className="p-4 gap-5">
-							{data.content.map((comment) => (
-								<Comment
-									key={comment.id}
-									data={comment}
-									variant="userComment"
-								/>
-							))}
-						</CarouselContent>
-						<CarouselPrevious />
-						<CarouselNext />
-					</Carousel>
+		return (
+			data?.content.length !== 0 && (
+				<div className="flex flex-col w-full">
+					<h1 className="text-xl font-medium">Comments {title}!</h1>
+					<div className="w-full">
+						<Carousel>
+							<CarouselContent className="p-4 gap-5">
+								{data?.content.map((comment) => (
+									<Comment
+										key={comment.id}
+										data={comment}
+										variant="userComment"
+									/>
+								))}
+							</CarouselContent>
+							<CarouselPrevious />
+							<CarouselNext />
+						</Carousel>
+					</div>
 				</div>
-			</div>
-		) : (
-			<div className="flex w-full items-center justify-center">
-				<ImageError data={messageNotFound} />
-			</div>
+			)
 		);
 	};
 
