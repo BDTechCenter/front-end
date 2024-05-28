@@ -25,6 +25,7 @@ import { FormTypeNews } from "@/api/types/all/type";
 import InputTextEdit from "./InputTextEdit";
 import ImageButton from "../news/ImageButton";
 import InputTags from "./InputTags";
+import AlertClose from "./AlertClose";
 
 interface ModalCreateNewsProps {
 	formData: FormTypeNews;
@@ -32,12 +33,13 @@ interface ModalCreateNewsProps {
 
 export function FormNewsLayout({ formData }: ModalCreateNewsProps) {
 	const [open, setOpen] = useState(formData.open);
+	const [showAlert, setShowAlert] = useState(false);
 
 	const form = useForm<z.infer<typeof newsSchema>>({
 		defaultValues: {
 			title: formData.defaultValues?.title,
 			tags: formData.defaultValues?.tags,
-			body: formData.defaultValues?.body
+			body: formData.defaultValues?.body,
 		},
 		resolver: zodResolver(newsSchema),
 	});
@@ -52,8 +54,27 @@ export function FormNewsLayout({ formData }: ModalCreateNewsProps) {
 		}
 	}, [form, form.formState, form.reset]);
 
+	const handleClose = (isOpen: boolean) => {
+		form.reset();
+		setOpen(isOpen);
+	};
+
+	const handleInteractOutside = (e: any) => {
+		e.preventDefault();
+		form.formState.isDirty ? setShowAlert(true) : handleClose(!open);
+	};
+
+	const handleAlertClose = () => {
+		setShowAlert(false);
+		setOpen(false);
+	};
+
+	const cancelAlert = (e: any) => {
+		setShowAlert(false);
+	};
+
 	return (
-		<Dialog open={open} onOpenChange={setOpen}>
+		<Dialog open={open} onOpenChange={handleClose}>
 			<DialogTrigger asChild>
 				<Button
 					className="border rounded-sm p-5 font-semibold text-lg"
@@ -62,7 +83,10 @@ export function FormNewsLayout({ formData }: ModalCreateNewsProps) {
 					{formData.title}
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="w-[80%] 2xl:w-[65%] h-[90%] 2xl:h-[70%]">
+			<DialogContent
+				onInteractOutside={handleInteractOutside}
+				className="w-[80%] 2xl:w-[65%] h-[90%] 2xl:h-[70%]"
+			>
 				<DialogHeader>
 					<DialogTitle className="text-bdpurple">Create a News</DialogTitle>
 				</DialogHeader>
@@ -139,14 +163,24 @@ export function FormNewsLayout({ formData }: ModalCreateNewsProps) {
 									</FormItem>
 								)}
 							/>
-							<DialogFooter>
-								{formData.alertSubmit}
-							</DialogFooter>
+							<DialogFooter>{formData.alertSubmit}</DialogFooter>
 						</div>
 					</form>
 				</Form>
 			</DialogContent>
+			{showAlert && (
+				<AlertClose
+					alert={{
+						open: showAlert,
+						title: "Close news creation?",
+						description: "Are you sure you want to close and lost your data?",
+						nameButtonAction: "Close",
+						action: handleAlertClose,
+						idForm: formData.idForm,
+						onClickCancel: cancelAlert,
+					}}
+				/>
+			)}
 		</Dialog>
 	);
 }
-

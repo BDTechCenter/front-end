@@ -25,6 +25,8 @@ import { Input } from "@/components/ui/input";
 import { itemRadarSchema } from "@/types/schemas/itemRadarShema";
 import InputTextEdit from "./InputTextEdit";
 import { Combobox } from "./Combobox";
+import AlertClose from "./AlertClose";
+import { comboboxOpts } from "../radar/utils";
 
 interface ModalCreateItemRadarProps {
 	formData: FormTypeItem;
@@ -32,6 +34,7 @@ interface ModalCreateItemRadarProps {
 
 export function FormItemRadarLayout({ formData }: ModalCreateItemRadarProps) {
 	const [open, setOpen] = useState(formData.open);
+	const [showAlert, setShowAlert] = useState(false);
 
 	const form = useForm<z.infer<typeof itemRadarSchema>>({
 		defaultValues: {
@@ -51,8 +54,27 @@ export function FormItemRadarLayout({ formData }: ModalCreateItemRadarProps) {
 		}
 	}, [form, form.formState, form.reset]);
 
+	const handleClose = (isOpen: boolean) => {
+		form.reset();
+		setOpen(isOpen);
+	};
+
+	const handleInteractOutside = (e: any) => {
+		e.preventDefault();
+		form.formState.isDirty ? setShowAlert(true) : handleClose(!open);
+	};
+
+	const handleAlertClose = () => {
+		setShowAlert(false);
+		setOpen(false);
+	};
+
+	const cancelAlert = (e: any) => {
+		setShowAlert(false);
+	};
+
 	return (
-		<Dialog open={open} onOpenChange={setOpen}>
+		<Dialog open={open} onOpenChange={handleClose}>
 			<DialogTrigger asChild>
 				<Button
 					className="border rounded-sm p-5 font-semibold text-lg"
@@ -61,7 +83,10 @@ export function FormItemRadarLayout({ formData }: ModalCreateItemRadarProps) {
 					{formData.title}
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="w-[80%] 2xl:w-[65%] h-[90%] 2xl:h-[70%]">
+			<DialogContent
+				onInteractOutside={handleInteractOutside}
+				className="w-[80%] 2xl:w-[65%] h-[90%] 2xl:h-[70%]"
+			>
 				<DialogHeader>
 					<DialogTitle className="text-bdpurple">
 						Create a Item For Radar
@@ -101,7 +126,6 @@ export function FormItemRadarLayout({ formData }: ModalCreateItemRadarProps) {
 									<FormControl>
 										<Combobox
 											field={field}
-											form={form}
 											items={comboboxOpts.quadrant}
 											title="Quadrant"
 										/>
@@ -121,7 +145,6 @@ export function FormItemRadarLayout({ formData }: ModalCreateItemRadarProps) {
 									<FormControl>
 										<Combobox
 											field={field}
-											form={form}
 											items={comboboxOpts.ring}
 											title="Ring"
 										/>
@@ -141,7 +164,6 @@ export function FormItemRadarLayout({ formData }: ModalCreateItemRadarProps) {
 									<FormControl>
 										<Combobox
 											field={field}
-											form={form}
 											items={comboboxOpts.expectation}
 											title="Expectation"
 										/>
@@ -169,63 +191,19 @@ export function FormItemRadarLayout({ formData }: ModalCreateItemRadarProps) {
 					</form>
 				</Form>
 			</DialogContent>
+			{showAlert && (
+				<AlertClose
+					alert={{
+						open: showAlert,
+						title: "Close tech creation?",
+						description: "Are you sure you want to close and lost your data?",
+						nameButtonAction: "Close",
+						action: handleAlertClose,
+						idForm: formData.idForm,
+						onClickCancel: cancelAlert,
+					}}
+				/>
+			)}
 		</Dialog>
 	);
 }
-
-export const comboboxOpts = {
-	ring: [
-		{
-			label: "Adopt",
-			value: "ADOPT",
-		},
-		{
-			label: "Trial",
-			value: "TRIAL",
-		},
-		{
-			label: "Observe",
-			value: "OBSERVE",
-		},
-		{
-			label: "Hold",
-			value: "HOLD",
-		},
-	],
-	expectation: [
-		{
-			label: "Unknown",
-			value: "UNKNOWN",
-		},
-		{
-			label: "0 - 2",
-			value: "ZERO_TWO",
-		},
-		{
-			label: "2 - 5",
-			value: "TWO_FIVE",
-		},
-		{
-			label: "5 - 10",
-			value: "FIVE_TEN",
-		},
-	],
-	quadrant: [
-		{
-			label: "Languages & Frameworks",
-			value: "FIRST_QUADRANT",
-		},
-		{
-			label: "Methods & Patterns",
-			value: "SECOND_QUADRANT",
-		},
-		{
-			label: "Platform & Operations",
-			value: "THIRD_QUADRANT",
-		},
-		{
-			label: "Tools",
-			value: "FOURTH_QUADRANT",
-		},
-	],
-};

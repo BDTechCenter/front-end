@@ -2,7 +2,7 @@
 
 import { Check, ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
-import { ControllerRenderProps, UseFormReturn } from "react-hook-form";
+import { ControllerRenderProps, useFormContext, UseFormReturn } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,11 +22,11 @@ import {
 interface ICombobox {
 	title: string;
 	items: any[];
-	form: UseFormReturn<any>;
 	field: ControllerRenderProps<any>;
 }
 
-export function Combobox({ title, items, form, field }: ICombobox) {
+export function Combobox({ title, items, field }: ICombobox) {
+	const { register, setValue  } = useFormContext();
 	const [open, setOpen] = useState(false);
 
 	return (
@@ -56,7 +56,7 @@ export function Combobox({ title, items, form, field }: ICombobox) {
 								key={item.value}
 								value={item.value}
 								onSelect={() => {
-									form.setValue(`${field.name}`, item.value);
+									setValue(`${field.name}`, item.value);
 									setOpen(false);
 								}}
 							>
