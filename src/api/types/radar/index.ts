@@ -49,9 +49,9 @@ export interface ItemDetails {
 	creationDate: string;
 	publicationDate: null;
 	updateDate: string;
-	ring: string;
+	ring: RingName;
 	expectation: Expectation;
-	quadrantId: string;
+	quadrantId: QuadrantsID;
 	body: string;
 }
 

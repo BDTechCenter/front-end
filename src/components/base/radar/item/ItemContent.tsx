@@ -3,12 +3,12 @@
 import { usePathname } from "next/navigation";
 import { useMsal } from "@azure/msal-react";
 import { useFetchGetRadarItemDetail } from "@/api/hooks/radar/queries";
-import { Button } from "@/components/ui/button";
 import { MarkdownRenderer } from "../../common/MarkdownRenderer";
 import ImageError from "../../common/ImageError";
 import { RadarItemSkeleton } from "../../skeleton/RadarItemSkeleton";
 import Badge from "../quadrant-grid/Badge";
 import Footer from "../../common/Footer";
+import { FormUpdateItem } from "../../user/FormUpdateItem";
 
 export default function ItemContent() {
 	const { instance } = useMsal();
@@ -24,7 +24,7 @@ export default function ItemContent() {
 				<div className="flex flex-col gap-4">
 					<div className="flex justify-between">
 						<h1 className="text-bdpurple text-3xl font-bold">{data.title}</h1>
-						{editable && <Button variant="bdpurple">Edit</Button>}
+						{editable && <FormUpdateItem id={itemId} />}
 					</div>
 					<div className="flex gap-5 items-center">
 						<div>

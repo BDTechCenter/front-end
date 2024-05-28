@@ -27,8 +27,6 @@ export function FormAddItem() {
 	async function onSubmitForm(values: z.infer<typeof itemRadarSchema>) {
 		const itemData = await ItemRadarObject(values);
 
-		console.log("Log: ", values);
-
 		await mutateAsync(itemData).then(() => setOpen(false));
 	}
 
