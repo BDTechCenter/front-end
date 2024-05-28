@@ -37,13 +37,13 @@ export function FormAddItem() {
 				title: "Add Tech",
 				idForm: "formAddItemRadar",
 				OnSubmit: onSubmitForm,
-				alertSubmit: <AlertAddNews idForm="formAddItemRadar" />,
+				alertSubmit: <AlertAddArticle idForm="formAddItemRadar" />,
 			}}
 		/>
 	);
 }
 
-function AlertAddNews({ idForm }: { idForm: string }) {
+function AlertAddArticle({ idForm }: { idForm: string }) {
 	return (
 		<AlertLayout
 			alert={{

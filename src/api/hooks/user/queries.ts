@@ -4,42 +4,46 @@ import {
 	useQuery,
 } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { ContentComment, ContentNews, News } from "@/api/types/news/type";
-import { apiNews as api } from "@/services/api";
+import { apiArticle as api } from "@/services/api";
+import {
+	Article,
+	ContentArticles,
+	ContentComment,
+} from "@/api/types/article/type";
 
-// News
-// GET user news
-export async function getUserNews(ctx: QueryFunctionContext) {
+// Article
+// GET user articles
+export async function getUserArticles(ctx: QueryFunctionContext) {
 	const [, status] = ctx.queryKey;
 	const filter = status === undefined ? "published" : status;
-	const { data } = await api.get<ContentNews>(`news/author?sortBy=${filter}`);
+	const { data } = await api.get<ContentArticles>(`news/me?sortBy=${filter}`);
 	return data;
 }
 
-export function useFetchGetUserNews(status?: string) {
-	return useQuery<ContentNews, Error>({
-		queryKey: ["userNews", status],
-		queryFn: getUserNews,
+export function useFetchGetUserArticles(status?: string) {
+	return useQuery<ContentArticles, Error>({
+		queryKey: ["userArticle", status],
+		queryFn: getUserArticles,
 	});
 }
 
-// PATCH user news
-async function patchNews({
-	newsObject,
+// PATCH user article
+async function patchArticle({
+	articleObject,
 	id,
 }: {
-	newsObject: FormData;
+	articleObject: FormData;
 	id: string;
 }) {
-	const promise = api.patch<News>(`news/${id}`, newsObject);
+	const promise = api.patch<Article>(`news/${id}`, articleObject);
 
 	toast.promise(promise, {
-		loading: "Updated news",
-		success: "Updated news with success",
+		loading: "Updating article",
+		success: "Updated article with success",
 		error: (error) => {
 			console.log(error);
-			return error.response.data
-				? `${error.message}:\n${error.response.data.message}`
+			return error?.response?.data
+				? `${error.status}:\n${error.response.data.message}`
 				: `${error.message}`;
 		},
 	});
@@ -47,24 +51,23 @@ async function patchNews({
 	return await promise;
 }
 
-export function useMutationPatchNews() {
+export function useMutationPatchArticle() {
 	return useMutation({
-		mutationFn: patchNews,
+		mutationFn: patchArticle,
 	});
 }
 
-// ARCHIVE user news
-
+// ARCHIVE user article
 async function patchArchive(id: string) {
-	const archive = api.patch<News>(`news/${id}/archive`);
+	const archive = api.patch<Article>(`news/${id}/archive`);
 
 	toast.promise(archive, {
-		loading: "Delete news",
-		success: "Delete news with success",
+		loading: "Deleting article",
+		success: "Article deleted with success",
 		error: (error) => {
 			console.log(error);
-			return error.response.data
-				? `${error.message}:\n${error.response.data.message}`
+			return error?.response?.data
+				? `${error.status}:\n${error.response.data.message}`
 				: `${error.message}`;
 		},
 	});
@@ -72,15 +75,15 @@ async function patchArchive(id: string) {
 }
 
 async function patchPublish(id: string) {
-	const publish = api.patch<News>(`news/${id}/publish`);
+	const publish = api.patch<Article>(`news/${id}/publish`);
 
 	toast.promise(publish, {
-		loading: "Publish news",
-		success: "Publish news with success",
+		loading: "Publishing article",
+		success: "Article published with success",
 		error: (error) => {
 			console.log(error);
-			return error.response.data
-				? `${error.message}:\n${error.response.data.message}`
+			return error?.response?.data
+				? `${error.status}:\n${error.response.data.message}`
 				: `${error.message}`;
 		},
 	});
@@ -99,11 +102,10 @@ export function useMutationPatchPublish() {
 	});
 }
 
-// News
+// Article
 // GET user comments
-
 export async function getUserComments() {
-	const { data } = await api.get<ContentComment>(`comments/author`);
+	const { data } = await api.get<ContentComment>(`comments/me`);
 	return data;
 }
 
@@ -118,7 +120,7 @@ async function patchDelete(id: number) {
 	const deleteComment = api.delete(`comments/${id}`);
 
 	toast.promise(deleteComment, {
-		loading: "Delete Comment",
+		loading: "Deleting Comment",
 		success: "Delete Comment with success",
 		error: (error) => {
 			console.log(id);

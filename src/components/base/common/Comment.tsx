@@ -1,7 +1,6 @@
-import { FaTrashCan } from "react-icons/fa6";
-import { CommentType } from "@/api/types/news/type";
 import { cn } from "@/lib/utils";
-import LikeUpvote from "../news/LikeUpvote";
+import { CommentType } from "@/api/types/article/type";
+import LikeUpvote from "../article/LikeUpvote";
 import { MarkdownRenderer } from "./MarkdownRenderer";
 import { AlertArchiveComment } from "../user/AlertArchiveComment";
 
@@ -32,7 +31,7 @@ export default function Comment({ data, variant }: CommentProps) {
 						</div>
 					) : (
 						<div className="flex gap-1 relative justify-end items-center">
-							<AlertArchiveComment id={data.id}/>
+							<AlertArchiveComment id={data.id} />
 						</div>
 					)}
 				</div>

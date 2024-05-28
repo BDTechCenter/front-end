@@ -22,11 +22,11 @@ const tokenInterceptor = async (
 	return config;
 };
 
-const apiNews: AxiosInstance = axios.create({
+const apiArticle: AxiosInstance = axios.create({
 	baseURL: `${hostURL}/tech-news/`,
 });
 
-apiNews.interceptors.request.use(tokenInterceptor);
+apiArticle.interceptors.request.use(tokenInterceptor);
 
 const apiRadar: AxiosInstance = axios.create({
 	baseURL: `${hostURL}/tech-radar/`,
@@ -44,4 +44,4 @@ apiRadar.interceptors.request.use(tokenInterceptor);
 // 	return response;
 // });
 
-export { apiNews, apiRadar };
+export { apiArticle, apiRadar };

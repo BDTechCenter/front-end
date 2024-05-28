@@ -1,4 +1,5 @@
 "use client";
+
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useFetchGetUserComments } from "@/api/hooks/user/queries";
@@ -8,20 +9,15 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Error } from "@/api/types/all/type";
 import CommentSkeleton from "../skeleton/CommentSkeleton";
 import ImageError from "../common/ImageError";
 import Comment from "../common/Comment";
 
-export interface CommentsUserListProps {
-	messageError: Error;
-}
-
-export function CommentsUserList({ messageError }: CommentsUserListProps) {
+export function CommentsUserList() {
 	const { isLoading, isError, data } = useFetchGetUserComments();
 	const searchParams = useSearchParams();
-	const filterNews = searchParams.get("news");
-	const status = filterNews ? filterNews : "published";
+	const filterStatus = searchParams.get("status");
+	const status = filterStatus ? filterStatus : "published";
 	const [title, setTitle] = useState("Error");
 
 	useEffect(() => {
@@ -31,33 +27,37 @@ export function CommentsUserList({ messageError }: CommentsUserListProps) {
 		if (status === "archived") {
 			setTitle("Archived");
 		}
-		if (status === "") {
-			setTitle("Published");
-		}
+		setTitle("Published");
 	}, [searchParams, status]);
 
 	const commentUserCards = () => {
-		return (
-			data?.content.length !== 0 && (
-				<div className="flex flex-col w-full">
-					<h1 className="text-xl font-medium">Comments {title}!</h1>
-					<div className="w-full">
-						<Carousel>
-							<CarouselContent className="p-4 gap-5">
-								{data?.content.map((comment) => (
-									<Comment
-										key={comment.id}
-										data={comment}
-										variant="userComment"
-									/>
-								))}
-							</CarouselContent>
-							<CarouselPrevious />
-							<CarouselNext />
-						</Carousel>
-					</div>
+		return data?.content.length !== 0 ? (
+			<div className="flex flex-col w-full">
+				<div className="w-full">
+					<Carousel>
+						<CarouselContent className="p-4 gap-5">
+							{data?.content.map((comment) => (
+								<Comment
+									key={comment.id}
+									data={comment}
+									variant="userComment"
+								/>
+							))}
+						</CarouselContent>
+						<CarouselPrevious />
+						<CarouselNext />
+					</Carousel>
 				</div>
-			)
+			</div>
+		) : (
+			<div className="flex w-full items-center justify-center">
+				<ImageError
+					data={{
+						text: "No comments, write yours",
+						img: "/noComment.gif",
+					}}
+				/>
+			</div>
 		);
 	};
 
@@ -74,7 +74,12 @@ export function CommentsUserList({ messageError }: CommentsUserListProps) {
 	if (isError) {
 		return (
 			<div className="flex w-full items-center justify-center">
-				<ImageError data={messageError} />
+				<ImageError
+					data={{
+						text: "Error Comments",
+						img: "/allError.gif",
+					}}
+				/>
 			</div>
 		);
 	}

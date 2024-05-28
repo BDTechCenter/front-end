@@ -68,7 +68,7 @@ const errorRadar = {
 	},
 
 	error: {
-		text: "Error news",
+		text: "Error Radar",
 		img: "/allError.gif",
 	},
 };

@@ -40,7 +40,7 @@ export interface AlertType {
 	idForm?: string;
 }
 
-interface NewsValues {
+interface ArticleValues {
 	title?: string;
 	body?: string;
 	image?: File | undefined;
@@ -65,8 +65,8 @@ interface FormType<T> {
 	alertSubmit: JSX.Element;
 }
 
-export type FormTypeNews = FormType<NewsValues> & {
-	idNews?: string;
+export type FormTypeArticle = FormType<ArticleValues> & {
+	idArticle?: string;
 };
 
 export type FormTypeItem = FormType<ItemRadarValues>;

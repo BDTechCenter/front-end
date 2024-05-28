@@ -25,16 +25,16 @@ export default function AllCardFeature() {
 
 const features = [
 	{
-		title: "Stay up to date: explore our latest innovation news!",
+		title: "Stay up to date: explore our latest innovation articles!",
 		icon: <BiNews />,
 		content:
-			"Our news page is your destination to discover the latest trends, technological advancements, and inspiring insights that are shaping the future.",
+			"Our articles page is your destination to discover the latest trends, technological advancements, and inspiring insights that are shaping the future.",
 	},
 	{
 		title: "Explore our projects to discover the latest trends!",
 		icon: <FaProjectDiagram />,
 		content:
-			"On our projects page, you'll find a range of innovations in action, from the latest trends to technological advances that are defining the future. Explore to get inspired and stay up to date with the latest news.",
+			"On our projects page, you'll find a range of innovations in action, from the latest trends to technological advances that are defining the future. Explore to get inspired and stay up to date with the latest articles.",
 		orientation: "left",
 	},
 	{

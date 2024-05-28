@@ -22,8 +22,8 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { useMutationPostComment } from "@/api/hooks/article/queries";
 import { msalInstance } from "@/lib/sso/msalInstance";
+import { useMutationPostComment } from "@/api/hooks/article/queries";
 import { CommentPostType } from "@/api/types/article/type";
 import InputTextEdit from "../common/InputTextEdit";
 
