@@ -14,7 +14,7 @@ import { getIdNews } from "../news/queries";
 export async function getUserNews(ctx: QueryFunctionContext) {
 	const [, status] = ctx.queryKey;
 	const filter = status === undefined ? "published" : status;
-	const { data } = await apiNews.get<ContentNews>(`news/author?sortBy=${filter}`);
+	const { data } = await apiNews.get<ContentNews>(`news/me?sortBy=${filter}`);
 	return data;
 }
 
@@ -106,7 +106,7 @@ export function useMutationPatchPublish() {
 
 export async function getUserComments() {
 	const { data } = await apiNews.get<ContentComment>(
-		`comments/author`
+		`comments/me`
 	);
 	return data;
 }
