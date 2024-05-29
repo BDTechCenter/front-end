@@ -14,13 +14,14 @@ export function LinkFilterUser() {
 
 	useEffect(() => {
 		if (status === "published") {
-			setNameButton("Archived");
+			setNameButton("archived");
+		} else if (status === "archived") {
+			setNameButton("published");
 		}
-		setNameButton("Published");
 	}, [searchParams, status]);
 
 	return (
-		<Link href={`user?status=${nameButton.toLocaleLowerCase}`}>
+		<Link href={`user?status=${nameButton.toLocaleLowerCase()}`}>
 			<Button
 				className=" border rounded-sm p-5 font-semibold text-lg"
 				variant={"bdlight"}

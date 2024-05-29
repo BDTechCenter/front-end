@@ -8,7 +8,7 @@ import { stylesMap } from "../utils";
 import RadarSkeleton from "../../skeleton/RadarSkeleton";
 
 export default function RadarGrid() {
-	const { data, isLoading, isError, isStale } = useFetchGetQuadrants();
+	const { data, isLoading, isError, isFetched } = useFetchGetQuadrants();
 
 	if (isError) {
 		return (
@@ -19,7 +19,7 @@ export default function RadarGrid() {
 	}
 
 	// @ts-ignore
-	if (data?.length <= 0 && isStale) {
+	if (data?.length <= 0 && isFetched) {
 		return (
 			<div className="flex w-full h-full min-h-screen items-center justify-center">
 				<ImageError data={errorRadar.noContent} />
