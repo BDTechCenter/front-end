@@ -7,7 +7,7 @@ async function getMainNews() {
 	const { data } = await apiNews.get<ContentNews>(
 		`news/preview?sortBy=view&size=${SIZE}`
 	);
-
+	console.log(data)
 	return data;
 }
 
