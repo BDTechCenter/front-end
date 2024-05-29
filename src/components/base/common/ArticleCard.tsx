@@ -19,7 +19,7 @@ export default function ArticleCard({
 	...props
 }: ArticleCardProps) {
 	const router = useRouter();
-	const href = `/article/${data.id}`;
+	const href = `/articles/${data.id}`;
 	const [img, setImg] = useState(data.imageUrl);
 
 	const handleClick = (e: any) => {

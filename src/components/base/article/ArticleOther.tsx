@@ -11,7 +11,7 @@ interface ArticleOtherProps {
 
 export default function ArticleOther({ data }: ArticleOtherProps) {
 	const router = useRouter();
-	const href = `/article/${data.id}`;
+	const href = `/articles/${data.id}`;
 	const [img, setImg] = useState(data.imageUrl);
 	const handleClick = (e: any) => {
 		e.preventDefault();

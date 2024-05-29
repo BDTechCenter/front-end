@@ -39,8 +39,33 @@ export default function ArticlesList({
 		hasNextPage,
 	} = useFetchGetArticlesScroll(tags, title);
 
-	const articlesCards = () => {
-		return data?.pages[0].content.length !== 0 && data ? (
+	useEffect(() => {
+		if (inView && hasNextPage) {
+			fetchNextPage();
+		}
+	}, [inView, hasNextPage, fetchNextPage]);
+
+	if (isLoading) {
+		return (
+			<div className="relative grid grid-cols-2 sm:grid-cols-3 gap-5 2xl:gap-7">
+				<ArticlesCardSkeleton />
+				<ArticlesCardSkeleton />
+				<ArticlesCardSkeleton />
+			</div>
+		);
+	}
+
+	if (isError) {
+		console.log(error);
+		return (
+			<div className="flex w-full items-center justify-center">
+				<ImageError data={messageError} />
+			</div>
+		);
+	}
+
+	if (data) {
+		return data?.pages[0].content.length !== 0 ? (
 			<div className="flex flex-col w-full">
 				<div className="relative grid mb-6 grid-cols-2 sm:grid-cols-3 gap-5 2xl:gap-7">
 					{data?.pages.map((article: ContentArticles) =>
@@ -69,35 +94,6 @@ export default function ArticlesList({
 				<ImageError data={messageNotFound} />
 			</div>
 		);
-	};
-
-	useEffect(() => {
-		if (inView && hasNextPage) {
-			fetchNextPage();
-		}
-	}, [inView, hasNextPage, fetchNextPage]);
-
-	if (isLoading) {
-		return (
-			<div className="relative grid grid-cols-2 sm:grid-cols-3 gap-5 2xl:gap-7">
-				<ArticlesCardSkeleton />
-				<ArticlesCardSkeleton />
-				<ArticlesCardSkeleton />
-			</div>
-		);
-	}
-
-	if (isError) {
-		console.log(error);
-		return (
-			<div className="flex w-full items-center justify-center">
-				<ImageError data={messageError} />
-			</div>
-		);
-	}
-
-	if (data) {
-		return articlesCards();
 	}
 
 	return null;

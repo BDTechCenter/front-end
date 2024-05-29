@@ -14,7 +14,8 @@ import { MarkdownRenderer } from "../common/MarkdownRenderer";
 export default function ArticleContent() {
 	const path = usePathname();
 	const articleId = path.split("/")[2];
-	const { isLoading, isError, data } = useFetchGetArticleId(articleId);
+	const { isLoading, isError, data, isFetched } =
+		useFetchGetArticleId(articleId);
 
 	if (data) {
 		return (
@@ -73,7 +74,7 @@ export default function ArticleContent() {
 		);
 	}
 
-	if (!data) {
+	if (isFetched && !data) {
 		return (
 			<div className="flex w-full h-full items-center justify-center">
 				<ImageError data={errorArticle.notFound} />
