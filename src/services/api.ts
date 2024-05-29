@@ -34,6 +34,12 @@ const apiRadar: AxiosInstance = axios.create({
 
 apiRadar.interceptors.request.use(tokenInterceptor);
 
+const apiImage: AxiosInstance = axios.create({
+	baseURL: `${hostURL}/image-service/images/`,
+});
+
+apiImage.interceptors.request.use(tokenInterceptor);
+
 // api.interceptors.request.use((request) => {
 // 	console.log("Starting Request", JSON.stringify(request, null, 2));
 // 	return request;
@@ -44,4 +50,4 @@ apiRadar.interceptors.request.use(tokenInterceptor);
 // 	return response;
 // });
 
-export { apiArticle, apiRadar };
+export { apiArticle, apiRadar, apiImage };

@@ -1,20 +1,30 @@
 import ".//quill.css";
-import hljs from "highlight.js";
 import dynamic from "next/dynamic";
-import { forwardRef, ForwardRefRenderFunction } from "react";
+import Quill from "quill";
+import { LegacyRef, useEffect, useMemo, useRef } from "react";
 
-const ReactQuill = dynamic(
-	() => {
-		hljs.configure({
-			languages: ["javascript", "php", "go", "java", "python"],
-		});
-		// @ts-ignore
-		window.hljs = hljs;
-		return import("react-quill");
+// @ts-ignore
+import ImageUploader from "quill-image-uploader";
+import { apiImage as api } from "@/services/api";
+
+// #2 register module
+Quill.register("modules/imageUploader", ImageUploader);
+
+interface ReactQuillProps {
+	forwardedRef: LegacyRef<any>;
+	// other props can be added here
+	[key: string]: any;
+}
+
+const ReactQuill = dynamic<ReactQuillProps>(
+	async () => {
+		const { default: RQ } = await import("react-quill");
+
+		// eslint-disable-next-line react/display-name
+		return ({ forwardedRef, ...props }) => <RQ ref={forwardedRef} {...props} />;
 	},
 	{
 		ssr: false,
-		loading: () => <p>Loading</p>,
 	}
 );
 
@@ -23,30 +33,110 @@ export interface InputTextEditProps {
 	value: string;
 }
 
-const InputTextEdit: ForwardRefRenderFunction<
-	HTMLInputElement,
-	InputTextEditProps
-> = ({ onChange, value }, ref) => {
+const InputTextEdit = ({ onChange, value }: InputTextEditProps) => {
+	const quillRef = useRef<Quill | null>(null);
+
+	useEffect(() => {
+		const check = () => {
+			if (quillRef.current) {
+				// Quill is initialized
+				return;
+			}
+			setTimeout(check, 200);
+		};
+		check();
+	}, []);
+
 	const editorStyle = {
 		backgroundColor: "transparent",
 	};
 
-	const modules = {
-		syntax: true,
-		toolbar: [
-			["bold", "italic", "underline", "code-block", "link"],
-			["image", "video"],
-		],
-	};
+	const modules = useMemo(
+		() => ({
+			toolbar: {
+				container: [
+					[{ header: [1, 2, 3, 4, false] }],
+					["bold", "italic", "underline", "blockquote"],
+					[{ color: [] }],
+					[
+						{ list: "ordered" },
+						{ list: "bullet" },
+						{ indent: "-1" },
+						{ indent: "+1" },
+					],
+					["code-block", "link", "image"],
+					["clean"],
+				],
+			},
+			clipboard: {
+				matchVisual: false,
+			},
+			imageUploader: {
+				upload: (file: string) => {
+					return new Promise((resolve, reject) => {
+						const formData = new FormData();
+						formData.append("image", file);
+
+						api
+							.post("upload", formData, {
+								headers: {
+									"Content-Type": "multipart/form-data",
+								},
+							})
+							.then((response) => response)
+							.then((result) => {
+								console.log(result);
+								resolve(result.data.url);
+							})
+							.catch((error) => {
+								reject("Upload failed");
+								console.error("Error:", error);
+							});
+					});
+				},
+			},
+		}),
+		[]
+	);
+
+	// const modules = {
+	// 	toolbar: [
+	// 		["bold", "italic", "underline", "code-block", "link"],
+	// 		["image", "video"],
+	// 	],
+	// 	clipboard: {
+	// 		matchVisual: false,
+	// 	},
+	// };
+
+	const formats = [
+		"header",
+		"bold",
+		"italic",
+		"underline",
+		"strike",
+		"blockquote",
+		"list",
+		"bullet",
+		"indent",
+		"link",
+		"code-block",
+		"image",
+		"color",
+		"clean",
+		"imageBlot"
+	];
 
 	return (
-		<div className="flex w-full justify-center items-center" ref={ref}>
+		<div className="flex w-full justify-center items-center">
 			<div className="w-full">
 				<ReactQuill
+					forwardedRef={quillRef}
 					style={editorStyle}
 					theme="snow"
 					modules={modules}
 					value={value}
+					formats={formats}
 					onChange={onChange}
 				/>
 			</div>
@@ -54,4 +144,4 @@ const InputTextEdit: ForwardRefRenderFunction<
 	);
 };
 
-export default forwardRef(InputTextEdit);
+export default InputTextEdit;
