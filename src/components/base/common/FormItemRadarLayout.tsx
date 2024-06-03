@@ -77,7 +77,7 @@ export function FormItemRadarLayout({ formData }: ModalCreateItemRadarProps) {
 		<Dialog open={open} onOpenChange={handleClose}>
 			<DialogTrigger asChild>
 				<Button
-					className="border rounded-sm p-5 font-semibold text-lg"
+					className="border rounded-sm font-semibold mt-2 p-2 text-base"
 					variant={"bdlight"}
 				>
 					{formData.title}

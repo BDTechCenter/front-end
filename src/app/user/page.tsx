@@ -5,6 +5,7 @@ import { RoleGuard } from "@/components/base/common/RoleGuard";
 import { appRoles } from "@/lib/sso/authConfig";
 import { TabsUser } from "@/components/base/user/TabsUser";
 import { LinkFilterUser } from "@/components/base/user/LinkFilterUser";
+import { StatusTitle } from "@/components/base/user/StatusTitle";
 
 export default function User() {
 	return (
@@ -20,7 +21,8 @@ export default function User() {
 					</div>
 				</RoleGuard>
 			</TopBanner>
-			<section className="my-14 mx-20 h-full 2xl:mx-44">
+			<section className="flex flex-col gap-5 my-14 mx-20 h-full 2xl:mx-44">
+				<StatusTitle />
 				<TabsUser />
 			</section>
 			<Footer />

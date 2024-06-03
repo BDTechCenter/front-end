@@ -20,7 +20,7 @@ interface AlertLayoutProps {
 export default function AlertLayout({ alert }: AlertLayoutProps) {
 	return (
 		<AlertDialog>
-			<AlertDialogTrigger asChild className="p-5 text-lg">
+			<AlertDialogTrigger asChild>
 				<Button variant={alert.variantButton} className="rounded-sm mt-2 border p-2 font-semibold text-base">{alert.nameButton}</Button>
 			</AlertDialogTrigger>
 			<AlertDialogContent>
