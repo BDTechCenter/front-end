@@ -43,7 +43,7 @@ export interface AlertType {
 interface ArticleValues {
 	title?: string;
 	body?: string;
-	image?: File | undefined;
+	image?: File | undefined | string;
 	tags?: string[];
 }
 

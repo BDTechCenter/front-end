@@ -7,7 +7,6 @@ import { LegacyRef, useEffect, useMemo, useRef } from "react";
 import ImageUploader from "quill-image-uploader";
 import { apiImage as api } from "@/services/api";
 
-// #2 register module
 Quill.register("modules/imageUploader", ImageUploader);
 
 interface ReactQuillProps {
@@ -98,16 +97,6 @@ const InputTextEdit = ({ onChange, value }: InputTextEditProps) => {
 		}),
 		[]
 	);
-
-	// const modules = {
-	// 	toolbar: [
-	// 		["bold", "italic", "underline", "code-block", "link"],
-	// 		["image", "video"],
-	// 	],
-	// 	clipboard: {
-	// 		matchVisual: false,
-	// 	},
-	// };
 
 	const formats = [
 		"header",

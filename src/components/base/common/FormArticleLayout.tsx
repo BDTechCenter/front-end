@@ -38,6 +38,7 @@ export function FormArticleLayout({ formData }: ModalCreateArticleProps) {
 	const form = useForm<z.infer<typeof articleSchema>>({
 		defaultValues: {
 			title: formData.defaultValues?.title,
+			image: formData.defaultValues?.image,
 			tags: formData.defaultValues?.tags,
 			body: formData.defaultValues?.body,
 		},
@@ -106,7 +107,7 @@ export function FormArticleLayout({ formData }: ModalCreateArticleProps) {
 											Poster
 										</FormLabel>
 										<FormControl>
-											<ImageButton key={imageKey} {...field} />
+											<ImageButton defaultImage={field.value} key={imageKey} {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>

@@ -193,3 +193,12 @@ export type Point = {
 	x: number;
 	y: number;
 };
+
+export type MyTechItem = {
+	id: string;
+	quadrantId: string;
+	title: string;
+	authorEmail: string;
+	isActive: boolean;
+	needAdminReview: boolean;
+};
