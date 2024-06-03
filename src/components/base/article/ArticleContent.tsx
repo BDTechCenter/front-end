@@ -34,9 +34,19 @@ export default function ArticleContent() {
 							</div>
 						))}
 					</div>
-					<div className="bg-bdgray rounded-lg flex flex-col py-2 px-5 w-[50%] max-sm:w-full">
-						<p className="font-semibold">{data.author}</p>
-						<p className="text-xs">{data.updateDate}</p>
+					<div className="inline-flex justify-between items-center">
+						<div className="bg-bdgray rounded-lg flex flex-col py-2 px-5 w-[50%] max-sm:w-full">
+							<p className="font-semibold">{data.author}</p>
+							<p className="text-xs">{data.updateDate}</p>
+						</div>
+						<div>
+							<LikeUpvote
+								id={data.id}
+								alreadyUpVoted={data.alreadyUpVoted}
+								method="articles"
+								sizeIcon={22}
+							/>
+						</div>
 					</div>
 					<Image
 						src={data.imageUrl}
@@ -48,15 +58,6 @@ export default function ArticleContent() {
 					<div className="w-full justify-center items-center">
 						{data ? <MarkdownRenderer>{data.body}</MarkdownRenderer> : <></>}
 					</div>
-					<h1 className="mt-4 font-semibold text-lg text-bdpurple">
-						Is this article relevant to you?
-					</h1>
-					<LikeUpvote
-						id={data.id}
-						alreadyUpVoted={data.alreadyUpVoted}
-						method="news"
-						sizeIcon={22}
-					/>
 					<div className="w-full h-[2px] bg-[#D9D9D9] mt-12"></div>
 					<h1 className="mt-4 font-semibold text-lg text-bdpurple">Comments</h1>
 					<div className="w-full">

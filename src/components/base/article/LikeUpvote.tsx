@@ -9,7 +9,7 @@ import { useMutationPatchUpvote } from "@/api/hooks/article/queries";
 interface LikeForArticleProps {
 	id: string | number;
 	alreadyUpVoted: boolean;
-	method: "comments" | "news";
+	method: "comments" | "articles";
 	sizeIcon?: number;
 }
 
@@ -43,7 +43,7 @@ export default function LikeForArticle({
 	};
 
 	return (
-		<div className="w-full items-center bg-transparent">
+		<div className="inline-flex w-fit rounded-md p-2 items-center transition-colors bg-foreground/10 hover:bg-foreground/20">
 			{!like ? (
 				<BiUpvote
 					size={sizeIcon}

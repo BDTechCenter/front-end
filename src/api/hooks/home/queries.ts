@@ -5,7 +5,7 @@ import { apiArticle } from "../../../services/api";
 async function getMainArticles() {
 	const SIZE = 3;
 	const { data } = await apiArticle.get<ContentArticles>(
-		`news/preview?sortBy=view&size=${SIZE}`
+		`articles/preview?sortBy=view&size=${SIZE}`
 	);
 
 	return data;

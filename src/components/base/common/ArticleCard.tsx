@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Article } from "@/api/types/article/type";
-import { MenuPopoverEditArticle } from "../user/MenuPopoverEditArticle";
+import { MenuPopoverEditArticle } from "../user/article/MenuPopoverEditArticle";
 
 interface ArticleCardProps {
 	data: Article;

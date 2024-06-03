@@ -42,7 +42,7 @@ export interface Pageable {
 export interface UpvoteArticle {
 	id: string | number;
 	token?: string;
-	method: "comments" | "news";
+	method: "comments" | "articles";
 }
 
 export interface ArticlePost {
@@ -59,6 +59,7 @@ export interface CommentType {
 	id: number;
 	author: string;
 	comment: string;
+	newsId: string;
 	publicationDate: string;
 	alreadyUpVoted: boolean;
 }

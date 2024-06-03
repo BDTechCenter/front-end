@@ -26,7 +26,7 @@ async function getArticlesFilterScroll(ctx: QueryFunctionContext) {
 	const filterParam = usefilter({ filters: { tags, title } });
 
 	const url = tags || title ? `${filterParam}` : undefined;
-	const { data } = await api.get<ContentArticles>(`news/preview?size=9${url}`, {
+	const { data } = await api.get<ContentArticles>(`articles/preview?size=9${url}`, {
 		params: {
 			page: pageParam,
 		},
@@ -51,7 +51,7 @@ export function useFetchGetArticlesScroll(tags?: string, title?: string) {
 // GET Article By ID
 export async function getIdArticle(ctx: QueryFunctionContext) {
 	const [, id] = ctx.queryKey;
-	const { data } = await api.get<Article>(`news/${id}`);
+	const { data } = await api.get<Article>(`articles/${id}`);
 	return data;
 }
 
@@ -74,7 +74,7 @@ export function useFetchGetArticleIdRefetch(id: string) {
 // GET Other Article
 async function getOtherArticles() {
 	const { data } = await api.get<ContentArticles>(
-		"news/preview?size=3&sortBy=relevance"
+		"articles/preview?size=3&sortBy=relevance"
 	);
 	return data;
 }
@@ -88,7 +88,7 @@ export function useFetchGetOtherArticles() {
 
 // POST A Article
 async function postArticle(articleObject: FormData) {
-	const promise = api.post<Article>("news", articleObject, {
+	const promise = api.post<Article>("articles", articleObject, {
 		headers: {
 			"Content-Type": "multipart/form-data",
 		},

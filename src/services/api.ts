@@ -23,7 +23,7 @@ const tokenInterceptor = async (
 };
 
 const apiArticle: AxiosInstance = axios.create({
-	baseURL: `${hostURL}/tech-news/`,
+	baseURL: `${hostURL}/tech-articles/`,
 });
 
 apiArticle.interceptors.request.use(tokenInterceptor);
