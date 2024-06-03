@@ -2,21 +2,25 @@ import {
 	QueryFunctionContext,
 	useMutation,
 	useQuery,
+	useQueryClient,
 } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { apiArticle as api } from "@/services/api";
+import { apiArticle, apiRadar } from "@/services/api";
 import {
 	Article,
 	ContentArticles,
 	ContentComment,
 } from "@/api/types/article/type";
+import { MyTechItem } from "@/api/types/radar";
 
 // Article
 // GET user articles
 export async function getUserArticles(ctx: QueryFunctionContext) {
 	const [, status] = ctx.queryKey;
 	const filter = status === undefined ? "published" : status;
-	const { data } = await api.get<ContentArticles>(`news/me?sortBy=${filter}`);
+	const { data } = await apiArticle.get<ContentArticles>(
+		`articles/me?sortBy=${filter}`
+	);
 	return data;
 }
 
@@ -35,7 +39,7 @@ async function patchArticle({
 	articleObject: FormData;
 	id: string;
 }) {
-	const promise = api.patch<Article>(`news/${id}`, articleObject);
+	const promise = apiArticle.patch<Article>(`articles/${id}`, articleObject);
 
 	toast.promise(promise, {
 		loading: "Updating article",
@@ -59,7 +63,7 @@ export function useMutationPatchArticle() {
 
 // ARCHIVE user article
 async function patchArchive(id: string) {
-	const archive = api.patch<Article>(`news/${id}/archive`);
+	const archive = apiArticle.patch<Article>(`articles/${id}/archive`);
 
 	toast.promise(archive, {
 		loading: "Deleting article",
@@ -75,7 +79,7 @@ async function patchArchive(id: string) {
 }
 
 async function patchPublish(id: string) {
-	const publish = api.patch<Article>(`news/${id}/publish`);
+	const publish = apiArticle.patch<Article>(`articles/${id}/publish`);
 
 	toast.promise(publish, {
 		loading: "Publishing article",
@@ -105,7 +109,7 @@ export function useMutationPatchPublish() {
 // Article
 // GET user comments
 export async function getUserComments() {
-	const { data } = await api.get<ContentComment>(`comments/me`);
+	const { data } = await apiArticle.get<ContentComment>(`comments/me`);
 	return data;
 }
 
@@ -116,22 +120,107 @@ export function useFetchGetUserComments() {
 	});
 }
 
-async function patchDelete(id: number) {
-	const deleteComment = api.delete(`comments/${id}`);
+async function deleteComment(id: number) {
+	const deleteComment = apiArticle.delete(`comments/${id}`);
 
 	toast.promise(deleteComment, {
 		loading: "Deleting Comment",
 		success: "Delete Comment with success",
 		error: (error) => {
-			console.log(id);
+			console.log(error);
 			return "Delete Comment Error";
 		},
 	});
 	return await deleteComment;
 }
 
-export function useMutationPatchDelete() {
+export function useMutationDeleteComment() {
 	return useMutation({
-		mutationFn: patchDelete,
+		mutationFn: deleteComment,
+	});
+}
+
+// Tech Radar
+// GET user tech
+export async function getUserTech() {
+	const { data } = await apiRadar.get<MyTechItem[]>(`items/me`);
+	return data;
+}
+
+export function useFetchGetUserTech() {
+	return useQuery<MyTechItem[], Error>({
+		queryKey: ["userTech"],
+		queryFn: getUserTech,
+	});
+}
+
+// PATCH archive user tech
+async function patchArchiveTech(id: string) {
+	const archiveTech = apiRadar.patch(`items/${id}/archive`);
+
+	toast.promise(archiveTech, {
+		loading: "Archiving Tech",
+		success: "Tech archived with success",
+		error: (error) => {
+			console.log(error);
+			return "Archive Tech Error";
+		},
+	});
+	return await archiveTech;
+}
+
+export function useMutationArchiveTech() {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: patchArchiveTech,
+		onSuccess: (_) => {
+			queryClient.invalidateQueries({
+				queryKey: ["userTech"],
+				refetchType: "active",
+			});
+		},
+	});
+}
+
+// PATCH publich user tech
+async function patchPublishTech(id: string) {
+	const publishTech = apiRadar.patch(`items/${id}/archive`);
+
+	toast.promise(publishTech, {
+		loading: "Publishing Tech",
+		success: "Tech published with success",
+		error: (error) => {
+			console.log(error);
+			return "Publish Tech Error";
+		},
+	});
+	return await publishTech;
+}
+
+export function useMutationPublishTech() {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: patchPublishTech,
+		onSuccess: (_) => {
+			queryClient.invalidateQueries({
+				queryKey: ["userTech"],
+				refetchType: "active",
+			});
+		},
+	});
+}
+
+// GET tech admin review
+export async function getTechReview() {
+	const { data } = await apiRadar.get<MyTechItem>(`items/review`);
+	return data;
+}
+
+export function useFetchGetTechReview() {
+	return useQuery<MyTechItem, Error>({
+		queryKey: ["techReview"],
+		queryFn: getTechReview,
 	});
 }

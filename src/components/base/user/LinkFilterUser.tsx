@@ -11,17 +11,20 @@ export function LinkFilterUser() {
 	const filterStatus = searchParams.get("status");
 	const status = filterStatus ? filterStatus : "published";
 	const [nameButton, setNameButton] = useState("Error");
+	const [href, setHref] = useState("Error");
 
 	useEffect(() => {
 		if (status === "published") {
-			setNameButton("archived");
+			setNameButton("See Archived");
+			setHref("archived");
 		} else if (status === "archived") {
-			setNameButton("published");
+			setNameButton("See Published");
+			setHref("published");
 		}
 	}, [searchParams, status]);
 
 	return (
-		<Link href={`user?status=${nameButton.toLocaleLowerCase()}`}>
+		<Link href={`user?status=${href}`}>
 			<Button
 				className=" border rounded-sm p-5 font-semibold text-lg"
 				variant={"bdlight"}

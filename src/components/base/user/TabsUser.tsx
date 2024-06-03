@@ -1,12 +1,18 @@
 "use client";
+
+import { useSearchParams } from "next/navigation";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { appRoles } from "@/lib/sso/authConfig";
 import { capitalize } from "@/lib/utils";
 import { RoleGuard } from "../common/RoleGuard";
-import { CommentsUserList } from "./CommentsUserList";
-import { ArticleUserList } from "./ArticleUserList";
+import { CommentsUserList } from "./comment/CommentsUserList";
+import { ArticleUserList } from "./article/ArticleUserList";
+import { TechUserTable } from "./radar/TechUserTable";
 
 export function TabsUser() {
+	const searchParams = useSearchParams();
+	const filterStatus = searchParams.get("status");
+
 	const tabsContent = [
 		{
 			name: "articles",
@@ -29,7 +35,8 @@ export function TabsUser() {
 			name: "tech",
 			content: (
 				<TabsContent key="tech" value="tech">
-					Tech Content
+					{/* <TechUserList /> */}
+					<TechUserTable />
 				</TabsContent>
 			),
 			roles: [appRoles.Admin, appRoles.BDUser],
