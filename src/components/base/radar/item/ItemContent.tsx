@@ -8,7 +8,7 @@ import ImageError from "../../common/ImageError";
 import { RadarItemSkeleton } from "../../skeleton/RadarItemSkeleton";
 import Badge from "../quadrant-grid/Badge";
 import Footer from "../../common/Footer";
-import { FormUpdateItem } from "../../user/FormUpdateItem";
+import { FormUpdateItem } from "../../user/radar/FormUpdateItem";
 
 export default function ItemContent() {
 	const { instance } = useMsal();

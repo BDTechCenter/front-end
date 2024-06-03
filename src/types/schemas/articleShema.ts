@@ -10,12 +10,16 @@ const ACCEPTED_IMAGE_TYPES = [
 
 export const articleSchema = z.object({
 	image: z
-		.instanceof(File, { message: "The poster must be an image file." })
-		.refine(
-			(file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
-			"Only .jpg, .jpeg, .png and .webp formats are supported."
-		)
-		.refine((file) => file?.size <= MAX_FILE_SIZE, `Max image size is 5MB.`)
+		.union([
+			z
+				.instanceof(File)
+				.refine(
+					(file) => ACCEPTED_IMAGE_TYPES.includes(file.type),
+					"Only .jpg, .jpeg, .png, and .webp formats are supported."
+				)
+				.refine((file) => file.size <= MAX_FILE_SIZE, `Max image size is 5MB.`),
+			z.string().url({ message: "Must be a valid URL" }),
+		])
 		.nullable()
 		.optional(),
 	title: z
