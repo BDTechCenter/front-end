@@ -7,7 +7,7 @@ async function getMainArticles() {
 	const { data } = await apiArticle.get<ContentArticles>(
 		`articles/preview?sortBy=view&size=${SIZE}`
 	);
-
+	console.log(data)
 	return data;
 }
 

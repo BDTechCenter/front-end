@@ -39,7 +39,7 @@ export default function ArticleCard({
 			<Link
 				id="componentArticle"
 				href={href}
-				className="flex relative flex-col h-72 2xl:h-[28rem] gap-2 cursor-pointer group"
+				className="flex flex-col max-h-96 gap-2 cursor-pointer group"
 				onClick={handleClick}
 			>
 				<div
@@ -56,7 +56,7 @@ export default function ArticleCard({
 						onError={() => setImg("/imageDefault.jpg")}
 					/>
 				</div>
-				<div className="flex flex-col group-hover:opacity-60 transition-all">
+				<div className="flex flex-col w-full group-hover:opacity-60 transition-all">
 					<p className="text-sm">{data.updateDate}</p>
 					<h1 className="font-bold text-md truncate 2xl:text-lg">
 						{data.title}
