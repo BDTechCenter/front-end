@@ -11,7 +11,8 @@ import { TechUserTable } from "./radar/TechUserTable";
 
 export function TabsUser() {
 	const searchParams = useSearchParams();
-	const filterStatus = searchParams.get("status");
+	const status = searchParams.get("status");
+	const filterStatus = status !== null ? status : "published";
 
 	const tabsContent = [
 		{
@@ -30,6 +31,7 @@ export function TabsUser() {
 					<CommentsUserList />
 				</TabsContent>
 			),
+			only: "published",
 		},
 		{
 			name: "tech",
@@ -42,9 +44,9 @@ export function TabsUser() {
 			roles: [appRoles.Admin, appRoles.BDUser],
 		},
 		{
-			name: "revision",
+			name: "review",
 			content: (
-				<TabsContent key="revision" value="revision">
+				<TabsContent key="review" value="review">
 					Revision Content
 				</TabsContent>
 			),
@@ -56,27 +58,31 @@ export function TabsUser() {
 		<Tabs defaultValue={tabsContent[0].name} className="w-full">
 			<TabsList className="w-full">
 				{tabsContent.map((tab) => {
-					return tab.roles ? (
-						<RoleGuard roles={tab.roles} key={tab.name + "-trigger"}>
+					if (!tab.only || tab.only === filterStatus) {
+						return tab.roles ? (
+							<RoleGuard roles={tab.roles} key={tab.name + "-trigger"}>
+								<TabsTrigger className="w-full" key={tab.name} value={tab.name}>
+									{capitalize(tab.name)}
+								</TabsTrigger>
+							</RoleGuard>
+						) : (
 							<TabsTrigger className="w-full" key={tab.name} value={tab.name}>
 								{capitalize(tab.name)}
 							</TabsTrigger>
-						</RoleGuard>
-					) : (
-						<TabsTrigger className="w-full" key={tab.name} value={tab.name}>
-							{capitalize(tab.name)}
-						</TabsTrigger>
-					);
+						);
+					}
 				})}
 			</TabsList>
 			{tabsContent.map((tab) => {
-				return tab.roles ? (
-					<RoleGuard roles={tab.roles} key={tab.name + "-content"}>
-						{tab.content}
-					</RoleGuard>
-				) : (
-					tab.content
-				);
+				if (!tab.only || tab.only === filterStatus) {
+					return tab.roles ? (
+						<RoleGuard roles={tab.roles} key={tab.name + "-content"}>
+							{tab.content}
+						</RoleGuard>
+					) : (
+						tab.content
+					);
+				}
 			})}
 		</Tabs>
 	);

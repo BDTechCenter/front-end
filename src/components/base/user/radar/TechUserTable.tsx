@@ -39,12 +39,12 @@ export function TechUserTable() {
 
 	if (data) {
 		return data?.length !== 0 ? (
-			<Table>
+			<Table className="mt-4">
 				<TableHeader>
 					<TableRow>
 						<TableHead>Title</TableHead>
-						<TableHead>Author</TableHead>
-						<TableHead>Action</TableHead>
+						<TableHead align="center">Author</TableHead>
+						<TableHead align="center">Action</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
