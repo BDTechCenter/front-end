@@ -42,8 +42,6 @@ export function FormUpdateArticle({ id }: FormArticleLayoutProps) {
 				await resizeFile(values.image).then((image) => {
 					formData.append("image", image);
 				});
-			} else if (typeof values.image === "string") {
-				formData.append("image", values.image);
 			}
 		}
 		return formData;
