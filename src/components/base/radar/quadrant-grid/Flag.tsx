@@ -1,4 +1,4 @@
-import { FlagType } from "@/api/types/radar";
+import { Flag as FlagType } from "@/api/types/radar";
 import { cn } from "@/lib/utils";
 
 interface ItemFlag {

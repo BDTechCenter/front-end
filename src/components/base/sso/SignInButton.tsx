@@ -14,7 +14,6 @@ export default function SignInButton({ className }: { className?: string }) {
 	const { instance } = useMsal();
 
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-	const open = Boolean(anchorEl);
 
 	const handleLogin = (loginType: string) => {
 		setAnchorEl(null);

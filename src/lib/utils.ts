@@ -11,6 +11,10 @@ export function limitString(item: string, length: number) {
 	return item.length > length ? `${item.substring(0, length)}...` : item;
 }
 
+export function capitalize(string: string) {
+	return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 export const getInitials = (name: string) => {
 	const [firstName, lastName] = name.split(" ");
 	const firstLetterOfFirstName = firstName.charAt(0);

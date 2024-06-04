@@ -3,6 +3,9 @@ import RadarGrid from "@/components/base/radar/radar-grid/RadarGrid";
 import Footer from "@/components/base/common/Footer";
 import TopBanner from "@/components/base/common/TopBanner";
 import NavBar from "@/components/base/common/NavBar";
+import { RoleGuard } from "@/components/base/common/RoleGuard";
+import { appRoles } from "@/lib/sso/authConfig";
+import { FormAddItem } from "@/components/base/radar/FormAddItem";
 
 export default function TechRadarPage() {
 	return (
@@ -11,7 +14,13 @@ export default function TechRadarPage() {
 			<TopBanner
 				text="Tech Radar - BD/INN"
 				className="flex w-1/2 justify-end items-center"
-			></TopBanner>
+			>
+				<RoleGuard roles={[appRoles.Admin, appRoles.BDUser]}>
+					<div className="flex items-center justify-center w-1/2 h-full">
+						<FormAddItem />
+					</div>
+				</RoleGuard>
+			</TopBanner>
 			<RadarGrid />
 			<QuadrantGrid />
 			<Footer />

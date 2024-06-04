@@ -37,7 +37,7 @@ export default function MainBanner() {
 }
 
 const mainBanner = {
-	title: "Explore the latest news and innovations from ",
+	title: "Explore the latest articles and innovations from ",
 	titleArea: "BD/INN",
 	subtitle:
 		"Discover, share and connect. Be part of the conversation about the future of innovation",

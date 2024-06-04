@@ -25,21 +25,25 @@ export default function AllCardFeature() {
 
 const features = [
 	{
-		title: "Stay up to date: explore our latest innovation news!",
+		title: "Stay up to date: explore our latest innovation articles!",
 		icon: <BiNews />,
+		img: "/features/news-feature.png",
 		content:
-			"Our news page is your destination to discover the latest trends, technological advancements, and inspiring insights that are shaping the future.",
+			"Our articles page is your destination to discover the latest trends, technological advancements, and inspiring insights that are shaping the future.",
 	},
-	{
-		title: "Explore our projects to discover the latest trends!",
-		icon: <FaProjectDiagram />,
-		content:
-			"On our projects page, you'll find a range of innovations in action, from the latest trends to technological advances that are defining the future. Explore to get inspired and stay up to date with the latest news.",
-		orientation: "left",
-	},
+	// {
+	// 	title: "Explore our projects to discover the latest trends!",
+	// 	icon: <FaProjectDiagram />,
+	// 	img: ,
+	// 	content:
+	// 		"On our projects page, you'll find a range of innovations in action, from the latest trends to technological advances that are defining the future. Explore to get inspired and stay up to date with the latest articles.",
+	// 	orientation: "left",
+	// },
 	{
 		title: "Discover emerging technologies with our Tech Radar!",
 		icon: <MdOutlineRadar />,
+		img: "/features/radar-feature.png",
+		orientation: "left",
 		content:
 			"Explore our tech radar to prepare for the future and understand the development of technologies that will affect us. Stay ahead of trends and anticipate changes.",
 	},

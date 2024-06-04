@@ -22,17 +22,23 @@ const tokenInterceptor = async (
 	return config;
 };
 
-const apiNews: AxiosInstance = axios.create({
-	baseURL: `${hostURL}/tech-news/`,
+const apiArticle: AxiosInstance = axios.create({
+	baseURL: `${hostURL}/tech-articles/`,
 });
 
-apiNews.interceptors.request.use(tokenInterceptor);
+apiArticle.interceptors.request.use(tokenInterceptor);
 
 const apiRadar: AxiosInstance = axios.create({
 	baseURL: `${hostURL}/tech-radar/`,
 });
 
 apiRadar.interceptors.request.use(tokenInterceptor);
+
+const apiImage: AxiosInstance = axios.create({
+	baseURL: `${hostURL}/image-service/images/`,
+});
+
+apiImage.interceptors.request.use(tokenInterceptor);
 
 // api.interceptors.request.use((request) => {
 // 	console.log("Starting Request", JSON.stringify(request, null, 2));
@@ -44,4 +50,4 @@ apiRadar.interceptors.request.use(tokenInterceptor);
 // 	return response;
 // });
 
-export { apiNews, apiRadar };
+export { apiArticle, apiRadar, apiImage };

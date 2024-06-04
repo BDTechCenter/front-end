@@ -1,7 +1,7 @@
 "use client";
 import { ScaleLinear } from "d3";
 import Link from "next/link";
-import { Blip, FlagType, Item, Point, Quadrant } from "@/api/types/radar";
+import { Blip, Flag, Item, Point, Quadrant } from "@/api/types/radar";
 import { chartConfig, chartRings } from "@/services/radarConstants";
 import { useFetchGetItemsRadar } from "@/api/hooks/radar/queries";
 import { ChangedBlip, DefaultBlip, NewBlip } from "./BlipShapes";
@@ -60,9 +60,9 @@ function renderBlip(blip: Blip, index: number): JSX.Element {
 	};
 
 	switch (blip.flag) {
-		case FlagType.new:
+		case Flag.new:
 			return <NewBlip key={index} {...props} />;
-		case FlagType.changed:
+		case Flag.changed:
 			return <ChangedBlip key={index} {...props} />;
 		default:
 			return <DefaultBlip key={index} {...props} />;

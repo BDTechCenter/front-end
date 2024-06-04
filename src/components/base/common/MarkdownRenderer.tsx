@@ -11,17 +11,30 @@ type MarkdownRendererProps = {
 export function MarkdownRenderer({
 	children: markdown,
 }: MarkdownRendererProps) {
+	const extractText = (child: React.ReactNode): string => {
+		if (typeof child === "string") {
+			return child;
+		}
+		if (React.isValidElement(child) && child.props && child.props.children) {
+			// @ts-ignore
+			return React.Children.map(child.props.children, extractText).join("");
+		}
+		return "";
+	};
 	return (
 		<Markdown
 			remarkPlugins={[remarkGfm]}
 			rehypePlugins={[rehypeRaw]}
 			components={{
 				pre: ({ node, children, ...props }) => {
+					// @ts-ignore
+					const codeString = React.Children.map(children, extractText).join("");
+
 					return (
 						<pre {...props}>
 							<CopyBlock
-								text={String(children)}
-								language="javascript"
+								text={codeString}
+								language="jsx"
 								theme={dracula}
 								codeBlock
 							/>

@@ -1,6 +1,6 @@
-import { title } from "process";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { ReadonlyURLSearchParams } from "next/navigation";
+import { Expectation, QuadrantsID, RingName } from "../radar";
 
 export interface Error {
 	text: string;
@@ -40,20 +40,33 @@ export interface AlertType {
 	idForm?: string;
 }
 
-interface DefaultValuesType {
+interface ArticleValues {
 	title?: string;
 	body?: string;
-	image?: File | undefined;
+	image?: File | undefined | string;
 	tags?: string[];
 }
 
-export interface FormType {
+export interface ItemRadarValues {
+	title?: string;
+	ring?: RingName;
+	expectation?: Expectation;
+	quadrant?: QuadrantsID;
+	body?: string;
+}
+
+interface FormType<T> {
 	title: string | any;
 	open: boolean;
 	openUpdate?: boolean;
 	OnSubmit: (values: any) => void;
 	idForm?: string;
-	idNews?: string;
-	defaultValues?: DefaultValuesType;
-	alertSubmit: JSX.Element
+	defaultValues?: T;
+	alertSubmit: JSX.Element;
 }
+
+export type FormTypeArticle = FormType<ArticleValues> & {
+	idArticle?: string;
+};
+
+export type FormTypeItem = FormType<ItemRadarValues>;

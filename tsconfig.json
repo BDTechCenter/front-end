@@ -36,7 +36,7 @@
     "src/api/types/home/home.js",
     "src/api/types/introduction/data.js",
     "src/api/types/home/data.js",
-    "src/api/hooks/news/fetch"
+    "src/api/hooks/article/fetch"
   ],
   "exclude": [
     "node_modules"

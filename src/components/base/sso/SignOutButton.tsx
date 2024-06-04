@@ -14,7 +14,6 @@ export default function SignOutButton({ className }: { className?: string }) {
 	const { instance } = useMsal();
 
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-	const open = Boolean(anchorEl);
 
 	const handleLogout = (logoutType: string) => {
 		setAnchorEl(null);

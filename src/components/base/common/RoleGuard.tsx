@@ -30,5 +30,5 @@ export const RoleGuard = ({ ...props }) => {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [instance]);
 
-	return <>{isAuthorized ? <div>{props.children}</div> : null}</>;
+	return <>{isAuthorized ? <>{props.children}</> : null}</>;
 };

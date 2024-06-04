@@ -12,25 +12,36 @@ export type ItemAttributes = {
 	tags?: string[];
 };
 
-export enum FlagType {
+export enum Flag {
 	new = "NEW",
 	changed = "CHANGED",
 	default = "DEFAULT",
 }
 
-export type ItemOld = ItemAttributes & {
-	featured: boolean;
-	bodyPt: string;
-	bodyEn: string;
-	bodyEs: string;
-	info: string;
-	flag: FlagType;
-	revisions: Revision[];
-};
+export enum Expectation {
+	unknown = "UNKNOWN",
+	zero_two = "ZERO_TWO",
+	two_five = "TWO_FIVE",
+	five_ten = "FIVE_TEN",
+}
+
+export enum QuadrantsID {
+	first_quadrant = "FIRST_QUADRANT",
+	second_quadrant = "SECOND_QUADRANT",
+	third_quadrant = "THIRD_QUADRANT",
+	fourth_quadrant = "FOURTH_QUADRANT",
+}
+
+export enum RingName {
+	adopt = "ADOPT",
+	trial = "TRIAL",
+	observe = "OBSERVE",
+	hold = "HOLD",
+}
 
 export interface ItemDetails {
 	id: string;
-	flag: FlagType;
+	flag: Flag;
 	isActive: boolean;
 	authorEmail: string;
 	revisions: string[];
@@ -38,9 +49,9 @@ export interface ItemDetails {
 	creationDate: string;
 	publicationDate: null;
 	updateDate: string;
-	ring: string;
-	expectation: string;
-	quadrantId: string;
+	ring: RingName;
+	expectation: Expectation;
+	quadrantId: QuadrantsID;
 	body: string;
 }
 
@@ -48,10 +59,19 @@ export interface Item {
 	id: string;
 	title: string;
 	ring: string;
-	expectation: string;
+	expectation: Expectation;
 	quadrantId: string;
 	isActive: boolean;
-	flag: FlagType;
+	flag?: Flag;
+}
+
+export interface ItemObj {
+	isActive: boolean;
+	title: string;
+	quadrant: QuadrantsID;
+	ring: RingName;
+	expectation: Expectation;
+	body: string;
 }
 
 export interface QuadrantItems {
@@ -151,15 +171,13 @@ export enum StorageKey {
 	language = "language",
 }
 
-export type RingName = "all" | "adopt" | "trial" | "observe" | "hold";
-
 export type BlipOld = Item & {
 	quadrantPosition: number;
 	ringPosition: number;
 	color: string;
 	txtColor: string;
 	coordinates: Point;
-	flag: FlagType;
+	flag: Flag;
 };
 
 export type Blip = Item & {
@@ -174,4 +192,13 @@ export type Blip = Item & {
 export type Point = {
 	x: number;
 	y: number;
+};
+
+export type MyTechItem = {
+	id: string;
+	quadrantId: string;
+	title: string;
+	authorEmail: string;
+	isActive: boolean;
+	needAdminReview: boolean;
 };

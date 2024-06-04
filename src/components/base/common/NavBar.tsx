@@ -93,8 +93,8 @@ const navLinks: navLinksProps[] = [
 		href: "/",
 	},
 	{
-		name: "News",
-		href: "/news",
+		name: "Articles",
+		href: "/articles",
 	},
 	{
 		name: "Tech Radar",
