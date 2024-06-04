@@ -16,10 +16,10 @@ import ImageError from "../../common/ImageError";
 import CommentSkeleton from "../../skeleton/CommentSkeleton";
 
 export function TechUserTable() {
-	const { isLoading, isError, data } = useFetchGetUserTech();
 	const searchParams = useSearchParams();
 	const filterStatus = searchParams.get("status");
 	const status = filterStatus ? filterStatus : "published";
+	const { isLoading, isError, data } = useFetchGetUserTech(status);
 	const [title, setTitle] = useState("Error");
 	const router = useRouter();
 

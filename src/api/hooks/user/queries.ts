@@ -142,14 +142,16 @@ export function useMutationDeleteComment() {
 
 // Tech Radar
 // GET user tech
-export async function getUserTech() {
-	const { data } = await apiRadar.get<MyTechItem[]>(`items/me`);
+export async function getUserTech(ctx: QueryFunctionContext) {
+	const [, status] = ctx.queryKey;
+	const filter = status === undefined ? "published" : status;
+	const { data } = await apiRadar.get<MyTechItem[]>(`items/me?sortBy=${filter}`);
 	return data;
 }
 
-export function useFetchGetUserTech() {
+export function useFetchGetUserTech(status?: string) {
 	return useQuery<MyTechItem[], Error>({
-		queryKey: ["userTech"],
+		queryKey: ["userTech", status],
 		queryFn: getUserTech,
 	});
 }
