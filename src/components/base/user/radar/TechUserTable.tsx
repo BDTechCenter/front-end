@@ -43,18 +43,19 @@ export function TechUserTable() {
 				<TableHeader>
 					<TableRow>
 						<TableHead>Title</TableHead>
-						<TableHead align="center">Author</TableHead>
-						<TableHead align="center">Action</TableHead>
+						<TableHead>Author</TableHead>
+						<TableHead>Action</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
 					{data?.map((tech) => (
-						<TableRow
-							className="cursor-pointer"
-							key={tech.id}
-							onClick={() => handleGoToItem(tech.id, tech.quadrantId)}
-						>
-							<TableCell className="font-medium">{tech.title}</TableCell>
+						<TableRow key={tech.id} className="px-10">
+							<TableCell
+								className="font-medium cursor-pointer hover:text-bdpurple"
+								onClick={() => handleGoToItem(tech.id, tech.quadrantId)}
+							>
+								{tech.title}
+							</TableCell>
 							<TableCell>{tech.authorEmail}</TableCell>
 							<TableCell>
 								{<MenuPopoverTech id={tech.id} isPublished={tech.isActive} />}

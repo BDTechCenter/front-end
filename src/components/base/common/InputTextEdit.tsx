@@ -54,6 +54,7 @@ const InputTextEdit = ({ onChange, value }: InputTextEditProps) => {
 
 			return delta;
 		});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const editorStyle = {
@@ -98,7 +99,7 @@ const InputTextEdit = ({ onChange, value }: InputTextEditProps) => {
 						{ list: "ordered" },
 						{ list: "bullet" },
 						{ indent: "-1" },
-						{ indent: "+1" },
+						-{ indent: "+1" },
 					],
 					["code-block", "link", "image"],
 					["clean"],
@@ -109,6 +110,7 @@ const InputTextEdit = ({ onChange, value }: InputTextEditProps) => {
 			},
 			imageUploader: (file: File) => uploadImage(file),
 		}),
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[]
 	);
 
