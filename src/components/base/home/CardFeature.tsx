@@ -1,12 +1,13 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 interface featuresProps {
 	data: {
 		title: string;
 		icon: JSX.Element;
+		img: string;
 		content: string;
 		orientation?: string;
 	};
@@ -36,7 +37,7 @@ export default function CardFeature({ data, orientation }: allFeaturesProps) {
 		<div className={cn(viewVariants({ orientation }))}>
 			<div className="h-full bg-bdpurple w-[30%] lg:w-auto max-md:w-full">
 				<Image
-					src="/img-feature.png"
+					src={data.img}
 					alt="Img Feature"
 					width={1000}
 					height={500}

@@ -1,19 +1,19 @@
-import api from "../../../services/api";
 import { useQuery } from "@tanstack/react-query";
-import { ContentNews } from "@/api/types/news/type";
+import { ContentArticles } from "@/api/types/article/type";
+import { apiArticle } from "../../../services/api";
 
-async function getMainNews() {
+async function getMainArticles() {
 	const SIZE = 3;
-	const { data } = await api.get<ContentNews>(
-		`news/preview?sortBy=view&size=${SIZE}`
+	const { data } = await apiArticle.get<ContentArticles>(
+		`articles/preview?sortBy=view&size=${SIZE}`
 	);
-
+	console.log(data)
 	return data;
 }
 
-export function useFetchGetMainNews() {
-	return useQuery<ContentNews, Error>({
-		queryKey: ["news"],
-		queryFn: getMainNews,
+export function useFetchGetMainArticles() {
+	return useQuery<ContentArticles, Error>({
+		queryKey: ["articles"],
+		queryFn: getMainArticles,
 	});
 }

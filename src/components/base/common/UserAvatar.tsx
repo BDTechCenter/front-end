@@ -1,7 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { callMsGraph } from "@/lib/sso/MsGraphApiCall";
-import { loginRequest } from "@/lib/sso/authConfig";
-import { getInitials } from "@/lib/utils";
 import {
 	AccountInfo,
 	InteractionRequiredAuthError,
@@ -10,10 +6,14 @@ import {
 import { useMsal } from "@azure/msal-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { callMsGraph } from "@/lib/sso/MsGraphApiCall";
+import { loginRequest } from "@/lib/sso/authConfig";
+import { getInitials } from "@/lib/utils";
 
 export default function UserAvatar() {
 	const { instance, inProgress } = useMsal();
-	const [imageUrl, setImageUrl] = useState<string | undefined>("");
+	const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
 	const [fallback, setFallback] = useState<string | undefined>("");
 
 	const account = instance.getActiveAccount();
@@ -38,7 +38,7 @@ export default function UserAvatar() {
 	}, [inProgress, instance, imageUrl, account?.name]);
 
 	return (
-		<Link href="/user">
+		<Link href="/user?status=published">
 			<Avatar>
 				<AvatarImage
 					className="size-full rounded-full"

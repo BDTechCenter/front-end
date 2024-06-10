@@ -1,6 +1,6 @@
-import { loginRequest } from "@/lib/sso/authConfig";
 import { useMsal } from "@azure/msal-react";
 import { useState } from "react";
+import { loginRequest } from "@/lib/sso/authConfig";
 import {
 	Menubar,
 	MenubarContent,
@@ -14,7 +14,6 @@ export default function SignInButton({ className }: { className?: string }) {
 	const { instance } = useMsal();
 
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-	const open = Boolean(anchorEl);
 
 	const handleLogin = (loginType: string) => {
 		setAnchorEl(null);

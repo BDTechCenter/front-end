@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
-import UserAvatar from "./UserAvatar";
 import { RxExternalLink } from "react-icons/rx";
+import { cn } from "@/lib/utils";
+import UserAvatar from "./UserAvatar";
 
 interface NavBarProps {
 	variant: "black" | "white";
@@ -93,8 +93,12 @@ const navLinks: navLinksProps[] = [
 		href: "/",
 	},
 	{
-		name: "News",
-		href: "/news",
+		name: "Articles",
+		href: "/articles",
+	},
+	{
+		name: "Tech Radar",
+		href: "/tech-radar",
 	},
 	{
 		name: "Bosch Tube",
