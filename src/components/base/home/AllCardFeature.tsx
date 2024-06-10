@@ -27,7 +27,7 @@ const features = [
 	{
 		title: "Stay up to date: explore our latest innovation articles!",
 		icon: <BiNews />,
-		img: "/features/news-feature.png",
+		img: "/features/articles-feature.png",
 		content:
 			"Our articles page is your destination to discover the latest trends, technological advancements, and inspiring insights that are shaping the future.",
 	},
