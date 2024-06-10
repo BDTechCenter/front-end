@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# BDTechCenter
 
-## Getting Started
+![bdtc_img](./public/logo/logo_banner.png)
 
-First, run the development server:
+BDTechCenter is a frontend website developed as the final paper for the BD-INN area. Built using Next.js with TypeScript and styled with Tailwind CSS, this project aims to serve as an information centralizer for tech enthusiasts and professionals. The website offers two main features: Tech Articles and Tech Radar. The Tech Articles feature is similar to Medium, providing a platform for publishing and reading articles. The Tech Radar feature presents a graphical representation of various technologies, allowing users to explore the technology landscape.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Tech Articles
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+![articles_img](./public/features/articles-feature.png)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- A platform for publishing and reading articles, similar to Medium.
+- Users can explore a wide range of tech articles written by different authors.
+- Articles can be categorized and tagged for easy navigation.
 
-## Learn More
+### Tech Radar
 
-To learn more about Next.js, take a look at the following resources:
+![radar_img](./public/features/radar-feature.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- A visual graph representing various technologies.
+- Users can interact with the graph to explore different technologies and their interrelations.
+- Provides an overview of the current technology landscape.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Tech Stack
 
-## Deploy on Vercel
+### Core Technologies
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Next.js**: A React framework for server-side rendering and static site generation.
+- **TypeScript**: A strongly typed programming language that builds on JavaScript.
+- **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Libraries Used
+
+- **D3.js**: A JavaScript library for producing dynamic, interactive data visualizations in web browsers.
+- **Zustand**: A small, fast, and scalable state-management solution.
+- **shadcn/ui**: A component library for building UI elements.
+- **TanStack Query**: A powerful data-fetching and state-management library for React.
+- **Zod**: A TypeScript-first schema declaration and validation library.
+
+## Installation
+
+To get started with BDTechCenter, follow these steps:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/BDTechCenter/front-end.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd front-end
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+The website should now be running at `http://localhost:3000`.
+
+## Contributing
+
+We welcome contributions from the community. If you'd like to contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch:
+   ```bash
+   git checkout -b your-feature-branch
+   ```
+3. Make your changes.
+4. Commit your changes:
+   ```bash
+   git commit -m 'Add your message here'
+   ```
+5. Push to the branch:
+   ```bash
+   git push origin your-feature-branch
+   ```
+6. Create a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Contact
+
+If you have any questions or feedback, feel free to reach out to us at [our email](mailto:luisfelipelfsp3@gmail.com).
