@@ -16,10 +16,10 @@ import ImageError from "../../common/ImageError";
 import CommentSkeleton from "../../skeleton/CommentSkeleton";
 
 export function TechUserTable() {
-	const { isLoading, isError, data } = useFetchGetUserTech();
 	const searchParams = useSearchParams();
 	const filterStatus = searchParams.get("status");
 	const status = filterStatus ? filterStatus : "published";
+	const { isLoading, isError, data } = useFetchGetUserTech(status);
 	const [title, setTitle] = useState("Error");
 	const router = useRouter();
 
@@ -39,7 +39,7 @@ export function TechUserTable() {
 
 	if (data) {
 		return data?.length !== 0 ? (
-			<Table>
+			<Table className="mt-4">
 				<TableHeader>
 					<TableRow>
 						<TableHead>Title</TableHead>
@@ -49,12 +49,13 @@ export function TechUserTable() {
 				</TableHeader>
 				<TableBody>
 					{data?.map((tech) => (
-						<TableRow
-							className="cursor-pointer"
-							key={tech.id}
-							onClick={() => handleGoToItem(tech.id, tech.quadrantId)}
-						>
-							<TableCell className="font-medium">{tech.title}</TableCell>
+						<TableRow key={tech.id} className="px-10">
+							<TableCell
+								className="font-medium cursor-pointer hover:text-bdpurple"
+								onClick={() => handleGoToItem(tech.id, tech.quadrantId)}
+							>
+								{tech.title}
+							</TableCell>
 							<TableCell>{tech.authorEmail}</TableCell>
 							<TableCell>
 								{<MenuPopoverTech id={tech.id} isPublished={tech.isActive} />}

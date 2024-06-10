@@ -12,10 +12,10 @@ import CommentSkeleton from "../../skeleton/CommentSkeleton";
 import { TechCard } from "./TechCard";
 
 export function TechUserList() {
-	const { isLoading, isError, data } = useFetchGetUserTech();
 	const searchParams = useSearchParams();
 	const filterStatus = searchParams.get("status");
 	const status = filterStatus ? filterStatus : "published";
+	const { isLoading, isError, data } = useFetchGetUserTech(status);
 	const [title, setTitle] = useState("Error");
 
 	useEffect(() => {
